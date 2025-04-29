@@ -1,4 +1,6 @@
 package application.model;
 
-public class Batch {
+import java.io.Serializable;
+
+public class Batch implements Serializable {
 }

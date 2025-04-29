@@ -1,4 +1,6 @@
 package application.model;
 
-public class Fad {
+import java.io.Serializable;
+
+public class Fad implements Serializable {
 }
