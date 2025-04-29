@@ -1,5 +1,6 @@
 package gui;
 
+import application.model.Batch;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -30,6 +31,10 @@ public class StartWindow extends Application {
 
         Tab tabBatch = new Tab("Batch");
         tabPane.getTabs().add(tabBatch);
+
+        BatchPane batchPane = new BatchPane();
+        tabBatch.setContent(batchPane);
+//        tabBatch.setOnSelectionChanged(event -> batchPane.updateControls());
 
 //        CompanyPane companyPane = new CompanyPane();
 //        tabCompanies.setContent(companyPane);
