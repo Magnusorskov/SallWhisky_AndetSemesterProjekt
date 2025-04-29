@@ -3,13 +3,13 @@ package application.model;
 import java.io.Serializable;
 
 public class Fad implements Serializable {
+    private static int antalFade = 1;
     private String oprindelsesLand;
     private int antalBrug;
     private Fadtype fadType;
     private double størrelse;
     private String placering;
     private int nummer;
-    private static int antalFade = 1;
 
     public Fad(String oprindelsesLand, Fadtype fadType, double størrelse) {
         this.oprindelsesLand = oprindelsesLand;
@@ -19,7 +19,7 @@ public class Fad implements Serializable {
         nummer = antalFade;
         antalFade++;
 
-        if (fadType == Fadtype.NEW){
+        if (fadType == Fadtype.NEW) {
             this.antalBrug = 0;
         } else {
             this.antalBrug = 1;

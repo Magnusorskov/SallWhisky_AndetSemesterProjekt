@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Batch implements Serializable {
+    private static int antalBatches = 1;
     private Bygsort bygsort;
     private Mark mark;
     private String initialer;
@@ -15,7 +16,6 @@ public class Batch implements Serializable {
     private double væskemængde;
     private String kommentar;
     private int nummer;
-    private static int antalBatches = 1;
 
     public Batch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
         this.bygsort = bygsort;

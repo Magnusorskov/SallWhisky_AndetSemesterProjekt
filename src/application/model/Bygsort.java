@@ -1,5 +1,5 @@
 package application.model;
 
 public enum Bygsort {
-    EVERGREEN,STAIRWAY,IRINA;
+    EVERGREEN, STAIRWAY, IRINA;
 }
