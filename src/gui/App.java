@@ -1,6 +1,6 @@
 package gui;
 
-public class Testfile {
+public class App {
     public static void main(String[] args) {
         System.out.println("Test");
         System.out.println("Mojn");
