@@ -28,4 +28,8 @@ public class LagerPane extends GridPane {
 //        updateControls();
     }
 
+    private void updateControls(){
+
+    }
+
 }
