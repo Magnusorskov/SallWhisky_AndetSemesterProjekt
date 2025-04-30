@@ -16,6 +16,7 @@ public class App {
         }
         Controller.setStorage(storage);
         Application.launch(gui.StartWindow.class);
+        saveStorage(storage);
     }
 
     public static Storage loadStorage() {
