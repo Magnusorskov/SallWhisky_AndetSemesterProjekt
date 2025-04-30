@@ -19,15 +19,17 @@ public class ListStorage implements Storage, Serializable {
     }
 
     @Override
-    public List<Fad> getFade() {
-        return new ArrayList<>(fade);
-    }
-
-    @Override
     public void addBatch(Batch batch) {
         if (!batches.contains(batch)) {
             batches.add(batch);
         }
+    }
+
+    // -------------------------------------------------------------------------
+
+    @Override
+    public List<Fad> getFade() {
+        return new ArrayList<>(fade);
     }
 
     @Override
