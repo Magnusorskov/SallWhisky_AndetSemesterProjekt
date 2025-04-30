@@ -11,7 +11,7 @@ import javafx.scene.control.ListView;
 
 public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
-    private ListView<Batch> lwvBatches;
+    private ListView<Batch> lvwIgangværendeBatches;
 
     public BatchPane(){
         this.setPadding(new Insets(20));
@@ -22,13 +22,13 @@ public class BatchPane extends GridPane {
         Label lblBatch = new Label("Igangværende Batches");
         this.add(lblBatch,0,0);
 
-        lwvBatches = new ListView<>();
-        this.add(lwvBatches,0,1,1,6);
-        lwvBatches.setPrefWidth(200);
-        lwvBatches.setPrefHeight(200);
-//        lwvBatches.getItems().setAll(Controller.getWorkingBatches());
+        lvwIgangværendeBatches = new ListView<>();
+        this.add(lvwIgangværendeBatches,0,1,1,6);
+        lvwIgangværendeBatches.setPrefWidth(200);
+        lvwIgangværendeBatches.setPrefHeight(200);
+//        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
 //        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
-//        lwvBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+//        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
         this.add(lblName, 1, 1);
@@ -103,7 +103,7 @@ public class BatchPane extends GridPane {
         BatchWindow dia = new BatchWindow("Opret Batch");
         dia.showAndWait();
 
-//        lvwEmployees.getItems().setAll(Controller.getEmployees());
+//        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
 //        this.updateControls();
     }
 

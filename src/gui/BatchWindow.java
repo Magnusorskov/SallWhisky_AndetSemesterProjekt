@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Bygsort;
 import application.model.Mark;
 import javafx.geometry.HPos;
@@ -46,12 +47,11 @@ public class BatchWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
 
-        Label lblBatchNr = new Label("BatchNr");
-        pane.add(lblBatchNr, 0, 0);
+        Label lblInitaler = new Label("Initialer");
+        pane.add(lblInitaler, 0, 0);
 
-        txfBatchNr = new TextField();
-        pane.add(txfBatchNr, 1, 0);
-        txfBatchNr.setPrefWidth(200);
+        txfInitialer = new TextField();
+        pane.add(txfInitialer, 1, 0);
 
         Label lblMark = new Label("Mark");
         pane.add(lblMark, 0, 1);
@@ -87,17 +87,11 @@ public class BatchWindow extends Stage {
         txfStartDato = new TextField();
         pane.add(txfStartDato, 3, 1);
 
-        Label lblInitaler = new Label("Initialer");
-        pane.add(lblInitaler, 2, 2);
-
-        txfInitialer = new TextField();
-        pane.add(txfInitialer, 3, 2);
-
         Label lblKommentar = new Label("Kommentar");
-        pane.add(lblKommentar, 2, 3);
+        pane.add(lblKommentar, 2, 2);
 
         txfKommentar = new TextField();
-        pane.add(txfKommentar, 3, 3);
+        pane.add(txfKommentar, 3, 2);
 
         Button btnOpret = new Button("Opret batch");
         btnOpret.setOnAction(event -> this.opretAction());
@@ -108,6 +102,11 @@ public class BatchWindow extends Stage {
         pane.add(btnLuk, 0, 5);
         GridPane.setHalignment(btnLuk, HPos.LEFT);
         btnLuk.setOnAction(event -> lukAction());
+
+        lblError = new Label();
+        pane.add(lblError, 0, 6);
+        lblError.setStyle("-fx-text-fill: red");
+        lblError.setPrefWidth(100);
 
     }
 
@@ -134,13 +133,19 @@ public class BatchWindow extends Stage {
         if (dato.length() == 0){
             lblError.setText("Dato skal udfyldes");
         }
-        LocalDate startDato = LocalDate.parse(dato);
+        else {
+            LocalDate startDato = LocalDate.parse(dato);
+            Controller.createBatch(bygsort,mark,initialer,rygemateriale,maltBatch,startDato,kommentar);
+            hide();
+        }
+
+
 
 
     }
 
     public void lukAction(){
-
+        hide();
     }
 
 
