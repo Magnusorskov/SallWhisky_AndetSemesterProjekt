@@ -10,18 +10,19 @@ import java.util.List;
 
 public class ListStorage implements Storage, Serializable {
 
-    private final List<Batch> batches = new ArrayList<>();
+    private final List<Batch> igangværendeBatches = new ArrayList<>();
+    private final List<Batch> færdigeBatches = new ArrayList<>();
     private final List<Fad> fade = new ArrayList<>();
 
     @Override
-    public List<Batch> getBatches() {
-        return new ArrayList<>(batches);
+    public List<Batch> getIgangværendeBatches() {
+        return new ArrayList<>(igangværendeBatches);
     }
 
     @Override
     public void addBatch(Batch batch) {
-        if (!batches.contains(batch)) {
-            batches.add(batch);
+        if (!igangværendeBatches.contains(batch)) {
+            igangværendeBatches.add(batch);
         }
     }
 

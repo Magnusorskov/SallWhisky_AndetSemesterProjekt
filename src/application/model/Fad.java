@@ -11,6 +11,15 @@ public class Fad implements Serializable {
     private String placering;
     private int id;
 
+    /**
+     * Initialiserer et fads oprindelsesland, fadtype og størrelse.
+     * Pre: oprindelsesland og fadtype er ikke null.
+     * Pre: størrelse > 0.
+     *
+     * @param oprindelsesLand   fadets oprindelsesland.
+     * @param fadType           fadets type.
+     * @param størrelse         fadets størrelse.
+     */
     public Fad(String oprindelsesLand, Fadtype fadType, double størrelse) {
         this.oprindelsesLand = oprindelsesLand;
         this.fadType = fadType;

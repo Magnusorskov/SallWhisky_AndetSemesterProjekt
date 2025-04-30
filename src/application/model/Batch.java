@@ -17,6 +17,18 @@ public class Batch implements Serializable {
     private String kommentar;
     private int id;
 
+    /**
+     * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar.
+     * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
+     *
+     * @param bygsort       bygsorten der er i batchen.
+     * @param mark          hvilken mark kornet kommer fra.
+     * @param initialer     intialerne på personen der håndterer batchen.
+     * @param rygemateriale rygematerialet der er brugt i batchen.
+     * @param maltBatch     maltbatchen der er brugt i batchen.
+     * @param startDato     datoen batchen er startet.
+     * @param kommentar     eventuel kommentar til batchen.
+     */
     public Batch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
         this.bygsort = bygsort;
         this.mark = mark;
