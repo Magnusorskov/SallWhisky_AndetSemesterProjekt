@@ -36,6 +36,8 @@ public class StartWindow extends Application {
         tabBatch.setContent(batchPane);
 //        tabBatch.setOnSelectionChanged(event -> batchPane.updateControls());
 
+        // ---------------------------------------------------------------------
+
 //        CompanyPane companyPane = new CompanyPane();
 //        tabCompanies.setContent(companyPane);
 //        tabCompanies.setOnSelectionChanged(event -> companyPane.updateControls());
@@ -43,15 +45,20 @@ public class StartWindow extends Application {
         Tab tabDestillat = new Tab("Destillat");
         tabPane.getTabs().add(tabDestillat);
 
-//        EmployeePane employeePane = new EmployeePane();
-//        tabEmployees.setContent(employeePane);
-//        tabEmployees.setOnSelectionChanged(event -> employeePane.updateControls());
+        // ---------------------------------------------------------------------
 
         Tab tabWhisky = new Tab("Whisky");
         tabPane.getTabs().add(tabWhisky);
 
+        // ---------------------------------------------------------------------
+
         Tab tabLager = new Tab("Lager");
         tabPane.getTabs().add(tabLager);
+
+        LagerPane lagerPane = new LagerPane();
+        tabLager.setContent(lagerPane);
+//        tabLager.setOnSelectionChanged(event -> lagerPane.updateControls());
+
     }
 
 }
