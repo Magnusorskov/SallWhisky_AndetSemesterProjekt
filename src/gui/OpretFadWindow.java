@@ -31,7 +31,7 @@ public class OpretFadWindow extends Stage {
     // ---------------------------------------------------------------------
     private TextField txfLand, txfStørrelse;
     private ComboBox<Fadtype> cbbType;
-
+    private Label lblError;
 
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
@@ -72,6 +72,9 @@ public class OpretFadWindow extends Stage {
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
         btnOpret.setOnAction(event -> opretAction());
 
+        lblError = new Label();
+        pane.add(lblError, 0, 7);
+        lblError.setStyle("-fx-text-fill: red");
     }
 
     // -------------------------------------------------------------------------
@@ -82,28 +85,19 @@ public class OpretFadWindow extends Stage {
     }
 
     private void opretAction() {
-
         if (txfLand == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Mangler info");
-            alert.setHeaderText("Du mangler at indtaste information om oprindelses land");
-            alert.showAndWait();
+            lblError.setText("Skriv et oprindelses land");
         } else if(txfStørrelse == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Mangler info");
-            alert.setHeaderText("Du mangler at indtaste information om fadets størrelse");
-            alert.showAndWait();
+            lblError.setText("Skriv en fad størrelse");
         } else if(cbbType == null){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Mangler info");
-            alert.setHeaderText("Du mangler at indtaste information om fadets type");
-            alert.showAndWait();
+            lblError.setText("Vælg en fad type");
         } else {
             String land = txfLand.getText().trim();
             Fadtype type = cbbType.getSelectionModel().getSelectedItem();
-            int størrelse = Integer.parseInt(txfStørrelse.getText().trim());
+            double størrelse = Double.parseDouble(txfStørrelse.getText().trim());
 
-//            Controller
+            Controller.createFad(land, type, størrelse);
+            hide();
         }
     }
 
