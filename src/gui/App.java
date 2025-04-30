@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.controller.Storage;
 import javafx.application.Application;
 import storage.ListStorage;
@@ -8,6 +9,12 @@ import java.io.*;
 
 public class App {
     public static void main(String[] args) {
+        Storage storage = loadStorage();
+        if (storage == null) {
+            storage = new ListStorage();
+            System.out.println("Empty ListStorage created");
+        }
+        Controller.setStorage(storage);
         Application.launch(gui.StartWindow.class);
     }
 
