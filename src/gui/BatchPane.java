@@ -5,11 +5,8 @@ import application.model.Batch;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ListView;
 
 public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
@@ -147,8 +144,15 @@ public class BatchPane extends GridPane {
     }
 
     private void færdiggørAction(Batch batch) {
-        FærdiggørBatchWindow dia = new FærdiggørBatchWindow("Færdiggør Batch", batch);
-        dia.showAndWait();
+        if (batch != null) {
+            FærdiggørBatchWindow dia = new FærdiggørBatchWindow("Færdiggør Batch", batch);
+            dia.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ingen batch valgt");
+            alert.setContentText("Du skal vælge en batch at færdiggøre");
+            alert.showAndWait();
+        }
     }
 
 
