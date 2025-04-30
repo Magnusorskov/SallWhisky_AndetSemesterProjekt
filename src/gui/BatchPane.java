@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
 
 public class BatchPane extends GridPane {
-    private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar;
+    private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private ListView<Batch> lwvBatches;
 
     public BatchPane(){
@@ -72,11 +72,18 @@ public class BatchPane extends GridPane {
         this.add(txfStartDato, 4, 3);
         txfStartDato.setEditable(false);
 
+        Label lblInitial = new Label("Initaler:");
+        this.add(lblInitial,1,4);
+
+        txfInitialer = new TextField();
+        this.add(txfInitialer, 2, 4);
+        txfInitialer.setEditable(false);
+
         Label lblKommentar = new Label("Kommentar:");
-        this.add(lblKommentar, 1, 4);
+        this.add(lblKommentar, 1, 5);
 
         txfKommentar = new TextField();
-        this.add(txfKommentar, 2, 4,3,2);
+        this.add(txfKommentar, 2, 5,3,2);
         txfKommentar.setEditable(false);
 
         Button btnFærdig = new Button("Færdiggør Batch");
@@ -84,7 +91,7 @@ public class BatchPane extends GridPane {
         this.add(btnFærdig,0,7);
 
         Button btnOpret = new Button("Opret ny batch");
-//        btnFærdig.setOnAction(event -> this.opretAction());
+        btnOpret.setOnAction(event -> this.opretAction());
         this.add(btnOpret,4,7);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
@@ -92,6 +99,12 @@ public class BatchPane extends GridPane {
     }
 
     // -------------------------------------------------------------------------
+    private void opretAction() {
+        BatchWindow dia = new BatchWindow("Opret Batch");
+        dia.showAndWait();
 
+//        lvwEmployees.getItems().setAll(Controller.getEmployees());
+//        this.updateControls();
+    }
 
 }
