@@ -100,4 +100,9 @@ public class Batch implements Serializable {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "BatchNr:" + id + " StartDato: " + startDato;
+    }
 }
