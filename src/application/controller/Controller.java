@@ -62,6 +62,8 @@ public abstract class Controller {
         batch.setAlkoholprocent(alkoholprocent);
         batch.setVæskemængde(væskemængde);
         batch.setKommentar(kommentar);
+        storage.removeIgangværendeBatch(batch);
+        storage.addFærdigBatch(batch);
     }
 
 }

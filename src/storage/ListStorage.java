@@ -19,10 +19,26 @@ public class ListStorage implements Storage, Serializable {
         return new ArrayList<>(igangværendeBatches);
     }
 
+    public List<Batch> getFærdigeBatches() {
+        return new ArrayList<>(færdigeBatches);
+    }
+
     @Override
     public void addBatch(Batch batch) {
         if (!igangværendeBatches.contains(batch)) {
             igangværendeBatches.add(batch);
+        }
+    }
+
+    public void removeIgangværendeBatch(Batch batch) {
+        if (igangværendeBatches.contains(batch)) {
+            igangværendeBatches.remove(batch);
+        }
+    }
+
+    public void addFærdigBatch(Batch batch) {
+        if (!færdigeBatches.contains(batch)) {
+            færdigeBatches.add(batch);
         }
     }
 

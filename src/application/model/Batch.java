@@ -19,7 +19,7 @@ public class Batch implements Serializable {
 
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar.
-     * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
+     * Pre: bygsort, mark, initialer, maltbatch og startdato er ikke null.
      *
      * @param bygsort       bygsorten der er i batchen.
      * @param mark          hvilken mark kornet kommer fra.
