@@ -34,7 +34,7 @@ public class StartWindow extends Application {
 
         BatchPane batchPane = new BatchPane();
         tabBatch.setContent(batchPane);
-//        tabBatch.setOnSelectionChanged(event -> batchPane.updateControls());
+        tabBatch.setOnSelectionChanged(event -> batchPane.updateControls());
 
         // ---------------------------------------------------------------------
 
@@ -44,6 +44,9 @@ public class StartWindow extends Application {
 
         Tab tabDestillat = new Tab("Destillat");
         tabPane.getTabs().add(tabDestillat);
+
+        DestillatPane destillatPane = new DestillatPane();
+        tabDestillat.setContent(destillatPane);
 
         // ---------------------------------------------------------------------
 
