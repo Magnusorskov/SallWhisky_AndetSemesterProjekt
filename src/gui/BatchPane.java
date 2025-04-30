@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Batch;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -29,7 +30,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
-//        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
         this.add(lblName, 1, 1);
@@ -117,6 +118,7 @@ public class BatchPane extends GridPane {
             txfInitialer.setText(batch.getInitialer());
             txfKommentar.setText(batch.getKommentar());
             txfMaltBatch.setText(batch.getMaltBatch());
+            txfBatchNr.setText(""+ batch.getId());
             txfRygemateriale.setText(batch.getRygemateriale());
             txfBygsort.setText("" + batch.getBygsort());
             txfMark.setText(batch.getMark().toString());
@@ -130,6 +132,7 @@ public class BatchPane extends GridPane {
             txfBygsort.clear();
             txfMark.clear();
             txfStartDato.clear();
+            txfBatchNr.clear();
         }
 
     }
@@ -140,7 +143,7 @@ public class BatchPane extends GridPane {
 
     private void removeAction(Batch batch) {
         Controller.removeBatch(batch);
-//        this.updateControls();
+        this.updateControls();
     }
 
     private void færdiggørAction(Batch batch) {
