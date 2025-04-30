@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Batch;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -26,8 +27,8 @@ public class BatchPane extends GridPane {
         this.add(lvwIgangværendeBatches,0,1,1,6);
         lvwIgangværendeBatches.setPrefWidth(200);
         lvwIgangværendeBatches.setPrefHeight(200);
-//        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
-//        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
+        lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
+        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
 //        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
