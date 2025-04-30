@@ -3,6 +3,8 @@ package application.controller;
 import application.model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Controller {
     private static Storage storage;
@@ -64,6 +66,14 @@ public abstract class Controller {
         batch.setKommentar(kommentar);
         storage.removeIgangværendeBatch(batch);
         storage.addFærdigBatch(batch);
+    }
+
+    public static List<Batch> getIgangværendeBatches() {
+        return storage.getIgangværendeBatches();
+    }
+
+    public static List<Batch> getFærdigeBatches() {
+        return storage.getFærdigeBatches();
     }
 
 }
