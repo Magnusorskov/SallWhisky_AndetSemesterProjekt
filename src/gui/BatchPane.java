@@ -28,7 +28,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setPrefWidth(200);
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
-        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
+//        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
 //        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
@@ -96,16 +96,28 @@ public class BatchPane extends GridPane {
         this.add(btnOpret,4,7);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
+        Button btnFjernBatch = new Button("Fjern batch");
+        btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
+        this.add(btnFjernBatch,0,9);
 
     }
 
     // -------------------------------------------------------------------------
     private void opretAction() {
-        BatchWindow dia = new BatchWindow("Opret Batch");
+        OpretBatchWindow dia = new OpretBatchWindow("Opret Batch");
         dia.showAndWait();
 
 //        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
 //        this.updateControls();
+    }
+
+    private void removeAction(Batch batch) {
+        Controller.removeBatch(batch);
+//        this.updateControls();
+    }
+
+    private void færdiggørAction(Batch batch) {
+
     }
 
 

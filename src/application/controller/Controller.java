@@ -76,4 +76,8 @@ public abstract class Controller {
         return storage.getFærdigeBatches();
     }
 
+    public static void removeBatch(Batch batch) {
+        storage.removeIgangværendeBatch(batch);
+    }
+
 }

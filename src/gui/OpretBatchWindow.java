@@ -17,14 +17,14 @@ import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
 
-public class BatchWindow extends Stage {
+public class OpretBatchWindow extends Stage {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private Label lblError;
     private ComboBox<Mark> markComboBox;
     private ComboBox<Bygsort> bygsortComboBox;
 
 
-    public BatchWindow(String title) {
+    public OpretBatchWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
