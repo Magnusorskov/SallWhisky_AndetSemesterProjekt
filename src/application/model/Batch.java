@@ -56,4 +56,48 @@ public class Batch implements Serializable {
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
     }
+
+    public Mark getMark() {
+        return mark;
+    }
+
+    public String getInitialer() {
+        return initialer;
+    }
+
+    public Bygsort getBygsort() {
+        return bygsort;
+    }
+
+    public String getMaltBatch() {
+        return maltBatch;
+    }
+
+    public String getRygemateriale() {
+        return rygemateriale;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public double getAlkoholprocent() {
+        return alkoholprocent;
+    }
+
+    public double getVæskemængde() {
+        return væskemængde;
+    }
+
+    public String getKommentar() {
+        return kommentar;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

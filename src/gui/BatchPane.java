@@ -28,7 +28,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setPrefWidth(200);
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
-//        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
+        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
 //        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
@@ -107,8 +107,35 @@ public class BatchPane extends GridPane {
         OpretBatchWindow dia = new OpretBatchWindow("Opret Batch");
         dia.showAndWait();
 
-//        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
-//        this.updateControls();
+        lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
+        this.updateControls();
+    }
+
+    public void updateControls(){
+        Batch batch = lvwIgangværendeBatches.getSelectionModel().getSelectedItem();
+        if(batch != null){
+            txfInitialer.setText(batch.getInitialer());
+            txfKommentar.setText(batch.getKommentar());
+            txfMaltBatch.setText(batch.getMaltBatch());
+            txfRygemateriale.setText(batch.getRygemateriale());
+            txfBygsort.setText("" + batch.getBygsort());
+            txfMark.setText(batch.getMark().toString());
+            txfStartDato.setText(batch.getStartDato().toString());
+        }
+        else {
+            txfInitialer.clear();
+            txfKommentar.clear();
+            txfMaltBatch.clear();
+            txfRygemateriale.clear();
+            txfBygsort.clear();
+            txfMark.clear();
+            txfStartDato.clear();
+        }
+
+    }
+
+    private void selectedBatchChanged(){
+        this.updateControls();
     }
 
     private void removeAction(Batch batch) {
