@@ -34,6 +34,8 @@ public class OpretBatchWindow extends Stage {
         Scene scene = new Scene(pane);
         setScene(scene);
 
+        setMinWidth(600);
+        setMinHeight(200);
     }
 
 
@@ -92,7 +94,7 @@ public class OpretBatchWindow extends Stage {
         pane.add(txfKommentar, 3, 2);
 
         Button btnOpret = new Button("Opret batch");
-        btnOpret.setOnAction(event -> this.opretAction());
+        btnOpret.setOnAction(event -> opretAction());
         pane.add(btnOpret, 3, 5);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
@@ -108,31 +110,23 @@ public class OpretBatchWindow extends Stage {
 
     }
 
-    public void opretAction() {
+    private void opretAction() {
         Mark mark = markComboBox.getSelectionModel().getSelectedItem();
-        if (mark == null) {
-            lblError.setText("Vælg en mark");
-        }
-
         Bygsort bygsort = bygsortComboBox.getSelectionModel().getSelectedItem();
-        if (bygsort == null) {
-            lblError.setText("Vælg en bygsort");
-        }
-
         String rygemateriale = txfRygemateriale.getText().trim();
         String initialer = txfInitialer.getText().trim();
-        if (initialer.isEmpty()) {
-            lblError.setText("Initialer skal udfyldes");
-        }
-
         String maltBatch = txfMaltBatch.getText().trim();
-        if (maltBatch.isEmpty()) {
-            lblError.setText("MaltBatch skal udfyldes");
-        }
-
         String kommentar = txfKommentar.getText().trim();
         LocalDate dato = startDato.getValue();
-        if (dato == null) {
+        if (mark == null) {
+            lblError.setText("Vælg en mark");
+        } else if (bygsort == null) {
+            lblError.setText("Vælg en bygsort");
+        } else if (initialer.isEmpty()) {
+            lblError.setText("Initialer skal udfyldes");
+        } else if (maltBatch.isEmpty()) {
+            lblError.setText("MaltBatch skal udfyldes");
+        } else if (dato == null) {
             lblError.setText("Dato skal udfyldes");
         } else {
             Controller.createBatch(bygsort, mark, initialer, rygemateriale, maltBatch, dato, kommentar);
@@ -141,7 +135,7 @@ public class OpretBatchWindow extends Stage {
 
     }
 
-    public void lukAction() {
+    private void lukAction() {
         hide();
     }
 
