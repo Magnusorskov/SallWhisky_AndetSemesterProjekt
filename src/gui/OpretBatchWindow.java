@@ -34,6 +34,8 @@ public class OpretBatchWindow extends Stage {
         Scene scene = new Scene(pane);
         setScene(scene);
 
+        setMinWidth(600);
+        setMinHeight(200);
     }
 
 

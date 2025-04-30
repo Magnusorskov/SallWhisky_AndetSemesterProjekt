@@ -89,7 +89,7 @@ public class BatchPane extends GridPane {
         txfKommentar.setEditable(false);
 
         Button btnFærdig = new Button("Færdiggør Batch");
-//        btnFærdig.setOnAction(event -> this.færdiggørAction());
+        btnFærdig.setOnAction(event -> this.færdiggørAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
         this.add(btnFærdig,0,7);
 
         Button btnOpret = new Button("Opret ny batch");
@@ -147,7 +147,8 @@ public class BatchPane extends GridPane {
     }
 
     private void færdiggørAction(Batch batch) {
-
+        FærdiggørBatchWindow dia = new FærdiggørBatchWindow("Færdiggør Batch", batch);
+        dia.showAndWait();
     }
 
 

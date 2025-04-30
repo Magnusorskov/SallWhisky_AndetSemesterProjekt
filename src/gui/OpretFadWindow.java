@@ -26,6 +26,9 @@ public class OpretFadWindow extends Stage {
 
         Scene scene = new Scene(pane);
         setScene(scene);
+
+        setMinWidth(400);
+        setMinHeight(400);
     }
 
     // ---------------------------------------------------------------------
