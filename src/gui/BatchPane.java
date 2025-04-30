@@ -28,7 +28,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setPrefWidth(200);
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
-        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
+//        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
 //        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");

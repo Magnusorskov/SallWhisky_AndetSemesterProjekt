@@ -85,16 +85,23 @@ public class OpretFadWindow extends Stage {
     }
 
     private void opretAction() {
-        if (txfLand == null){
+        String land = txfLand.getText();
+        if (land.isBlank()){
             lblError.setText("Skriv et oprindelses land");
-        } else if(txfStørrelse == null){
+        }
+
+        String s = txfStørrelse.getText();
+        if(s.isBlank()){
             lblError.setText("Skriv en fad størrelse");
-        } else if(cbbType == null){
+        }
+
+        Fadtype type = cbbType.getSelectionModel().getSelectedItem();
+        if(type == null){
             lblError.setText("Vælg en fad type");
-        } else {
-            String land = txfLand.getText().trim();
-            Fadtype type = cbbType.getSelectionModel().getSelectedItem();
-            double størrelse = Double.parseDouble(txfStørrelse.getText().trim());
+        }
+
+        if (!land.isBlank() && !s.isBlank() && type != null){
+            double størrelse = Double.parseDouble(s);
 
             Controller.createFad(land, type, størrelse);
             hide();
