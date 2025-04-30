@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Batch;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -29,7 +30,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
-//        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+        lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         Label lblName = new Label("BatchNr:");
         this.add(lblName, 1, 1);
@@ -104,8 +105,35 @@ public class BatchPane extends GridPane {
         BatchWindow dia = new BatchWindow("Opret Batch");
         dia.showAndWait();
 
-//        lvwIgangværendeBatches.getItems().setAll(Controller.lvwIgangværendeBatches());
-//        this.updateControls();
+        lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
+        this.updateControls();
+    }
+
+    public void updateControls(){
+        Batch batch = lvwIgangværendeBatches.getSelectionModel().getSelectedItem();
+        if(batch != null){
+            txfInitialer.setText(batch.getInitialer());
+            txfKommentar.setText(batch.getKommentar());
+            txfMaltBatch.setText(batch.getMaltBatch());
+            txfRygemateriale.setText(batch.getRygemateriale());
+            txfBygsort.setText("" + batch.getBygsort());
+            txfMark.setText(batch.getMark().toString());
+            txfStartDato.setText(batch.getStartDato().toString());
+        }
+        else {
+            txfInitialer.clear();
+            txfKommentar.clear();
+            txfMaltBatch.clear();
+            txfRygemateriale.clear();
+            txfBygsort.clear();
+            txfMark.clear();
+            txfStartDato.clear();
+        }
+
+    }
+
+    private void selectedBatchChanged(){
+        this.updateControls();
     }
 
 
