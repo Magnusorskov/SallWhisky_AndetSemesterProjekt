@@ -1,10 +1,12 @@
 package application.controller;
 
 public abstract class Controller {
-    private Storage storage;
+    private static Storage storage;
 
-    public void setStorage(Storage newStorage){
+    public static void setStorage(Storage newStorage){
         storage = newStorage;
     }
+
+//    public static void create
 
 }
