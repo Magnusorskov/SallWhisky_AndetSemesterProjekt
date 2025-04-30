@@ -6,10 +6,7 @@ import application.model.Mark;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,6 +19,7 @@ public class OpretBatchWindow extends Stage {
     private Label lblError;
     private ComboBox<Mark> markComboBox;
     private ComboBox<Bygsort> bygsortComboBox;
+    private DatePicker startDato;
 
 
     public OpretBatchWindow(String title) {
@@ -57,16 +55,16 @@ public class OpretBatchWindow extends Stage {
         pane.add(lblMark, 0, 1);
 
         markComboBox = new ComboBox<>();
-        markComboBox.getItems().addAll(Mark.MOSEVANG,Mark.STADSGAARD);
-        pane.add(markComboBox, 1,1);
+        markComboBox.getItems().addAll(Mark.MOSEVANG, Mark.STADSGAARD);
+        pane.add(markComboBox, 1, 1);
 
 
         Label lblBygsort = new Label("Bygsort");
         pane.add(lblBygsort, 0, 2);
 
         bygsortComboBox = new ComboBox<>();
-        bygsortComboBox.getItems().addAll(Bygsort.EVERGREEN,Bygsort.IRINA,Bygsort.STAIRWAY);
-        pane.add(bygsortComboBox,1,2);
+        bygsortComboBox.getItems().addAll(Bygsort.EVERGREEN, Bygsort.IRINA, Bygsort.STAIRWAY);
+        pane.add(bygsortComboBox, 1, 2);
 
 
         Label lblRygemateriale = new Label("Rygemateriale");
@@ -84,8 +82,8 @@ public class OpretBatchWindow extends Stage {
         Label lblStartDato = new Label("StartDato");
         pane.add(lblStartDato, 2, 1);
 
-        txfStartDato = new TextField();
-        pane.add(txfStartDato, 3, 1);
+        startDato = new DatePicker(LocalDate.now());
+        pane.add(startDato, 3, 1);
 
         Label lblKommentar = new Label("Kommentar");
         pane.add(lblKommentar, 2, 2);
@@ -110,41 +108,40 @@ public class OpretBatchWindow extends Stage {
 
     }
 
-        public void opretAction(){
+    public void opretAction() {
         Mark mark = markComboBox.getSelectionModel().getSelectedItem();
-        if (mark == null){
+        if (mark == null) {
             lblError.setText("Vælg en mark");
         }
+
         Bygsort bygsort = bygsortComboBox.getSelectionModel().getSelectedItem();
-        if (bygsort == null){
+        if (bygsort == null) {
             lblError.setText("Vælg en bygsort");
         }
+
         String rygemateriale = txfRygemateriale.getText().trim();
         String initialer = txfInitialer.getText().trim();
-        if(initialer.length() == 0){
+        if (initialer.isEmpty()) {
             lblError.setText("Initialer skal udfyldes");
         }
+
         String maltBatch = txfMaltBatch.getText().trim();
-        if (maltBatch.length() == 0){
+        if (maltBatch.isEmpty()) {
             lblError.setText("MaltBatch skal udfyldes");
         }
+
         String kommentar = txfKommentar.getText().trim();
-        String dato = txfStartDato.getText();
-        if (dato.length() == 0){
+        LocalDate dato = startDato.getValue();
+        if (dato == null) {
             lblError.setText("Dato skal udfyldes");
-        }
-        else {
-            LocalDate startDato = LocalDate.parse(dato);
-            Controller.createBatch(bygsort,mark,initialer,rygemateriale,maltBatch,startDato,kommentar);
+        } else {
+            Controller.createBatch(bygsort, mark, initialer, rygemateriale, maltBatch, dato, kommentar);
             hide();
         }
 
-
-
-
     }
 
-    public void lukAction(){
+    public void lukAction() {
         hide();
     }
 
