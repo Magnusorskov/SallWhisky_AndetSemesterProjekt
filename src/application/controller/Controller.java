@@ -45,7 +45,7 @@ public abstract class Controller {
     }
 
     /**
-     * Færdiggør en batch med en slutdato, alkoholprocent, væskemængde og kommentar.
+     * Færdiggør en batch med en slutdato, alkoholprocent, væskemængde, kommentar og flytter den til færdige batches i storage.
      * Pre: batch og slutDato er ikke null.
      * Pre: slutDato skal være lig eller efter startDato på batch.
      * Pre: væskemængde > 0.
