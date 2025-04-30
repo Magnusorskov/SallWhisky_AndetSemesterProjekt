@@ -26,5 +26,11 @@ public class Fad implements Serializable {
         }
     }
 
+    //getter og setter
+
+    //sammenhæng til
+
+    //metoder
+
 
 }
