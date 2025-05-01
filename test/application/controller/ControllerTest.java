@@ -46,5 +46,6 @@ class ControllerTest {
         assertEquals(60,batch.getAlkoholprocent(),"Alkoholprocent er forkert");
         assertEquals(100,batch.getVæskemængde(),"Væskemængde er forkert");
         assertEquals("Test",batch.getKommentar(),"Kommentar er forkert");
+        assertTrue(Controller.getFærdigeBatches().contains(batch));
     }
 }
