@@ -122,6 +122,7 @@ public class BatchPane extends GridPane {
             txfStartDato.setText(batch.getStartDato().toString());
         }
         else {
+
             txfInitialer.clear();
             txfKommentar.clear();
             txfMaltBatch.clear();
@@ -141,12 +142,15 @@ public class BatchPane extends GridPane {
     private void removeAction(Batch batch) {
         Controller.removeBatch(batch);
         this.updateControls();
+        lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
+
     }
 
     private void færdiggørAction(Batch batch) {
         if (batch != null) {
             FærdiggørBatchWindow dia = new FærdiggørBatchWindow("Færdiggør Batch", batch);
             dia.showAndWait();
+            lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ingen batch valgt");

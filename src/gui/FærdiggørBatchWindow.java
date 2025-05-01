@@ -1,5 +1,6 @@
 package gui;
 
+import application.controller.Controller;
 import application.model.Batch;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -32,7 +33,7 @@ public class FærdiggørBatchWindow extends Stage {
 
         Scene scene = new Scene(pane,300,300);
         setScene(scene);
-        setMinWidth(400);
+        setMinWidth(450);
         setMinHeight(300);
 
 
@@ -41,6 +42,7 @@ public class FærdiggørBatchWindow extends Stage {
 
     //-------------------------------------------------------
     TextField txfVæskemængde, txfAlkoholProcent;
+    TextArea txaKommentar;
     DatePicker datePicker;
     Label lblError;
     public void initContent(GridPane pane) {
@@ -61,20 +63,19 @@ public class FærdiggørBatchWindow extends Stage {
         Label lblAlkoholProcent = new Label("Alkoholprocent");
         pane.add(lblAlkoholProcent,0,2);
 
-        txfAlkoholProcent = new TextField();
+        txfAlkoholProcent = new TextField("0");
         pane.add(txfAlkoholProcent, 0,3);
 
         Label lblVæskemængde = new Label("Væskemængde");
         pane.add(lblVæskemængde,0,4);
 
-        txfVæskemængde = new TextField();
-        txfVæskemængde.setPromptText("Liter");
+        txfVæskemængde = new TextField("0");
         pane.add(txfVæskemængde,0,5);
         GridPane.setValignment(txfVæskemængde, VPos.TOP);
 
         Label lblKommentar = new Label("Kommentar");
         pane.add(lblKommentar,1,0);
-        TextArea txaKommentar = new TextArea(batch.getKommentar());
+        txaKommentar = new TextArea(batch.getKommentar());
         pane.add(txaKommentar,1,1,1,5);
 
         Button btnLuk = new Button("Luk");
@@ -92,11 +93,24 @@ public class FærdiggørBatchWindow extends Stage {
         lblError = new Label();
         pane.add(lblError, 0, 7);
         lblError.setStyle("-fx-text-fill: red");
+        lblError.setMinWidth(200);
+        lblError.setWrapText(true);
     }
     private void færdiggørAction() {
-        if (datePicker.getValue().isBefore(batch.getStartDato())) {
+        LocalDate slutDato = datePicker.getValue();
+        double væskemængde = Double.parseDouble(txfVæskemængde.getText());
+        double alkoholprocent = Double.parseDouble(txfAlkoholProcent.getText());
+
+        if (slutDato.isBefore(batch.getStartDato())) {
             lblError.setText("Slutdato skal være efter startdato");
-        } 
+        } else if (væskemængde <= 0) {
+            lblError.setText("Væskemængde skal være større end 0");
+        } else if (alkoholprocent <= 0) {
+            lblError.setText("Alkoholprocent skal være større end 0");
+        } else {
+            Controller.færdiggørBatch(batch,slutDato,alkoholprocent,væskemængde,txaKommentar.getText());
+            lukAction();
+        }
     }
     private void lukAction() {
         hide();
