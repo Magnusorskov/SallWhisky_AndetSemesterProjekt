@@ -4,9 +4,11 @@ import application.controller.Controller;
 import application.model.Fadtype;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -15,6 +17,10 @@ import javafx.stage.StageStyle;
 
 public class OpretFadWindow extends Stage {
 
+    // ---------------------------------------------------------------------
+    private TextField txfLand, txfStørrelse;
+    private ComboBox<Fadtype> cbbType;
+    private Label lblError;
     public OpretFadWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
@@ -31,11 +37,6 @@ public class OpretFadWindow extends Stage {
         setMinHeight(400);
     }
 
-    // ---------------------------------------------------------------------
-    private TextField txfLand, txfStørrelse;
-    private ComboBox<Fadtype> cbbType;
-    private Label lblError;
-
     private void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -46,23 +47,27 @@ public class OpretFadWindow extends Stage {
         pane.add(lblLand, 0, 0);
 
         txfLand = new TextField();
-        pane.add(txfLand, 0,1);
+        txfLand.setMaxWidth(160);
+        pane.add(txfLand, 0, 1);
 
         Label lblType = new Label("Fadtype");
         pane.add(lblType, 0, 2);
 
         cbbType = new ComboBox<>();
-        cbbType.getItems().addAll(Fadtype.EXBOURBON,Fadtype.EXOLOROSO,Fadtype.EXSHERRY,Fadtype.NEW);
-        pane.add(cbbType, 0,3);
+        cbbType.setMaxWidth(160);
+        cbbType.getItems().addAll(Fadtype.EXBOURBON, Fadtype.EXOLOROSO, Fadtype.EXSHERRY, Fadtype.NEW);
+        pane.add(cbbType, 0, 3);
 
         Label lblStørrelse = new Label("Antal liter");
         pane.add(lblStørrelse, 0, 4);
 
         txfStørrelse = new TextField();
-        pane.add(txfStørrelse, 0,5);
+        txfStørrelse.setText("0");
+        txfStørrelse.setMaxWidth(160);
+        pane.add(txfStørrelse, 0, 5);
 
         HBox box = new HBox();
-        pane.add(box,0,6);
+        pane.add(box, 0, 6);
         box.setSpacing(70);
 
         Button btnLuk = new Button("Luk");
@@ -89,23 +94,16 @@ public class OpretFadWindow extends Stage {
 
     private void opretAction() {
         String land = txfLand.getText();
-        if (land.isBlank()){
-            lblError.setText("Skriv et oprindelses land");
-        }
-
-        String s = txfStørrelse.getText();
-        if(s.isBlank()){
-            lblError.setText("Skriv en fad størrelse");
-        }
-
         Fadtype type = cbbType.getSelectionModel().getSelectedItem();
-        if(type == null){
+        double størrelse = Double.parseDouble(txfStørrelse.getText());
+
+        if (land.isBlank()) {
+            lblError.setText("Skriv et oprindelses land");
+        } else if (størrelse <= 0) {
+            lblError.setText("Fad størrelse skal være større end 0");
+        } else if (type == null) {
             lblError.setText("Vælg en fad type");
-        }
-
-        if (!land.isBlank() && !s.isBlank() && type != null){
-            double størrelse = Double.parseDouble(s);
-
+        } else {
             Controller.createFad(land, type, størrelse);
             hide();
         }
