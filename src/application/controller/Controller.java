@@ -80,4 +80,6 @@ public abstract class Controller {
         storage.removeIgangværendeBatch(batch);
     }
 
+    public static List<Fad> getFade(){return storage.getFade();}
+
 }

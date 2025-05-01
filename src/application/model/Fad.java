@@ -37,6 +37,35 @@ public class Fad implements Serializable {
 
     //getter og setter
 
+    public static int getIdTæller() {
+        return idTæller;
+    }
+
+    public String getOprindelsesLand() {
+        return oprindelsesLand;
+    }
+
+    public int getAntalBrug() {
+        return antalBrug;
+    }
+
+    public Fadtype getFadType() {
+        return fadType;
+    }
+
+    public double getStørrelse() {
+        return størrelse;
+    }
+
+    public String getPlacering() {
+        return placering;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+
     //sammenhæng til
 
     //metoder
