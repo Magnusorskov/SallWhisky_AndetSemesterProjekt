@@ -15,6 +15,7 @@ public class Mængde {
     Mængde(double antalLiter, Batch batch) {
         this.antalLiter = antalLiter;
         this.batch = batch;
+        batch.tapBatch(antalLiter);
     }
 
     public double getAntalLiter() {

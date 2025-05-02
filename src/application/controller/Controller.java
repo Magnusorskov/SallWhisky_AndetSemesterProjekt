@@ -81,4 +81,20 @@ public abstract class Controller {
 
     public static List<Fad> getFade(){return storage.getFade();}
 
+    public static String getBatchBeskrivelse(Batch batch) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Batch nr: " + batch.getId());
+        sb.append("\nBygsort: " + batch.getBygsort() + "(" + batch.getMark() + ")");
+        sb.append("\nMaltbatch: " + batch.getMaltBatch());
+        String rygemateriale = batch.getRygemateriale();
+        if (rygemateriale != null) {
+            sb.append("\nRygemateriale: " + rygemateriale);
+        }
+        sb.append("\nAlkoholprocent: " + batch.getAlkoholprocent());
+        sb.append("\nInitialer: " + batch.getInitialer());
+        sb.append("\n\nKommentar: " + "\n" + batch.getKommentar());
+        String result = String.valueOf(sb);
+        return result;
+    }
 }
