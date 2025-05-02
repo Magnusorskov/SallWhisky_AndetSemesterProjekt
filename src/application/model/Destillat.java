@@ -28,6 +28,10 @@ public class Destillat {
         idTæller++;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
@@ -57,7 +61,6 @@ public class Destillat {
     }
 
     //metoder
-
     /**
      * Beregner antal liter destillatet indeholder.
      *
