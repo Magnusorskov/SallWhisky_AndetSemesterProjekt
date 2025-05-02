@@ -14,6 +14,13 @@ public class Destillat {
     private Fad fad;
     private final List<Mængde> mængder = new ArrayList<>();
 
+    /**
+     * Initialiserer et destillats navn, fad.
+     * Pre: navn, fad ikke er null.
+     *
+     * @param navn destillatets navn.
+     * @param fad  det fad destillatet ligger på.
+     */
     public Destillat(String navn, Fad fad) {
         this.navn = navn;
         this.fad = fad;
@@ -43,16 +50,22 @@ public class Destillat {
         return new ArrayList<>(mængder);
     }
 
-    public Mængde createMængde (double antalLiter, Batch batch){
+    public Mængde createMængde(double antalLiter, Batch batch) {
         Mængde mængde = new Mængde(antalLiter, batch);
         mængder.add(mængde);
         return mængde;
     }
 
     //metoder
-    public double beregnAntalLiter(){
+
+    /**
+     * Beregner antal liter destillatet indeholder.
+     *
+     * @return antal liter for destillat
+     */
+    public double beregnAntalLiter() {
         double liter = 0;
-        for (Mængde m : mængder){
+        for (Mængde m : mængder) {
             liter += m.getAntalLiter();
         }
         return liter;
