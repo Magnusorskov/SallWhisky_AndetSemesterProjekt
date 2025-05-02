@@ -35,9 +35,9 @@ public class Destillat {
         return new ArrayList<>(mængder);
     }
 
-    public Mængde createMængde (double antalLiter, Batch batch){
-        Mængde mængde
-    }
+//    public Mængde createMængde (double antalLiter, Batch batch){
+//        Mængde mængde
+//    }
 
 
     //metoder
