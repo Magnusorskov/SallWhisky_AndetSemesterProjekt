@@ -1,5 +1,7 @@
 package application.model;
 
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +26,12 @@ class BatchTest {
         assertEquals("Nr11",batch.getMaltBatch(),"Maltbatch er forkert");
         assertEquals(LocalDate.of(2025,01,01), batch.getStartDato(), "Startdatoen er forkert");
         assertEquals("Test start",batch.getKommentar(),"Kommentar er forkert");
+        assertEquals(1,batch.getId());
 
+    }
+    @Test
+    void test02_KonstruktorBatch(){
+        Batch batch2 = new Batch(null,null,null,null,null,null,null);
+        assertEquals(2,batch2.getId());
     }
 }
