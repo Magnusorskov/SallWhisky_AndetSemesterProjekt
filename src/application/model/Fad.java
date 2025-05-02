@@ -102,6 +102,16 @@ public class Fad implements Serializable, Lagervare {
         }
     }
 
+    public double getTilgængeligeLiter() {
+        double antalLiter = 0;
+        if (destillat == null) {
+            antalLiter = størrelse;
+        } else {
+            antalLiter = størrelse - destillat.beregnAntalLiter();
+        }
+            return antalLiter;
+    }
+
     @Override
     public int getReol() {
         return reolNummer;

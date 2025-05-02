@@ -2,7 +2,9 @@ package storage;
 
 import application.controller.Storage;
 import application.model.Batch;
+import application.model.Destillat;
 import application.model.Fad;
+import application.model.Lager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ public class ListStorage implements Storage, Serializable {
     private final List<Batch> igangværendeBatches = new ArrayList<>();
     private final List<Batch> færdigeBatches = new ArrayList<>();
     private final List<Fad> fade = new ArrayList<>();
+    private final List<Lager> lagre = new ArrayList<>();
+    private final List<Destillat> destillater = new ArrayList<>();
 
     @Override
     public List<Batch> getIgangværendeBatches() {
@@ -53,6 +57,33 @@ public class ListStorage implements Storage, Serializable {
     public void addFad(Fad fad) {
         if (!fade.contains(fad)) {
             fade.add(fad);
+        }
+    }
+
+    //--------------------------------------------------------
+
+    @Override
+    public List<Lager> getLagre() {
+        return new ArrayList<>(lagre);
+    }
+    @Override
+    public void addLager(Lager lager){
+        if(!lagre.contains(lager)){
+            lagre.add(lager);
+        }
+    }
+
+    //------------------------------------------------------
+
+    @Override
+    public List<Destillat> getDestillater(){
+        return new ArrayList<>(destillater);
+    }
+
+    @Override
+    public void addDestillat(Destillat destillat){
+        if (!destillater.contains(destillat)){
+            destillater.add(destillat);
         }
     }
 }
