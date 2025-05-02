@@ -12,7 +12,7 @@ public abstract class Controller {
         storage = newStorage;
     }
 
-    //------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
 
 
 
@@ -85,20 +85,63 @@ public abstract class Controller {
 
     public static List<Fad> getFade(){return storage.getFade();}
 
+    public static boolean påfyldFad(double antalLiter, Batch batch, String navn, Fad fad){
+        boolean gennemført = true;
+        Destillat destillat = fad.getDestillat();
+        if (destillat == null){
+            destillat = Controller.createDestillat(navn,fad);
+        }
+        if (antalLiter > fad.getTilgængeligeLiter()){
+            gennemført = false;
+        }
+        else {
+            destillat.createMængde(antalLiter, batch);
+        }
+
+        return gennemført;
+    }
+
     public static String getBatchBeskrivelse(Batch batch) {
         StringBuilder sb = new StringBuilder();
-
-        sb.append("Batch nr: " + batch.getId());
-        sb.append("\nBygsort: " + batch.getBygsort() + "(" + batch.getMark() + ")");
-        sb.append("\nMaltbatch: " + batch.getMaltBatch());
-        String rygemateriale = batch.getRygemateriale();
-        if (rygemateriale != null) {
-            sb.append("\nRygemateriale: " + rygemateriale);
+        String result = "";
+        if (batch != null) {
+            sb.append("Batch nr: " + batch.getId());
+            sb.append("\nBygsort: " + batch.getBygsort() + "(" + batch.getMark() + ")");
+            sb.append("\nMaltbatch: " + batch.getMaltBatch());
+            String rygemateriale = batch.getRygemateriale();
+            if (rygemateriale != null) {
+                sb.append("\nRygemateriale: " + rygemateriale);
+            }
+            sb.append("\nAlkoholprocent: " + batch.getAlkoholprocent());
+            sb.append("\nInitialer: " + batch.getInitialer());
+            sb.append("\n\nKommentar: " + "\n" + batch.getKommentar());
+            result = String.valueOf(sb);
         }
-        sb.append("\nAlkoholprocent: " + batch.getAlkoholprocent());
-        sb.append("\nInitialer: " + batch.getInitialer());
-        sb.append("\n\nKommentar: " + "\n" + batch.getKommentar());
-        String result = String.valueOf(sb);
         return result;
     }
+
+    public static List<Lager> getLagre(){return storage.getLagre();}
+
+
+    //-----------------------------------------------------------------------------------------------------
+
+    public static Lager createLager(String navn, int antalReoler, int antalHylder, String adresse){
+        Lager lager = new Lager(navn, antalReoler, antalHylder, adresse);
+        storage.addLager(lager);
+        return lager;
+    }
+
+    public static Destillat createDestillat(String navn, Fad fad){
+        Destillat destillat = new Destillat(navn, fad);
+        storage.addDestillat(destillat);
+        return destillat;
+    }
+
+    public static void færdiggørDestillat(double alkoholsprocent, LocalDate påfyldningsDato, Destillat destillat){
+        destillat.setAlkoholprocent(alkoholsprocent);
+        destillat.setPåfyldningsDato(påfyldningsDato);
+    }
+
+    public static List<Destillat> getDestillater(){ return storage.getDestillater();}
+
 }
