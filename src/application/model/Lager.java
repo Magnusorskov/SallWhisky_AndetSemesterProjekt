@@ -8,6 +8,7 @@ public class Lager {
     private String adresse;
     private Lagervare[][] pladser;
 
+
     /**
      * Initialiserer et lagers navn, adresse og antal reoler og hylder.
      * Pre: navn og adresse er ikke null.
@@ -37,5 +38,17 @@ public class Lager {
 
     public int getStørrelsePåLager(){
         return (antalHylder) * (antalReoler);
+    }
+
+    public void addLagerVare(Lagervare lagervare, int reol, int hylde){
+        if (pladser[reol][hylde] == null){
+            pladser[reol][hylde] = lagervare;
+        }
+    }
+
+    public void removeLagerVare(Lagervare lagervare){
+        if (pladser[lagervare.getReol()][lagervare.getHylde()] != null){
+
+        }
     }
 }

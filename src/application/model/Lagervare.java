@@ -3,7 +3,9 @@ package application.model;
 public interface Lagervare {
     public String beskrivelse();
 
-    public String getPlacering();
+    public int getReol();
+
+    public int getHylde();
 
     public Lager getLager();
 
