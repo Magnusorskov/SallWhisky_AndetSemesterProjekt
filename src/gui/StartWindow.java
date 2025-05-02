@@ -47,6 +47,7 @@ public class StartWindow extends Application {
 
         DestillatPane destillatPane = new DestillatPane();
         tabDestillat.setContent(destillatPane);
+        tabDestillat.setOnSelectionChanged(event -> destillatPane.updateControls());
 
         // ---------------------------------------------------------------------
 
@@ -60,6 +61,7 @@ public class StartWindow extends Application {
 
         LagerPane lagerPane = new LagerPane();
         tabLager.setContent(lagerPane);
+        // TODO fix update controls
 //        tabLager.setOnSelectionChanged(event -> lagerPane.updateControls());
 
     }
