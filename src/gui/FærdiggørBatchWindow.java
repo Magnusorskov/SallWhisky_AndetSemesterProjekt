@@ -17,7 +17,6 @@ import java.time.LocalDate;
 
 
 public class FærdiggørBatchWindow extends Stage {
-
     private Batch batch;
 
     public FærdiggørBatchWindow(String title, Batch batch) {
@@ -41,10 +40,11 @@ public class FærdiggørBatchWindow extends Stage {
 
 
     //-------------------------------------------------------
-    TextField txfVæskemængde, txfAlkoholProcent;
-    TextArea txaKommentar;
-    DatePicker datePicker;
-    Label lblError;
+    private TextField txfVæskemængde, txfAlkoholProcent;
+    private TextArea txaKommentar;
+    private DatePicker datePicker;
+    private Label lblError;
+
     public void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
         pane.setHgap(10);
@@ -55,7 +55,6 @@ public class FærdiggørBatchWindow extends Stage {
         Label lblSlutDato = new Label("Slut dato");
         lblSlutDato.setMinWidth(100);
         pane.add(lblSlutDato,0,0);
-
 
         datePicker = new DatePicker(LocalDate.now());
         pane.add(datePicker,0,1);
@@ -96,6 +95,9 @@ public class FærdiggørBatchWindow extends Stage {
         lblError.setMinWidth(200);
         lblError.setWrapText(true);
     }
+
+    // -------------------------------------------------------------------------
+
     private void færdiggørAction() {
         LocalDate slutDato = datePicker.getValue();
         double væskemængde = Double.parseDouble(txfVæskemængde.getText());
