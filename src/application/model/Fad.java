@@ -8,8 +8,12 @@ public class Fad implements Serializable, Lagervare {
     private int antalBrug;
     private Fadtype fadType;
     private double størrelse;
-    private String placering;
+    private int reolNummer;
+    private int hyldeNummer;
     private int id;
+
+    private Destillat destillat;
+    private Lager lager;
 
     /**
      * Initialiserer et fads oprindelsesland, fadtype og størrelse.
@@ -57,10 +61,6 @@ public class Fad implements Serializable, Lagervare {
         return størrelse;
     }
 
-    public String getPlacering() {
-        return placering;
-    }
-
     public int getId() {
         return id;
     }
@@ -70,8 +70,38 @@ public class Fad implements Serializable, Lagervare {
         return "";
     }
 
+    //sammenhæng til Destillat
+    public Destillat getDestillat() {
+        return destillat;
+    }
 
-    //sammenhæng til
+    public void setDestillat(Destillat destillat){
+        if (this.destillat != destillat){
+            this.destillat = destillat;
+//            if (destillat != null){
+//                destillat.setFad(this);
+//            }
+        }
+    }
+
+    //sammenhæng til lager
+    public Lager getLager() {
+        return lager;
+    }
+
+    public void setLager(Lager lager){
+        if (this.lager != lager){
+            Lager oldLager = this.lager;
+            if (oldLager != null){
+                oldLager.removeLagervare(this, reolNummer, hyldeNummer);
+            }
+            this.lager = lager;
+            if (lager != null){
+                lager.addLagervare(this, reolNummer, hyldeNummer);
+            }
+        }
+    }
+
 
     //metoder
 

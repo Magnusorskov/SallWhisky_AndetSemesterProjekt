@@ -29,18 +29,33 @@ public class Destillat {
         this.påfyldningsDato = påfyldningsDato;
     }
 
-    //sammenhæng til mængde
+    //sammenhæng til fad
+    public Fad getFad() {
+        return fad;
+    }
 
+//    public void setFad(Fad fad) {
+//        this.fad = fad;
+//    }
+
+    //sammenhæng til mængde
     public List<Mængde> getMængder() {
         return new ArrayList<>(mængder);
     }
 
-//    public Mængde createMængde (double antalLiter, Batch batch){
-//        Mængde mængde
-//    }
-
+    public Mængde createMængde (double antalLiter, Batch batch){
+        Mængde mængde = new Mængde(antalLiter, batch);
+        mængder.add(mængde);
+        return mængde;
+    }
 
     //metoder
-
+    public double beregnAntalLiter(){
+        double liter = 0;
+        for (Mængde m : mængder){
+            liter += m.getAntalLiter();
+        }
+        return liter;
+    }
 
 }
