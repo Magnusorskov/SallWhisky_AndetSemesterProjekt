@@ -42,32 +42,19 @@ public class Batch implements Serializable {
     }
 
     /**
+     * Tapper en batch en bestemt mængde liter
+     * Pre: antalLiter er større end nul
      *
-     * @param antalLiter
+     * @param antalLiter det antal liter man tapper fra batchen.
      */
-    private void tapnBatch(double antalLiter) {
+    private void tapBatch(double antalLiter) {
         væskemængde -= antalLiter;
-    }
-
-    public void setSlutDato(LocalDate slutDato) {
-        this.slutDato = slutDato;
-    }
-
-    public void setAlkoholprocent(double alkoholprocent) {
-        this.alkoholprocent = alkoholprocent;
-    }
-
-    public void setVæskemængde(double væskemængde) {
-        this.væskemængde = væskemængde;
-    }
-
-    public void setKommentar(String kommentar) {
-        this.kommentar = kommentar;
     }
 
     public Mark getMark() {
         return mark;
     }
+
 
     public String getInitialer() {
         return initialer;
@@ -93,22 +80,37 @@ public class Batch implements Serializable {
         return slutDato;
     }
 
+    public void setSlutDato(LocalDate slutDato) {
+        this.slutDato = slutDato;
+    }
+
     public double getAlkoholprocent() {
         return alkoholprocent;
+    }
+
+    public void setAlkoholprocent(double alkoholprocent) {
+        this.alkoholprocent = alkoholprocent;
     }
 
     public double getVæskemængde() {
         return væskemængde;
     }
 
+    public void setVæskemængde(double væskemængde) {
+        this.væskemængde = væskemængde;
+    }
+
     public String getKommentar() {
         return kommentar;
+    }
+
+    public void setKommentar(String kommentar) {
+        this.kommentar = kommentar;
     }
 
     public int getId() {
         return id;
     }
-
 
 
     @Override
