@@ -71,6 +71,8 @@ public class Fad implements Serializable, Lagervare {
     }
 
 
+
+
     //sammenhæng til
 
     //metoder
