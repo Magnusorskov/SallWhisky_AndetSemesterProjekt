@@ -47,7 +47,7 @@ public class Batch implements Serializable {
      *
      * @param antalLiter det antal liter man tapper fra batchen.
      */
-    private void tapBatch(double antalLiter) {
+    public void tapBatch(double antalLiter) {
         væskemængde -= antalLiter;
     }
 
@@ -117,4 +117,6 @@ public class Batch implements Serializable {
     public String toString() {
         return "BatchNr:" + id + " StartDato: " + startDato;
     }
+
+
 }

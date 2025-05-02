@@ -20,7 +20,7 @@ public class Lager {
      * @param antalHylder lagerets antal hylder.
      */
 
-    public Lager(String navn, int antalHylder, int antalReoler, String adresse) {
+    public Lager(String navn, int antalReoler, int antalHylder, String adresse) {
         this.navn = navn;
         this.antalHylder = antalHylder;
         this.antalReoler = antalReoler;
