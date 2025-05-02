@@ -3,7 +3,6 @@ package application.controller;
 import application.model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Controller {

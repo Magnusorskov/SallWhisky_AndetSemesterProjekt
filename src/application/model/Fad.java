@@ -2,7 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 
-public class Fad implements Serializable {
+public class Fad implements Serializable, Lagervare {
     private static int idTæller = 1;
     private String oprindelsesLand;
     private int antalBrug;
@@ -63,6 +63,11 @@ public class Fad implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String beskrivelse() {
+        return "";
     }
 
 
