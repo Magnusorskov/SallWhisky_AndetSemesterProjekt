@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import storage.ListStorage;
 
 public class DestillatPane extends GridPane {
     private TextArea txaBatchBeskrivelse, txaFadBeskrivelse;
@@ -22,18 +21,23 @@ public class DestillatPane extends GridPane {
         this.setGridLinesVisible(false);
 
         Label lblBatches = new Label("Batches");
-        this.add(lblBatches,0,0);
+        this.add(lblBatches, 0, 0);
 
         ComboBox<Batch> cmbBatches = new ComboBox<>();
         cmbBatches.getItems().addAll(Controller.getFærdigeBatches());
-        this.add(cmbBatches,0,1);
+        this.add(cmbBatches, 0, 1);
 
         Label lblBeskrivelse = new Label("Beskrivelse");
-        this.add(lblBeskrivelse,0,2);
+        this.add(lblBeskrivelse, 0, 2);
 
-        txaBatchBeskrivelse = new TextArea()
+        Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
+        txaBatchBeskrivelse = new TextArea(Controller.getBatchBeskrivelse(batch));
+        this.add(txaBatchBeskrivelse, 0, 3);
 
 
+    }
+
+    public void updateControls() {
 
     }
 }
