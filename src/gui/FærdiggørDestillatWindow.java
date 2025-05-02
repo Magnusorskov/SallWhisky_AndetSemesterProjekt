@@ -42,7 +42,8 @@ public class FærdiggørDestillatWindow extends Stage {
 
     private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
     private DatePicker datePicker;
-    private ComboBox<Lager> cmbLager;
+    private ComboBox<Lager> cbbLager;
+    private Button btnFindPlads;
 
     public void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
@@ -91,21 +92,28 @@ public class FærdiggørDestillatWindow extends Stage {
         Label lblLager = new Label("Lager");
         pane.add(lblNavn,1,1);
 
-        cmbLager = new ComboBox<>();
-//        cmbLager.getItems().addAll(Controller.getLagre());
-        pane.add(cmbLager, 1,2);
+        cbbLager = new ComboBox<>();
+//        cbbLager.getItems().addAll(Controller.getLagre());
+        pane.add(cbbLager, 1,2);
+        cbbLager.setOnAction(event -> lagerAction());
 
         Label lblReol = new Label("Reol nummer");
-        pane.add(lblReol,0,3);
+        pane.add(lblReol,1,3);
 
         txfReol = new TextField();
-        pane.add(txfReol, 0,4);
+        pane.add(txfReol, 1,4);
 
         Label lblHylde = new Label("Hylde nummer");
-        pane.add(lblHylde,0,5);
+        pane.add(lblHylde,1,5);
 
         txfHylde = new TextField();
-        pane.add(txfHylde, 0,6);
+        pane.add(txfHylde, 1,6);
+
+        btnFindPlads = new Button("Find plads");
+        btnFindPlads.setOnAction(event -> findPladsAction());
+        btnFindPlads.setDisable(true);
+        pane.add(btnFindPlads,1,7);
+        GridPane.setHalignment(btnFindPlads,HPos.RIGHT);
 
         Button btnFærdiggør = new Button("Færdiggør");
         btnFærdiggør.setOnAction(event -> færdiggørAction());
@@ -116,13 +124,29 @@ public class FærdiggørDestillatWindow extends Stage {
 
     // -------------------------------------------------------------------------
 
-    private void færdiggørAction() {
 
+    private void lagerAction(){
+        Lager lager = cbbLager.getSelectionModel().getSelectedItem();
+        if (lager != null){
+            btnFindPlads.setDisable(false);
+        } else {
+            btnFindPlads.setDisable(true);
+        }
     }
 
     private void lukAction() {
         hide();
     }
+
+    private void færdiggørAction() {
+
+    }
+
+    private void findPladsAction() {
+
+    }
+
+
 
 
 }

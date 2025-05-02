@@ -25,10 +25,10 @@ public class LagerPane extends GridPane {
         dia.showAndWait();
 
         // Wait for the modal dialog to close
-//        updateControls();
+        updateControls();
     }
 
-    private void updateControls(){
+    public void updateControls(){
 
     }
 
