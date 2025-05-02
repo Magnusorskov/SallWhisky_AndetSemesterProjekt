@@ -12,6 +12,10 @@ public abstract class Controller {
         storage = newStorage;
     }
 
+    //------------------------------------------------------------------------------------------
+
+
+
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar og tilføjer den til storage.
      * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
