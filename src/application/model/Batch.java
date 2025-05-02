@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Batch implements Serializable {
+    // TODO fix id
     private static int idTæller = 1;
     private Bygsort bygsort;
     private Mark mark;
