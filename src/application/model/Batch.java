@@ -41,6 +41,14 @@ public class Batch implements Serializable {
         idTæller++;
     }
 
+    /**
+     *
+     * @param antalLiter
+     */
+    private void tapnBatch(double antalLiter) {
+        væskemængde -= antalLiter;
+    }
+
     public void setSlutDato(LocalDate slutDato) {
         this.slutDato = slutDato;
     }
@@ -100,6 +108,8 @@ public class Batch implements Serializable {
     public int getId() {
         return id;
     }
+
+
 
     @Override
     public String toString() {
