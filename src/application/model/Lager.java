@@ -47,8 +47,8 @@ public class Lager {
     }
 
     public void removeLagerVare(Lagervare lagervare){
-        if (pladser[lagervare.getReol()][lagervare.getHylde()] != null){
-
+        if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare){
+            pladser[lagervare.getReol()][lagervare.getHylde()] = null;
         }
     }
 }

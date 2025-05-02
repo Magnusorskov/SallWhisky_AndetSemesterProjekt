@@ -93,15 +93,24 @@ public class Fad implements Serializable, Lagervare {
         if (this.lager != lager){
             Lager oldLager = this.lager;
             if (oldLager != null){
-                oldLager.removeLagervare(this, reolNummer, hyldeNummer);
+                oldLager.removeLagerVare(this);
             }
             this.lager = lager;
             if (lager != null){
-                lager.addLagervare(this, reolNummer, hyldeNummer);
+                lager.addLagerVare(this, reolNummer, hyldeNummer);
             }
         }
     }
 
+    @Override
+    public int getReol() {
+        return reolNummer;
+    }
+
+    @Override
+    public int getHylde() {
+        return hyldeNummer;
+    }
 
     //metoder
 
