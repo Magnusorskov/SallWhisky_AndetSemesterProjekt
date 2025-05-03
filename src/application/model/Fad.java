@@ -2,18 +2,15 @@ package application.model;
 
 import java.io.Serializable;
 
-public class Fad implements Serializable, Lagervare {
+public class Fad extends Lagervare implements Serializable {
     private static int idTæller = 1;
     private String oprindelsesLand;
     private int antalBrug;
     private Fadtype fadType;
     private double størrelse;
-    private int reolNummer;
-    private int hyldeNummer;
     private int id;
 
     private Destillat destillat;
-    private Lager lager;
 
     /**
      * Initialiserer et fads oprindelsesland, fadtype og størrelse.
@@ -84,23 +81,6 @@ public class Fad implements Serializable, Lagervare {
         }
     }
 
-    //sammenhæng til lager
-    public Lager getLager() {
-        return lager;
-    }
-
-    public void setLager(Lager lager){
-        if (this.lager != lager){
-            Lager oldLager = this.lager;
-            if (oldLager != null){
-                oldLager.removeLagerVare(this);
-            }
-            this.lager = lager;
-            if (lager != null){
-                lager.addLagerVare(this, reolNummer, hyldeNummer);
-            }
-        }
-    }
 
     public double getTilgængeligeLiter() {
         double antalLiter = 0;
@@ -110,16 +90,6 @@ public class Fad implements Serializable, Lagervare {
             antalLiter = størrelse - destillat.beregnAntalLiter();
         }
             return antalLiter;
-    }
-
-    @Override
-    public int getReol() {
-        return reolNummer;
-    }
-
-    @Override
-    public int getHylde() {
-        return hyldeNummer;
     }
 
     //metoder
