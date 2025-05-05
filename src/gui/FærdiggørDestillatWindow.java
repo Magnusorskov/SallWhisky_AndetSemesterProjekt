@@ -82,6 +82,15 @@ public class FærdiggørDestillatWindow extends Stage {
         påfyldDato = new DatePicker(LocalDate.now());
 
         pane.add(påfyldDato,0,8);
+        datePicker = new DatePicker(LocalDate.now());
+        pane.add(datePicker,0,8);
+        datePicker.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(destillat.getPåfyldningsDato()) < 0);
+            }
+        });
 
         Button btnLuk = new Button("Luk");
         btnLuk.setOnAction(event -> lukAction());
