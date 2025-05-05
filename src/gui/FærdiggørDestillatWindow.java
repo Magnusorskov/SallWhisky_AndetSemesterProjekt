@@ -34,7 +34,7 @@ public class FærdiggørDestillatWindow extends Stage {
         Scene scene = new Scene(pane,300,300);
         setScene(scene);
         setMinWidth(450);
-        setMinHeight(300);
+        setMinHeight(400);
 
 
     }
@@ -84,13 +84,7 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(påfyldDato,0,8);
         påfyldDato = new DatePicker(LocalDate.now());
         pane.add(påfyldDato,0,8);
-        påfyldDato.setDayCellFactory(param -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                setDisable(empty || date.compareTo(destillat.getPåfyldningsDato()) < 0);
-            }
-        });
+
 
         Button btnLuk = new Button("Luk");
         btnLuk.setOnAction(event -> lukAction());

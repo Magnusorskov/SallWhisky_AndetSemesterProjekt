@@ -119,19 +119,18 @@ public abstract class Controller {
         return fad;
     }
 
-    public static boolean påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
-        boolean gennemført = true;
+    public static void påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
         Destillat destillat = fad.getDestillat();
         if (destillat == null) {
             destillat = Controller.createDestillat(navn, fad);
         }
         if (antalLiter > fad.getTilgængeligeLiter()) {
-            gennemført = false;
+            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
+        } else if (antalLiter > batch.getVæskemængde()) {
+            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
         } else {
             destillat.createMængde(antalLiter, batch);
         }
-
-        return gennemført;
     }
 
     public static String getFadBeskrivelse(Fad fad) {
@@ -144,13 +143,13 @@ public abstract class Controller {
             sb.append("\nAntal tilgængelig liter: " + fad.getTilgængeligeLiter());
             sb.append("\nFad type: " + fad.getFadType());
             sb.append("\nAntal brug: " + fad.getAntalBrug());
-            result = String.valueOf(sb);
         }
         Destillat destillat = fad.getDestillat();
         if (destillat != null) {
-            sb.append("Destillat: " + destillat.getNavn());
-            sb.append("Batches: " + fad.getDestillat().destilatBatches());
+            sb.append("\n\nDestillat: " + destillat.getNavn());
+            sb.append("\nBatches: " + fad.getDestillat().destilatBatches());
         }
+        result = String.valueOf(sb);
         return result;
     }
 

@@ -87,7 +87,7 @@ public class Destillat implements Serializable {
     public String destilatBatches() {
         StringBuilder sb = new StringBuilder();
         for (Mængde m : mængder) {
-            sb.append("Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")\n");
+            sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
         }
         String s = sb + "";
         return s;
