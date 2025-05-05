@@ -13,10 +13,12 @@ public class LagerPane extends GridPane {
         this.setGridLinesVisible(false);
 
         Button btnOpretFad = new Button("Opret Fad");
+        btnOpretFad.setMinWidth(100);
         btnOpretFad.setOnAction(event -> this.opretFadAction());
         this.add(btnOpretFad, 0, 0);
 
         Button btnOpretLager = new Button("Opret Lager");
+        btnOpretLager.setMinWidth(100);
         btnOpretLager.setOnAction(event -> this.opretLagerAction());
         this.add(btnOpretLager, 0, 1);
     }
