@@ -1,6 +1,8 @@
 package application.model;
 
-public class Lager {
+import java.io.Serializable;
+
+public class Lager implements Serializable {
 
     private String navn;
     private int antalHylder;
