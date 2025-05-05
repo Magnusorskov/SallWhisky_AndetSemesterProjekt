@@ -134,6 +134,21 @@ public abstract class Controller {
         return gennemført;
     }
 
+    public static String getFadBeskrivelse(Fad fad) {
+        StringBuilder sb = new StringBuilder();
+        String result = "";
+        if (fad != null) {
+            sb.append("Fad nr: " + fad.getId());
+            sb.append("\nFad størrelse: " + fad.getStørrelse());
+            sb.append("\nOprindelses Land: " + fad.getOprindelsesLand());
+            sb.append("\nAntal tilgængelig liter: " + fad.getTilgængeligeLiter());
+            sb.append("\nFad type: " + fad.getFadType());
+            sb.append("\nAntal brug: " + fad.getAntalBrug());
+            result = String.valueOf(sb);
+        }
+        return result;
+    }
+
     //----------------------------------------------------------------------------------------------------
 
     public static List<Lager> getLagre() {
