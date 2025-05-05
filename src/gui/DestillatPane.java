@@ -56,6 +56,7 @@ public class DestillatPane extends GridPane {
 
         lblBatchVæskemængde = new Label("Batch rest. væske: ");
         lblBatchVæskemængde.setPrefWidth(120);
+
         lblFadTilgængeligLiter = new Label("Fad ledig plads: ");
         lblFadTilgængeligLiter.setPrefWidth(120);
         HBox hbVæskeVærdier = new HBox(lblBatchVæskemængde, lblFadTilgængeligLiter);
@@ -119,17 +120,37 @@ public class DestillatPane extends GridPane {
         }
     }
 
-    public void updateControls() {
+    void updateControls() {
+        cmbBatches.getItems().setAll(Controller.getFærdigeBatches());
+        cmbFade.getItems().setAll(Controller.getFade());
+    }
+
+
+    private void selectionChangeBatch() {
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
-        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBatchBeskrivelse(batch));
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
-        } else if (fad != null) {
-            lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
         } else {
-            cmbBatches.getItems().setAll(Controller.getFærdigeBatches());
-            cmbFade.getItems().setAll(Controller.getFade());
+            txaBatchBeskrivelse.clear();
+            lblBatchVæskemængde.setText("Batch rest. væske: ");
         }
     }
+
+    private void selectionChangeFad() {
+        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            Destillat destillat = fad.getDestillat();
+            lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
+            txaFadBeskrivelse.setText("");
+            if (destillat != null) {
+                txfNavn.setText(destillat.getNavn());
+            }
+        } else {
+            lblFadTilgængeligLiter.setText("Fad ledig plads: ");
+            txaFadBeskrivelse.clear();
+            txfNavn.clear();
+        }
+    }
+
 }
