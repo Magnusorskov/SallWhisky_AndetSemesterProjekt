@@ -14,7 +14,7 @@ class FadTest {
         fad = new Fad("Spanien",Fadtype.EXSHERRY,100);
     }
     @org.junit.jupiter.api.Test
-    void test02_KontruktorFad(){
+    void test03_KontruktorFad(){
         assertNotNull(fad, "Fad ikke oprettet");
         assertEquals("Spanien", fad.getOprindelsesLand(),"Oprindelsesland er forkert");
         assertEquals(Fadtype.EXSHERRY,fad.getFadType(),"Fadtype er forkert");
