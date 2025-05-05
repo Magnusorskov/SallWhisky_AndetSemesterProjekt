@@ -108,13 +108,13 @@ public class FærdiggørDestillatWindow extends Stage {
         Label lblReol = new Label("Reol nummer");
         pane.add(lblReol,1,3);
 
-        txfReol = new TextField();
+        txfReol = new TextField("0");
         pane.add(txfReol, 1,4);
 
         Label lblHylde = new Label("Hylde nummer");
         pane.add(lblHylde,1,5);
 
-        txfHylde = new TextField();
+        txfHylde = new TextField("0");
         pane.add(txfHylde, 1,6);
 
         btnFindPlads = new Button("Find plads");
