@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -27,7 +28,9 @@ public class DestillatPane extends GridPane {
         this.setGridLinesVisible(false);
 
         int width = 260;
+
         Label lblBatches = new Label("Batches");
+        lblBatches.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBatches, 0, 0);
 
         cmbBatches = new ComboBox<>();
@@ -46,44 +49,24 @@ public class DestillatPane extends GridPane {
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.updateControls();
         cmbBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
+        //kolonne 1
         Label lblPåfyldFad = new Label("Påfyld fad");
+        lblPåfyldFad.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblPåfyldFad, 1, 0);
 
-        Label lblFade = new Label("Fade");
-        lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
-        this.add(lblFade, 3, 0);
-
-        cmbFade = new ComboBox<>();
-        cmbFade.setPrefWidth(width);
-        cmbFade.getItems().setAll(Controller.getFade());
-        ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.updateControls();
-        cmbFade.getSelectionModel().selectedItemProperty().addListener(fadListener);
-        this.add(cmbFade, 3, 1);
-
-        Label lblBeskrivelse2 = new Label("Beskrivelse");
-        this.add(lblBeskrivelse2, 3, 2);
-
-        txaFadBeskrivelse = new TextArea();
-        this.add(txaFadBeskrivelse, 3, 3);
-        txaFadBeskrivelse.setPrefWidth(width);
-
         lblBatchVæskemængde = new Label("Batch rest. væske: ");
-        ;
-
+        lblBatchVæskemængde.setPrefWidth(120);
         lblFadTilgængeligLiter = new Label("Fad ledig plads: ");
-
-
+        lblFadTilgængeligLiter.setPrefWidth(120);
         HBox hbVæskeVærdier = new HBox(lblBatchVæskemængde, lblFadTilgængeligLiter);
         hbVæskeVærdier.setSpacing(20);
         this.add(hbVæskeVærdier, 1, 1);
 
-        Label lblNavn = new Label("Navn");
+        Label lblNavn = new Label("Destillat navn");
         this.add(lblNavn, 1, 2);
 
         txfNavn = new TextField();
-        if (cmbFade.getSelectionModel().getSelectedItem() != null) {
-            txfNavn.setText(cmbFade.getSelectionModel().getSelectedItem().getDestillat().getNavn());
-        }
+        this.add(txfNavn, 1, 3);
 
         Label lblAntalLiter = new Label("Antal liter");
         this.add(lblAntalLiter, 1, 3);
@@ -93,6 +76,30 @@ public class DestillatPane extends GridPane {
 
         Button btnTilføj = new Button("Tilføj til fad");
         this.add(btnTilføj, 1, 5);
+
+        VBox vbDestillatInfo = new VBox(lblNavn, txfNavn, lblAntalLiter, txfAntalLiter, hbVæskeVærdier, btnTilføj);
+        vbDestillatInfo.setSpacing(10);
+        this.add(vbDestillatInfo, 1, 2, 1, 5);
+
+        //kolonne 2
+        Label lblFade = new Label("Fade");
+        lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
+        this.add(lblFade, 2, 0);
+
+        cmbFade = new ComboBox<>();
+        cmbFade.setPrefWidth(width);
+        cmbFade.getItems().setAll(Controller.getFade());
+        this.add(cmbFade, 2, 1);
+
+        ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.updateControls();
+        cmbFade.getSelectionModel().selectedItemProperty().addListener(fadListener);
+
+        Label lblBeskrivelse2 = new Label("Beskrivelse");
+        this.add(lblBeskrivelse2, 2, 2);
+
+        txaFadBeskrivelse = new TextArea();
+        this.add(txaFadBeskrivelse, 2, 3);
+        txaFadBeskrivelse.setPrefWidth(width);
 
         Button btnFærdiggørDestillat = new Button("Færdiggør destillat");
         this.add(btnFærdiggørDestillat, 3, 5);
@@ -104,7 +111,7 @@ public class DestillatPane extends GridPane {
     private void færdiggørAction() {
         Fad fad = cmbFade.getSelectionModel().getSelectedItem();
 
-        if (fad.getDestillat() != null){
+        if (fad != null){
             FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", fad.getDestillat());
             dia.showAndWait();
 
