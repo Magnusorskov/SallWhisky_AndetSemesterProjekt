@@ -46,7 +46,7 @@ public class DestillatPane extends GridPane {
         this.add(txaBatchBeskrivelse, 0, 3);
         txaBatchBeskrivelse.setPrefWidth(width);
 
-        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.updateControls();
+        ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectionChangeBatch();
         cmbBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
         //kolonne 1
@@ -92,7 +92,7 @@ public class DestillatPane extends GridPane {
         cmbFade.getItems().setAll(Controller.getFade());
         this.add(cmbFade, 2, 1);
 
-        ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.updateControls();
+        ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         cmbFade.getSelectionModel().selectedItemProperty().addListener(fadListener);
 
         Label lblBeskrivelse2 = new Label("Beskrivelse");
