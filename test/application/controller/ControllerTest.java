@@ -16,6 +16,7 @@ class ControllerTest {
     private Batch batch;
     private Fad fad;
     private Storage storage;
+    private Lager lager;
 
     @BeforeEach
     void setUp(){
@@ -23,13 +24,15 @@ class ControllerTest {
         Controller.setStorage(storage);
         batch = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
         fad = Controller.createFad("Portugal",Fadtype.EXBOURBON,60);
+        lager = Controller.createLager("Det lille test lager",2,2,"Testvej 14");
+
     }
 
     @Test
     void test03_createBatch() {
         Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
         assertNotNull(batch,"Batch er ikke oprettet");
-        assertTrue(Controller.getIgangværendeBatches().contains(batch));
+        assertTrue(Controller.getIgangværendeBatches().contains(batch), "Batchen er ikke oprettet i storage");
     }
 
     @Test
@@ -47,5 +50,11 @@ class ControllerTest {
         assertEquals(100,batch.getVæskemængde(),"Væskemængde er forkert");
         assertEquals("Test",batch.getKommentar(),"Kommentar er forkert");
         assertTrue(Controller.getFærdigeBatches().contains(batch));
+    }
+
+    @Test
+    void test06_createLager(){
+        assertNotNull(lager,"Lager er ikke oprettet");
+        assertTrue(Controller.getLagre().contains(lager),"Lageret er ikke oprettet i storage");
     }
 }
