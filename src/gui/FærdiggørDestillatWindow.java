@@ -179,6 +179,7 @@ public class FærdiggørDestillatWindow extends Stage {
         }
 
 
+
     }
 
     private void findPladsAction() {
