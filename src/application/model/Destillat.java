@@ -32,6 +32,10 @@ public class Destillat {
         return navn;
     }
 
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
