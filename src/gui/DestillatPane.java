@@ -102,10 +102,10 @@ public class DestillatPane extends GridPane {
     // -------------------------------------------------------------------------
 
     private void færdiggørAction() {
-        Destillat destillat = cmbFade.getSelectionModel().getSelectedItem().getDestillat();
+        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
 
-        if (destillat != null){
-            FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", destillat);
+        if (fad.getDestillat() != null){
+            FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", fad.getDestillat());
             dia.showAndWait();
 
             this.updateControls();
