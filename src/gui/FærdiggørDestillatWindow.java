@@ -136,7 +136,7 @@ public class FærdiggørDestillatWindow extends Stage {
         GridPane.setValignment(btnFærdiggør,VPos.BOTTOM);
 
         lblError = new Label();
-        pane.add(lblError, 0, 7);
+        pane.add(lblError, 0, 10);
         lblError.setStyle("-fx-text-fill: red");
     }
 
@@ -183,6 +183,7 @@ public class FærdiggørDestillatWindow extends Stage {
             }
 
             //tilføj kode om placering
+            //TODO
             Controller.færdiggørDestillat(alkohol, påfyldDato, destillat);
             hide();
         }
@@ -192,7 +193,7 @@ public class FærdiggørDestillatWindow extends Stage {
     }
 
     private void findPladsAction() {
-
+        //TODO
     }
 
 
