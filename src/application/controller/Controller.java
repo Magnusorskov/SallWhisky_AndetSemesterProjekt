@@ -146,6 +146,11 @@ public abstract class Controller {
             sb.append("\nAntal brug: " + fad.getAntalBrug());
             result = String.valueOf(sb);
         }
+        Destillat destillat = fad.getDestillat();
+        if (destillat != null) {
+            sb.append("Destillat: " + destillat.getNavn());
+            sb.append("Batches: " + fad.getDestillat().destilatBatches());
+        }
         return result;
     }
 

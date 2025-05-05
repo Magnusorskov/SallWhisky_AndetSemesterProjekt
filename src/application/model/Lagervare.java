@@ -1,6 +1,8 @@
 package application.model;
 
-public abstract class Lagervare {
+import java.io.Serializable;
+
+public abstract class Lagervare implements Serializable {
     private int reolNummer;
     private int hyldeNummer;
     private Lager lager;

@@ -1,6 +1,8 @@
 package application.model;
 
-public class Mængde {
+import java.io.Serializable;
+
+public class Mængde implements Serializable {
     private double antalLiter;
     private Batch batch;
 

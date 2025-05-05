@@ -151,7 +151,7 @@ public class DestillatPane extends GridPane {
         if (fad != null) {
             Destillat destillat = fad.getDestillat();
             lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
-            txaFadBeskrivelse.setText("");
+            txaFadBeskrivelse.setText(Controller.getFadBeskrivelse(fad));
             if (destillat != null) {
                 txfNavn.setText(destillat.getNavn());
             }
