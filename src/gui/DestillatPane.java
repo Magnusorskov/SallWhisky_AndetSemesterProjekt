@@ -49,7 +49,7 @@ public class DestillatPane extends GridPane {
         this.add(lblPåfyldFad, 1, 0);
 
         Label lblFade = new Label("Fade");
-        lblFade.setFont(Font.font("System", FontWeight.BOLD, 12));
+        lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblFade, 3, 0);
 
         cmbFade = new ComboBox<>();
@@ -93,7 +93,7 @@ public class DestillatPane extends GridPane {
         Button btnTilføj = new Button("Tilføj til fad");
         this.add(btnTilføj, 1, 5);
 
-        Button btnPlacerPåLager = new Button("Placer fad på lager");
+        Button btnPlacerPåLager = new Button("Færdiggør fad");
         this.add(btnPlacerPåLager, 3, 5);
         GridPane.setHalignment(btnPlacerPåLager, HPos.RIGHT);
     }
