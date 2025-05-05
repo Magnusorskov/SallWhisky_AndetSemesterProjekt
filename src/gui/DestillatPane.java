@@ -68,7 +68,6 @@ public class DestillatPane extends GridPane {
         txaFadBeskrivelse.setPrefWidth(width);
 
         lblBatchVæskemængde = new Label("Batch rest. væske: ");
-        ;
 
         lblFadTilgængeligLiter = new Label("Fad ledig plads: ");
 
@@ -86,16 +85,16 @@ public class DestillatPane extends GridPane {
         }
 
         Label lblAntalLiter = new Label("Antal liter");
-        this.add(lblAntalLiter, 1, 3);
+        this.add(lblAntalLiter, 1, 4);
 
         txfAntalLiter = new TextField();
-        this.add(txfAntalLiter, 1, 4);
+        this.add(txfAntalLiter, 1, 5);
 
         Button btnTilføj = new Button("Tilføj til fad");
-        this.add(btnTilføj, 1, 5);
+        this.add(btnTilføj, 1, 6);
 
         Button btnFærdiggørDestillat = new Button("Færdiggør destillat");
-        this.add(btnFærdiggørDestillat, 3, 5);
+        this.add(btnFærdiggørDestillat, 3, 6);
         btnFærdiggørDestillat.setOnAction(event -> this.færdiggørAction());
         GridPane.setHalignment(btnFærdiggørDestillat, HPos.RIGHT);
     }
@@ -104,7 +103,7 @@ public class DestillatPane extends GridPane {
     private void færdiggørAction() {
         Destillat destillat = cmbFade.getSelectionModel().getSelectedItem().getDestillat();
 
-        if (destillat != null){
+        if (destillat != null) {
             FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", destillat);
             dia.showAndWait();
 
@@ -112,17 +111,37 @@ public class DestillatPane extends GridPane {
         }
     }
 
-    public void updateControls() {
+    void updateControls() {
+        cmbBatches.getItems().setAll(Controller.getFærdigeBatches());
+        cmbFade.getItems().setAll(Controller.getFade());
+    }
+
+
+    private void selectionChangeBatch() {
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
-        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBatchBeskrivelse(batch));
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
-        } else if (fad != null) {
-            lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
         } else {
-            cmbBatches.getItems().setAll(Controller.getFærdigeBatches());
-            cmbFade.getItems().setAll(Controller.getFade());
+            txaBatchBeskrivelse.clear();
+            lblBatchVæskemængde.setText("Batch rest. væske: ");
         }
     }
+
+    private void selectionChangeFad() {
+        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
+        if (fad != null) {
+            Destillat destillat = fad.getDestillat();
+            lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
+            txaFadBeskrivelse.setText("");
+            if (destillat != null) {
+                txfNavn.setText(destillat.getNavn());
+            }
+        } else {
+            lblFadTilgængeligLiter.setText("Fad ledig plads: ");
+            txaFadBeskrivelse.clear();
+            txfNavn.clear();
+        }
+    }
+
 }
