@@ -130,7 +130,7 @@ public class FærdiggørDestillatWindow extends Stage {
         lblError = new Label();
         pane.add(lblError, 0, 10);
         lblError.setStyle("-fx-text-fill: red");
-        lblError.setMinWidth(200);
+        lblError.setMinWidth(250);
     }
 
     // -------------------------------------------------------------------------

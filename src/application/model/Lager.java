@@ -71,4 +71,9 @@ public class Lager implements Serializable {
     public Lagervare[][] getPladser() {
         return pladser;
     }
+
+    @Override
+    public String toString() {
+        return "Lager: " + navn;
+    }
 }
