@@ -3,6 +3,7 @@ package application.controller;
 import application.model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Controller {
@@ -75,6 +76,16 @@ public abstract class Controller {
         return result;
     }
 
+    public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
+        List<Batch> resultat = new ArrayList<>();
+        for (Batch batch : storage.getFærdigeBatches()){
+            if(batch.getVæskemængde() > 0){
+                resultat.add(batch);
+            }
+        }
+        return resultat;
+    }
+
     public static List<Batch> getIgangværendeBatches() {
         return storage.getIgangværendeBatches();
     }
@@ -121,6 +132,21 @@ public abstract class Controller {
         }
 
         return gennemført;
+    }
+
+    public static String getFadBeskrivelse(Fad fad) {
+        StringBuilder sb = new StringBuilder();
+        String result = "";
+        if (fad != null) {
+            sb.append("Fad nr: " + fad.getId());
+            sb.append("\nFad størrelse: " + fad.getStørrelse());
+            sb.append("\nOprindelses Land: " + fad.getOprindelsesLand());
+            sb.append("\nAntal tilgængelig liter: " + fad.getTilgængeligeLiter());
+            sb.append("\nFad type: " + fad.getFadType());
+            sb.append("\nAntal brug: " + fad.getAntalBrug());
+            result = String.valueOf(sb);
+        }
+        return result;
     }
 
     //----------------------------------------------------------------------------------------------------
