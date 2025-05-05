@@ -51,4 +51,23 @@ public class Lager {
             pladser[lagervare.getReol()][lagervare.getHylde()] = null;
         }
     }
+
+    public Lagervare getLagerVare(int reol, int hylde){
+        if (pladser[reol][hylde] == null){
+            return null;
+        }
+        else return pladser[reol][hylde];
+    }
+
+    public int getAntalHylder() {
+        return antalHylder;
+    }
+
+    public int getAntalReoler() {
+        return antalReoler;
+    }
+
+    public Lagervare[][] getPladser() {
+        return pladser;
+    }
 }
