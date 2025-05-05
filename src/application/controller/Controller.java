@@ -78,13 +78,14 @@ public abstract class Controller {
 
     public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
         List<Batch> resultat = new ArrayList<>();
-        for (Batch batch : storage.getFærdigeBatches()){
-            if(batch.getVæskemængde() > 0){
+        for (Batch batch : getFærdigeBatches()) {
+            if (batch.getVæskemængde() > 0) {
                 resultat.add(batch);
             }
         }
         return resultat;
     }
+
 
     public static List<Batch> getIgangværendeBatches() {
         return storage.getIgangværendeBatches();
@@ -102,6 +103,16 @@ public abstract class Controller {
 
     public static List<Fad> getFade() {
         return storage.getFade();
+    }
+
+    public static List<Fad> getFadeUdenFærdigDestillat() {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad f : getFade()) {
+            if (f.getDestillat().getPåfyldningsDato() != null) {
+                resultat.add(f);
+            }
+        }
+        return resultat;
     }
 
     /**
@@ -169,7 +180,6 @@ public abstract class Controller {
     //-----------------------------------------------------------------------------------------------------
 
 
-
     public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
         storage.addDestillat(destillat);
@@ -186,8 +196,6 @@ public abstract class Controller {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-
-
 
 
 }

@@ -14,25 +14,25 @@ public class LagerPane extends GridPane {
 
         Button btnOpretFad = new Button("Opret Fad");
         btnOpretFad.setOnAction(event -> this.opretFadAction());
-        this.add(btnOpretFad,0,0);
+        this.add(btnOpretFad, 0, 0);
 
         Button btnOpretLager = new Button("Opret Lager");
         btnOpretLager.setOnAction(event -> this.opretLagerAction());
-        this.add(btnOpretLager,0,1);
+        this.add(btnOpretLager, 0, 1);
     }
 
     // -------------------------------------------------------------------------
 
     private void opretFadAction() {
 
-        OpretFadWindow dia = new OpretFadWindow ("Opret fad");
+        OpretFadWindow dia = new OpretFadWindow("Opret fad");
         dia.showAndWait();
 
         // Wait for the modal dialog to close
         updateControls();
     }
 
-    private void opretLagerAction(){
+    private void opretLagerAction() {
 
         OpretLagerWindow dia = new OpretLagerWindow("Opret Lager");
         dia.showAndWait();
@@ -41,7 +41,7 @@ public class LagerPane extends GridPane {
 
     }
 
-    public void updateControls(){
+    public void updateControls() {
 
     }
 

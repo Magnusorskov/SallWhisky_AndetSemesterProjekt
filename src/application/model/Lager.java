@@ -16,8 +16,8 @@ public class Lager implements Serializable {
      * Pre: navn og adresse er ikke null.
      * Pre: antal reoler og hylder > 0.
      *
-     * @param navn   lagerets navn.
-     * @param adresse lagerets adresse.
+     * @param navn        lagerets navn.
+     * @param adresse     lagerets adresse.
      * @param antalReoler lagerets antal reoler.
      * @param antalHylder lagerets antal hylder.
      */
@@ -38,27 +38,26 @@ public class Lager implements Serializable {
         return adresse;
     }
 
-    public int getStørrelsePåLager(){
+    public int getStørrelsePåLager() {
         return (antalHylder) * (antalReoler);
     }
 
-    public void addLagerVare(Lagervare lagervare, int reol, int hylde){
-        if (pladser[reol][hylde] == null){
+    public void addLagerVare(Lagervare lagervare, int reol, int hylde) {
+        if (pladser[reol][hylde] == null) {
             pladser[reol][hylde] = lagervare;
         }
     }
 
-    public void removeLagerVare(Lagervare lagervare){
-        if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare){
+    public void removeLagerVare(Lagervare lagervare) {
+        if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare) {
             pladser[lagervare.getReol()][lagervare.getHylde()] = null;
         }
     }
 
-    public Lagervare getLagerVare(int reol, int hylde){
-        if (pladser[reol][hylde] == null){
+    public Lagervare getLagerVare(int reol, int hylde) {
+        if (pladser[reol][hylde] == null) {
             return null;
-        }
-        else return pladser[reol][hylde];
+        } else return pladser[reol][hylde];
     }
 
     public int getAntalHylder() {
