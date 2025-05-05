@@ -82,9 +82,9 @@ public class FærdiggørDestillatWindow extends Stage {
         påfyldDato = new DatePicker(LocalDate.now());
 
         pane.add(påfyldDato,0,8);
-        datePicker = new DatePicker(LocalDate.now());
-        pane.add(datePicker,0,8);
-        datePicker.setDayCellFactory(param -> new DateCell() {
+        påfyldDato = new DatePicker(LocalDate.now());
+        pane.add(påfyldDato,0,8);
+        påfyldDato.setDayCellFactory(param -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
