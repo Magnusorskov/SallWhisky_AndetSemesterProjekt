@@ -73,7 +73,7 @@ public class FærdiggørDestillatWindow extends Stage {
         txfAlkoholProcent = new TextField();
         pane.add(txfAlkoholProcent, 0,6);
 
-        Label lblDato = new Label("Påfyldningsdato");
+        Label lblDato = new Label("Påfyldnings dato");
         pane.add(lblDato,0,7);
 
         datePicker = new DatePicker(LocalDate.now());
@@ -93,7 +93,7 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(lblNavn,1,1);
 
         cbbLager = new ComboBox<>();
-//        cbbLager.getItems().addAll(Controller.getLagre());
+        cbbLager.getItems().addAll(Controller.getLagre());
         pane.add(cbbLager, 1,2);
         cbbLager.setOnAction(event -> lagerAction());
 

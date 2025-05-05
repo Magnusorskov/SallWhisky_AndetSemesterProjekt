@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Batch;
+import application.model.Destillat;
 import application.model.Fad;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
@@ -93,9 +94,22 @@ public class DestillatPane extends GridPane {
         Button btnTilføj = new Button("Tilføj til fad");
         this.add(btnTilføj, 1, 5);
 
-        Button btnPlacerPåLager = new Button("Færdiggør fad");
-        this.add(btnPlacerPåLager, 3, 5);
-        GridPane.setHalignment(btnPlacerPåLager, HPos.RIGHT);
+        Button btnFærdiggørDestillat = new Button("Færdiggør destillat");
+        this.add(btnFærdiggørDestillat, 3, 5);
+        btnFærdiggørDestillat.setOnAction(event -> this.færdiggørAction());
+        GridPane.setHalignment(btnFærdiggørDestillat, HPos.RIGHT);
+    }
+    // -------------------------------------------------------------------------
+
+    private void færdiggørAction() {
+        Destillat destillat = cmbFade.getSelectionModel().getSelectedItem().getDestillat();
+
+        if (destillat != null){
+            FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", destillat);
+            dia.showAndWait();
+
+            this.updateControls();
+        }
     }
 
     public void updateControls() {
