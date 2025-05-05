@@ -1,7 +1,6 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Batch;
 import application.model.Destillat;
 import application.model.Lager;
 import javafx.geometry.HPos;
@@ -10,6 +9,8 @@ import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -41,8 +42,9 @@ public class FærdiggørDestillatWindow extends Stage {
     //-------------------------------------------------------
 
     private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
-    private DatePicker datePicker;
+    private DatePicker påfyldDato;
     private ComboBox<Lager> cbbLager;
+    private Label lblError;
     private Button btnFindPlads;
 
     public void initContent(GridPane pane) {
@@ -52,9 +54,10 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.setGridLinesVisible(false);
 
         Label lblDestillat = new Label("Destillat");
+        lblDestillat.setFont(Font.font("System", FontWeight.BOLD, 14));
         pane.add(lblDestillat,0,0);
 
-        Label lblNavn = new Label("Destillat");
+        Label lblNavn = new Label("Destillat navn");
         pane.add(lblNavn,0,1);
 
         txfNavn = new TextField(destillat.getNavn());
@@ -70,14 +73,24 @@ public class FærdiggørDestillatWindow extends Stage {
         Label lblAlkoholProcent = new Label("Alkoholprocent");
         pane.add(lblAlkoholProcent,0,5);
 
-        txfAlkoholProcent = new TextField();
+        txfAlkoholProcent = new TextField("0");
         pane.add(txfAlkoholProcent, 0,6);
 
         Label lblDato = new Label("Påfyldnings dato");
         pane.add(lblDato,0,7);
 
+        påfyldDato = new DatePicker(LocalDate.now());
+
+        pane.add(påfyldDato,0,8);
         datePicker = new DatePicker(LocalDate.now());
         pane.add(datePicker,0,8);
+        datePicker.setDayCellFactory(param -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(destillat.getPåfyldningsDato()) < 0);
+            }
+        });
 
         Button btnLuk = new Button("Luk");
         btnLuk.setOnAction(event -> lukAction());
@@ -87,10 +100,11 @@ public class FærdiggørDestillatWindow extends Stage {
 
         //kolonne 1
         Label lblPlacering = new Label("Placering");
+        lblPlacering.setFont(Font.font("System", FontWeight.BOLD, 14));
         pane.add(lblPlacering,1,0);
 
         Label lblLager = new Label("Lager");
-        pane.add(lblNavn,1,1);
+        pane.add(lblLager,1,1);
 
         cbbLager = new ComboBox<>();
         cbbLager.getItems().addAll(Controller.getLagre());
@@ -120,6 +134,10 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(btnFærdiggør,1,9);
         GridPane.setHalignment(btnFærdiggør,HPos.RIGHT);
         GridPane.setValignment(btnFærdiggør,VPos.BOTTOM);
+
+        lblError = new Label();
+        pane.add(lblError, 0, 7);
+        lblError.setStyle("-fx-text-fill: red");
     }
 
     // -------------------------------------------------------------------------
@@ -139,6 +157,37 @@ public class FærdiggørDestillatWindow extends Stage {
     }
 
     private void færdiggørAction() {
+        String navn = txfNavn.getText();
+        LocalDate påfyldDato = this.påfyldDato.getValue();
+        double alkohol = Double.parseDouble(txfAlkoholProcent.getText());
+        Lager lager = cbbLager.getSelectionModel().getSelectedItem();
+        int reol = Integer.parseInt(txfReol.getText());
+        int hylde = Integer.parseInt(txfHylde.getText());
+
+
+        if (navn.isBlank()) {
+            lblError.setText("Skriv et navn for destillatet");
+        } else if (alkohol <= 0) {
+            lblError.setText("Alkoholprocent skal være større end 0");
+        } else if (påfyldDato == null) {
+            lblError.setText("Vælg en dato for påfyldning");
+        } else if (lager == null) {
+            lblError.setText("Vælg et lager");
+        } else if (reol <= 0) {
+            lblError.setText("Skriv et reol nummer");
+        } else if (hylde <= 0) {
+            lblError.setText("Skriv et hylde nummer");
+        }else {
+            if (!navn.equals(destillat.getNavn())){
+                destillat.setNavn(navn);
+            }
+
+            //tilføj kode om placering
+            Controller.færdiggørDestillat(alkohol, påfyldDato, destillat);
+            hide();
+        }
+
+
 
     }
 

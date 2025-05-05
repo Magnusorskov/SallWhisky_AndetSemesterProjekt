@@ -22,6 +22,7 @@ public class Fad extends Lagervare implements Serializable {
      * @param størrelse         fadets størrelse.
      */
     public Fad(String oprindelsesLand, Fadtype fadType, double størrelse) {
+        super();
         this.oprindelsesLand = oprindelsesLand;
         this.fadType = fadType;
         this.størrelse = størrelse;
@@ -37,7 +38,6 @@ public class Fad extends Lagervare implements Serializable {
     }
 
     //getter og setter
-
     public static int getIdTæller() {
         return idTæller;
     }
@@ -81,7 +81,7 @@ public class Fad extends Lagervare implements Serializable {
         }
     }
 
-
+    //metoder
     public double getTilgængeligeLiter() {
         double antalLiter = 0;
         if (destillat == null) {
@@ -92,7 +92,8 @@ public class Fad extends Lagervare implements Serializable {
             return antalLiter;
     }
 
-    //metoder
-
-
+    @Override
+    public String toString() {
+        return id + " " + fadType + " liter: " + størrelse;
+    }
 }

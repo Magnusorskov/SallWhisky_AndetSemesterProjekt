@@ -84,8 +84,10 @@ public class OpretBatchWindow extends Stage {
         Label lblStartDato = new Label("StartDato");
         pane.add(lblStartDato, 2, 1);
 
+
         startDato = new DatePicker(LocalDate.now());
         pane.add(startDato, 3, 1);
+
 
         Label lblKommentar = new Label("Kommentar");
         pane.add(lblKommentar, 2, 2);

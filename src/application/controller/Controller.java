@@ -3,6 +3,7 @@ package application.controller;
 import application.model.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Controller {
@@ -73,6 +74,16 @@ public abstract class Controller {
             result = String.valueOf(sb);
         }
         return result;
+    }
+
+    public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
+        List<Batch> resultat = new ArrayList<>();
+        for (Batch batch : storage.getFærdigeBatches()){
+            if(batch.getVæskemængde() > 0){
+                resultat.add(batch);
+            }
+        }
+        return resultat;
     }
 
     public static List<Batch> getIgangværendeBatches() {
