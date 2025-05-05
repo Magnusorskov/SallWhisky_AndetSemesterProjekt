@@ -20,6 +20,7 @@ public class DestillatPane extends GridPane {
     private Label lblFadTilgængeligLiter, lblBatchVæskemængde;
     private ComboBox<Batch> cmbBatches;
     private ComboBox<Fad> cmbFade;
+    private Button btnTilføj;
 
     public DestillatPane() {
         this.setPadding(new Insets(20));
@@ -55,10 +56,10 @@ public class DestillatPane extends GridPane {
         this.add(lblPåfyldFad, 1, 0);
 
         lblBatchVæskemængde = new Label("Batch rest. væske: ");
-        lblBatchVæskemængde.setPrefWidth(120);
+        lblBatchVæskemængde.setMinWidth(170);
 
         lblFadTilgængeligLiter = new Label("Fad ledig plads: ");
-        lblFadTilgængeligLiter.setPrefWidth(120);
+        lblFadTilgængeligLiter.setMinWidth(170);
         HBox hbVæskeVærdier = new HBox(lblBatchVæskemængde, lblFadTilgængeligLiter);
         hbVæskeVærdier.setSpacing(20);
         this.add(hbVæskeVærdier, 1, 1);
@@ -75,8 +76,10 @@ public class DestillatPane extends GridPane {
         txfAntalLiter = new TextField();
         this.add(txfAntalLiter, 1, 4);
 
-        Button btnTilføj = new Button("Tilføj til fad");
+        btnTilføj = new Button("Tilføj til fad");
+        btnTilføj.setDisable(true);
         this.add(btnTilføj, 1, 5);
+        btnTilføj.setOnAction(event -> tilføjTilFadAction());
 
         VBox vbDestillatInfo = new VBox(lblNavn, txfNavn, lblAntalLiter, txfAntalLiter, hbVæskeVærdier, btnTilføj);
         vbDestillatInfo.setSpacing(10);
@@ -112,7 +115,7 @@ public class DestillatPane extends GridPane {
     private void færdiggørAction() {
         Fad fad = cmbFade.getSelectionModel().getSelectedItem();
 
-        if (fad != null){
+        if (fad != null) {
             FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", fad.getDestillat());
             dia.showAndWait();
 
@@ -128,12 +131,18 @@ public class DestillatPane extends GridPane {
 
     private void selectionChangeBatch() {
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
+
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBatchBeskrivelse(batch));
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
         } else {
             txaBatchBeskrivelse.clear();
             lblBatchVæskemængde.setText("Batch rest. væske: ");
+        }
+        if (cmbFade.getSelectionModel().getSelectedItem() != null) {
+            btnTilføj.setDisable(false);
+        } else {
+            btnTilføj.setDisable(true);
         }
     }
 
@@ -146,11 +155,40 @@ public class DestillatPane extends GridPane {
             if (destillat != null) {
                 txfNavn.setText(destillat.getNavn());
             }
+            if (cmbBatches.getSelectionModel().getSelectedItem() != null) {
+                btnTilføj.setDisable(false);
+            } else {
+                btnTilføj.setDisable(true);
+            }
         } else {
             lblFadTilgængeligLiter.setText("Fad ledig plads: ");
             txaFadBeskrivelse.clear();
             txfNavn.clear();
         }
+
     }
+
+    private void tilføjTilFadAction() {
+        Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
+        Fad fad = cmbFade.getSelectionModel().getSelectedItem();
+        double antalLiter = Double.parseDouble(txfAntalLiter.getText());
+        String navn = txfNavn.getText();
+
+        Boolean påfyldt = Controller.påfyldFad(antalLiter, batch, navn, fad);
+
+        if (påfyldt) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Fad er påfyldt!");
+            alert.setContentText(batch + "\nAntal liter: " + antalLiter);
+            alert.showAndWait();
+            txfAntalLiter.clear();
+            lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
+            lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Noget gik galt");
+        }
+    }
+
 
 }

@@ -1,10 +1,11 @@
 package application.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Destillat {
+public class Destillat implements Serializable {
     private static int idTæller = 1;
     private String navn;
     private int id;
@@ -30,6 +31,10 @@ public class Destillat {
 
     public String getNavn() {
         return navn;
+    }
+
+    public LocalDate getPåfyldningsDato() {
+        return påfyldningsDato;
     }
 
     public void setAlkoholprocent(double alkoholprocent) {
