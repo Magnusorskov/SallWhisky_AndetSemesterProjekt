@@ -106,14 +106,14 @@ public class FærdiggørDestillatWindow extends Stage {
         Label lblReol = new Label("Reol nummer");
         pane.add(lblReol, 1, 3);
 
-        txfReol = new TextField();
-        pane.add(txfReol, 1, 4);
+        txfReol = new TextField("0");
+        pane.add(txfReol, 1,4);
 
         Label lblHylde = new Label("Hylde nummer");
         pane.add(lblHylde, 1, 5);
 
-        txfHylde = new TextField();
-        pane.add(txfHylde, 1, 6);
+        txfHylde = new TextField("0");
+        pane.add(txfHylde, 1,6);
 
         btnFindPlads = new Button("Find plads");
         btnFindPlads.setOnAction(event -> findPladsAction());
@@ -130,6 +130,7 @@ public class FærdiggørDestillatWindow extends Stage {
         lblError = new Label();
         pane.add(lblError, 0, 10);
         lblError.setStyle("-fx-text-fill: red");
+        lblError.setMinWidth(200);
     }
 
     // -------------------------------------------------------------------------
