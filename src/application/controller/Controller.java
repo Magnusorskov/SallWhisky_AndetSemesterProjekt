@@ -15,7 +15,6 @@ public abstract class Controller {
     //-----------------------------------------------------------------------------------------
 
 
-
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar og tilføjer den til storage.
      * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
@@ -33,6 +32,7 @@ public abstract class Controller {
         storage.addBatch(batch);
         return batch;
     }
+
 
     /**
      * Færdiggør en batch med en slutdato, alkoholprocent, væskemængde, kommentar og flytter den til færdige batches i storage.
@@ -87,9 +87,11 @@ public abstract class Controller {
         storage.removeIgangværendeBatch(batch);
     }
 
-    //-------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------------------
 
-    public static List<Fad> getFade(){return storage.getFade();}
+    public static List<Fad> getFade() {
+        return storage.getFade();
+    }
 
     /**
      * Initialiserer et fads oprindelsesland, fadtype, størrelse og tilføjer den til storage.
@@ -106,47 +108,53 @@ public abstract class Controller {
         return fad;
     }
 
-    public static boolean påfyldFad(double antalLiter, Batch batch, String navn, Fad fad){
+    public static boolean påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
         boolean gennemført = true;
         Destillat destillat = fad.getDestillat();
-        if (destillat == null){
-            destillat = Controller.createDestillat(navn,fad);
+        if (destillat == null) {
+            destillat = Controller.createDestillat(navn, fad);
         }
-        if (antalLiter > fad.getTilgængeligeLiter()){
+        if (antalLiter > fad.getTilgængeligeLiter()) {
             gennemført = false;
-        }
-        else {
+        } else {
             destillat.createMængde(antalLiter, batch);
         }
 
         return gennemført;
     }
 
+    //----------------------------------------------------------------------------------------------------
 
-    //-----------------------------------------------------------------------------------------------------
+    public static List<Lager> getLagre() {
+        return storage.getLagre();
+    }
 
-    public static Lager createLager(String navn, int antalReoler, int antalHylder, String adresse){
+    public static Lager createLager(String navn, int antalReoler, int antalHylder, String adresse) {
         Lager lager = new Lager(navn, antalReoler, antalHylder, adresse);
         storage.addLager(lager);
         return lager;
     }
 
-    public static List<Lager> getLagre(){return storage.getLagre();}
 
-    //-------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------
 
 
-    public static Destillat createDestillat(String navn, Fad fad){
+
+    public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
         storage.addDestillat(destillat);
         return destillat;
     }
 
-    public static void færdiggørDestillat(double alkoholsprocent, LocalDate påfyldningsDato, Destillat destillat){
+    public static void færdiggørDestillat(double alkoholsprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholsprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
     }
 
-    public static List<Destillat> getDestillater(){ return storage.getDestillater();}
+    public static List<Destillat> getDestillater() {
+        return storage.getDestillater();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 
 }
