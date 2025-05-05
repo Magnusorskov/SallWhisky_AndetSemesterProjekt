@@ -24,6 +24,7 @@ public class Destillat implements Serializable {
     public Destillat(String navn, Fad fad) {
         this.navn = navn;
         this.fad = fad;
+        fad.setDestillat(this);
         id = idTæller;
         idTæller++;
     }
