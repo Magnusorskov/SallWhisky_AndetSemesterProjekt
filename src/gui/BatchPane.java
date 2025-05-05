@@ -7,6 +7,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
@@ -19,6 +21,7 @@ public class BatchPane extends GridPane {
         this.setGridLinesVisible(false);
 
         Label lblBatch = new Label("Igangværende Batches");
+        lblBatch.setFont(Font.font("System", FontWeight.BOLD, 12));
         this.add(lblBatch,0,0);
 
         lvwIgangværendeBatches = new ListView<>();
