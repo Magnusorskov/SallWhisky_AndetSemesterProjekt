@@ -66,9 +66,10 @@ public class ListStorage implements Storage, Serializable {
     public List<Lager> getLagre() {
         return new ArrayList<>(lagre);
     }
+
     @Override
-    public void addLager(Lager lager){
-        if(!lagre.contains(lager)){
+    public void addLager(Lager lager) {
+        if (!lagre.contains(lager)) {
             lagre.add(lager);
         }
     }
@@ -76,13 +77,13 @@ public class ListStorage implements Storage, Serializable {
     //------------------------------------------------------
 
     @Override
-    public List<Destillat> getDestillater(){
+    public List<Destillat> getDestillater() {
         return new ArrayList<>(destillater);
     }
 
     @Override
-    public void addDestillat(Destillat destillat){
-        if (!destillater.contains(destillat)){
+    public void addDestillat(Destillat destillat) {
+        if (!destillater.contains(destillat)) {
             destillater.add(destillat);
         }
     }

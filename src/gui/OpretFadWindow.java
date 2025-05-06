@@ -21,6 +21,7 @@ public class OpretFadWindow extends Stage {
     private TextField txfLand, txfStørrelse;
     private ComboBox<Fadtype> cbbType;
     private Label lblError;
+
     public OpretFadWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);

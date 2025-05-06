@@ -1,6 +1,5 @@
 package gui;
 
-import application.model.Batch;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -26,6 +25,7 @@ public class StartWindow extends Application {
         this.initTabPane(tabPane);
         pane.setCenter(tabPane);
     }
+
     private void initTabPane(TabPane tabPane) {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 

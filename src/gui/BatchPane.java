@@ -14,7 +14,7 @@ public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private ListView<Batch> lvwIgangværendeBatches;
 
-    public BatchPane(){
+    public BatchPane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
         this.setVgap(10);
@@ -22,10 +22,10 @@ public class BatchPane extends GridPane {
 
         Label lblBatch = new Label("Igangværende Batches");
         lblBatch.setFont(Font.font("System", FontWeight.BOLD, 12));
-        this.add(lblBatch,0,0);
+        this.add(lblBatch, 0, 0);
 
         lvwIgangværendeBatches = new ListView<>();
-        this.add(lvwIgangværendeBatches,0,1,1,6);
+        this.add(lvwIgangværendeBatches, 0, 1, 1, 6);
         lvwIgangværendeBatches.setPrefWidth(200);
         lvwIgangværendeBatches.setPrefHeight(200);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
@@ -75,7 +75,7 @@ public class BatchPane extends GridPane {
         txfStartDato.setEditable(false);
 
         Label lblInitial = new Label("Initaler:");
-        this.add(lblInitial,1,4);
+        this.add(lblInitial, 1, 4);
 
         txfInitialer = new TextField();
         this.add(txfInitialer, 2, 4);
@@ -85,21 +85,21 @@ public class BatchPane extends GridPane {
         this.add(lblKommentar, 1, 5);
 
         txfKommentar = new TextField();
-        this.add(txfKommentar, 2, 5,3,2);
+        this.add(txfKommentar, 2, 5, 3, 2);
         txfKommentar.setEditable(false);
 
         Button btnFærdig = new Button("Færdiggør Batch");
         btnFærdig.setOnAction(event -> this.færdiggørAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
-        this.add(btnFærdig,0,7);
+        this.add(btnFærdig, 0, 7);
 
         Button btnOpret = new Button("Opret ny batch");
         btnOpret.setOnAction(event -> this.opretAction());
-        this.add(btnOpret,4,7);
+        this.add(btnOpret, 4, 7);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
         Button btnFjernBatch = new Button("Fjern batch");
         btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
-        this.add(btnFjernBatch,0,9);
+        this.add(btnFjernBatch, 0, 9);
 
     }
 
@@ -112,19 +112,18 @@ public class BatchPane extends GridPane {
         this.updateControls();
     }
 
-    public void updateControls(){
+    public void updateControls() {
         Batch batch = lvwIgangværendeBatches.getSelectionModel().getSelectedItem();
-        if(batch != null){
+        if (batch != null) {
             txfInitialer.setText(batch.getInitialer());
             txfKommentar.setText(batch.getKommentar());
             txfMaltBatch.setText(batch.getMaltBatch());
-            txfBatchNr.setText(""+ batch.getId());
+            txfBatchNr.setText("" + batch.getId());
             txfRygemateriale.setText(batch.getRygemateriale());
             txfBygsort.setText("" + batch.getBygsort());
             txfMark.setText(batch.getMark().toString());
             txfStartDato.setText(batch.getStartDato().toString());
-        }
-        else {
+        } else {
 
             txfInitialer.clear();
             txfKommentar.clear();
@@ -138,7 +137,7 @@ public class BatchPane extends GridPane {
 
     }
 
-    private void selectedBatchChanged(){
+    private void selectedBatchChanged() {
         this.updateControls();
     }
 

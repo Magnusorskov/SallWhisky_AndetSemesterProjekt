@@ -17,9 +17,9 @@ public class Fad extends Lagervare implements Serializable {
      * Pre: oprindelsesland og fadtype er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param oprindelsesLand   fadets oprindelsesland.
-     * @param fadType           fadets type.
-     * @param størrelse         fadets størrelse.
+     * @param oprindelsesLand fadets oprindelsesland.
+     * @param fadType         fadets type.
+     * @param størrelse       fadets størrelse.
      */
     public Fad(String oprindelsesLand, Fadtype fadType, double størrelse) {
         super();
@@ -72,8 +72,8 @@ public class Fad extends Lagervare implements Serializable {
         return destillat;
     }
 
-    public void setDestillat(Destillat destillat){
-        if (this.destillat != destillat){
+    public void setDestillat(Destillat destillat) {
+        if (this.destillat != destillat) {
             this.destillat = destillat;
 //            if (destillat != null){
 //                destillat.setFad(this);
@@ -89,7 +89,7 @@ public class Fad extends Lagervare implements Serializable {
         } else {
             antalLiter = størrelse - destillat.beregnAntalLiter();
         }
-            return antalLiter;
+        return antalLiter;
     }
 
     @Override
