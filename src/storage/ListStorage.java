@@ -1,14 +1,13 @@
 package storage;
 
 import application.controller.Storage;
-import application.model.Batch;
-import application.model.Destillat;
-import application.model.Fad;
-import application.model.Lager;
+import application.model.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class ListStorage implements Storage, Serializable {
 
@@ -17,6 +16,7 @@ public class ListStorage implements Storage, Serializable {
     private final List<Fad> fade = new ArrayList<>();
     private final List<Lager> lagre = new ArrayList<>();
     private final List<Destillat> destillater = new ArrayList<>();
+    private final Set<Whisky> whiskyer = new TreeSet<>();
 
     @Override
     public List<Batch> getIgangværendeBatches() {
@@ -87,4 +87,17 @@ public class ListStorage implements Storage, Serializable {
             destillater.add(destillat);
         }
     }
+
+    //------------------------------------------------------
+
+    @Override
+    public Set<Whisky> getWhiskyer() {
+        return new TreeSet<>(whiskyer);
+    }
+
+    @Override
+    public void addWhisky(Whisky whisky) {
+        whiskyer.add(whisky);
+    }
+
 }
