@@ -9,6 +9,6 @@ public class DestillatMængde implements Serializable {
     DestillatMængde(double antalLiter, Destillat destillat) {
         this.antalLiter = antalLiter;
         this.destillat = destillat;
-        // Todo tap detillat
+        destillat.tapDestillat(antalLiter);
     }
 }

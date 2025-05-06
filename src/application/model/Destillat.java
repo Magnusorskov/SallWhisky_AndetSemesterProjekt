@@ -103,4 +103,8 @@ public class Destillat implements Serializable {
         return s;
     }
 
+    public void tapDestillat(double antalLiter) {
+        this.antalLiter -= antalLiter;
+    }
+
 }
