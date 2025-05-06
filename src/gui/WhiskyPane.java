@@ -68,12 +68,13 @@ public class WhiskyPane extends GridPane {
         this.add(lblDestillatVæskemængde,1,3);
 
         btnTap = new Button("Tap");
+        this.add(btnTap,1,4);
         btnTap.setDisable(true);
         btnTap.setOnAction(event -> tapTilWhiskyAction());
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
-        this.add(lblError,1,4);
+        this.add(lblError,1,5);
         lblError.setMinWidth(width);
 
         // Kolonne 2
@@ -93,10 +94,11 @@ public class WhiskyPane extends GridPane {
         lblWhiskyBeskrivelse = new Label("Beskrivelse");
         this.add(lblWhiskyBeskrivelse,2,2);
 
-        txaWhiskeyBeskrivelse = new TextArea();
-        txaWhiskeyBeskrivelse.setEditable(false);
+        Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
+        txaWhiskeyBeskrivelse = new TextArea(Controller.getWhiskeyBeskrivelse(whisky));
         this.add(txaWhiskeyBeskrivelse,2,3);
         txaWhiskeyBeskrivelse.setPrefWidth(width);
+        txaWhiskeyBeskrivelse.setEditable(false);
 
         btnFærdiggør = new Button("Færdiggør whisky");
         btnOpret = new Button("Opret whiskey");
@@ -170,6 +172,7 @@ public class WhiskyPane extends GridPane {
             lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
             txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
             lblError.setText("");
+            this.updateControls();
         }
 
     }

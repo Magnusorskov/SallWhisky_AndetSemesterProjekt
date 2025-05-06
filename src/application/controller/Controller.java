@@ -197,7 +197,11 @@ public abstract class Controller {
     }
 
     public static String getDestillatBeskrivelse(Destillat destillat){
-        return "test";
+        if(destillat == null){
+            return "";
+        } else {
+            return destillat.getNavn();
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -227,7 +231,11 @@ public abstract class Controller {
     }
 
     public static String getWhiskeyBeskrivelse(Whisky whisky){
-        return whisky.getNavn();
+        if (whisky == null){
+            return "";
+        } else {
+            return whisky.getNavn();
+        }
     }
 
 
