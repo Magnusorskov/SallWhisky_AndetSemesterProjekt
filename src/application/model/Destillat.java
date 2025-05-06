@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Destillat implements Serializable {
     private static int idTæller = 1;
-    private final List<BatchMængde> mængder = new ArrayList<>();
     private String navn;
     private int id;
     private double alkoholprocent;
     private double antalLiter;
-
     private LocalDate påfyldningsDato;
+
+    private final List<BatchMængde> mængder = new ArrayList<>();
     private Fad fad;
 
     /**
@@ -80,7 +80,6 @@ public class Destillat implements Serializable {
     }
 
     //metoder
-
     /**
      * Beregner antal liter destillatet indeholder.
      *
@@ -107,4 +106,23 @@ public class Destillat implements Serializable {
         this.antalLiter -= antalLiter;
     }
 
+    public StringBuilder hentHistorik(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Destillat: " + id + " " + navn);
+        sb.append("\nPåfyldnings dato: " + påfyldningsDato);
+        if (antalLiter > 0){
+            sb.append("\nAntal liter: " + antalLiter);
+        }
+        if (alkoholprocent > 0){
+            sb.append("\nAlkoholprocent: " + alkoholprocent);
+        }
+
+        sb.append("\n\nFad\n" + fad.hentHistorik());
+
+        sb.append("\n\nBatches:\n");
+        for (BatchMængde bm : getMængder()){
+            sb.append(bm.getBatch().hentHistorik() + "\n\n");
+        }
+        return sb;
+    }
 }

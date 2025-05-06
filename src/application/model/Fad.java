@@ -62,6 +62,10 @@ public class Fad extends Lagervare implements Serializable {
         return id;
     }
 
+    public void setAntalBrug(int antalBrug) {
+        this.antalBrug = antalBrug;
+    }
+
     @Override
     public String beskrivelse() {
         return "";
@@ -90,6 +94,19 @@ public class Fad extends Lagervare implements Serializable {
             antalLiter = størrelse - destillat.beregnAntalLiter();
         }
         return antalLiter;
+    }
+
+    public StringBuilder hentHistorik(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Fad nr: " + id);
+        sb.append("\nOprindelses Land: " + oprindelsesLand);
+        sb.append("\nFad type: " + fadType);
+        sb.append("\nAntal brug: " + antalBrug);
+        sb.append("\nFad størrelse: " + størrelse);
+        if (getTilgængeligeLiter() != størrelse){
+            sb.append("\nAntal tilgængelig liter: " + getTilgængeligeLiter());
+        }
+        return sb;
     }
 
     @Override
