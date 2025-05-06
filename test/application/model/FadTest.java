@@ -1,6 +1,7 @@
 package application.model;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
@@ -13,12 +14,17 @@ class FadTest {
     void setUp() {
         fad = new Fad("Spanien",Fadtype.EXSHERRY,100);
     }
-    @org.junit.jupiter.api.Test
+    @Test
     void test03_KontruktorFad(){
         assertNotNull(fad, "Fad ikke oprettet");
         assertEquals("Spanien", fad.getOprindelsesLand(),"Oprindelsesland er forkert");
         assertEquals(Fadtype.EXSHERRY,fad.getFadType(),"Fadtype er forkert");
         assertEquals(100,fad.getStørrelse(), "Størrelse er forkert");
+
+    }
+
+    @Test
+    void test17_getTilgængeligeLiter(){
 
     }
 
