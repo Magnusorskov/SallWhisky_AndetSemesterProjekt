@@ -26,6 +26,7 @@ public class FærdiggørDestillatWindow extends Stage {
     private ComboBox<Lager> cbbLager;
     private Label lblError;
     private Button btnFindPlads;
+
     public FærdiggørDestillatWindow(String title, Destillat destillat) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
@@ -41,7 +42,6 @@ public class FærdiggørDestillatWindow extends Stage {
         setScene(scene);
         setMinWidth(450);
         setMinHeight(400);
-
 
     }
 
