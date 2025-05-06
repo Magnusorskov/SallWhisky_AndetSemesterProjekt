@@ -54,6 +54,10 @@ public class StartWindow extends Application {
         Tab tabWhisky = new Tab("Whisky");
         tabPane.getTabs().add(tabWhisky);
 
+        WhiskyPane whiskyPane = new WhiskyPane();
+        tabWhisky.setContent(whiskyPane);
+        tabWhisky.setOnSelectionChanged(event -> whiskyPane.updateControls());
+
         // ---------------------------------------------------------------------
 
         Tab tabLager = new Tab("Lager");
