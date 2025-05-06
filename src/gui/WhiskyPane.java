@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Destillat;
+import application.model.DestillatMængde;
 import application.model.Whisky;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -17,7 +18,8 @@ public class WhiskyPane extends GridPane {
     private TextArea txaDestillatBeskrivelse, txaWhiskeyBeskrivelse;
     private TextField txfLiter;
     private Label lblDestillatBeskrivelse,lblWhiskyBeskrivelse,lblTapning, lblWhisky, lblLiter, lblDestillater, lblError, lblDestillatVæskemængde;
-    private ComboBox<Destillat> cmbDestillater, cmbWhisky;
+    private ComboBox<Destillat> cmbDestillater;
+    private ComboBox<Whisky> cmbWhisky;
     private Button btnTap, btnOpret, btnFærdiggør;
 
     public WhiskyPane(){
@@ -33,7 +35,7 @@ public class WhiskyPane extends GridPane {
         this.add(lblDestillater,0,0);
 
         cmbDestillater = new ComboBox<>();
-//        cmbDestillater.getItems().addAll(Controller.getFærdigeDestillater());
+        cmbDestillater.getItems().addAll(Controller.getFærdigeDestillater());
         this.add(cmbDestillater,0,1);
         cmbDestillater.setPrefWidth(width);
 
@@ -69,7 +71,7 @@ public class WhiskyPane extends GridPane {
 
         btnTap = new Button("Tap");
         btnTap.setDisable(true);
-//        btnTap.setOnAction(event -> tapTilWhiskyAction());
+        btnTap.setOnAction(event -> tapTilWhiskyAction());
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
@@ -104,14 +106,89 @@ public class WhiskyPane extends GridPane {
 
 //        btnOpret.setOnAction(event -> this.opretWhiskeyAction());
 
-//        btnFærdiggør.setOnAction(event -> this.færdiggørWhiskyAction());
+        btnFærdiggør.setOnAction(event -> this.færdiggørWhiskyAction());
         btnFærdiggør.setDisable(true);
 
     }
 
     public void updateControls(){
+        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
+        cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
+        btnTap.setDisable(true);
+        btnFærdiggør.setDisable(true);
 
     }
+
+    private void selectionChangeDestillat(){
+        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
+
+        if (destillat != null){
+            txaDestillatBeskrivelse.setText(Controller.getDestillatBeskrivelse(destillat));
+            lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
+        } else {
+            txaDestillatBeskrivelse.clear();
+            lblDestillatVæskemængde.setText("Destillat rest. væske: ");
+        }
+        if (cmbWhisky.getSelectionModel().getSelectedItem() != null){
+            btnTap.setDisable(false);
+        } else {
+            btnTap.setDisable(true);
+        }
+    }
+
+    private void selectionChangeWhisky(){
+        Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
+
+        if (whisky != null){
+            txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+            btnFærdiggør.setDisable(false);
+        } else {
+            txaWhiskeyBeskrivelse.clear();
+            btnFærdiggør.setDisable(true);
+        }
+    }
+
+    private void tapTilWhiskyAction(){
+        Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
+        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
+
+        if (txfLiter.getText().isBlank()){
+            lblError.setText("Antal liter skal udfyldes");
+        } else if (whisky == null){
+            lblError.setText("Vælg en whiskey");
+        } else if (destillat == null){
+            lblError.setText("Vælg et destillat at tappe fra");
+        } else {
+            double liter = Integer.parseInt(txfLiter.getText());
+            Controller.tapningAfDestillat(liter,destillat,whisky);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Tapning er gennemført");
+            alert.setContentText(whisky.getNavn() + "\n Antal liter: " + liter);
+            alert.showAndWait();
+            txfLiter.clear();
+            lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
+            txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+            lblError.setText("");
+        }
+
+    }
+
+    private void færdiggørWhiskyAction(){
+        Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
+
+        if(whisky != null){
+            FærdiggørWhiskeyWindow dia = new FærdiggørWhiskeyWindow("Færdiggør Whiskey",whisky);
+            dia.showAndWait();
+
+            this.updateControls();
+        }
+    }
+
+    private void opretWhiskeyAction(){
+        OpretWhiskyWindow dia = new OpretWhiskyWindow("Opret Whisky");
+    }
+
+
 
 
 }
