@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Whisky implements Serializable, Comparable<Whisky> {
     private String navn;
+    // Todo nummer generation
     private int nummer;
     private double alkoholprocent;
     private int flasker;
@@ -17,6 +18,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     public Whisky(String navn) {
         this.navn = navn;
+        literVand = 0;
         destillatMængder = new ArrayList<>();
     }
 
@@ -64,10 +66,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         this.literVand = literVand;
     }
 
-    public void setHistorie(String historie) {
-        this.historie = historie;
-    }
-
     public void setLabel(String label) {
         this.label = label;
     }
@@ -83,17 +81,18 @@ public class Whisky implements Serializable, Comparable<Whisky> {
     public double beregnAntalLiter(){
         double antal = 0;
         for (DestillatMængde d : destillatMængder) {
-
+            antal += d.getAntalLiter();
         }
+        antal += literVand;
         return antal;
     }
 
-    public String hentHistorik() {
-        return "s";
+    public void hentHistorik() {
+        StringBuilder sb = new StringBuilder();
     }
 
-    private int beregnAntalFlasker() {
-        return 0;
+    private void beregnAntalFlasker() {
+        setFlasker((int) (beregnAntalLiter() / 0.7));
     }
 
     @Override
