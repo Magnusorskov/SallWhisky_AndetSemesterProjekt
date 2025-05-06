@@ -11,7 +11,7 @@ class DestillatTest {
 
     private Destillat destillat;
     private Fad fad;
-    private Mængde mængde;
+    private BatchMængde mængde;
     private Batch batch;
 
     @BeforeEach
