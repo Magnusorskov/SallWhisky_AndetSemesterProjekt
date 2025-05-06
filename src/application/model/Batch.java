@@ -114,6 +114,28 @@ public class Batch implements Serializable {
     }
 
 
+    //metoder
+    public StringBuilder hentHistorik(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Batch nr: " + id);
+        sb.append("\nBygsort: " + bygsort + "(" + mark + ")");
+        sb.append("\nMaltbatch: " + maltBatch);
+        if (rygemateriale != null) {
+            sb.append("\nRygemateriale: " + rygemateriale);
+        }
+        if (alkoholprocent > 0){
+            sb.append("\nAlkoholprocent: " + alkoholprocent);
+        }
+        if (slutDato != null){
+            sb.append("\nDatoer: " + startDato + " - " + slutDato);
+        } else {
+            sb.append("\nStartdato: " + startDato);
+        }
+        sb.append("\nInitialer: " + initialer);
+        sb.append("\nKommentar: " + "\n" + kommentar);
+        return sb;
+    }
+
     @Override
     public String toString() {
         return "BatchNr:" + id + " StartDato: " + startDato;
