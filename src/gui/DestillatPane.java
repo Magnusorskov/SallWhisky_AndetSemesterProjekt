@@ -125,7 +125,7 @@ public class DestillatPane extends GridPane {
         }
     }
 
-    void updateControls() {
+    public void updateControls() {
         cmbBatches.getItems().setAll(Controller.getFærdigeBatchesMedTilgængeligeLiter());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
         btnFærdiggørDestillat.setDisable(true);
