@@ -4,14 +4,13 @@ import application.controller.Controller;
 import application.model.Destillat;
 import application.model.DestillatMængde;
 import application.model.Whisky;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import javax.swing.event.ChangeListener;
 
 
 public class WhiskyPane extends GridPane {
@@ -42,15 +41,14 @@ public class WhiskyPane extends GridPane {
         lblDestillatBeskrivelse = new Label("Beskrivelse");
         this.add(lblDestillatBeskrivelse, 0, 2);
 
-//        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
-//        txaDestillatBeskrivelse = new TextArea(Controller.getDestillatBeskrivelse(destillat));
+        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
+        txaDestillatBeskrivelse = new TextArea(Controller.getDestillatBeskrivelse(destillat));
         this.add(txaDestillatBeskrivelse,0,3);
         txaDestillatBeskrivelse.setPrefWidth(width);
         txaDestillatBeskrivelse.setEditable(false);
 
-//        ChangeListener<Destillat> listener = (ov,oldDestillat,newDestillat) -> this.selectionChangeDestillat();
-//        cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
-
+        ChangeListener<Destillat> listener = (ov, oldDestillat, newDestillat) -> this.selectionChangeDestillat();
+        cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
 
         //kolonne 1
 
@@ -86,11 +84,11 @@ public class WhiskyPane extends GridPane {
 
         cmbWhisky = new ComboBox<>();
         cmbWhisky.setPrefWidth(width);
-//        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
+        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
         this.add(cmbWhisky,2,1);
 
-//        ChangeListener<Whisky> whiskeyListener = (ov, oldWhisky, newWhisky) -> this.selectionChangeWhisky();
-//        cmbWhisky.getSelectionModel().selectedItemProperty().addListener(whiskeyListener);
+        ChangeListener<Whisky> whiskeyListener = (ov, oldWhisky, newWhisky) -> this.selectionChangeWhisky();
+        cmbWhisky.getSelectionModel().selectedItemProperty().addListener(whiskeyListener);
 
         lblWhiskyBeskrivelse = new Label("Beskrivelse");
         this.add(lblWhiskyBeskrivelse,2,2);
@@ -100,11 +98,14 @@ public class WhiskyPane extends GridPane {
         this.add(txaWhiskeyBeskrivelse,2,3);
         txaWhiskeyBeskrivelse.setPrefWidth(width);
 
+        btnFærdiggør = new Button("Færdiggør whisky");
+        btnOpret = new Button("Opret whiskey");
+
         HBox hbBtns = new HBox(btnOpret,btnFærdiggør);
         hbBtns.setSpacing(10);
         this.add(hbBtns,2,4);
 
-//        btnOpret.setOnAction(event -> this.opretWhiskeyAction());
+        btnOpret.setOnAction(event -> this.opretWhiskeyAction());
 
         btnFærdiggør.setOnAction(event -> this.færdiggørWhiskyAction());
         btnFærdiggør.setDisable(true);
@@ -177,7 +178,7 @@ public class WhiskyPane extends GridPane {
         Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
 
         if(whisky != null){
-            FærdiggørWhiskeyWindow dia = new FærdiggørWhiskeyWindow("Færdiggør Whiskey",whisky);
+            FærdiggørWhiskyWindow dia = new FærdiggørWhiskyWindow("Færdiggør Whiskey",whisky);
             dia.showAndWait();
 
             this.updateControls();
@@ -186,6 +187,8 @@ public class WhiskyPane extends GridPane {
 
     private void opretWhiskeyAction(){
         OpretWhiskyWindow dia = new OpretWhiskyWindow("Opret Whisky");
+        dia.showAndWait();
+        this.updateControls();
     }
 
 
