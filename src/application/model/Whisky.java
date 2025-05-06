@@ -14,7 +14,8 @@ public class Whisky implements Serializable, Comparable<Whisky> {
     private double literVand;
     private String historie;
     private String label;
-    private List<DestillatMængde> destillatMængder;
+
+    private final List<DestillatMængde> destillatMængder;
 
     public Whisky(String navn) {
         this.navn = navn;
@@ -50,10 +51,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return label;
     }
 
-    public List<DestillatMængde> getDestillatMængder() {
-        return new ArrayList<>(destillatMængder);
-    }
-
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
@@ -70,12 +67,21 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         this.label = label;
     }
 
+    public void setHistorie(String historie) {
+        this.historie = historie;
+    }
+
     //------------------------------------------------------
 
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
         DestillatMængde destillatMængde = new DestillatMængde(antalLiter,destillat);
         destillatMængder.add(destillatMængde);
     }
+
+    public List<DestillatMængde> getDestillatMængder() {
+        return new ArrayList<>(destillatMængder);
+    }
+
     //------------------------------------------------------
 
     public double beregnAntalLiter(){
@@ -89,6 +95,25 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     public void hentHistorik() {
         StringBuilder sb = new StringBuilder();
+        sb.append("Whisky: " + nummer + " " + navn);
+        if (alkoholprocent > 0){
+            sb.append("\nAlkoholprocent: " + alkoholprocent);
+        }
+        if (beregnAntalLiter() > 0){
+            sb.append("\nAntal liter: " + beregnAntalLiter());
+            if (literVand > 0){
+                sb.append("\nHeraf vand: " + literVand);
+            }
+            sb.append("\nAntal Flasker: " + flasker);
+
+        }
+
+        sb.append("\n\nDestillater:\n");
+        for (DestillatMængde dm : getDestillatMængder()){
+            sb.append(dm.getDestillat().hentHistorik() + "\n\n");
+        }
+
+        setHistorie("" + sb);
     }
 
     private void beregnAntalFlasker() {

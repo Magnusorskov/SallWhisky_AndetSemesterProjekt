@@ -59,20 +59,9 @@ public abstract class Controller {
     }
 
     public static String getBatchBeskrivelse(Batch batch) {
-        StringBuilder sb = new StringBuilder();
         String result = "";
         if (batch != null) {
-            sb.append("Batch nr: " + batch.getId());
-            sb.append("\nBygsort: " + batch.getBygsort() + "(" + batch.getMark() + ")");
-            sb.append("\nMaltbatch: " + batch.getMaltBatch());
-            String rygemateriale = batch.getRygemateriale();
-            if (rygemateriale != null) {
-                sb.append("\nRygemateriale: " + rygemateriale);
-            }
-            sb.append("\nAlkoholprocent: " + batch.getAlkoholprocent());
-            sb.append("\nInitialer: " + batch.getInitialer());
-            sb.append("\n\nKommentar: " + "\n" + batch.getKommentar());
-            result = String.valueOf(sb);
+            result = "" + batch.hentHistorik();
         }
         return result;
     }
@@ -149,14 +138,9 @@ public abstract class Controller {
 
     public static String getFadBeskrivelse(Fad fad) {
         StringBuilder sb = new StringBuilder();
-        String result = "";
+        String result;
         if (fad != null) {
-            sb.append("Fad nr: " + fad.getId());
-            sb.append("\nFad størrelse: " + fad.getStørrelse());
-            sb.append("\nOprindelses Land: " + fad.getOprindelsesLand());
-            sb.append("\nAntal tilgængelig liter: " + fad.getTilgængeligeLiter());
-            sb.append("\nFad type: " + fad.getFadType());
-            sb.append("\nAntal brug: " + fad.getAntalBrug());
+            sb.append(fad.hentHistorik());
         }
         Destillat destillat = fad.getDestillat();
         if (destillat != null) {
@@ -189,10 +173,13 @@ public abstract class Controller {
         return destillat;
     }
 
-    public static void færdiggørDestillat(double alkoholsprocent, LocalDate påfyldningsDato, Destillat destillat) {
-        destillat.setAlkoholprocent(alkoholsprocent);
+    public static void færdiggørDestillat(double alkoholprocent, LocalDate påfyldningsDato, Destillat destillat) {
+        destillat.setAlkoholprocent(alkoholprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
         destillat.setAntalLiter(destillat.beregnAntalLiter());
+
+        int antalBrug = destillat.getFad().getAntalBrug() + 1;
+        destillat.getFad().setAntalBrug(antalBrug);
     }
 
     public static List<Destillat> getDestillater() {
