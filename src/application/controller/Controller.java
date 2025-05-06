@@ -5,6 +5,7 @@ import application.model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public abstract class Controller {
     private static Storage storage;
@@ -198,7 +199,33 @@ public abstract class Controller {
         return storage.getDestillater();
     }
 
+    public static  List<Destillat> getFærdigeDestillater(){
+        List<Destillat> resultat = new ArrayList<>();
+        for (Destillat destillat : getDestillater()) {
+            if (destillat.getAntalLiter() > 0 && destillat.getPåfyldningsDato().isBefore(LocalDate.now().minusYears(3))) {
+                resultat.add(destillat);
+            }
+        }
+        return resultat;
+    }
+
     //------------------------------------------------------------------------------------------------------------------
+
+    public static Whisky createWhisky(String navn) {
+        Whisky whisky = new Whisky(navn);
+        storage.addWhisky(whisky);
+        return whisky;
+    }
+
+    public static Set<Whisky> getWhiskyer(){
+        return storage.getWhiskyer();
+    }
+
+    public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky){
+        whisky.createDestillatMængde(antalLiter,destillat);
+    }
+
+
 
 
 }

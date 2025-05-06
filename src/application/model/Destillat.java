@@ -13,14 +13,6 @@ public class Destillat implements Serializable {
     private double alkoholprocent;
     private double antalLiter;
 
-    public double getAntalLiter() {
-        return antalLiter;
-    }
-
-    public void setAntalLiter(double antalLiter) {
-        this.antalLiter = antalLiter;
-    }
-
     private LocalDate påfyldningsDato;
     private Fad fad;
 
@@ -53,6 +45,14 @@ public class Destillat implements Serializable {
 
     public void setPåfyldningsDato(LocalDate påfyldningsDato) {
         this.påfyldningsDato = påfyldningsDato;
+    }
+
+    public double getAntalLiter() {
+        return antalLiter;
+    }
+
+    public void setAntalLiter(double antalLiter) {
+        this.antalLiter = antalLiter;
     }
 
     public void setAlkoholprocent(double alkoholprocent) {
