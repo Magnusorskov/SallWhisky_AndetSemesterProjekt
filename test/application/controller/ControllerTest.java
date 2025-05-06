@@ -24,6 +24,7 @@ class ControllerTest {
         storage = new ListStorage();
         Controller.setStorage(storage);
         batch = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
+        batch.setVæskemængde(100);
         fad = Controller.createFad("Portugal",Fadtype.EXBOURBON,60);
         lager = Controller.createLager("Det lille test lager",2,2,"Testvej 14");
         destillat = Controller.createDestillat("Testsprut",fad);
@@ -67,10 +68,21 @@ class ControllerTest {
     }
 
     @Test
-    void test15_PåfyldFad_opretterDestillatOgTilføjerMængde(){
-        boolean resultat = Controller.påfyldFad(30,batch,"TestDestillat",fad);
+    void test15_PåfyldFad_OpretterDestillatOgTilføjerMængde(){
+            Controller.påfyldFad(30,batch,"Testdestillat",fad);
+            Destillat destillat = fad.getDestillat();
+            assertNotNull(destillat,"Destillat blev ikke oprettet");
+            assertEquals(30,destillat.beregnAntalLiter(),0.001,"Forkert mængde påfyldt");
+            assertEquals(1,destillat.getMængder().size(),"Forkert antal mængder tilføjet");
+    }
 
-        assertTrue(resultat,"");
+    @Test
+    void test16_PåfyldFad_FejlVedForLidtPlads(){
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+                Controller.påfyldFad(100, batch, "Testdestillat", fad));
+        assertEquals("Der er ikke nok plads i fadet", exception.getMessage());
+
     }
 
 
