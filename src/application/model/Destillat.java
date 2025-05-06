@@ -11,6 +11,16 @@ public class Destillat implements Serializable {
     private String navn;
     private int id;
     private double alkoholprocent;
+    private double antalLiter;
+
+    public double getAntalLiter() {
+        return antalLiter;
+    }
+
+    public void setAntalLiter(double antalLiter) {
+        this.antalLiter = antalLiter;
+    }
+
     private LocalDate påfyldningsDato;
     private Fad fad;
 

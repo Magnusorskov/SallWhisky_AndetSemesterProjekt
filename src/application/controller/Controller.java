@@ -191,6 +191,7 @@ public abstract class Controller {
     public static void færdiggørDestillat(double alkoholsprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholsprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
+        destillat.setAntalLiter(destillat.beregnAntalLiter());
     }
 
     public static List<Destillat> getDestillater() {
