@@ -2,5 +2,5 @@ package application.model;
 
 import java.io.Serializable;
 
-public class Whisky implements Serializable {
+public class DestillatMængde implements Serializable {
 }

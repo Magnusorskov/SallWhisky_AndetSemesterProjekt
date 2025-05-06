@@ -2,7 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 
-public class Mængde implements Serializable {
+public class BatchMængde implements Serializable {
     private double antalLiter;
     private Batch batch;
 
@@ -14,7 +14,7 @@ public class Mængde implements Serializable {
      * @param antalLiter det antal liter man tapper fra batchen.
      * @param batch      den batch man tager væske fra.
      */
-    Mængde(double antalLiter, Batch batch) {
+    BatchMængde(double antalLiter, Batch batch) {
         this.antalLiter = antalLiter;
         this.batch = batch;
         batch.tapBatch(antalLiter);

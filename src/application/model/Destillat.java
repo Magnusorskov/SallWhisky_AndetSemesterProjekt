@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Destillat implements Serializable {
     private static int idTæller = 1;
-    private final List<Mængde> mængder = new ArrayList<>();
+    private final List<BatchMængde> mængder = new ArrayList<>();
     private String navn;
     private int id;
     private double alkoholprocent;
@@ -69,14 +69,14 @@ public class Destillat implements Serializable {
 //    }
 
     //sammenhæng til mængde
-    public List<Mængde> getMængder() {
+    public List<BatchMængde> getMængder() {
         return new ArrayList<>(mængder);
     }
 
-    public Mængde createMængde(double antalLiter, Batch batch) {
-        Mængde mængde = new Mængde(antalLiter, batch);
-        mængder.add(mængde);
-        return mængde;
+    public BatchMængde createMængde(double antalLiter, Batch batch) {
+        BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
+        mængder.add(batchMængde);
+        return batchMængde;
     }
 
     //metoder
@@ -88,7 +88,7 @@ public class Destillat implements Serializable {
      */
     public double beregnAntalLiter() {
         double liter = 0;
-        for (Mængde m : mængder) {
+        for (BatchMængde m : mængder) {
             liter += m.getAntalLiter();
         }
         return liter;
@@ -96,7 +96,7 @@ public class Destillat implements Serializable {
 
     public String destilatBatches() {
         StringBuilder sb = new StringBuilder();
-        for (Mængde m : mængder) {
+        for (BatchMængde m : mængder) {
             sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
         }
         String s = sb + "";
