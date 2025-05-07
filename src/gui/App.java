@@ -87,10 +87,29 @@ public class App {
         Controller.færdiggørBatch(batch2,LocalDate.of(2020,01,19),60,1200,"");
         Controller.færdiggørBatch(batch3,LocalDate.of(2020,01,29),58,800,"");
 
-        Controller.createWhisky("Whisky1");
-        Controller.createWhisky("Whisky2");
-        Controller.createWhisky("Whisky3");
-        Controller.createWhisky("Whisky4");
+        Destillat destillat = Controller.createDestillat("WhiskyDestillatPrøve",fad);
+        Destillat destillat1 = Controller.createDestillat("WhiskyDestillatProduktion",fad4);
+        Destillat destillat2 = Controller.createDestillat("Strong",fad8);
+
+        destillat.createMængde(100,batch1);
+        destillat.createMængde(200,batch2);
+        destillat.createMængde(50,batch3);
+
+        destillat1.createMængde(300,batch1);
+        destillat1.createMængde(430,batch2);
+
+        destillat2.createMængde(380,batch2);
+        destillat2.createMængde(519,batch3);
+
+        Controller.færdiggørDestillat(78,LocalDate.of(2020,01,01),destillat);
+        Controller.færdiggørDestillat(56,LocalDate.of(2021,02,02),destillat1);
+        Controller.færdiggørDestillat(61,LocalDate.of(2021,03,03),destillat2);
+
+        Whisky whisky = Controller.createWhisky("Whisky1");
+        Whisky whisky1 = Controller.createWhisky("Whisky2");
+        Whisky whisky2 = Controller.createWhisky("Whisky3");
+        Whisky whisky3 = Controller.createWhisky("Whisky4");
+
 
 
 
