@@ -19,13 +19,6 @@ import java.time.LocalDate;
 
 public class FærdiggørDestillatWindow extends Stage {
     private Destillat destillat;
-    private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
-
-    //-------------------------------------------------------
-    private DatePicker påfyldDato;
-    private ComboBox<Lager> cbbLager;
-    private Label lblError;
-    private Button btnFindPlads;
 
     public FærdiggørDestillatWindow(String title, Destillat destillat) {
         initStyle(StageStyle.UTILITY);
@@ -44,6 +37,13 @@ public class FærdiggørDestillatWindow extends Stage {
         setMinHeight(400);
 
     }
+
+    //-------------------------------------------------------
+    private DatePicker påfyldDato;
+    private ComboBox<Lager> cbbLager;
+    private Label lblError;
+    private Button btnFindPlads;
+    private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
 
     public void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
@@ -83,7 +83,6 @@ public class FærdiggørDestillatWindow extends Stage {
         påfyldDato = new DatePicker(LocalDate.now());
         pane.add(påfyldDato, 0, 8);
 
-
         Button btnLuk = new Button("Luk");
         btnLuk.setOnAction(event -> lukAction());
         pane.add(btnLuk, 0, 9);
@@ -107,13 +106,13 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(lblReol, 1, 3);
 
         txfReol = new TextField("0");
-        pane.add(txfReol, 1,4);
+        pane.add(txfReol, 1, 4);
 
         Label lblHylde = new Label("Hylde nummer");
         pane.add(lblHylde, 1, 5);
 
         txfHylde = new TextField("0");
-        pane.add(txfHylde, 1,6);
+        pane.add(txfHylde, 1, 6);
 
         btnFindPlads = new Button("Find plads");
         btnFindPlads.setOnAction(event -> findPladsAction());
