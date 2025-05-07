@@ -59,12 +59,14 @@ public abstract class Controller {
         storage.addFærdigBatch(batch);
     }
 
+    /**
+     * Pre: batch er ikke null
+     *
+     * @param batch den batch der kræves en beskrivelse af.
+     * @return beskrivelse af batch i en String
+     */
     public static String getBatchBeskrivelse(Batch batch) {
-        String result = "";
-        if (batch != null) {
-            result = "" + batch.hentHistorik();
-        }
-        return result;
+        return "" + batch.hentHistorik();
     }
 
         public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
