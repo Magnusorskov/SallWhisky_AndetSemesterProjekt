@@ -87,6 +87,11 @@ public class App {
         Controller.færdiggørBatch(batch2,LocalDate.of(2020,01,19),60,1200,"");
         Controller.færdiggørBatch(batch3,LocalDate.of(2020,01,29),58,800,"");
 
+        Controller.createWhisky("Whisky1");
+        Controller.createWhisky("Whisky2");
+        Controller.createWhisky("Whisky3");
+        Controller.createWhisky("Whisky4");
+
 
 
     }
