@@ -119,6 +119,7 @@ public class WhiskyPane extends GridPane {
         cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
         btnTap.setDisable(true);
         btnFærdiggør.setDisable(true);
+        txfLiter.clear();
 
     }
 
@@ -172,7 +173,6 @@ public class WhiskyPane extends GridPane {
             lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
             txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
             lblError.setText("");
-            this.updateControls();
         }
 
     }
