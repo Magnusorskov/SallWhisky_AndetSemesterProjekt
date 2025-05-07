@@ -42,10 +42,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return literVand;
     }
 
-    public String getHistorie() {
-        return historie;
-    }
-
     public String getLabel() {
         return label;
     }
@@ -64,10 +60,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public void setHistorie(String historie) {
-        this.historie = historie;
     }
 
     //------------------------------------------------------
