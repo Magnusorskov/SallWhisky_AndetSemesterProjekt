@@ -31,14 +31,14 @@ public class FærdiggørWhiskyWindow extends Stage {
 
         Scene scene = new Scene(pane, 300, 300);
         setScene(scene);
-        setMinWidth(450);
+        setMinWidth(1000);
         setMinHeight(400);
     }
 
     //-------------------------------------------------------
     private TextField txfNavn, txfVand, txfAlkohol;
     private TextArea txaHistorie, txaLabel;
-    private Label lblLiter, lblAntalFlasker;
+    private Label lblLiter, lblAntalFlasker, lblError;
 
     public void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
@@ -75,30 +75,44 @@ public class FærdiggørWhiskyWindow extends Stage {
         GridPane.setHalignment(btnLuk, HPos.LEFT);
         GridPane.setValignment(btnLuk, VPos.BOTTOM);
 
+        lblError = new Label();
+        pane.add(lblError, 0, 8);
+        lblError.setStyle("-fx-text-fill: red");
+        lblError.setMinWidth(250);
+
         //kolonne 1
         Label lblAlkoholProcent = new Label("AlkoholProcent");
         pane.add(lblAlkoholProcent, 1, 0);
 
         txfAlkohol = new TextField("0");
         pane.add(txfAlkohol, 1, 1);
+        txfAlkohol.setDisable(true);
 
         Label lblHistorie = new Label("Historie");
         pane.add(lblHistorie, 1, 2);
 
         txaHistorie = new TextArea(whisky.hentHistorik());
-        pane.add(txaHistorie, 1, 3, 1, 3);
+        txaHistorie.setMaxWidth(250);
+        pane.add(txaHistorie, 1, 3, 1, 4);
 
         //kolonne 2
         Label lblLabel = new Label("Label");
         pane.add(lblLabel, 2, 0);
 
         txaLabel = new TextArea();
+        txaLabel.setMaxWidth(400);
         pane.add(txaLabel, 2, 1, 1, 3);
 
-        Button btnGenereLabel = new Button("Påfyld Vand");
+        Button btnGenereLabel = new Button("Genere Label");
         btnGenereLabel.setOnAction(event -> genereLabelAction());
-        pane.add(btnGenereLabel, 2, 2);
+        pane.add(btnGenereLabel, 2, 4);
         GridPane.setHalignment(btnGenereLabel, HPos.RIGHT);
+
+        Button btnFærdiggør = new Button("Færdiggør");
+        btnFærdiggør.setOnAction(event -> færdiggørAction());
+        pane.add(btnFærdiggør, 2, 7);
+        GridPane.setHalignment(btnFærdiggør, HPos.RIGHT);
+        GridPane.setValignment(btnLuk, VPos.BOTTOM);
 
     }
 
@@ -109,20 +123,44 @@ public class FærdiggørWhiskyWindow extends Stage {
     }
 
     private void påfyldVandAction() {
-
+        int vand = Integer.parseInt(txfVand.getText().trim());
+        if (vand != 0){
+            Controller.påfyldVand(vand, whisky);
+        }
+        txfAlkohol.setDisable(false);
+        updateControls();
     }
 
     private void genereLabelAction() {
+        txaLabel.setText(Controller.genereLabel(whisky, txfAlkohol.getText().trim()));
+        txaLabel.setWrapText(true);
+        updateControls();
+    }
 
-        txaLabel.setText(Controller.genereLabel(whisky));
+    private void færdiggørAction(){
+        String label = txaLabel.getText().trim();
+        double alkohol = Double.parseDouble(txfAlkohol.getText().trim());
+
+        if (label.isBlank()){
+            lblError.setText("Genere et label");
+        } else if (alkohol <= 0){
+            lblError.setText("Skriv en alkohol procent");
+        } else {
+            Controller.færdiggørWhisky(whisky, label, alkohol);
+        }
     }
 
     private void updateControls(){
         txfNavn.setText(whisky.getNavn());
         lblLiter.setText("Total liter: " + whisky.beregnAntalLiter());
         lblAntalFlasker.setText("Antal flasker: " + whisky.beregnAntalFlasker());
-        txfVand.setText("" + whisky.getLiterVand());
+        txfVand.clear();
         txaHistorie.setText(whisky.hentHistorik());
+        if (whisky.getAlkoholprocent() > 0){
+            txfAlkohol.setText("" + whisky.getAlkoholprocent());
+        }
     }
+
+
 
 }
