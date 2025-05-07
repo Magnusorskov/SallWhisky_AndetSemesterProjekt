@@ -132,8 +132,7 @@ public class Destillat implements Serializable {
         Iterator<Map.Entry<Batch, Double>> iterator = batches.entrySet().iterator();
         while (iterator.hasNext()){
             Map.Entry<Batch, Double> k = iterator.next();
-            sb.append(k.getKey().hentHistorik());
-            sb.append("\nAntal Liter: " + k.getValue() + "\n\n");
+            sb.append(k.getKey().hentHistorik() + "\n\n");
         }
 
         return sb;
