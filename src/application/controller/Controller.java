@@ -256,6 +256,10 @@ public abstract class Controller {
                 + "\n\nBottle number x of " + whisky.beregnAntalFlasker() + " bottles";
     }
 
+    public static void påfyldVand(int antalLiter, Whisky whisky){
+        whisky.setLiterVand(antalLiter);
+    }
+
 
 
 

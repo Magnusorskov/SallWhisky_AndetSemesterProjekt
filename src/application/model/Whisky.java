@@ -92,6 +92,8 @@ public class Whisky implements Serializable, Comparable<Whisky> {
             sb.append("\nAntal Flasker: " + beregnAntalFlasker());
 
         }
+        sb.append("\n----------------------------------");
+
 
         sb.append("\n\nDestillater:\n");
         Map<Destillat, Double> destillater = new HashMap<>();
@@ -108,7 +110,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         while (iterator.hasNext()){
             Map.Entry<Destillat, Double> k = iterator.next();
             sb.append(k.getKey().hentHistorik());
-            sb.append("\nAntal Liter: " + k.getValue() + "\n\n\t");
+            sb.append("\nAntal Liter: " + k.getValue() + "\n\n");
         }
 
         return "" + sb;
