@@ -110,16 +110,15 @@ public class Destillat implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
-        if (antalLiter > 0){
-            sb.append("\nAntal liter: " + antalLiter);
-        }
         if (alkoholprocent > 0){
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
+        sb.append("\n----------------------------------");
 
-        sb.append("\n\nFad\n\t" + fad.hentHistorik());
+        sb.append("\n\nFad:\n" + fad.hentHistorik());
+        sb.append("\n----------------------------------");
 
-        sb.append("\n\nBatches:\n\t");
+        sb.append("\n\nBatches:\n");
         Map<Batch, Double> batches = new HashMap<>();
         for (BatchMængde bm : getMængder()){
             Batch batch = bm.getBatch();
@@ -133,8 +132,7 @@ public class Destillat implements Serializable {
         Iterator<Map.Entry<Batch, Double>> iterator = batches.entrySet().iterator();
         while (iterator.hasNext()){
             Map.Entry<Batch, Double> k = iterator.next();
-            sb.append(k.getKey().hentHistorik());
-            sb.append("\nAntal Liter: " + k.getValue() + "\n\n\t");
+            sb.append(k.getKey().hentHistorik() + "\n\n");
         }
 
         return sb;

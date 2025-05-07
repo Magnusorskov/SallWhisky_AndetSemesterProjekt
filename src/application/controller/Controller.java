@@ -59,12 +59,14 @@ public abstract class Controller {
         storage.addFærdigBatch(batch);
     }
 
+    /**
+     * Pre: batch er ikke null
+     *
+     * @param batch den batch der kræves en beskrivelse af.
+     * @return beskrivelse af batch i en String
+     */
     public static String getBatchBeskrivelse(Batch batch) {
-        String result = "";
-        if (batch != null) {
-            result = "" + batch.hentHistorik();
-        }
-        return result;
+        return "" + batch.hentHistorik();
     }
 
         public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
@@ -254,6 +256,10 @@ public abstract class Controller {
                 + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
                 + " casks for 3 years. Bottled in " + LocalDate.now().getYear() + "."
                 + "\n\nBottle number x of " + whisky.beregnAntalFlasker() + " bottles";
+    }
+
+    public static void påfyldVand(int antalLiter, Whisky whisky){
+        whisky.setLiterVand(antalLiter);
     }
 
 
