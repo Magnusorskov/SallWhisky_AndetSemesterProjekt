@@ -200,11 +200,13 @@ public abstract class Controller {
     }
 
     public static String getDestillatBeskrivelse(Destillat destillat){
-        if(destillat == null){
-            return "";
-        } else {
-            return destillat.getNavn();
+        StringBuilder sb = new StringBuilder();
+        String result;
+        if (destillat != null) {
+            sb.append(destillat.hentHistorik());
         }
+        result = String.valueOf(sb);
+        return result;
     }
 
     //------------------------------------------------------------------------------------------------------------------
