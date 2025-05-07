@@ -42,8 +42,7 @@ public class DestillatPane extends GridPane {
         Label lblBeskrivelse = new Label("Beskrivelse");
         this.add(lblBeskrivelse, 0, 2);
 
-        Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
-        txaBatchBeskrivelse = new TextArea(Controller.getBatchBeskrivelse(batch));
+        txaBatchBeskrivelse = new TextArea();
         this.add(txaBatchBeskrivelse, 0, 3);
         txaBatchBeskrivelse.setPrefWidth(width);
         txaBatchBeskrivelse.setEditable(false);
