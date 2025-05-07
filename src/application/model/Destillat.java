@@ -159,7 +159,6 @@ public class Destillat implements Serializable {
         for (Map.Entry<Batch, Double> k : batches.entrySet()) {
             sb.append(k.getKey().hentHistorik());
             sb.append("\nAntal Liter af batch: " + k.getValue() + "\n\n");
-
         }
 
         return sb;

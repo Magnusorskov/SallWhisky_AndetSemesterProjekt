@@ -32,8 +32,8 @@ public class OpretWhiskyWindow extends Stage {
         Scene scene = new Scene(pane);
         setScene(scene);
 
-        setMinWidth(400);
-        setMinHeight(400);
+        setMinWidth(200);
+        setMinHeight(200);
     }
 
     private void initContent(GridPane pane) {
