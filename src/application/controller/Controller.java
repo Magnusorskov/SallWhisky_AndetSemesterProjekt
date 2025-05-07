@@ -231,11 +231,13 @@ public abstract class Controller {
     }
 
     public static String getWhiskeyBeskrivelse(Whisky whisky){
-        if (whisky == null){
-            return "";
-        } else {
-            return whisky.getNavn();
+        StringBuilder sb = new StringBuilder();
+        String result;
+        if (whisky != null) {
+            sb.append(whisky.hentHistorik());
         }
+        result = String.valueOf(sb);
+        return result;
     }
 
 
