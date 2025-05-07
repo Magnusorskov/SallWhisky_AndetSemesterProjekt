@@ -128,7 +128,6 @@ public class DestillatPane extends GridPane {
     public void updateControls() {
         cmbBatches.getItems().setAll(Controller.getFærdigeBatchesMedTilgængeligeLiter());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
-        btnFærdiggørDestillat.setDisable(true);
     }
 
 
@@ -198,6 +197,10 @@ public class DestillatPane extends GridPane {
                 txaFadBeskrivelse.setText(Controller.getFadBeskrivelse(fad));
                 lblError.setText("");
                 btnFærdiggørDestillat.setDisable(false);
+                if (batch.getVæskemængde() == 0) {
+                    updateControls();
+                    cmbFade.getSelectionModel().select(fad);
+                }
             } catch (IllegalArgumentException e) {
                 lblError.setText(e.getMessage());
             }
