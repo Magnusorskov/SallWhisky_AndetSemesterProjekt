@@ -45,6 +45,7 @@ public class Batch implements Serializable {
     /**
      * Tapper en batch en bestemt mængde liter
      * Pre: antalLiter er større end nul
+     * Pre: antalLiter <= væskemængde på batch
      *
      * @param antalLiter det antal liter man tapper fra batchen.
      */
