@@ -3,7 +3,6 @@ package application.model;
 import java.io.Serializable;
 
 public class Fad extends Lagervare implements Serializable {
-    private static int idTæller = 1;
     private String oprindelsesLand;
     private int antalBrug;
     private Fadtype fadType;
@@ -27,9 +26,6 @@ public class Fad extends Lagervare implements Serializable {
         this.fadType = fadType;
         this.størrelse = størrelse;
 
-        id = idTæller;
-        idTæller++;
-
         if (fadType == Fadtype.NEW) {
             this.antalBrug = 0;
         } else {
@@ -38,10 +34,6 @@ public class Fad extends Lagervare implements Serializable {
     }
 
     //getter og setter
-    public static int getIdTæller() {
-        return idTæller;
-    }
-
     public String getOprindelsesLand() {
         return oprindelsesLand;
     }
@@ -60,6 +52,10 @@ public class Fad extends Lagervare implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setAntalBrug(int antalBrug) {

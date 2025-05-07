@@ -2,13 +2,11 @@ package application.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Whisky implements Serializable, Comparable<Whisky> {
     private String navn;
-    // Todo nummer generation
-    private int nummer;
+    private int id;
     private double alkoholprocent;
     private int flasker;
     private double literVand;
@@ -26,8 +24,8 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return navn;
     }
 
-    public int getNummer() {
-        return nummer;
+    public int getId() {
+        return id;
     }
 
     public double getAlkoholprocent() {
@@ -62,6 +60,10 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         this.label = label;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     //------------------------------------------------------
 
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
@@ -86,7 +88,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     public String hentHistorik() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Whisky: " + nummer + " " + navn);
+        sb.append("Whisky: " + id + " " + navn);
         if (alkoholprocent > 0){
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
@@ -113,7 +115,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     @Override
     public int compareTo(Whisky w) {
-        return w.getNummer() - this.nummer;
+        return w.getId() - this.id;
     }
 
     @Override

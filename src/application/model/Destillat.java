@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Destillat implements Serializable {
-    private static int idTæller = 1;
     private String navn;
     private int id;
     private double alkoholprocent;
@@ -27,8 +26,6 @@ public class Destillat implements Serializable {
         this.navn = navn;
         this.fad = fad;
         fad.setDestillat(this);
-        id = idTæller;
-        idTæller++;
     }
 
     public String getNavn() {
@@ -37,6 +34,10 @@ public class Destillat implements Serializable {
 
     public void setNavn(String navn) {
         this.navn = navn;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getPåfyldningsDato() {

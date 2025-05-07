@@ -31,4 +31,12 @@ public interface Storage {
     public void addDestillat(Destillat destillat);
 
     public void addWhisky(Whisky whisky);
+
+    public int whiskyID();
+
+    public int batchID();
+
+    public int fadID();
+
+    public int destillatID();
 }

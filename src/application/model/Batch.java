@@ -1,11 +1,14 @@
 package application.model;
 
+import storage.ListStorage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Batch implements Serializable {
-    // TODO fix id
-    private static int idTæller = 1;
     private Bygsort bygsort;
     private Mark mark;
     private String initialer;
@@ -38,8 +41,6 @@ public class Batch implements Serializable {
         this.maltBatch = maltBatch;
         this.startDato = startDato;
         this.kommentar = kommentar;
-        this.id = idTæller;
-        idTæller++;
     }
 
     /**
@@ -108,6 +109,10 @@ public class Batch implements Serializable {
 
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

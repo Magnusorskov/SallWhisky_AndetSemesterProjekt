@@ -17,6 +17,7 @@ public class ListStorage implements Storage, Serializable {
     private final List<Lager> lagre = new ArrayList<>();
     private final List<Destillat> destillater = new ArrayList<>();
     private final Set<Whisky> whiskyer = new TreeSet<>();
+    private final int[] ids = new int[4];
 
     @Override
     public List<Batch> getIgangværendeBatches() {
@@ -86,6 +87,30 @@ public class ListStorage implements Storage, Serializable {
         if (!destillater.contains(destillat)) {
             destillater.add(destillat);
         }
+    }
+
+    public int whiskyID() {
+        ids[0]++;
+        int id = ids[0];
+        return id;
+    }
+
+    public int batchID() {
+        ids[1]++;
+        int id = ids[1];
+        return id;
+    }
+
+    public int fadID() {
+        ids[2]++;
+        int id = ids[2];
+        return id;
+    }
+
+    public int destillatID() {
+        ids[3]++;
+        int id = ids[3];
+        return id;
     }
 
     //------------------------------------------------------

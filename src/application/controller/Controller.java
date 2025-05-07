@@ -31,6 +31,7 @@ public abstract class Controller {
      */
     public static Batch createBatch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
         Batch batch = new Batch(bygsort, mark, initialer, rygemateriale, maltBatch, startDato, kommentar);
+        batch.setId(storage.whiskyID());
         storage.addBatch(batch);
         return batch;
     }
@@ -118,6 +119,7 @@ public abstract class Controller {
      */
     public static Fad createFad(String oprindelsesLand, Fadtype fadType, double størrelse) {
         Fad fad = new Fad(oprindelsesLand, fadType, størrelse);
+        fad.setId(storage.fadID());
         storage.addFad(fad);
         return fad;
     }
@@ -172,6 +174,7 @@ public abstract class Controller {
 
     public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
+        destillat.setId(storage.destillatID());
         storage.addDestillat(destillat);
         return destillat;
     }
@@ -213,6 +216,7 @@ public abstract class Controller {
 
     public static Whisky createWhisky(String navn) {
         Whisky whisky = new Whisky(navn);
+        whisky.setId(storage.whiskyID());
         storage.addWhisky(whisky);
         return whisky;
     }
