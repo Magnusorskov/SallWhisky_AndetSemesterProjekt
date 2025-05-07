@@ -110,7 +110,9 @@ public class App {
         Whisky whisky2 = Controller.createWhisky("Whisky3");
         Whisky whisky3 = Controller.createWhisky("Whisky4");
 
-
+        Controller.påfyldVand(10,whisky);
+        String label = Controller.genereLabel(whisky,"67");
+        Controller.færdiggørWhisky(whisky,label,67);
 
 
     }
