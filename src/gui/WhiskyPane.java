@@ -161,7 +161,7 @@ public class WhiskyPane extends GridPane {
         if (txfLiter.getText().isBlank()){
             lblError.setText("Antal liter skal udfyldes");
         } else if (whisky == null){
-            lblError.setText("Vælg en whiskey");
+            lblError.setText("Vælg en whisky");
         } else if (destillat == null){
             lblError.setText("Vælg et destillat at tappe fra");
         } else {
