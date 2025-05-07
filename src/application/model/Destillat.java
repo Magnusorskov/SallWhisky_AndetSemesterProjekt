@@ -2,8 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Destillat implements Serializable {
     private String navn;
@@ -111,20 +110,49 @@ public class Destillat implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
-        if (antalLiter > 0){
-            sb.append("\nAntal liter: " + antalLiter);
-        }
         if (alkoholprocent > 0){
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
+        sb.append("\n----------------------------------");
 
-        sb.append("\n\nFad\n" + fad.hentHistorik());
+        sb.append("\n\nFad:\n" + fad.hentHistorik());
+        sb.append("\n----------------------------------");
 
         sb.append("\n\nBatches:\n");
+        Map<Batch, Double> batches = new HashMap<>();
         for (BatchMængde bm : getMængder()){
-            sb.append(bm.getBatch().hentHistorik() + "\n\n");
+            Batch batch = bm.getBatch();
+            if(!batches.containsKey(batch)){
+                batches.put(batch, bm.getAntalLiter());
+            } else {
+                double liter = batches.get(batch) + bm.getAntalLiter();
+                batches.put(batch, liter);
+            }
         }
+        Iterator<Map.Entry<Batch, Double>> iterator = batches.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Batch, Double> k = iterator.next();
+            sb.append(k.getKey().hentHistorik());
+            sb.append("\nAntal Liter: " + k.getValue() + "\n\n");
+        }
+
         return sb;
+    }
+
+    public ArrayList<Mark> getMarker(){
+        ArrayList<Mark> marker = new ArrayList<>();
+        for (BatchMængde bm : mængder){
+            if(!marker.contains(bm.getBatch().getMark())){
+                marker.add(bm.getBatch().getMark());
+            }
+        }
+        return marker;
+    }
+
+    public ArrayList<Fadtype> getFadtyper(){
+        ArrayList<Fadtype> fadtyper = new ArrayList<>();
+        fadtyper.add(fad.getFadType());
+        return fadtyper;
     }
 
     @Override

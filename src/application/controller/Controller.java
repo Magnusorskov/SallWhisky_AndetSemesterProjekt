@@ -251,6 +251,19 @@ public abstract class Controller {
         return result;
     }
 
+    public static String genereLabel (Whisky whisky){
+        return "Handcrafted from organic barley harvested from our fields " + whisky.getMarker() + " and "
+                + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
+                + " casks for 3 years. Bottled in " + LocalDate.now().getYear() + "."
+                + "\n\nBottle number x of " + whisky.beregnAntalFlasker() + " bottles";
+    }
+
+    public static void påfyldVand(int antalLiter, Whisky whisky){
+        whisky.setLiterVand(antalLiter);
+    }
+
+
+
 
 
 

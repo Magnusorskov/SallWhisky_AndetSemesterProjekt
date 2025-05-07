@@ -138,7 +138,9 @@ public class Batch implements Serializable {
             sb.append("\nStartdato: " + startDato);
         }
         sb.append("\nInitialer: " + initialer);
-        sb.append("\nKommentar: " + "\n" + kommentar);
+        if (kommentar != null) {
+            sb.append("\nKommentar: " + "\n" + kommentar);
+        }
         return sb;
     }
 
