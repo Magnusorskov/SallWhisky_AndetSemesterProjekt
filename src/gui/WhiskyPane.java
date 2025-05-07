@@ -175,7 +175,7 @@ public class WhiskyPane extends GridPane {
                 alert.showAndWait();
 
                 this.updateControls();
-                lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
+                lblDestillatVæskemængde.setText("Destillat rest. væske: ");
                 txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
                 cmbWhisky.getSelectionModel().select(whisky);
 
