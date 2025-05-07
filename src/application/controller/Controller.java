@@ -249,15 +249,21 @@ public abstract class Controller {
         return result;
     }
 
-    public static String genereLabel (Whisky whisky){
+    public static String genereLabel (Whisky whisky, String alkoholprocent){
         return "Handcrafted from organic barley harvested from our fields " + whisky.getMarker() + " and "
                 + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
                 + " casks for 3 years. Bottled in " + LocalDate.now().getYear() + "."
-                + "\n\nBottle number x of " + whisky.beregnAntalFlasker() + " bottles";
+                + "\n\nBottle number x of " + whisky.beregnAntalFlasker() + " bottles"
+                + "\n\n70 cl.\n" + alkoholprocent + "% Vol.";
     }
 
     public static void påfyldVand(int antalLiter, Whisky whisky){
-        whisky.setLiterVand(antalLiter);
+        whisky.setLiterVand(whisky.getLiterVand() + antalLiter);
+    }
+
+    public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent){
+        whisky.setLabel(label);
+        whisky.setAlkoholprocent(alkoholprocent);
     }
 
 
