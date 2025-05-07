@@ -3,12 +3,12 @@ package application.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 public class Whisky implements Serializable, Comparable<Whisky> {
     private String navn;
     private int id;
     private double alkoholprocent;
-    private int flasker;
     private double literVand;
     private String label;
 
@@ -32,10 +32,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return alkoholprocent;
     }
 
-    public int getFlasker() {
-        return flasker;
-    }
-
     public double getLiterVand() {
         return literVand;
     }
@@ -46,10 +42,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
-    }
-
-    public void setFlasker(int flasker) {
-        this.flasker = flasker;
     }
 
     public void setLiterVand(double literVand) {
@@ -97,20 +89,57 @@ public class Whisky implements Serializable, Comparable<Whisky> {
             if (literVand > 0){
                 sb.append("\nHeraf vand: " + literVand);
             }
-            sb.append("\nAntal Flasker: " + flasker);
+            sb.append("\nAntal Flasker: " + beregnAntalFlasker());
 
         }
 
         sb.append("\n\nDestillater:\n");
+        Map<Destillat, Double> destillater = new HashMap<>();
         for (DestillatMængde dm : getDestillatMængder()){
-            sb.append(dm.getDestillat().hentHistorik() + "\n\n");
+            Destillat destillat = dm.getDestillat();
+            if(!destillater.containsKey(destillat)){
+                destillater.put(destillat, dm.getAntalLiter());
+            } else {
+                double liter = destillater.get(destillat) + dm.getAntalLiter();
+                destillater.put(destillat, liter);
+            }
+        }
+        Iterator<Map.Entry<Destillat, Double>> iterator = destillater.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry<Destillat, Double> k = iterator.next();
+            sb.append(k.getKey().hentHistorik());
+            sb.append("\nAntal Liter: " + k.getValue() + "\n\n\t");
         }
 
         return "" + sb;
     }
 
-    private void beregnAntalFlasker() {
-        setFlasker((int) (beregnAntalLiter() / 0.7));
+    public int beregnAntalFlasker() {
+        return (int) (beregnAntalLiter() / 0.7);
+    }
+
+    public ArrayList<Mark> getMarker (){
+        ArrayList<Mark> marker = new ArrayList<>();
+        for (DestillatMængde dm : destillatMængder){
+           for (Mark m : dm.getDestillat().getMarker()){
+               if(!marker.contains(m)){
+                   marker.add(m);
+               }
+           }
+        }
+        return marker;
+    }
+
+    public ArrayList<Fadtype> getFadtyper(){
+        ArrayList<Fadtype> fadtyper = new ArrayList<>();
+        for (DestillatMængde dm : destillatMængder){
+            for (Fadtype f : dm.getDestillat().getFadtyper()){
+                if(!fadtyper.contains(f)){
+                    fadtyper.add(f);
+                }
+            }
+        }
+        return fadtyper;
     }
 
     @Override
