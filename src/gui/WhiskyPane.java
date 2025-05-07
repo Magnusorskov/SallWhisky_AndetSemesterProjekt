@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -57,25 +58,24 @@ public class WhiskyPane extends GridPane {
         this.add(lblTapning,1,0);
 
         lblLiter = new Label("Liter");
-        this.add(lblLiter,1,1);
+        this.add(lblLiter,1,2);
 
         txfLiter = new TextField();
-        this.add(txfLiter,1,2);
-
 
         lblDestillatVæskemængde = new Label("Destillat rest. væske: ");
         lblDestillatVæskemængde.setMinWidth(170);
-        this.add(lblDestillatVæskemængde,1,3);
 
         btnTap = new Button("Tap");
-        this.add(btnTap,1,4);
-        btnTap.setDisable(true);
+        btnTap.setDisable(false);
         btnTap.setOnAction(event -> tapTilWhiskyAction());
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
-        this.add(lblError,1,5);
         lblError.setMinWidth(width);
+
+        VBox vBox = new VBox(txfLiter,lblDestillatVæskemængde,btnTap,lblError);
+        vBox.setSpacing(10);
+        this.add(vBox,1,3);
 
         // Kolonne 2
 
@@ -120,6 +120,7 @@ public class WhiskyPane extends GridPane {
         btnTap.setDisable(true);
         btnFærdiggør.setDisable(true);
         txfLiter.clear();
+        lblError.setText("");
 
     }
 
@@ -146,6 +147,7 @@ public class WhiskyPane extends GridPane {
         if (whisky != null){
             txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
             btnFærdiggør.setDisable(false);
+            btnTap.setDisable(false);
         } else {
             txaWhiskeyBeskrivelse.clear();
             btnFærdiggør.setDisable(true);
@@ -163,16 +165,23 @@ public class WhiskyPane extends GridPane {
         } else if (destillat == null){
             lblError.setText("Vælg et destillat at tappe fra");
         } else {
-            double liter = Integer.parseInt(txfLiter.getText());
-            Controller.tapningAfDestillat(liter,destillat,whisky);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Tapning er gennemført");
-            alert.setContentText(whisky.getNavn() + "\n Antal liter: " + liter);
-            alert.showAndWait();
-            txfLiter.clear();
-            lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
-            txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
-            lblError.setText("");
+            try {
+                double liter = Double.parseDouble(txfLiter.getText());
+                Controller.tapningAfDestillat(liter, destillat, whisky);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tapning er gennemført");
+                alert.setContentText(whisky.getNavn() + "\n Antal liter: " + liter);
+                alert.showAndWait();
+
+                this.updateControls();
+                lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
+                txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+
+            } catch (NumberFormatException e) {
+                lblError.setText("Indtast et gyldigt tal for liter (f.eks. 2.5)");
+            }
+
         }
 
     }
