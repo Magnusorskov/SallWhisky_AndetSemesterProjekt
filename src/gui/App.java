@@ -83,9 +83,9 @@ public class App {
         Batch batch8 = Controller.createBatch(Bygsort.STAIRWAY,Mark.STADSGAARD,"CLN","Tørv","Nr111", LocalDate.of(2020,05,14),"StærktBatch2");
         Batch batch9 = Controller.createBatch(Bygsort.STAIRWAY,Mark.STADSGAARD,"CLN","Tørv","Nr111", LocalDate.of(2020,05,20),"StærktBatch3");
 
-        Controller.færdiggørBatch(batch1,LocalDate.of(2020,01,10),70,1000,"");
-        Controller.færdiggørBatch(batch2,LocalDate.of(2020,01,19),60,1200,"");
-        Controller.færdiggørBatch(batch3,LocalDate.of(2020,01,29),58,800,"");
+        Controller.færdiggørBatch(batch1,LocalDate.of(2020,01,10),70,1000,null);
+        Controller.færdiggørBatch(batch2,LocalDate.of(2020,01,19),60,1200,null);
+        Controller.færdiggørBatch(batch3,LocalDate.of(2020,01,29),58,800,null);
 
         Destillat destillat = Controller.createDestillat("WhiskyDestillatPrøve",fad);
         Destillat destillat1 = Controller.createDestillat("WhiskyDestillatProduktion",fad4);

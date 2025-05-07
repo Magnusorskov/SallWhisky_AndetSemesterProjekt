@@ -69,7 +69,7 @@ public abstract class Controller {
         return "" + batch.hentHistorik();
     }
 
-        public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
+    public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
         List<Batch> resultat = new ArrayList<>();
         for (Batch batch : getFærdigeBatches()) {
             if (batch.getVæskemængde() > 0) {
@@ -103,7 +103,7 @@ public abstract class Controller {
         for (Fad f : getFade()) {
             if (f.getDestillat() == null) {
                 resultat.add(f);
-            }else if (f.getDestillat().getPåfyldningsDato() == null) {
+            } else if (f.getDestillat().getPåfyldningsDato() == null) {
                 resultat.add(f);
             }
         }
@@ -126,6 +126,14 @@ public abstract class Controller {
         return fad;
     }
 
+    /**
+     * Pre: batch, fad og navn er ikke null
+     *
+     * @param antalLiter mængden af liter der påfyldes fadet.
+     * @param batch      batchen der bliver tilføjet liter af.
+     * @param navn       navnet på destillatet der skal oprettes hvis der ikke er et destillat i forvejen.
+     * @param fad        fadet mængden skal påfyldes i.
+     */
     public static void påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
         Destillat destillat = fad.getDestillat();
         if (destillat == null) {
@@ -136,9 +144,6 @@ public abstract class Controller {
         } else if (antalLiter > batch.getVæskemængde()) {
             throw new IllegalArgumentException("Der er ikke nok væske i batchen");
         } else {
-            if (!navn.equals(destillat.getNavn())) {
-                destillat.setNavn(navn);
-            }
             destillat.createMængde(antalLiter, batch);
         }
     }
@@ -194,7 +199,7 @@ public abstract class Controller {
         return storage.getDestillater();
     }
 
-    public static  List<Destillat> getFærdigeDestillater(){
+    public static List<Destillat> getFærdigeDestillater() {
         List<Destillat> resultat = new ArrayList<>();
         for (Destillat destillat : getDestillater()) {
             if (destillat.getAntalLiter() > 0 && destillat.getPåfyldningsDato().isBefore(LocalDate.now().minusYears(3))) {
@@ -203,8 +208,8 @@ public abstract class Controller {
         }
         return resultat;
     }
-
-    public static String getDestillatBeskrivelse(Destillat destillat){
+    // TODO slet?
+    public static String getDestillatBeskrivelse(Destillat destillat) {
         StringBuilder sb = new StringBuilder();
         String result;
         if (destillat != null) {
@@ -223,25 +228,25 @@ public abstract class Controller {
         return whisky;
     }
 
-    public static Set<Whisky> getWhiskyer(){
+    public static Set<Whisky> getWhiskyer() {
         return storage.getWhiskyer();
     }
 
-    public static List<Whisky> getIgangværendeWhisky(){
+    public static List<Whisky> getIgangværendeWhisky() {
         List<Whisky> resultat = new ArrayList<>();
-        for (Whisky w : Controller.getWhiskyer()){
-            if(w.getAlkoholprocent() == 0.0){
+        for (Whisky w : Controller.getWhiskyer()) {
+            if (w.getAlkoholprocent() == 0.0) {
                 resultat.add(w);
             }
         }
         return resultat;
     }
 
-    public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky){
-        whisky.createDestillatMængde(antalLiter,destillat);
+    public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky) {
+        whisky.createDestillatMængde(antalLiter, destillat);
     }
 
-    public static String getWhiskeyBeskrivelse(Whisky whisky){
+    public static String getWhiskeyBeskrivelse(Whisky whisky) {
         StringBuilder sb = new StringBuilder();
         String result;
         if (whisky != null) {
@@ -251,7 +256,7 @@ public abstract class Controller {
         return result;
     }
 
-    public static String genereLabel (Whisky whisky, String alkoholprocent){
+    public static String genereLabel (Whisky whisky, String alkoholprocent) {
         return "Handcrafted from organic barley harvested from our fields " + whisky.getMarker() + " and "
                 + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
                 + " casks for 3 years. Bottled in " + LocalDate.now().getYear() + "."
@@ -259,7 +264,7 @@ public abstract class Controller {
                 + "\n\n70 cl.\n" + alkoholprocent + "% Vol.";
     }
 
-    public static void påfyldVand(int antalLiter, Whisky whisky){
+    public static void påfyldVand(int antalLiter, Whisky whisky) {
         whisky.setLiterVand(whisky.getLiterVand() + antalLiter);
     }
 
@@ -267,10 +272,6 @@ public abstract class Controller {
         whisky.setLabel(label);
         whisky.setAlkoholprocent(alkoholprocent);
     }
-
-
-
-
 
 
 }

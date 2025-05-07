@@ -7,7 +7,7 @@ public class BatchMængde implements Serializable {
     private Batch batch;
 
     /**
-     * Initialiserer en mængdes antal liter og batch.
+     * Initialiserer en BatchMængdes antal liter og batch.
      * Pre: antalLiter er større end 0.
      * Pre: batch er ikke null.
      *

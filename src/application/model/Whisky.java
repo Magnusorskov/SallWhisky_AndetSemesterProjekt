@@ -120,15 +120,11 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return (int) (beregnAntalLiter() / 0.7);
     }
 
-    public ArrayList<Mark> getMarker (){
-        ArrayList<Mark> marker = new ArrayList<>();
+    public Set<Mark> getMarker (){
+        Set<Mark> marker = new HashSet<>();
         for (DestillatMængde dm : destillatMængder){
-           for (Mark m : dm.getDestillat().getMarker()){
-               if(!marker.contains(m)){
-                   marker.add(m);
-               }
+            marker.addAll(dm.getDestillat().getMarker());
            }
-        }
         return marker;
     }
 

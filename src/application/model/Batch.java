@@ -1,10 +1,5 @@
 package application.model;
 
-import storage.ListStorage;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -111,35 +106,39 @@ public class Batch implements Serializable {
         this.kommentar = kommentar;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     //metoder
-    public StringBuilder hentHistorik(){
+
+    /**
+     * @return returnerer en historik over batchen med id, bygsort, mark, maltbatch, rygemateriale, alkoholprocent,
+     * startDato, slutDato, initialer og kommentar.
+     */
+    public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Batch nr: " + id);
-        sb.append("\nBygsort: " + bygsort);
-        sb.append("\nMark: " + mark);
+        sb.append("\nBygsort: " + bygsort + "(" + mark + ")");
         sb.append("\nMaltbatch: " + maltBatch);
         if (rygemateriale != null) {
             sb.append("\nRygemateriale: " + rygemateriale);
         }
-        if (alkoholprocent > 0){
+        if (alkoholprocent > 0) {
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
-        if (slutDato != null){
+        if (slutDato != null) {
             sb.append("\nDatoer: " + startDato + " - " + slutDato);
         } else {
             sb.append("\nStartdato: " + startDato);
         }
         sb.append("\nInitialer: " + initialer);
-        if (!kommentar.equals("")) {
+        if (kommentar != null) {
             sb.append("\nKommentar: " + "\n" + kommentar);
         }
         return sb;

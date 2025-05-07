@@ -98,7 +98,10 @@ public class FærdiggørBatchWindow extends Stage {
         LocalDate slutDato = datePicker.getValue();
         double væskemængde = Double.parseDouble(txfVæskemængde.getText());
         double alkoholprocent = Double.parseDouble(txfAlkoholProcent.getText());
-
+        String kommentar = null;
+        if (!txaKommentar.getText().isBlank()) {
+            kommentar = txaKommentar.getText();
+        }
         if (slutDato.isBefore(batch.getStartDato())) {
             lblError.setText("Slutdato skal være efter startdato");
         } else if (væskemængde <= 0) {
@@ -106,8 +109,8 @@ public class FærdiggørBatchWindow extends Stage {
         } else if (alkoholprocent <= 0) {
             lblError.setText("Alkoholprocent skal være større end 0");
         } else {
-            Controller.færdiggørBatch(batch, slutDato, alkoholprocent, væskemængde, txaKommentar.getText());
-            lukAction();
+            Controller.færdiggørBatch(batch, slutDato, alkoholprocent, væskemængde, kommentar);
+            hide();
         }
     }
 

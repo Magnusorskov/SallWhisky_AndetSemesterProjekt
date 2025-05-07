@@ -118,7 +118,10 @@ public class OpretBatchWindow extends Stage {
         String rygemateriale = txfRygemateriale.getText().trim();
         String initialer = txfInitialer.getText().trim();
         String maltBatch = txfMaltBatch.getText().trim();
-        String kommentar = txfKommentar.getText().trim();
+        String kommentar = null;
+        if (txfKommentar.getText().isBlank()) {
+            kommentar = txfKommentar.getText().trim();
+        }
         LocalDate dato = startDato.getValue();
         if (mark == null) {
             lblError.setText("Vælg en mark");
