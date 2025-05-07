@@ -66,7 +66,7 @@ public abstract class Controller {
         return result;
     }
 
-    public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
+        public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
         List<Batch> resultat = new ArrayList<>();
         for (Batch batch : getFærdigeBatches()) {
             if (batch.getVæskemængde() > 0) {
@@ -132,6 +132,9 @@ public abstract class Controller {
         } else if (antalLiter > batch.getVæskemængde()) {
             throw new IllegalArgumentException("Der er ikke nok væske i batchen");
         } else {
+            if (!navn.equals(destillat.getNavn())) {
+                destillat.setNavn(navn);
+            }
             destillat.createMængde(antalLiter, batch);
         }
     }
