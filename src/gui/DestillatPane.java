@@ -197,6 +197,8 @@ public class DestillatPane extends GridPane {
                 txaFadBeskrivelse.setText(Controller.getFadBeskrivelse(fad));
                 lblError.setText("");
                 btnFærdiggørDestillat.setDisable(false);
+                cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
+                cmbFade.getSelectionModel().select(fad);
                 if (batch.getVæskemængde() == 0) {
                     updateControls();
                     cmbFade.getSelectionModel().select(fad);
