@@ -127,7 +127,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
            }
         return marker;
     }
-
+    // Todo lav om til set
     public ArrayList<Fadtype> getFadtyper(){
         ArrayList<Fadtype> fadtyper = new ArrayList<>();
         for (DestillatMængde dm : destillatMængder){
