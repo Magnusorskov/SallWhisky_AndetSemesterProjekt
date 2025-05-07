@@ -123,4 +123,9 @@ public class Whisky implements Serializable, Comparable<Whisky> {
     public int compareTo(Whisky w) {
         return w.getNummer() - this.nummer;
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

@@ -125,4 +125,9 @@ public class Destillat implements Serializable {
         }
         return sb;
     }
+
+    @Override
+    public String toString() {
+        return navn;
+    }
 }

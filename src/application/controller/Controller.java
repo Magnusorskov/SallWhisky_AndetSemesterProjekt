@@ -196,6 +196,14 @@ public abstract class Controller {
         return resultat;
     }
 
+    public static String getDestillatBeskrivelse(Destillat destillat){
+        if(destillat == null){
+            return "";
+        } else {
+            return destillat.getNavn();
+        }
+    }
+
     //------------------------------------------------------------------------------------------------------------------
 
     public static Whisky createWhisky(String navn) {
@@ -208,8 +216,26 @@ public abstract class Controller {
         return storage.getWhiskyer();
     }
 
+    public static List<Whisky> getIgangværendeWhisky(){
+        List<Whisky> resultat = new ArrayList<>();
+        for (Whisky w : Controller.getWhiskyer()){
+            if(w.getAlkoholprocent() == 0.0){
+                resultat.add(w);
+            }
+        }
+        return resultat;
+    }
+
     public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky){
         whisky.createDestillatMængde(antalLiter,destillat);
+    }
+
+    public static String getWhiskeyBeskrivelse(Whisky whisky){
+        if (whisky == null){
+            return "";
+        } else {
+            return whisky.getNavn();
+        }
     }
 
 
