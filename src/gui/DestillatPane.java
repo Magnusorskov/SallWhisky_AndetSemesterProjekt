@@ -67,6 +67,7 @@ public class DestillatPane extends GridPane {
         Label lblNavn = new Label("Destillat navn");
 
         txfNavn = new TextField();
+        txfNavn.setDisable(true);
 
         Label lblAntalLiter = new Label("Antal liter");
         this.add(lblAntalLiter, 1, 3);
@@ -127,6 +128,7 @@ public class DestillatPane extends GridPane {
     public void updateControls() {
         cmbBatches.getItems().setAll(Controller.getFærdigeBatchesMedTilgængeligeLiter());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
+        txfAntalLiter.clear();
     }
 
 
@@ -159,6 +161,7 @@ public class DestillatPane extends GridPane {
                 btnFærdiggørDestillat.setDisable(false);
             } else {
                 txfNavn.clear();
+                txfNavn.setDisable(false);
                 btnFærdiggørDestillat.setDisable(true);
             }
             if (cmbBatches.getSelectionModel().getSelectedItem() != null) {
@@ -170,6 +173,7 @@ public class DestillatPane extends GridPane {
             lblFadTilgængeligLiter.setText("Fad ledig plads: ");
             txaFadBeskrivelse.clear();
             txfNavn.clear();
+            txfNavn.setDisable(true);
         }
 
     }
@@ -177,19 +181,21 @@ public class DestillatPane extends GridPane {
     private void tilføjTilFadAction() {
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
         Fad fad = cmbFade.getSelectionModel().getSelectedItem();
+
         if (txfNavn.getText().isBlank() || txfAntalLiter.getText().isBlank()) {
             lblError.setText("Alle felter skal være udfyldt");
         } else {
-            double antalLiter = Double.parseDouble(txfAntalLiter.getText());
-            String navn = txfNavn.getText();
-
             try {
+                double antalLiter = Double.parseDouble(txfAntalLiter.getText());
+                String navn = txfNavn.getText();
+
                 Controller.påfyldFad(antalLiter, batch, navn, fad);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Fad er påfyldt!");
                 alert.setContentText(batch + "\nAntal liter: " + antalLiter);
                 alert.showAndWait();
+
                 txfAntalLiter.clear();
                 lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
                 lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
@@ -198,15 +204,20 @@ public class DestillatPane extends GridPane {
                 btnFærdiggørDestillat.setDisable(false);
                 cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
                 cmbFade.getSelectionModel().select(fad);
+
                 if (batch.getVæskemængde() == 0) {
                     updateControls();
                     cmbFade.getSelectionModel().select(fad);
                 }
+
+            } catch (NumberFormatException e) {
+                lblError.setText("Indtast et gyldigt tal for liter (f.eks. 2.5)");
             } catch (IllegalArgumentException e) {
                 lblError.setText(e.getMessage());
             }
         }
     }
+
 
 
 }
