@@ -65,7 +65,7 @@ public class WhiskyPane extends GridPane {
         lblDestillatVæskemængde = new Label("Destillat rest. væske: ");
         lblDestillatVæskemængde.setMinWidth(170);
 
-        btnTap = new Button("Tap");
+        btnTap = new Button("Tap destillat til whisky");
         btnTap.setDisable(false);
         btnTap.setOnAction(event -> tapTilWhiskyAction());
 
@@ -177,6 +177,7 @@ public class WhiskyPane extends GridPane {
                 this.updateControls();
                 lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
                 txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+                cmbWhisky.getSelectionModel().select(whisky);
 
             } catch (NumberFormatException e) {
                 lblError.setText("Indtast et gyldigt tal for liter (f.eks. 2.5)");
