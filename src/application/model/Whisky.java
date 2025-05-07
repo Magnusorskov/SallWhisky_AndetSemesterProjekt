@@ -12,7 +12,6 @@ public class Whisky implements Serializable, Comparable<Whisky> {
     private double alkoholprocent;
     private int flasker;
     private double literVand;
-    private String historie;
     private String label;
 
     private final List<DestillatMængde> destillatMængder;
@@ -93,7 +92,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return antal;
     }
 
-    public void hentHistorik() {
+    public String hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Whisky: " + nummer + " " + navn);
         if (alkoholprocent > 0){
@@ -113,7 +112,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
             sb.append(dm.getDestillat().hentHistorik() + "\n\n");
         }
 
-        setHistorie("" + sb);
+        return "" + sb;
     }
 
     private void beregnAntalFlasker() {
