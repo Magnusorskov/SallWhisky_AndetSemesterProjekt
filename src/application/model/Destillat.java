@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * Repræsenterer et destillat, som er væsken lagret på et fad.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ */
 public class Destillat implements Serializable {
     private final List<BatchMængde> mængder = new ArrayList<>();
     private String navn;
@@ -15,7 +19,7 @@ public class Destillat implements Serializable {
 
     /**
      * Initialiserer et destillats navn, fad.
-     * Pre: navn, fad ikke er null.
+     * Pre: navn og fad er ikke er null.
      *
      * @param navn destillatets navn.
      * @param fad  det fad destillatet ligger på.
@@ -26,39 +30,84 @@ public class Destillat implements Serializable {
         fad.setDestillat(this);
     }
 
+    /**
+     * Henter destillatets navn.
+     *
+     * @return destillatets navn.
+     */
     public String getNavn() {
         return navn;
     }
 
+    /**
+     * Sætter destillatets navn.
+     *
+     * @param navn det nye navn for destillatet.
+     */
     public void setNavn(String navn) {
         this.navn = navn;
     }
 
+    /**
+     * Sætter destillatets unikke ID.
+     *
+     * @param id det nye ID for destillatet.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Henter destillatets påfyldningsdato.
+     *
+     * @return datoen hvor destillatet blev påfyldt fadet.
+     */
     public LocalDate getPåfyldningsDato() {
         return påfyldningsDato;
     }
 
+    /**
+     * Sætter destillatets påfyldningsdato.
+     *
+     * @param påfyldningsDato den nye påfyldningsdato for destillatet.
+     */
     public void setPåfyldningsDato(LocalDate påfyldningsDato) {
         this.påfyldningsDato = påfyldningsDato;
     }
 
+    /**
+     * Henter det aktuelle antal liter der er i destillatet.
+     *
+     * @return det aktuelle antal liter destillat.
+     */
     public double getAntalLiter() {
         return antalLiter;
     }
 
+    /**
+     * Sætter det aktuelle antal liter der er i destillatet.
+     *
+     * @param antalLiter det nye antal liter destillat.
+     */
     public void setAntalLiter(double antalLiter) {
         this.antalLiter = antalLiter;
     }
 
+    /**
+     * Sætter destillatets alkoholprocent.
+     *
+     * @param alkoholprocent den nye alkoholprocent for destillatet.
+     */
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
 
     //sammenhæng til fad
+    /**
+     * Henter det fad destillatet ligger på.
+     *
+     * @return det fad destillatet er placeret i.
+     */
     public Fad getFad() {
         return fad;
     }
@@ -68,6 +117,11 @@ public class Destillat implements Serializable {
 //    }
 
     //sammenhæng til mængde
+    /**
+     * Henter en liste over de batchmængder, der udgør destillatet.
+     *
+     * @return en ny liste indeholdende BatchMængde objekter.
+     */
     public List<BatchMængde> getMængder() {
         return new ArrayList<>(mængder);
     }
@@ -157,7 +211,11 @@ public class Destillat implements Serializable {
 
         return sb;
     }
-    // TODO dokumentation
+    /**
+     * Henter de unikke marker fra de batches, der udgør destillatet.
+     *
+     * @return et Set af unikke Mark objekter.
+     */
     public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
         for (BatchMængde bm : mængder) {
@@ -166,7 +224,11 @@ public class Destillat implements Serializable {
         return marker;
     }
 
-    // TODO dokumentation
+    /**
+     * Henter de unikke fadtyper fra destillatet.
+     *
+     * @return et Set indeholdende de unikke Fadtyper for fadet.
+     */
     //todo laves om til med flere
     public Set<Fadtype> getFadtyper() {
         Set<Fadtype> fadtyper = new HashSet<>();
@@ -174,6 +236,11 @@ public class Destillat implements Serializable {
         return fadtyper;
     }
 
+    /**
+     * Laver en String repræsentation af Destillat objektet (returnerer navnet).
+     *
+     * @return destillatets navn.
+     */
     @Override
     public String toString() {
         return navn;
