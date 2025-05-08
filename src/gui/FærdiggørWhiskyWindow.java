@@ -50,10 +50,10 @@ public class FærdiggørWhiskyWindow extends Stage {
         txfNavn = new TextField(whisky.getNavn());
         pane.add(txfNavn, 0, 1);
 
-        lblLiter = new Label("Total liter: " + whisky.beregnAntalLiter());
+        lblLiter = new Label("Total liter: " + Controller.getAntalLiterWhisky(whisky));
         pane.add(lblLiter, 0, 2);
 
-        lblAntalFlasker = new Label("Antal flasker: " + whisky.beregnAntalFlasker());
+        lblAntalFlasker = new Label("Antal flasker: " + Controller.getAntalFlasker(whisky));
 
         Label lblVand = new Label("Påfyld vand");
 
@@ -87,7 +87,7 @@ public class FærdiggørWhiskyWindow extends Stage {
         Label lblHistorie = new Label("Historie");
         pane.add(lblHistorie, 1, 2);
 
-        txaHistorie = new TextArea(whisky.hentHistorik());
+        txaHistorie = new TextArea(Controller.getWhiskeyBeskrivelse(whisky));
         txaHistorie.setMaxWidth(250);
         txaHistorie.setMinHeight(200);
         pane.add(txaHistorie, 1, 3);
@@ -151,10 +151,10 @@ public class FærdiggørWhiskyWindow extends Stage {
 
     private void updateControls(){
         txfNavn.setText(whisky.getNavn());
-        lblLiter.setText("Total liter: " + whisky.beregnAntalLiter());
-        lblAntalFlasker.setText("Antal flasker: " + whisky.beregnAntalFlasker());
+        lblLiter.setText("Total liter: " + Controller.getAntalLiterWhisky(whisky));
+        lblAntalFlasker.setText("Antal flasker: " + Controller.getAntalFlasker(whisky));
         txfVand.clear();
-        txaHistorie.setText(whisky.hentHistorik());
+        txaHistorie.setText(Controller.getWhiskeyBeskrivelse(whisky));
     }
 
 

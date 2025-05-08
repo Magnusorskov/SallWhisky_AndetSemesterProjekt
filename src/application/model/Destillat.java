@@ -158,18 +158,18 @@ public class Destillat implements Serializable {
         return sb;
     }
     // TODO dokumentation
-    public ArrayList<Mark> getMarker() {
-        ArrayList<Mark> marker = new ArrayList<>();
+    public Set<Mark> getMarker() {
+        Set<Mark> marker = new HashSet<>();
         for (BatchMængde bm : mængder) {
-            if (!marker.contains(bm.getBatch().getMark())) {
-                marker.add(bm.getBatch().getMark());
-            }
+            marker.add(bm.getBatch().getMark());
         }
         return marker;
     }
+
     // TODO dokumentation
-    public ArrayList<Fadtype> getFadtyper() {
-        ArrayList<Fadtype> fadtyper = new ArrayList<>();
+    //todo laves om til med flere
+    public Set<Fadtype> getFadtyper() {
+        Set<Fadtype> fadtyper = new HashSet<>();
         fadtyper.add(fad.getFadType());
         return fadtyper;
     }

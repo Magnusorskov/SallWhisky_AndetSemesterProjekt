@@ -132,15 +132,11 @@ public class Whisky implements Serializable, Comparable<Whisky> {
            }
         return marker;
     }
-    // Todo lav om til set
-    public ArrayList<Fadtype> getFadtyper(){
-        ArrayList<Fadtype> fadtyper = new ArrayList<>();
+    // Todo lav om til addAll
+    public Set<Fadtype> getFadtyper(){
+        Set<Fadtype> fadtyper = new HashSet<>();
         for (DestillatMængde dm : destillatMængder){
-            for (Fadtype f : dm.getDestillat().getFadtyper()){
-                if(!fadtyper.contains(f)){
-                    fadtyper.add(f);
-                }
-            }
+            fadtyper.add(dm.getDestillat().getFad().getFadType());
         }
         return fadtyper;
     }
