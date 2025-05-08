@@ -14,64 +14,129 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     private final List<DestillatMængde> destillatMængder;
 
-    // TODO dokumentation
+    /**
+     * Initialiserer en ny whisky med et givent navn.
+     *
+     * @param navn navnet på whiskyen.
+     */
     public Whisky(String navn) {
         this.navn = navn;
         literVand = 0;
         destillatMængder = new ArrayList<>();
     }
 
+    /**
+     * Henter whiskyens navn.
+     *
+     * @return whiskyens navn.
+     */
     public String getNavn() {
         return navn;
     }
 
+    /**
+     * Henter whiskyens unikke ID.
+     *
+     * @return whiskyens ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Henter whiskyens alkoholprocent.
+     *
+     * @return whiskyens alkoholprocent.
+     */
     public double getAlkoholprocent() {
         return alkoholprocent;
     }
 
+    /**
+     * Henter mængden af tilsat vand i liter.
+     *
+     * @return mængden af tilsat vand i liter.
+     */
     public double getLiterVand() {
         return literVand;
     }
 
+    /**
+     * Henter whiskyens label.
+     *
+     * @return whiskyens label.
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Sætter whiskyens alkoholprocent.
+     *
+     * @param alkoholprocent den nye alkoholprocent for whiskyen.
+     */
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
 
+    /**
+     * Sætter mængden af tilsat vand i liter.
+     *
+     * @param literVand den nye mængde af tilsat vand i liter.
+     */
     public void setLiterVand(double literVand) {
         this.literVand = literVand;
     }
 
+    /**
+     * Sætter whiskyens label.
+     *
+     * @param label den nye label for whiskyen.
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * Sætter whiskyens unikke ID.
+     *
+     * @param id det nye ID for whiskyen.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
     //------------------------------------------------------
 
-    // TODO dokumentation
+    /**
+     * Opretter en ny mængde af et destillat og tilføjer det til whiskyens blanding.
+     * Pre: antalLiter er større end 0.
+     * Pre: destillat er ikke null.
+     *
+     * @param antalLiter den mængde af destillatet der tilføjes i liter.
+     * @param destillat   det destillat der tilføjes til whiskyen.
+     */
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
         DestillatMængde destillatMængde = new DestillatMængde(antalLiter,destillat);
         destillatMængder.add(destillatMængde);
     }
 
+    /**
+     * Henter en liste over de destillatmængder der indgår i whiskyen.
+     *
+     * @return en ny liste indeholdende DestillatMængde objekter.
+     */
     public List<DestillatMængde> getDestillatMængder() {
         return new ArrayList<>(destillatMængder);
     }
 
     //------------------------------------------------------
 
-    // TODO dokumentation
+    /**
+     * Beregner det samlede antal liter whiskyen indeholder (summen af alle destillater og tilsat vand).
+     *
+     * @return det samlede antal liter whisky.
+     */
     public double beregnAntalLiter(){
         double antal = 0;
         for (DestillatMængde d : destillatMængder) {
@@ -81,7 +146,12 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return antal;
     }
 
-    // TODO dokumentation
+    /**
+     * Genererer en historik over whiskyen, inklusive ID, navn, alkoholprocent, totalt antal liter,
+     * mængde af tilsat vand (hvis relevant), antal flasker og historikken for de enkelte destillater.
+     *
+     * @return en String der indeholder whiskyens historik.
+     */
     public String hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Whisky: " + id + " " + navn);
@@ -119,12 +189,20 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return "" + sb;
     }
 
-    // TODO dokumentation
+    /**
+     * Beregner det estimerede antal flasker (af 0.7 liter) whiskyen kan fylde.
+     *
+     * @return det estimerede antal flasker.
+     */
     public int beregnAntalFlasker() {
         return (int) (beregnAntalLiter() / 0.7);
     }
 
-    // TODO dokumentation
+    /**
+     * Henter de unikke marker fra de destillater der indgår i whiskyen.
+     *
+     * @return et Set af unikke Mark objekter.
+     */
     public Set<Mark> getMarker (){
         Set<Mark> marker = new HashSet<>();
         for (DestillatMængde dm : destillatMængder){
@@ -132,7 +210,12 @@ public class Whisky implements Serializable, Comparable<Whisky> {
            }
         return marker;
     }
-    // Todo lav om til addAll
+
+    /**
+     * Henter en de unikke fadtyper fra de destillater der indgår i whiskyen.
+     *
+     * @return et Set af unikke Fadtype objekter.
+     */
     public Set<Fadtype> getFadtyper(){
         Set<Fadtype> fadtyper = new HashSet<>();
         for (DestillatMængde dm : destillatMængder){
@@ -141,12 +224,22 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return fadtyper;
     }
 
-    // TODO dokumentation
+    /**
+     * Implementering af Comparable interface for at kunne sammenligne Whisky objekter baseret på deres ID i stigende rækkefølge.
+     *
+     * @param whisky det Whisky objekt der skal sammenlignes med.
+     * @return et negativt heltal, nul eller et positivt heltal afhængigt af sammenligningen.
+     */
     @Override
-    public int compareTo(Whisky w) {
-        return w.getId() - this.id;
+    public int compareTo(Whisky whisky) {
+        return this.id - whisky.getId();
     }
 
+    /**
+     * Laver en String repræsentation af Whisky objektet (returnerer navnet).
+     *
+     * @return whiskyens navn.
+     */
     @Override
     public String toString() {
         return navn;
