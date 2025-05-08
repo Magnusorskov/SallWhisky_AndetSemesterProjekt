@@ -7,15 +7,18 @@ public abstract class Lagervare implements Serializable {
     private int hyldeNummer;
     private Lager lager;
 
+    // TODO dokumentation
     public Lagervare(int reolNummer, int hyldeNummer, Lager lager) {
         this.reolNummer = reolNummer;
         this.hyldeNummer = hyldeNummer;
         this.lager = lager;
     }
 
+    // TODO dokumentation
     public Lagervare() {
     }
 
+    // TODO dokumentation
     public abstract String beskrivelse();
 
     public int getReol() {
@@ -30,6 +33,7 @@ public abstract class Lagervare implements Serializable {
         return lager;
     }
 
+    // TODO dokumentation
     public void setLager(Lager lager) {
         if (this.lager != lager) {
             Lager oldLager = this.lager;

@@ -14,6 +14,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     private final List<DestillatMængde> destillatMængder;
 
+    // TODO dokumentation
     public Whisky(String navn) {
         this.navn = navn;
         literVand = 0;
@@ -58,6 +59,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     //------------------------------------------------------
 
+    // TODO dokumentation
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
         DestillatMængde destillatMængde = new DestillatMængde(antalLiter,destillat);
         destillatMængder.add(destillatMængde);
@@ -69,6 +71,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
 
     //------------------------------------------------------
 
+    // TODO dokumentation
     public double beregnAntalLiter(){
         double antal = 0;
         for (DestillatMængde d : destillatMængder) {
@@ -78,6 +81,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return antal;
     }
 
+    // TODO dokumentation
     public String hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Whisky: " + id + " " + navn);
@@ -116,10 +120,12 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return "" + sb;
     }
 
+    // TODO dokumentation
     public int beregnAntalFlasker() {
         return (int) (beregnAntalLiter() / 0.7);
     }
 
+    // TODO dokumentation
     public Set<Mark> getMarker (){
         Set<Mark> marker = new HashSet<>();
         for (DestillatMængde dm : destillatMængder){
@@ -140,6 +146,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return fadtyper;
     }
 
+    // TODO dokumentation
     @Override
     public int compareTo(Whisky w) {
         return w.getId() - this.id;

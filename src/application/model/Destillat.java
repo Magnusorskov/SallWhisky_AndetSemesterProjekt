@@ -164,7 +164,7 @@ public class Destillat implements Serializable {
 
         return sb;
     }
-
+    // TODO dokumentation
     public ArrayList<Mark> getMarker() {
         ArrayList<Mark> marker = new ArrayList<>();
         for (BatchMængde bm : mængder) {
@@ -174,7 +174,7 @@ public class Destillat implements Serializable {
         }
         return marker;
     }
-
+    // TODO dokumentation
     public ArrayList<Fadtype> getFadtyper() {
         ArrayList<Fadtype> fadtyper = new ArrayList<>();
         fadtyper.add(fad.getFadType());

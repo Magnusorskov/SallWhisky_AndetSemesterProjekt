@@ -6,6 +6,7 @@ public class DestillatMængde implements Serializable {
     private double antalLiter;
     private Destillat destillat;
 
+    // TODO dokumentation
     DestillatMængde(double antalLiter, Destillat destillat) {
         this.antalLiter = antalLiter;
         this.destillat = destillat;

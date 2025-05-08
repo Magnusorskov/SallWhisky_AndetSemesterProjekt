@@ -20,10 +20,20 @@ public class BatchMængde implements Serializable {
         batch.tapBatch(antalLiter);
     }
 
+    /**
+     * Returnerer en double med batchmængdens liter.
+     *
+     * @return batchmængdens liter som double.
+     */
     public double getAntalLiter() {
         return antalLiter;
     }
 
+    /**
+     * Returnerer batchmængdens tilknyttede batch.
+     *
+     * @return batchmængdens batch.
+     */
     public Batch getBatch() {
         return batch;
     }

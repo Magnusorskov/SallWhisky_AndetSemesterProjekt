@@ -38,22 +38,24 @@ public class Lager implements Serializable {
         return adresse;
     }
 
+    // TODO dokumentation
     public int getStørrelsePåLager() {
         return (antalHylder) * (antalReoler);
     }
 
+    // TODO dokumentation
     public void addLagerVare(Lagervare lagervare, int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
             pladser[reol][hylde] = lagervare;
         }
     }
-
+    // TODO dokumentation
     public void removeLagerVare(Lagervare lagervare) {
         if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare) {
             pladser[lagervare.getReol()][lagervare.getHylde()] = null;
         }
     }
-
+    // TODO dokumentation
     public Lagervare getLagerVare(int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
             return null;

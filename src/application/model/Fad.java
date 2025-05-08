@@ -62,6 +62,7 @@ public class Fad extends Lagervare implements Serializable {
         this.antalBrug = antalBrug;
     }
 
+    // TODO tom krop skal udfyldes
     @Override
     public String beskrivelse() {
         return "";
@@ -72,6 +73,7 @@ public class Fad extends Lagervare implements Serializable {
         return destillat;
     }
 
+    // TODO dokumentation
     public void setDestillat(Destillat destillat) {
         if (this.destillat != destillat) {
             this.destillat = destillat;
@@ -82,6 +84,7 @@ public class Fad extends Lagervare implements Serializable {
     }
 
     //metoder
+    // TODO dokumentation
     public double getTilgængeligeLiter() {
         double antalLiter;
         if (destillat == null) {
@@ -91,7 +94,7 @@ public class Fad extends Lagervare implements Serializable {
         }
         return antalLiter;
     }
-
+    // TODO dokumentation
     public StringBuilder hentHistorik(){
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + id);
