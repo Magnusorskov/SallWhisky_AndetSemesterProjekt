@@ -83,7 +83,7 @@ public class Fad extends Lagervare implements Serializable {
 
     //metoder
     public double getTilgængeligeLiter() {
-        double antalLiter = 0;
+        double antalLiter;
         if (destillat == null) {
             antalLiter = størrelse;
         } else {
