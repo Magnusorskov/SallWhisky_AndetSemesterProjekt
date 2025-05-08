@@ -84,8 +84,9 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         if (alkoholprocent > 0){
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
-        if (beregnAntalLiter() > 0){
-            sb.append("\nAntal liter: " + beregnAntalLiter());
+        double antalLiter = beregnAntalLiter();
+        if (antalLiter > 0){
+            sb.append("\nAntal liter: " + antalLiter);
             if (literVand > 0){
                 sb.append("\nHeraf vand: " + literVand);
             }
@@ -95,23 +96,20 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         sb.append("\n----------------------------------");
 
         Map<Destillat, Double> destillater = new HashMap<>();
-        for (DestillatMængde dm : getDestillatMængder()){
-            Destillat destillat = dm.getDestillat();
-            if(!destillater.containsKey(destillat)){
-                destillater.put(destillat, dm.getAntalLiter());
-            } else {
-                double liter = destillater.get(destillat) + dm.getAntalLiter();
-                destillater.put(destillat, liter);
-            }
+        for (DestillatMængde dm : getDestillatMængder()) {
+            destillater.merge(dm.getDestillat(), dm.getAntalLiter(), Double::sum);
         }
-        sb.append("\n\nDestillater:\n");
 
-        Iterator<Map.Entry<Destillat, Double>> iterator = destillater.entrySet().iterator();
-        while (iterator.hasNext()){
-            Map.Entry<Destillat, Double> k = iterator.next();
-            sb.append("Antal Liter af Destillat: " + k.getValue());
-            sb.append("\n" + k.getKey().hentHistorik());
-            sb.append("----------------------------------\n\n");
+        if(!destillater.isEmpty()) {
+            sb.append("\n\nDestillater:\n");
+
+            Iterator<Map.Entry<Destillat, Double>> iterator = destillater.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Destillat, Double> k = iterator.next();
+                sb.append("Antal Liter af Destillat: " + k.getValue());
+                sb.append("\n" + k.getKey().hentHistorik());
+                sb.append("----------------------------------\n\n");
+            }
         }
 
         return "" + sb;
