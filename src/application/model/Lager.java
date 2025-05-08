@@ -5,11 +5,11 @@ import java.util.Arrays;
 
 public class Lager implements Serializable {
 
-    private String navn;
     private final int antalHylder;
     private final int antalReoler;
-    private String adresse;
     private final Lagervare[][] pladser;
+    private String navn;
+    private String adresse;
 
 
     /**
@@ -93,7 +93,6 @@ public class Lager implements Serializable {
      * @param reol  reolnummeret på den ønskede plads.
      * @param hylde hyldenummeret på den ønskede plads.
      * @return lagervaren på den angivne plads.
-     *
      */
     public Lagervare getLagerVare(int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
