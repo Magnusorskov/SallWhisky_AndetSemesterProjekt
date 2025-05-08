@@ -3,6 +3,11 @@ package application.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * Repræsenterer en enkelt batch af råmateriale i produktionsprocessen.
+ * Indeholder information om bygsort, mark, maltning, rygning og tidsperiode.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ */
 public class Batch implements Serializable {
     private Bygsort bygsort;
     private Mark mark;
@@ -49,77 +54,161 @@ public class Batch implements Serializable {
         væskemængde -= antalLiter;
     }
 
+    /**
+     * Henter den mark hvor kornet til batchen kommer fra.
+     *
+     * @return marken for batchens korn.
+     */
     public Mark getMark() {
         return mark;
     }
 
-
+    /**
+     * Henter initialerne på den person, der er ansvarlig for batchen.
+     *
+     * @return initialerne på batch-ansvarlig.
+     */
     public String getInitialer() {
         return initialer;
     }
 
+    /**
+     * Henter den bygsort der anvendes i batchen.
+     *
+     * @return bygsorten for batchen.
+     */
     public Bygsort getBygsort() {
         return bygsort;
     }
 
+    /**
+     * Henter den anvendte maltbatch.
+     *
+     * @return maltbatchen for batchen.
+     */
     public String getMaltBatch() {
         return maltBatch;
     }
 
+    /**
+     * Henter det rygemateriale der er anvendt i batchen (kan være null).
+     * Note: returnerer null hvis der ikke er anvendt rygemateriale.
+     *
+     * @return det anvendte rygemateriale.
+     */
     public String getRygemateriale() {
         return rygemateriale;
     }
 
+    /**
+     * Henter datoen hvor batchen blev startet.
+     *
+     * @return batch'ens startdato.
+     */
     public LocalDate getStartDato() {
         return startDato;
     }
 
+    /**
+     * Henter datoen hvor batchen blev afsluttet.
+     * Note: returnerer null, hvis batchen stadig er aktiv.
+     *
+     * @return batch'ens slutdato.
+     */
     public LocalDate getSlutDato() {
         return slutDato;
     }
 
+    /**
+     * Sætter datoen hvor batchen blev afsluttet.
+     *
+     * @param slutDato den nye slutdato for batchen.
+     */
     public void setSlutDato(LocalDate slutDato) {
         this.slutDato = slutDato;
     }
 
+    /**
+     * Henter alkoholprocenten for batchen.
+     *
+     * @return batch'ens alkoholprocent.
+     */
     public double getAlkoholprocent() {
         return alkoholprocent;
     }
 
+    /**
+     * Sætter alkoholprocenten for batchen.
+     *
+     * @param alkoholprocent den nye alkoholprocent for batchen.
+     */
     public void setAlkoholprocent(double alkoholprocent) {
         this.alkoholprocent = alkoholprocent;
     }
 
+    /**
+     * Henter den aktuelle væskemængde i batchen i liter.
+     *
+     * @return den aktuelle væskemængde i liter.
+     */
     public double getVæskemængde() {
         return væskemængde;
     }
 
+    /**
+     * Sætter den aktuelle væskemængde i batchen i liter.
+     *
+     * @param væskemængde den nye væskemængde i liter.
+     */
     public void setVæskemængde(double væskemængde) {
         this.væskemængde = væskemængde;
     }
 
+    /**
+     * Henter eventuelle kommentarer til batchen.
+     * Note: returnerer null, hvis der ingen kommentar er givet.
+     *
+     * @return kommentarerne til batchen.
+     */
     public String getKommentar() {
         return kommentar;
     }
 
+    /**
+     * Sætter eventuel kommentar til batchen.
+     *
+     * @param kommentar den nye kommentar til batchen.
+     */
     public void setKommentar(String kommentar) {
         this.kommentar = kommentar;
     }
 
+    /**
+     * Henter batchens unikke ID.
+     *
+     * @return batch'ens ID.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sætter batchens unikke ID.
+     *
+     * @param id det nye ID for batchen.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
 
     //metoder
-
+    // TODO ændre historik til ikke at have mark i parentes ved siden af bygsort
     /**
-     * @return returnerer en historik over batchen med id, bygsort, mark, maltbatch, rygemateriale, alkoholprocent,
-     * startDato, slutDato, initialer og kommentar.
+     * Genererer en historik over batchen, inklusive ID, bygsort, mark, maltbatch, rygemateriale (hvis relevant),
+     * alkoholprocent (hvis relevant), start- og slutdato (hvis relevant), initialer og kommentar (hvis relevant).
+     *
+     * @return en StringBuilder indeholdende batchens historik.
      */
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
@@ -144,6 +233,11 @@ public class Batch implements Serializable {
         return sb;
     }
 
+    /**
+     * Laver en String repræsentation af Batch objektet (viser batchnummer og startdato).
+     *
+     * @return en String der beskriver batchen kortfattet.
+     */
     @Override
     public String toString() {
         return "BatchNr:" + id + " StartDato: " + startDato;
