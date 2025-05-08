@@ -27,6 +27,7 @@ public abstract class Controller {
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar og tilføjer den til storage.
      * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
+     * Note: kommentar kan være null, da en kommentar ikke er et krav
      *
      * @param bygsort       bygsorten der er i batchen.
      * @param mark          hvilken mark kornet kommer fra.
@@ -35,6 +36,7 @@ public abstract class Controller {
      * @param maltBatch     maltbatchen der er brugt i batchen.
      * @param startDato     datoen batchen er startet.
      * @param kommentar     eventuel kommentar til batchen.
+     *
      * @return den oprettede batch
      */
     public static Batch createBatch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
