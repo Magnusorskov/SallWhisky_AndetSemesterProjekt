@@ -7,33 +7,68 @@ public abstract class Lagervare implements Serializable {
     private int hyldeNummer;
     private Lager lager;
 
-    // TODO dokumentation
+    /**
+     * Initialiserer en lagervare med dens placering (reol og hylde) i et givent lager.
+     * Pre: lager er ikke null.
+     * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for lageret.
+     *
+     * @param reolNummer  lagervarens reolnummer.
+     * @param hyldeNummer lagervarens hyldenummer.
+     * @param lager       det lager hvor lagervaren er placeret.
+     */
     public Lagervare(int reolNummer, int hyldeNummer, Lager lager) {
         this.reolNummer = reolNummer;
         this.hyldeNummer = hyldeNummer;
         this.lager = lager;
     }
 
-    // TODO dokumentation
+    /**
+     * Default konstruktør for Lagervare.
+     */
     public Lagervare() {
     }
 
-    // TODO dokumentation
+    /**
+     * Abstrakt metode der skal implementeres af subklasser for at give en beskrivelse af lagervaren.
+     *
+     * @return en String der beskriver lagervaren.
+     */
     public abstract String beskrivelse();
 
+    /**
+     * Henter lagervarens reolnummer.
+     *
+     * @return lagervarens reolnummer.
+     */
     public int getReol() {
         return reolNummer;
     }
 
+    /**
+     * Henter lagervarens hyldenummer.
+     *
+     * @return lagervarens hyldenummer.
+     */
     public int getHylde() {
         return hyldeNummer;
     }
 
+    /**
+     * Henter det lager hvor lagervaren er placeret.
+     *
+     * @return det lager lagervaren tilhører.
+     */
     public Lager getLager() {
         return lager;
     }
 
-    // TODO dokumentation
+    /**
+     * Sætter lagervaren til at være placeret i et givent lager på en specifik placering.
+     * Hvis lagervaren allerede er i et andet lager, fjernes den fra det gamle lager.
+     * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for det nye lager.
+     *
+     * @param lager det nye lager hvor lagervaren skal placeres.
+     */
     public void setLager(Lager lager) {
         if (this.lager != lager) {
             Lager oldLager = this.lager;
