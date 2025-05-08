@@ -170,7 +170,10 @@ public abstract class Controller {
     }
 
     /**
-     * Pre: batch, fad og navn er ikke null
+     * Påfylder et antal liter af en batch på et fads destillat og hvis der ikke findes et destillat
+     * oprettes der et destillat først.
+     * Pre: batch, fad og navn er ikke null.
+     * Pre: antalLiter er større end 0.
      *
      * @param antalLiter mængden af liter der påfyldes fadet.
      * @param batch      batchen der bliver tilføjet liter af.
