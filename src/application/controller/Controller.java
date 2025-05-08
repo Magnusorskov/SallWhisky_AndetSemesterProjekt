@@ -9,7 +9,7 @@ import java.util.Set;
 
 public abstract class Controller {
     private static Storage storage;
-
+    // TODO javadoc
     public static void setStorage(Storage newStorage) {
         storage = newStorage;
     }
@@ -68,7 +68,7 @@ public abstract class Controller {
     public static String getBatchBeskrivelse(Batch batch) {
         return "" + batch.hentHistorik();
     }
-
+    // TODO javadoc
     public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
         List<Batch> resultat = new ArrayList<>();
         for (Batch batch : getFærdigeBatches()) {
@@ -79,25 +79,25 @@ public abstract class Controller {
         return resultat;
     }
 
-
+    // TODO javadoc
     public static List<Batch> getIgangværendeBatches() {
         return storage.getIgangværendeBatches();
     }
-
+    // TODO javadoc
     public static List<Batch> getFærdigeBatches() {
         return storage.getFærdigeBatches();
     }
-
+    // TODO javadoc
     public static void removeBatch(Batch batch) {
         storage.removeIgangværendeBatch(batch);
     }
 
     //---------------------------------------------------------------------------------------------------------------
-
+    // TODO javadoc
     public static List<Fad> getFade() {
         return storage.getFade();
     }
-
+    // TODO javadoc
     public static List<Fad> getFadeUdenFærdigDestillat() {
         List<Fad> resultat = new ArrayList<>();
         for (Fad f : getFade()) {
@@ -147,7 +147,7 @@ public abstract class Controller {
             destillat.createMængde(antalLiter, batch);
         }
     }
-
+    // TODO javadoc
     public static String getFadBeskrivelse(Fad fad) {
         StringBuilder sb = new StringBuilder();
         String result;
@@ -164,11 +164,11 @@ public abstract class Controller {
     }
 
     //----------------------------------------------------------------------------------------------------
-
+    // TODO javadoc
     public static List<Lager> getLagre() {
         return storage.getLagre();
     }
-
+    // TODO javadoc
     public static Lager createLager(String navn, int antalReoler, int antalHylder, String adresse) {
         Lager lager = new Lager(navn, antalReoler, antalHylder, adresse);
         storage.addLager(lager);
@@ -178,14 +178,14 @@ public abstract class Controller {
 
     //-----------------------------------------------------------------------------------------------------
 
-
+    // TODO javadoc
     public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
         destillat.setId(storage.destillatID());
         storage.addDestillat(destillat);
         return destillat;
     }
-
+    // TODO javadoc
     public static void færdiggørDestillat(double alkoholprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
@@ -194,11 +194,11 @@ public abstract class Controller {
         int antalBrug = destillat.getFad().getAntalBrug() + 1;
         destillat.getFad().setAntalBrug(antalBrug);
     }
-
+    // TODO javadoc
     public static List<Destillat> getDestillater() {
         return storage.getDestillater();
     }
-
+    // TODO javadoc
     public static List<Destillat> getFærdigeDestillater() {
         List<Destillat> resultat = new ArrayList<>();
         for (Destillat destillat : getDestillater()) {
@@ -208,6 +208,7 @@ public abstract class Controller {
         }
         return resultat;
     }
+    // TODO javadoc
     // TODO slet?
     public static String getDestillatBeskrivelse(Destillat destillat) {
         StringBuilder sb = new StringBuilder();
@@ -220,18 +221,18 @@ public abstract class Controller {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-
+    // TODO javadoc
     public static Whisky createWhisky(String navn) {
         Whisky whisky = new Whisky(navn);
         whisky.setId(storage.whiskyID());
         storage.addWhisky(whisky);
         return whisky;
     }
-
+    // TODO javadoc
     public static Set<Whisky> getWhiskyer() {
         return storage.getWhiskyer();
     }
-
+    // TODO javadoc
     public static List<Whisky> getIgangværendeWhisky() {
         List<Whisky> resultat = new ArrayList<>();
         for (Whisky w : Controller.getWhiskyer()) {
@@ -241,11 +242,11 @@ public abstract class Controller {
         }
         return resultat;
     }
-
+    // TODO javadoc
     public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky) {
         whisky.createDestillatMængde(antalLiter, destillat);
     }
-
+    // TODO javadoc
     public static String getWhiskeyBeskrivelse(Whisky whisky) {
         StringBuilder sb = new StringBuilder();
         String result;
@@ -255,7 +256,7 @@ public abstract class Controller {
         result = String.valueOf(sb);
         return result;
     }
-
+    // TODO javadoc
     public static String genereLabel (Whisky whisky, String alkoholprocent) {
         return "Handcrafted from organic barley harvested from our fields " + whisky.getMarker() + " and "
                 + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
@@ -267,7 +268,7 @@ public abstract class Controller {
     public static void påfyldVand(int antalLiter, Whisky whisky) {
         whisky.setLiterVand(whisky.getLiterVand() + antalLiter);
     }
-
+    // TODO javadoc
     public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent){
         whisky.setLabel(label);
         whisky.setAlkoholprocent(alkoholprocent);
