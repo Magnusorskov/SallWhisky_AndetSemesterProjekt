@@ -73,7 +73,13 @@ public class Fad extends Lagervare implements Serializable {
         return destillat;
     }
 
-    // TODO dokumentation
+
+    /**
+     *Sætter destillat på fadet
+     *Pre: destillat er ikke null
+     *
+     * @param destillat er fadets destillat
+     */
     public void setDestillat(Destillat destillat) {
         if (this.destillat != destillat) {
             this.destillat = destillat;
@@ -83,8 +89,13 @@ public class Fad extends Lagervare implements Serializable {
         }
     }
 
-    //metoder
-    // TODO dokumentation
+
+    /**
+     * Finder tilgængelilge liter der er tilbage i fadet.
+     *
+     * @return antal tilgængelige liter
+     */
+
     public double getTilgængeligeLiter() {
         double antalLiter;
         if (destillat == null) {
@@ -94,7 +105,12 @@ public class Fad extends Lagervare implements Serializable {
         }
         return antalLiter;
     }
-    // TODO dokumentation
+
+    /**
+     * Henter historikken på fadet
+     *
+     * @return id, oprindelsesLand, fadType, antalBrug, størrelse
+     */
     public StringBuilder hentHistorik(){
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + id);
