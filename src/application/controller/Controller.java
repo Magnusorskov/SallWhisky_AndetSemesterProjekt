@@ -247,13 +247,15 @@ public abstract class Controller {
     }
 
     public static String getWhiskeyBeskrivelse(Whisky whisky) {
-        StringBuilder sb = new StringBuilder();
-        String result;
-        if (whisky != null) {
-            sb.append(whisky.hentHistorik());
-        }
-        result = String.valueOf(sb);
-        return result;
+        return whisky.hentHistorik();
+    }
+
+    public static double getAntalLiterWhisky(Whisky whisky){
+        return whisky.beregnAntalLiter();
+    }
+
+    public static int getAntalFlasker(Whisky whisky){
+        return whisky.beregnAntalFlasker();
     }
 
     public static String genereLabel (Whisky whisky, String alkoholprocent) {
