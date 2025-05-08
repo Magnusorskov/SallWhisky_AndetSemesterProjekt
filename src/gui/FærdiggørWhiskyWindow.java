@@ -105,7 +105,7 @@ public class FærdiggørWhiskyWindow extends Stage {
         pane.add(btnGenereLabel, 2, 4);
         GridPane.setHalignment(btnGenereLabel, HPos.RIGHT);
 
-        Button btnFærdiggør = new Button("Færdiggør");
+        Button btnFærdiggør = new Button("Hæld på Flasker");
         btnFærdiggør.setOnAction(event -> færdiggørAction());
         pane.add(btnFærdiggør, 2, 7);
         GridPane.setHalignment(btnFærdiggør, HPos.RIGHT);
@@ -133,10 +133,12 @@ public class FærdiggørWhiskyWindow extends Stage {
         String label = txaLabel.getText().trim();
         double alkohol = Double.parseDouble(txfAlkohol.getText().trim());
 
-        if (label.isBlank()){
+        if (alkohol <= 0 || txfAlkohol.getText().trim().isBlank()){
+            lblError.setText("Skriv en alkoholprocent");
+        } else if (alkohol >= 100){
+            lblError.setText("Skriv en gyldig alkoholprocent");
+        } else if (label.isBlank()){
             lblError.setText("Genere et label");
-        } else if (alkohol <= 0){
-            lblError.setText("Skriv en alkohol procent");
         } else {
             Controller.færdiggørWhisky(whisky, label, alkohol);
             hide();
