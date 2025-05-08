@@ -7,12 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Abstrakt klasse der fungerer som controller for applikationen.
+ * Indeholder statiske metoder til at håndtere oprettelse, færdiggørelse og hentning af forskellige model objekter.
+ * Klassen er afhængig af et Storage interface for at håndtere persistens.
+ */
 public abstract class Controller {
     private static Storage storage;
 
 
     /**
-     * Sætter storage objektet
+     * Sætter storage objektet.
      * Pre: newStorage er ikke null
      *
      * @param newStorage er det storage objekt storage bliver sat til
@@ -27,7 +32,7 @@ public abstract class Controller {
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar og tilføjer den til storage.
      * Pre: bygsort, mark, initialer, rygemateriale, maltbatch og startdato er ikke null.
-     * Note: kommentar kan være null, da en kommentar ikke er et krav
+     * Note: kommentar kan være null, da en kommentar ikke er et krav.
      *
      * @param bygsort       bygsorten der er i batchen.
      * @param mark          hvilken mark kornet kommer fra.
@@ -36,7 +41,6 @@ public abstract class Controller {
      * @param maltBatch     maltbatchen der er brugt i batchen.
      * @param startDato     datoen batchen er startet.
      * @param kommentar     eventuel kommentar til batchen.
-     *
      * @return den oprettede batch
      */
     public static Batch createBatch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
@@ -70,7 +74,7 @@ public abstract class Controller {
     }
 
     /**
-     * Finder beskrivelsen på den valgte batch
+     * Henter beskrivelsen på den valgte batch.
      * Pre: batch er ikke null
      *
      * @param batch den batch der kræves en beskrivelse af.
@@ -82,7 +86,7 @@ public abstract class Controller {
 
 
     /**
-     * Finder batches med tilgængelige liter tilbage
+     * Henter batches med tilgængelige liter tilbage.
      *
      * @return en liste med batches med tilgængelige liter
      */
@@ -98,7 +102,7 @@ public abstract class Controller {
 
 
     /**
-     * Finder de batches der er igangværende
+     * Henter de batches der er igangværende.
      *
      * @return en liste med igangværende batches
      */
@@ -107,7 +111,7 @@ public abstract class Controller {
     }
 
     /**
-     * Finder de færdige batches
+     * Henter de færdige batches.
      *
      * @return en liste med færdige batches
      */
@@ -116,7 +120,7 @@ public abstract class Controller {
     }
 
     /**
-     * Fjerner batch fra igangværende batches
+     * Fjerner batch fra igangværende batches.
      * Pre: batch er ikke null
      *
      * @param batch den batch der skal fjernes fra igangværende batches
@@ -129,9 +133,9 @@ public abstract class Controller {
 
 
     /**
-     * Finder fade
+     * Henter fade.
      *
-     * @return en liste med fade
+     * @return en liste med fade.
      */
     public static List<Fad> getFade() {
         return storage.getFade();
@@ -139,9 +143,9 @@ public abstract class Controller {
 
 
     /**
-     * Finder fade der har ufærdige destillater i sig eller som er tilgængelige
+     * Henter fade der har ufærdige destillater i sig eller som er tilgængelige.
      *
-     * @return en liste med tilgængelige fade og fade med ufærdige destillater i sig
+     * @return en liste med tilgængelige fade og fade med ufærdige destillater i sig.
      */
     public static List<Fad> getFadeUdenFærdigDestillat() {
         List<Fad> resultat = new ArrayList<>();
@@ -197,10 +201,10 @@ public abstract class Controller {
     }
 
     /**
-     * Finder et fads beskrivelse
+     * Henter et fads beskrivelse.
      *
-     * @param fad er ikke null
-     * @return en string med beskrivelse på et fad
+     * @param fad er ikke null.
+     * @return en string med beskrivelse på et fad og dets batches (hvis relevant).
      */
     public static String getFadBeskrivelse(Fad fad) {
         StringBuilder sb = new StringBuilder();
@@ -220,24 +224,24 @@ public abstract class Controller {
     //----------------------------------------------------------------------------------------------------
 
     /**
-     * Finder lagre
+     * Henter lagre.
      *
-     * @return en liste med lagre
+     * @return en liste med lagre.
      */
     public static List<Lager> getLagre() {
         return storage.getLagre();
     }
 
     /**
-     * Initialiserer et lagers navn, antalReoler, antalHylder, adresse og tilføjer det til storage
+     * Initialiserer et lagers navn, antalReoler, antalHylder, adresse og tilføjer det til storage.
      * Pre: navn og adresse er ikke null.
      * Pre: antal reoler og hylder > 0.
      *
-     * @param navn        navnet på lageret
-     * @param antalReoler antal reoler på lageret
-     * @param antalHylder antal hylder på lageret
-     * @param adresse     adressen på lageret
-     * @return det oprettede lager
+     * @param navn        navnet på lageret.
+     * @param antalReoler antal reoler på lageret.
+     * @param antalHylder antal hylder på lageret.
+     * @param adresse     adressen på lageret.
+     * @return det oprettede lager.
      */
     public static Lager createLager(String navn, int antalReoler, int antalHylder, String adresse) {
         Lager lager = new Lager(navn, antalReoler, antalHylder, adresse);
@@ -249,12 +253,12 @@ public abstract class Controller {
     //-----------------------------------------------------------------------------------------------------
 
     /**
-     * Initialiserer et destillats navn, fad og tilføjer det til storage
+     * Initialiserer et destillats navn, fad og tilføjer det til storage.
      * Pre: navn, fad ikke er null.
      *
-     * @param navn navnet på destillatet
-     * @param fad  fadet hvorpå destillatet skal påfyldes
-     * @return det oprettede destillat
+     * @param navn navnet på destillatet.
+     * @param fad  fadet hvorpå destillatet skal påfyldes.
+     * @return det oprettede destillat.
      */
     public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
@@ -264,12 +268,12 @@ public abstract class Controller {
     }
 
     /**
-     * Færdiggør et destillat med alkoholprocent og påfyldningsDato og tæller fadets brug op med en
-     * Pre: alkoholprocent, påfyldningsdato og destillat er ikke null
+     * Færdiggører et destillat med alkoholprocent og påfyldningsDato og tæller fadets brug op med én.
+     * Pre: alkoholprocent, påfyldningsdato og destillat er ikke null.
      *
-     * @param alkoholprocent  alkoholprocenten på destillatet
-     * @param påfyldningsDato påfyldningsdatoen på destillatet
-     * @param destillat       der skal færdiggøres
+     * @param alkoholprocent  alkoholprocenten på destillatet.
+     * @param påfyldningsDato påfyldningsdatoen på destillatet.
+     * @param destillat       der skal færdiggøres.
      */
     public static void færdiggørDestillat(double alkoholprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholprocent);
@@ -281,18 +285,18 @@ public abstract class Controller {
     }
 
     /**
-     * Finder destillater
+     * Henter alle destillater.
      *
-     * @return en liste med destillater
+     * @return en liste med destillater.
      */
     public static List<Destillat> getDestillater() {
         return storage.getDestillater();
     }
 
     /**
-     * Finder færdige destillater der har en påfyldningsdato der er mere end 3 år tilbage
+     * Finder destillater der har en påfyldningsdato der er mere end 3 år tilbage.
      *
-     * @return liste med færdige destillater der er over 3 år gamle
+     * @return en liste med færdige destillater der er over 3 år gamle.
      */
     public static List<Destillat> getFærdigeDestillater() {
         List<Destillat> resultat = new ArrayList<>();
@@ -305,25 +309,25 @@ public abstract class Controller {
     }
 
     /**
-     * Finder en beskrivelse på det valgte destillat
+     * Henter en beskrivelse på det valgte destillat.
+     * Pre: destillat er ikke null.
      *
-     * @param destillat der ønskes beskrivelse af
-     * @return en string med beskrivelse af det valgte destillat
+     * @param destillat der ønskes beskrivelse af.
+     * @return en string med beskrivelse af det valgte destillat.
      */
     public static String getDestillatBeskrivelse(Destillat destillat) {
         StringBuilder sb = new StringBuilder();
-        if (destillat != null) {
-            sb.append(destillat.hentHistorik());
-        }
+        sb.append(destillat.hentHistorik());
         return String.valueOf(sb);
     }
 
     //------------------------------------------------------------------------------------------------------------------
 
     /**
-     * Initialiserer en whiskys navn og tilføjer det til storage
-     * @param navn navnet på whiskyen
-     * @return den oprettede whisky
+     * Initialiserer en whiskys navn og tilføjer det til storage.
+     *
+     * @param navn navnet på whiskyen.
+     * @return den oprettede whisky.
      */
     public static Whisky createWhisky(String navn) {
         Whisky whisky = new Whisky(navn);
@@ -333,16 +337,18 @@ public abstract class Controller {
     }
 
     /**
-     * Finder whiskyer
-     * @return en liste med whiskyer
+     * Henter alle whiskyer.
+     *
+     * @return en liste med whiskyer.
      */
     public static Set<Whisky> getWhiskyer() {
         return storage.getWhiskyer();
     }
 
     /**
-     * Finder whiskyer der er igangværende
-     * @return en liste med igangværende whiskyer
+     * Henter whiskyer der er igangværende.
+     *
+     * @return en liste med igangværende whiskyer.
      */
     public static List<Whisky> getIgangværendeWhisky() {
         List<Whisky> resultat = new ArrayList<>();
@@ -355,42 +361,59 @@ public abstract class Controller {
     }
 
     /**
-     * Tapper et destillat for et antal lister og opretter en destillat mængde på whiskyen
-     * Pre: antalLiter, destillat og whisky er ikke null
+     * Tapper et destillat for et antal liter og opretter en destillat mængde på whiskyen.
+     * Pre: destillat og whisky er ikke null.
+     * Pre: antalLiter > 0.
+     *
      * @param antalLiter antal liter der ønskes tappet fra destillatet
-     * @param destillat det destillat der ønskes tappet fra
-     * @param whisky den whisky der ønskes en destillat mængde til
+     * @param destillat  det destillat der ønskes tappet fra
+     * @param whisky     den whisky der ønskes en destillat mængde til
      */
     public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky) {
         whisky.createDestillatMængde(antalLiter, destillat);
     }
 
     /**
-     * Finder en beskrivelse på en whisky
-     * Pre: whisky er ikke null
+     * Henter en beskrivelse på en whisky.
+     * Pre: whisky er ikke null.
+     *
      * @param whisky Den whisky man ønsker en beskrivelse af
      * @return en String med en beskrivelse på den valgte whisky
      */
     public static String getWhiskeyBeskrivelse(Whisky whisky) {
         StringBuilder sb = new StringBuilder();
-        if (whisky != null) {
-            sb.append(whisky.hentHistorik());
-        }
+        sb.append(whisky.hentHistorik());
         return String.valueOf(sb);
     }
 
-    public static double getAntalLiterWhisky(Whisky whisky){
+    /**
+     * Beregner det samlede antal liter whiskyen indeholder (summen af alle destillater og tilsat vand).
+     * Pre: whisky er ikke null.
+     *
+     * @param whisky wiskyen der beregnes antal liter på.
+     * @return det samlede antal liter whisky som double.
+     */
+    public static double getAntalLiterWhisky(Whisky whisky) {
         return whisky.beregnAntalLiter();
     }
-    public static int getAntalFlasker(Whisky whisky){
+
+    /**
+     * Beregner det estimerede antal flasker (af 0.7 liter) whiskyen kan fylde.
+     *
+     * @param whisky whisken der bliver beregnet flasker på.
+     * @return det estimerede antal flasker.
+     */
+    public static int getAntalFlasker(Whisky whisky) {
         return whisky.beregnAntalFlasker();
     }
 
 
     /**
-     * Generer et label med en beskrivelse til en whisky
-     * Pre: Whisky er ikke null
-     * @param whisky den whisky man ønsker et label på
+     * Genererer et label med en beskrivelse til en whisky.
+     * Pre: Whisky er ikke null.
+     * Pre: alkoholprocent > 0.
+     *
+     * @param whisky         den whisky man ønsker et label på
      * @param alkoholprocent whiskyens alkoholprocent
      * @return en string med et label til en whisky
      */
@@ -402,15 +425,23 @@ public abstract class Controller {
                 + "\n\n70 cl.\n" + alkoholprocent + "% Vol.";
     }
 
+    /**
+     * Sætter mængden af tilsat vand i liter på en given whisky.
+     *
+     * @param antalLiter den nye litermængde på whiskyen.
+     * @param whisky     den whisky der skal have den nye litermængde.
+     */
     public static void påfyldVand(int antalLiter, Whisky whisky) {
         whisky.setLiterVand(whisky.getLiterVand() + antalLiter);
     }
 
     /**
-     * Færdiggør en whisky med label og alkoholprocent
-     * Pre: Whisky og alkoholprocent er ikke null
-     * @param whisky den whisky man ønsker færdiggjort
-     * @param label den label der skal på whiskyen
+     * Færdiggører en whisky med label og alkoholprocent.
+     * Pre: Whisky er ikke null.
+     * Pre: alkoholprocent er større end 0 og mindre en 100.
+     *
+     * @param whisky         den whisky man ønsker færdiggjort
+     * @param label          den label der skal på whiskyen
      * @param alkoholprocent whiskyens alkoholprocent
      */
     public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent) {
