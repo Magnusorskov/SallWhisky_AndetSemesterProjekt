@@ -2,6 +2,13 @@ package application.model;
 
 import java.io.Serializable;
 
+/**
+ * Abstrakt superklasse for alle lagervarer i systemet.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ * Klassen definerer fælles egenskaber for lagervarer, såsom placering i et lager (reol og hylde)
+ * og en reference til det lager, de er placeret i. Subklasser skal implementere metoden {@link #beskrivelse()}
+ * for at give en specifik beskrivelse af den pågældende lagervaretype.
+ */
 public abstract class Lagervare implements Serializable {
     private int reolNummer;
     private int hyldeNummer;

@@ -3,6 +3,11 @@ package application.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * Repræsenterer et lager, der kan indeholde forskellige typer af lagervarer på et antal reoler og hylder.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ * Klassen håndterer placering og hentning af lagervarer inden for lagerets struktur.
+ */
 public class Lager implements Serializable {
 
     private final int antalHylder;

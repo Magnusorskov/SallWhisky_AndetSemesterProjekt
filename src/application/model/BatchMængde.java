@@ -2,6 +2,11 @@ package application.model;
 
 import java.io.Serializable;
 
+/**
+ * Repræsenterer en mængde af en specifik batch, der er blevet tappet.
+ * Bruges til at holde styr på hvor meget af en given batch der er brugt i f.eks. et destillat.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ */
 public class BatchMængde implements Serializable {
     private double antalLiter;
     private Batch batch;

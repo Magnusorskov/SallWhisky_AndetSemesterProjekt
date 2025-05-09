@@ -2,6 +2,12 @@ package application.model;
 
 import java.io.Serializable;
 
+/**
+ * Repræsenterer et fad, der bruges til lagring af destillat.
+ * Arver fra Lagervare og implementerer Serializable for at kunne gemmes og indlæses.
+ * Klassen indeholder information om fadets oprindelse, type, størrelse og hvor mange gange det er blevet brugt.
+ * Et fad kan indeholde et enkelt destillat.
+ */
 public class Fad extends Lagervare implements Serializable {
     private String oprindelsesLand;
     private int antalBrug;

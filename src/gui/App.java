@@ -9,6 +9,12 @@ import storage.ListStorage;
 import java.io.*;
 import java.time.LocalDate;
 
+/**
+ * Hovedklassen for applikationen.
+ * Initialiserer storage, indlæser eksisterende data fra fil (hvis tilgængeligt),
+ * starter JavaFX applikationen og gemmer storage ved afslutning.
+ * Indeholder også en metode til at initialisere storage med testdata, hvis den er tom.
+ */
 public class App {
     public static void main(String[] args) {
         Storage storage = loadStorage();
@@ -26,6 +32,12 @@ public class App {
         saveStorage(storage);
     }
 
+    /**
+     * Forsøger at indlæse storage fra en fil ved navn "storage.ser".
+     * Note: Returnerer null hvis storage.ser ikke findes eller hvis der opstår en IOException.
+     *
+     * @return det indlæste Storage objekt.
+     */
     public static Storage loadStorage() {
         String fileName = "storage.ser";
         try (FileInputStream fileIn = new FileInputStream(fileName);
@@ -42,6 +54,12 @@ public class App {
         }
     }
 
+    /**
+     * Gemmer det aktuelle Storage objekt til en fil ved navn "storage.ser".
+     * Hvis serialiseringen mislykkes, kastes en RuntimeException.
+     *
+     * @param storage det Storage objekt der skal gemmes.
+     */
     public static void saveStorage(Storage storage) {
         String fileName = "storage.ser";
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
@@ -56,6 +74,10 @@ public class App {
         }
     }
 
+    /**
+     * Initialiserer storage med en række testdata, herunder lagre, fade, batches, destillater og en whisky.
+     * Denne metode kaldes kun, hvis storage er tom ved opstart.
+     */
     public static void initStorage(){
 
         Lager lager = Controller.createLager("Hovedlager",20,20,"Testvej 4");
