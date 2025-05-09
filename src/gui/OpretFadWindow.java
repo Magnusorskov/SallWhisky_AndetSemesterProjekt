@@ -22,6 +22,7 @@ public class OpretFadWindow extends Stage {
     private ComboBox<Fadtype> cbbType;
     private Label lblError;
 
+    //TODO Lav mulighed for at oprette flere fade af gangen
     public OpretFadWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);

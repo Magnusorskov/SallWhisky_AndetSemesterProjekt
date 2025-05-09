@@ -14,6 +14,7 @@ public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private ListView<Batch> lvwIgangværendeBatches;
 
+    // TODO lav info om batch om til text area
     public BatchPane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);

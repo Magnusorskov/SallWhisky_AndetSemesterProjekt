@@ -167,7 +167,7 @@ public abstract class Controller {
      * @param oprindelsesLand fadets oprindelsesland.
      * @param fadType         fadets type.
      * @param størrelse       fadets størrelse.
-     */
+     */ //TODO Lav mulighed for at oprette flere fade af gangen.
     public static Fad createFad(String oprindelsesLand, Fadtype fadType, double størrelse) {
         Fad fad = new Fad(oprindelsesLand, fadType, størrelse);
         fad.setId(storage.fadID());

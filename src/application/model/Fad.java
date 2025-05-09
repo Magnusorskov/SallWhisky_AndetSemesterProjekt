@@ -110,10 +110,10 @@ public class Fad extends Lagervare implements Serializable {
      *
      * @return en tom streng.
      */
-    @Override
-    public String beskrivelse() {
-        return "";
-    }
+//    @Override
+//    public String beskrivelse() {
+//        return hentHistorik() + super.getHylde() + super.getReol();
+//    }
 
     //sammenhæng til Destillat
     /**
@@ -179,7 +179,7 @@ public class Fad extends Lagervare implements Serializable {
      * Hvis fadet indeholder et destillat, inkluderes destillatets navn i strengen.
      *
      * @return en String der beskriver fadet (inkl. destillatnavn hvis relevant).
-     */
+     */ //TODO tilføj lagernavn hvis den er på lager
     @Override
     public String toString() {
         if (destillat != null) {
