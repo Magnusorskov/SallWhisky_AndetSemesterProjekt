@@ -364,6 +364,7 @@ public abstract class Controller {
      * Tapper et destillat for et antal liter og opretter en destillat mængde på whiskyen.
      * Pre: destillat og whisky er ikke null.
      * Pre: antalLiter > 0.
+     * Pre: Antal liter i destillat skal være >= antalLiter
      *
      * @param antalLiter antal liter der ønskes tappet fra destillatet
      * @param destillat  det destillat der ønskes tappet fra
