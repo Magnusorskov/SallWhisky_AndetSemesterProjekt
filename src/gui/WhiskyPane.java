@@ -167,17 +167,22 @@ public class WhiskyPane extends GridPane {
         } else {
             try {
                 double liter = Double.parseDouble(txfLiter.getText());
-                Controller.tapningAfDestillat(liter, destillat, whisky);
+                if (liter <= destillat.getAntalLiter()){
+                    Controller.tapningAfDestillat(liter, destillat, whisky);
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Tapning er gennemført");
-                alert.setContentText(whisky.getNavn() + "\n Antal liter: " + liter);
-                alert.showAndWait();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Tapning er gennemført");
+                    alert.setContentText(whisky.getNavn() + "\n Antal liter: " + liter);
+                    alert.showAndWait();
 
-                this.updateControls();
-                lblDestillatVæskemængde.setText("Destillat rest. væske: ");
-                txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
-                cmbWhisky.getSelectionModel().select(whisky);
+                    this.updateControls();
+                    lblDestillatVæskemængde.setText("Destillat rest. væske: ");
+                    txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+                    cmbWhisky.getSelectionModel().select(whisky);
+                } else {
+                    lblError.setText("Der er ikke nok liter i destillatet at tappe af");
+                }
+
 
             } catch (NumberFormatException e) {
                 lblError.setText("Indtast et gyldigt tal for liter (f.eks. 2.5)");
