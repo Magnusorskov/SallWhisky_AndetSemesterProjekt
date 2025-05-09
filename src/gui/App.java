@@ -30,6 +30,7 @@ public class App {
 
         Application.launch(gui.StartWindow.class);
         saveStorage(storage);
+
     }
 
     /**

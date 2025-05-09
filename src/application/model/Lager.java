@@ -10,8 +10,6 @@ import java.util.Arrays;
  */
 public class Lager implements Serializable {
 
-    private final int antalHylder;
-    private final int antalReoler;
     private final Lagervare[][] pladser;
     private String navn;
     private String adresse;
@@ -30,8 +28,6 @@ public class Lager implements Serializable {
 
     public Lager(String navn, int antalReoler, int antalHylder, String adresse) {
         this.navn = navn;
-        this.antalHylder = antalHylder;
-        this.antalReoler = antalReoler;
         this.adresse = adresse;
         pladser = new Lagervare[antalReoler + 1][antalHylder + 1];
     }
@@ -60,7 +56,7 @@ public class Lager implements Serializable {
      * @return det samlede antal pladser i lageret.
      */
     public int getStørrelsePåLager() {
-        return (antalHylder) * (antalReoler);
+        return getAntalReoler() * getAntalHylder();
     }
 
     /**
@@ -106,12 +102,12 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Henter det samlede antal hylder i lageret.
+     * Henter mængden af hylder på hver reol.
      *
      * @return det samlede antal hylder.
      */
     public int getAntalHylder() {
-        return antalHylder;
+        return pladser[1].length - 1;
     }
 
     /**
@@ -120,7 +116,7 @@ public class Lager implements Serializable {
      * @return det samlede antal reoler.
      */
     public int getAntalReoler() {
-        return antalReoler;
+        return pladser.length - 1;
     }
 
 
