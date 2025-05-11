@@ -161,15 +161,15 @@ public abstract class Controller {
 
     /**
      * Initialiserer et fads oprindelsesland, fadtype, størrelse og tilføjer den til storage.
-     * Pre: oprindelsesland og fadtype er ikke null.
+     * Pre: land og fadtype er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param oprindelsesLand fadets oprindelsesland.
+     * @param land fadets oprindelsesland.
      * @param fadType         fadets type.
      * @param størrelse       fadets størrelse.
      */ //TODO Lav mulighed for at oprette flere fade af gangen.
-    public static Fad createFad(String oprindelsesLand, Fadtype fadType, double størrelse) {
-        Fad fad = new Fad(oprindelsesLand, fadType, størrelse);
+    public static Fad createFad(Land land, Fadtype fadType, double størrelse) {
+        Fad fad = new Fad(land, fadType, størrelse);
         fad.setId(storage.fadID());
         storage.addFad(fad);
         return fad;

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Et fad kan indeholde et enkelt destillat.
  */
 public class Fad extends Lagervare implements Serializable {
-    private String oprindelsesLand;
+    private Land land;
     private int antalBrug;
     private Fadtype fadType;
     private double størrelse;
@@ -22,13 +22,13 @@ public class Fad extends Lagervare implements Serializable {
      * Pre: oprindelsesland og fadtype er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param oprindelsesLand fadets oprindelsesland.
+     * @param land fadets oprindelsesland.
      * @param fadType         fadets type.
      * @param størrelse       fadets størrelse.
      */
-    public Fad(String oprindelsesLand, Fadtype fadType, double størrelse) {
+    public Fad(Land land, Fadtype fadType, double størrelse) {
         super();
-        this.oprindelsesLand = oprindelsesLand;
+        this.land = land;
         this.fadType = fadType;
         this.størrelse = størrelse;
 
@@ -45,8 +45,8 @@ public class Fad extends Lagervare implements Serializable {
      *
      * @return fadets oprindelsesland.
      */
-    public String getOprindelsesLand() {
-        return oprindelsesLand;
+    public Land getOprindelsesLand() {
+        return land;
     }
 
     /**
@@ -167,7 +167,7 @@ public class Fad extends Lagervare implements Serializable {
     public StringBuilder hentHistorik(){
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + id);
-        sb.append("\nOprindelses Land: " + oprindelsesLand);
+        sb.append("\nOprindelses Land: " + land);
         sb.append("\nFad type: " + fadType);
         sb.append("\nAntal brug: " + antalBrug);
         sb.append("\nFad størrelse: " + størrelse);
