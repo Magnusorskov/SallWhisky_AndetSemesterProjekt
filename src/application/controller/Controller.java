@@ -249,6 +249,20 @@ public abstract class Controller {
         return lager;
     }
 
+    /**
+     * Placerer en lagervare på et lager
+     * Pre: Lager og lagervare er ikke null
+     *
+     * @param lager det lager man ønsker at placere varen på
+     * @param lagervare lagervaren man ønsker at placere på lageret.
+     * @param reol reolnummeret på den ønskede plads.
+     * @param hylde hyldenummeret på den ønskede plads.
+     */
+
+    public void placerVarePåLager(Lager lager, Lagervare lagervare, int reol, int hylde){
+        lager.indsætVarePåLager(reol,hylde,lagervare);
+    }
+
 
     //-----------------------------------------------------------------------------------------------------
 

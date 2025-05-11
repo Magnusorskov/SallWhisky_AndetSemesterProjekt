@@ -132,9 +132,22 @@ public class Lager implements Serializable {
         return Arrays.copyOf(pladser, pladser.length);
     }
 
+    /**
+     * Henter den næste ledige plads på lageret.
+     *
+     * @return et int array med index på næste ledige plads på lageret.
+     */
     public int[] getNæsteLedigPlads(){
         return næsteLedigPlads;
     }
+
+    /**
+     * Indsætter en vare på på en plads på lageret.
+     * Pre: lagervare er ikke null
+     * @param reol reolnummeret på den ønskede plads.
+     * @param hylde hyldenummeret på den ønskede plads.
+     * @param lagervare lagervaren man ønsker at indsætte på lageret.
+     */
 
     public void indsætVarePåLager(int reol, int hylde, Lagervare lagervare){
         if (reol < 1 || reol > pladser.length - 1){
@@ -153,6 +166,11 @@ public class Lager implements Serializable {
 
         opdaterNæsteLedigePlads();
     }
+
+    /**
+     * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads
+     * Pre: lageret er oprettet
+     */
 
     public void opdaterNæsteLedigePlads(){
         boolean fundet = false;
@@ -181,10 +199,6 @@ public class Lager implements Serializable {
             throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
         }
     }
-
-
-
-
 
 
     /**
