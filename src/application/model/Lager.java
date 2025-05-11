@@ -13,6 +13,7 @@ public class Lager implements Serializable {
     private final Lagervare[][] pladser;
     private String navn;
     private String adresse;
+    private int[] næsteLedigPlads = new int[2];
 
 
     /**
@@ -30,6 +31,8 @@ public class Lager implements Serializable {
         this.navn = navn;
         this.adresse = adresse;
         pladser = new Lagervare[antalReoler + 1][antalHylder + 1];
+        næsteLedigPlads[0] = 1;
+        næsteLedigPlads[1] = 1;
     }
 
     /**
@@ -128,6 +131,61 @@ public class Lager implements Serializable {
     public Lagervare[][] getPladser() {
         return Arrays.copyOf(pladser, pladser.length);
     }
+
+    public int[] getNæsteLedigPlads(){
+        return næsteLedigPlads;
+    }
+
+    public void indsætVarePåLager(int reol, int hylde, Lagervare lagervare){
+        if (reol < 1 || reol > pladser.length - 1){
+            throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + getAntalReoler() + " reoler på lageret");
+        }
+
+        if (hylde < 1 || hylde > pladser[0].length - 1){
+            throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + getAntalHylder() + " hylder på lageret");
+        }
+
+        if (pladser[reol][hylde] != null){
+            throw new IllegalArgumentException("Pladsen er allerede optaget");
+        }
+
+        pladser[reol][hylde] = lagervare;
+
+        opdaterNæsteLedigePlads();
+    }
+
+    public void opdaterNæsteLedigePlads(){
+        boolean fundet = false;
+        int reol = næsteLedigPlads[0];
+        int hylde = næsteLedigPlads[1];
+
+        while (!fundet){
+            if (hylde >= pladser[reol].length){
+                hylde = 1;
+                reol++;
+            }
+
+            if (reol >= pladser.length){
+                reol = 1;
+            }
+
+            if (pladser[reol][hylde] == null){
+                næsteLedigPlads[0] = reol;
+                næsteLedigPlads[1] = hylde;
+                fundet = true;
+            }
+            hylde++;
+        }
+
+        if (reol == næsteLedigPlads[0] && hylde == næsteLedigPlads[1]){
+            throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+        }
+    }
+
+
+
+
+
 
     /**
      * Laver en String repræsentation af Lager objektet.
