@@ -1,10 +1,12 @@
 package gui;
 
+import application.model.Søgning;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class LagerPane extends GridPane {
+    private Søgning søgning;
 
     public LagerPane() {
         this.setPadding(new Insets(20));
