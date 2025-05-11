@@ -169,35 +169,51 @@ public class Lager implements Serializable {
 
     /**
      * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads
-     * Pre: lageret er oprettet
      */
 
-    public void opdaterNæsteLedigePlads(){
+    public void opdaterNæsteLedigePlads() {
         boolean fundet = false;
-        int reol = næsteLedigPlads[0];
-        int hylde = næsteLedigPlads[1];
+        int startReol = næsteLedigPlads[0];
+        int startHylde = næsteLedigPlads[1];
+        int reol = startReol;
+        int hylde = startHylde;
 
-        while (!fundet){
-            if (hylde >= pladser[reol].length){
-                hylde = 1;
-                reol++;
-            }
-
-            if (reol >= pladser.length){
-                reol = 1;
-            }
-
-            if (pladser[reol][hylde] == null){
+        while (!fundet) {
+            if (pladser[reol][hylde] == null) {
                 næsteLedigPlads[0] = reol;
                 næsteLedigPlads[1] = hylde;
                 fundet = true;
+            } else {
+                hylde++;
+                if (hylde >= pladser[reol].length) {
+                    hylde = 1;
+                    reol++;
+                    if (reol >= pladser.length) {
+                        reol = 1;
+                    }
+                }
+                if (reol == startReol && hylde == startHylde) {
+                    throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+                }
             }
-            hylde++;
         }
+    }
 
-        if (reol == næsteLedigPlads[0] && hylde == næsteLedigPlads[1]){
-            throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+    /**
+     * Beregner det samlede antal ledige pladser der er tilbage på lageret
+     * @return en int med antal ledige pladser på lageret
+     */
+
+    public int antalLedigePladser() {
+        int count = 0;
+        for (int reol = 1; reol < pladser.length; reol++) {
+            for (int hylde = 1; hylde < pladser[reol].length; hylde++) {
+                if (pladser[reol][hylde] == null) {
+                    count++;
+                }
+            }
         }
+        return count;
     }
 
 
