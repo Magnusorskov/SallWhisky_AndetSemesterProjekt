@@ -53,6 +53,9 @@ public class VælgPlaceringWindow extends Stage {
         pane.add(lblLager, 0, 1);
 
         cbbLager = new ComboBox<>();
+        if (lagervare.getLager() != null){
+            cbbLager.getSelectionModel().select(lagervare.getLager());
+        }
         cbbLager.getItems().addAll(Controller.getLagre());
         pane.add(cbbLager, 0, 2);
         cbbLager.setOnAction(event -> lagerAction());
