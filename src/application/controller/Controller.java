@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.model.*;
+import application.model.SøgningsStrategier.SøgEfterFadType;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -281,6 +282,18 @@ public abstract class Controller {
     public void fjernLagerVare(Lagervare lagervare){
         Lager lager = lagervare.getLager();
         lager.removeLagerVare(lagervare);
+    }
+
+    private List<Fad> fadSoegning(Lager lager, Fadtype fadtype, int fills, Land land,
+                                  int alderPåDestillat, int literStørrelse, boolean fyldt, boolean lagret) {
+        List<Fad> fade = Controller.getFade();
+        List<Søgning<Fad>> søgninger = new ArrayList<>();
+        if (fadtype != null) {
+            søgninger.add(new SøgEfterFadType(fadtype));
+        }
+        if (lagret == true || lagret == false) {
+            søgninger.add(Søgning<Fad> = new Søgning<Fad>());
+        }
     }
 
 
