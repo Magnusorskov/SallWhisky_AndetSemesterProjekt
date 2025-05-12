@@ -270,6 +270,11 @@ public abstract class Controller {
         lager.indsætVarePåLager(reol,hylde,lagervare);
     }
 
+    public void fjernLagerVare(Lagervare lagervare){
+        Lager lager = lagervare.getLager();
+        lager.removeLagerVare(lagervare);
+    }
+
 
     //-----------------------------------------------------------------------------------------------------
 

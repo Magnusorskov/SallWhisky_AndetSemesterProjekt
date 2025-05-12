@@ -85,6 +85,10 @@ public class Lager implements Serializable {
      */
     public void removeLagerVare(Lagervare lagervare) {
         if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare) {
+            if (næsteLedigPlads[0] == -1){
+                næsteLedigPlads[0] = lagervare.getReol();
+                næsteLedigPlads[1] = lagervare.getHylde();
+            }
             pladser[lagervare.getReol()][lagervare.getHylde()] = null;
         }
     }
