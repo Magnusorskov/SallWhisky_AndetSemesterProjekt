@@ -38,10 +38,6 @@ public class StartWindow extends Application {
 
         // ---------------------------------------------------------------------
 
-//        CompanyPane companyPane = new CompanyPane();
-//        tabCompanies.setContent(companyPane);
-//        tabCompanies.setOnSelectionChanged(event -> companyPane.updateControls());
-
         Tab tabDestillat = new Tab("Destillat");
         tabPane.getTabs().add(tabDestillat);
 
@@ -65,8 +61,7 @@ public class StartWindow extends Application {
 
         LagerPane lagerPane = new LagerPane();
         tabLager.setContent(lagerPane);
-        // TODO fix update controls
-//        tabLager.setOnSelectionChanged(event -> lagerPane.updateControls());
+        tabLager.setOnSelectionChanged(event -> lagerPane.updateControls());
 
     }
 
