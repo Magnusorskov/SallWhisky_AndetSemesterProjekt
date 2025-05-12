@@ -5,6 +5,7 @@ import application.model.Fad;
 import application.model.Fadtype;
 import application.model.Lagervare;
 import application.model.Land;
+import application.model.SøgningsStrategier.SøgEfterFadType;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import application.model.Søgning;
@@ -220,7 +221,14 @@ public class LagerPane extends GridPane {
     }
 
     private void sorterEfterSoegning() {
-
+        List<Fad> fade = Controller.getFade();
+        List<Søgning<Fad>> søgninger = new ArrayList<>();
+        if (cbbFadtype.getSelectionModel().getSelectedItem() != null) {
+            søgninger.add(new SøgEfterFadType((Fadtype) cbbFadtype.getSelectionModel().getSelectedItem()));
+        }
+        if (cbbLagre.getSelectionModel().getSelectedItem().equals("På lager")) {
+            søgninger.add(Søgning<Fad> = new Søgning<Fad>());
+        }
     }
 
 

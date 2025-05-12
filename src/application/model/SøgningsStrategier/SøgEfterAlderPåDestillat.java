@@ -6,7 +6,7 @@ import application.model.Søgning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgEfterAlderPåDestillat implements Søgning {
+public class SøgEfterAlderPåDestillat implements Søgning<Fad> {
     private int måneder;
 
     public SøgEfterAlderPåDestillat(int måneder) {
@@ -14,7 +14,7 @@ public class SøgEfterAlderPåDestillat implements Søgning {
     }
 
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
+    public List<Fad> søgning(List<Fad> fade) {
         List<Fad> resultat = new ArrayList<>(fade);
         for (Fad fad : fade) {
             if (fad.getDestillat() != null) {

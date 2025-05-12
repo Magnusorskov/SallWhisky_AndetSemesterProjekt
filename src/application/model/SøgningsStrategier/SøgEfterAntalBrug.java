@@ -6,7 +6,7 @@ import application.model.Søgning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgEfterAntalBrug implements Søgning {
+public class SøgEfterAntalBrug implements Søgning<Fad> {
     private int antalBrug;
 
     public SøgEfterAntalBrug(int antalBrug) {
@@ -14,7 +14,7 @@ public class SøgEfterAntalBrug implements Søgning {
     }
 
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
+    public List<Fad> søgning(List<Fad> fade) {
         List<Fad> resultat = new ArrayList<>(fade);
         for (Fad fad : fade) {
             if (fad.getAntalBrug() == antalBrug) {

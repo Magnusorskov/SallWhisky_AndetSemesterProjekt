@@ -7,7 +7,7 @@ import application.model.Søgning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgEfterFadType implements Søgning {
+public class SøgEfterFadType implements Søgning<Fad> {
     private Fadtype fadtype;
 
     public SøgEfterFadType(Fadtype fadtype) {
@@ -16,7 +16,7 @@ public class SøgEfterFadType implements Søgning {
 
 
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
+    public List<Fad> søgning(List<Fad> fade) {
         List<Fad> resultat = new ArrayList<>(fade);
         for (Fad fad : fade) {
             if (fad.getFadType() == fadtype) {
