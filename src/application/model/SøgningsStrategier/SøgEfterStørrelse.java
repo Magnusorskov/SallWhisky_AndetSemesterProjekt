@@ -6,7 +6,7 @@ import application.model.Søgning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgEfterStørrelse implements Søgning {
+public class SøgEfterStørrelse implements Søgning<Fad> {
     private double størrelse;
 
     public SøgEfterStørrelse(double størrelse) {
@@ -14,8 +14,8 @@ public class SøgEfterStørrelse implements Søgning {
     }
 
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
-        List<Fad> resultat = new ArrayList<>(fade);
+    public List<Fad> søgning(List<Fad> fade) {
+        List<Fad> resultat = new ArrayList<>();
 
         for (Fad fad : fade) {
             if (fad.getStørrelse() >= størrelse) {

@@ -15,7 +15,7 @@ public class SøgEfterAntalBrug implements Søgning<Fad> {
 
     @Override
     public List<Fad> søgning(List<Fad> fade) {
-        List<Fad> resultat = new ArrayList<>(fade);
+        List<Fad> resultat = new ArrayList<>();
         for (Fad fad : fade) {
             if (fad.getAntalBrug() == antalBrug) {
                 resultat.add(fad);

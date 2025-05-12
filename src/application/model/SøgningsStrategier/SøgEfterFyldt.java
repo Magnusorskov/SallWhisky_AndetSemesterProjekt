@@ -6,7 +6,7 @@ import application.model.Søgning;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SøgEfterFyldt implements Søgning {
+public class SøgEfterFyldt implements Søgning<Fad> {
     private boolean fyldt;
 
     public SøgEfterFyldt(boolean fyldt) {
@@ -14,8 +14,8 @@ public class SøgEfterFyldt implements Søgning {
     }
 
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
-        List<Fad> resultat = new ArrayList<>(fade);
+    public List<Fad> søgning(List<Fad> fade) {
+        List<Fad> resultat = new ArrayList<>();
 
         if (fyldt) {
             for (Fad fad : fade) {

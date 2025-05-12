@@ -228,6 +228,7 @@ public class FærdiggørDestillatWindow extends Stage {
             lblHylde.setText("Hylde nummer: ");
             lblReol.setText("Reol nummer: ");
         } else {
+
             lblHylde.setText("Hylde nummer: 1-" + lager.getAntalHylder());
             lblReol.setText("Reol nummer: 1-" + lager.getAntalReoler());
         }

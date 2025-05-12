@@ -15,7 +15,7 @@ public class KombineretSøgning<E> implements Søgning<E> {
 
     @Override
     public List<E> søgning(List<E> elementer) {
-        List<E> resultater = new ArrayList<E>(elementer);
+        List<E> resultater = new ArrayList<>(elementer);
 
         for (Søgning<E> søgning : kombineredeSøgninger) {
             resultater = søgning.søgning(resultater);

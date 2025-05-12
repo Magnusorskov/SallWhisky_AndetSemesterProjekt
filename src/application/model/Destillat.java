@@ -2,6 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -230,7 +231,8 @@ public class Destillat implements Serializable {
      * @return alderen fra påfyldningsdato til nu i måneder.
      */
     public int beregnAlderIMåneder() {
-        return (int) ((LocalDate.now().compareTo(påfyldningsDato)) / 30.436768);
+        long antalDage = ChronoUnit.DAYS.between(påfyldningsDato, LocalDate.now());
+        return (int) (antalDage / 30.436768);
     }
 
     /**
