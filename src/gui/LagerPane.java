@@ -25,6 +25,7 @@ public class LagerPane extends GridPane {
         Label lblLagre = new Label("Lagre");
         this.add(lblLagre,0,0);
 
+
         cbbLagre = new ComboBox<>();
         cbbLagre.getItems().add(null);
         cbbLagre.getItems().add("På lager");
