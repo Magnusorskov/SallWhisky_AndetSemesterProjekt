@@ -193,6 +193,8 @@ public class Lager implements Serializable {
                     }
                 }
                 if (reol == startReol && hylde == startHylde) {
+                    næsteLedigPlads[0] = -1;
+                    næsteLedigPlads[1] = -1;
                     throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
                 }
             }
@@ -205,6 +207,9 @@ public class Lager implements Serializable {
      */
 
     public int antalLedigePladser() {
+        if (næsteLedigPlads[0] == -1){
+            return 0;
+        }
         int count = 0;
         for (int reol = 1; reol < pladser.length; reol++) {
             for (int hylde = 1; hylde < pladser[reol].length; hylde++) {
