@@ -58,6 +58,18 @@ public class FærdiggørWhiskyWindow extends Stage {
         Label lblVand = new Label("Påfyld vand");
 
         txfVand = new TextField("0");
+        txfVand.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        txfVand.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfVand.setText(oldValue);
+                }
+            }
+        });
 
         Button btnPåfyldVand = new Button("Påfyld Vand");
         btnPåfyldVand.setOnAction(event -> påfyldVandAction());
@@ -83,6 +95,18 @@ public class FærdiggørWhiskyWindow extends Stage {
 
         txfAlkohol = new TextField("0");
         pane.add(txfAlkohol, 1, 1);
+        txfAlkohol.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0 || value > 100) {
+                        txfAlkohol.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfAlkohol.setText(oldValue);
+                }
+            }
+        });
 
         Label lblHistorie = new Label("Historie");
         pane.add(lblHistorie, 1, 2);
@@ -133,11 +157,7 @@ public class FærdiggørWhiskyWindow extends Stage {
         String label = txaLabel.getText().trim();
         double alkohol = Double.parseDouble(txfAlkohol.getText().trim());
 
-        if (alkohol <= 0 || txfAlkohol.getText().trim().isBlank()){
-            lblError.setText("Skriv en alkoholprocent");
-        } else if (alkohol >= 100){
-            lblError.setText("Skriv en gyldig alkoholprocent");
-        } else if (label.isBlank()){
+        if (label.isBlank()){
             lblError.setText("Genere et label");
         } else {
             Controller.færdiggørWhisky(whisky, label, alkohol);

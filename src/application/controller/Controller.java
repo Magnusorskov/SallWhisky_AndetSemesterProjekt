@@ -259,11 +259,11 @@ public abstract class Controller {
      * @param hylde hyldenummeret på den ønskede plads.
      */
 
-    public void placerVarePåLager(Lager lager, Lagervare lagervare, int reol, int hylde){
+    public static void placerVarePåLager(Lager lager, Lagervare lagervare, int reol, int hylde){
         lager.indsætVarePåLager(reol,hylde,lagervare);
     }
 
-    public void placerVarePåLagerMedNæsteLedigePlads(Lager lager,Lagervare lagervare){
+    public static void placerVarePåLagerMedNæsteLedigePlads(Lager lager,Lagervare lagervare){
         int[] næsteLedigePlads = lager.getNæsteLedigPlads();
         int reol = næsteLedigePlads[0];
         int hylde = næsteLedigePlads[1];

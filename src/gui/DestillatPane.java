@@ -117,11 +117,12 @@ public class DestillatPane extends GridPane {
     private void færdiggørAction() {
         Fad fad = cmbFade.getSelectionModel().getSelectedItem();
 
-        if (fad.getDestillat() != null) {
+        if (fad != null && fad.getDestillat() != null) {
             FærdiggørDestillatWindow dia = new FærdiggørDestillatWindow("Færdiggør Destillat", fad.getDestillat());
             dia.showAndWait();
 
             this.updateControls();
+            btnTilføj.setDisable(true);
         }
     }
 
@@ -138,16 +139,14 @@ public class DestillatPane extends GridPane {
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBatchBeskrivelse(batch));
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
+            if (cmbFade.getSelectionModel().getSelectedItem() != null) {
+                btnTilføj.setDisable(false);
+            }
         } else {
             txaBatchBeskrivelse.clear();
             lblBatchVæskemængde.setText("Batch rest. væske: ");
         }
-        if (cmbFade.getSelectionModel().getSelectedItem() != null) {
-            btnTilføj.setDisable(false);
 
-        } else {
-            btnTilføj.setDisable(true);
-        }
     }
 
     private void selectionChangeFad() {

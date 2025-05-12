@@ -19,12 +19,11 @@ import javafx.stage.StageStyle;
 public class OpretFadWindow extends Stage {
 
     // ---------------------------------------------------------------------
-    private TextField txfStørrelse;
+    private TextField txfStørrelse, txfAntal;
     private ComboBox<Fadtype> cbbType;
     private ComboBox<Land> cbbLand;
     private Label lblError;
 
-    //TODO Lav mulighed for at oprette flere fade af gangen
     public OpretFadWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
@@ -66,13 +65,32 @@ public class OpretFadWindow extends Stage {
         Label lblStørrelse = new Label("Antal liter");
         pane.add(lblStørrelse, 0, 4);
 
-        txfStørrelse = new TextField();
-        txfStørrelse.setText("0");
+        txfStørrelse = new TextField("0");
         txfStørrelse.setMaxWidth(160);
         pane.add(txfStørrelse, 0, 5);
 
+        Label lblAntal = new Label("Antal fade");
+        pane.add(lblAntal, 0, 6);
+
+        txfAntal = new TextField("1");
+        txfAntal.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        txfAntal.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfAntal.setText(oldValue);
+                }
+            }
+        });
+        txfStørrelse.setMaxWidth(160);
+        pane.add(txfAntal, 0, 7);
+
+
         HBox box = new HBox();
-        pane.add(box, 0, 6);
+        pane.add(box, 0, 8);
         box.setSpacing(70);
 
         Button btnLuk = new Button("Luk");
@@ -109,7 +127,9 @@ public class OpretFadWindow extends Stage {
         } else if (type == null) {
             lblError.setText("Vælg en fad type");
         } else {
-            Controller.createFad(land, type, størrelse);
+            for (int i = 0; i < Integer.parseInt(txfAntal.getText()); i++) {
+                Controller.createFad(land, type, størrelse);
+            }
             hide();
         }
     }

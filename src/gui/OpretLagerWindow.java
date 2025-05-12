@@ -62,6 +62,18 @@ public class OpretLagerWindow extends Stage {
         txfAntalReoler.setMaxWidth(160);
         pane.add(txfAntalReoler, 0, 3);
         txfAntalReoler.setText("0");
+        txfAntalReoler.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        txfAntalReoler.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfAntalReoler.setText(oldValue);
+                }
+            }
+        });
 
         Label lblAntalHylder = new Label("Antal hylder");
         pane.add(lblAntalHylder, 1, 2);
@@ -70,7 +82,18 @@ public class OpretLagerWindow extends Stage {
         txfAntalHylder.setMaxWidth(160);
         pane.add(txfAntalHylder, 1, 3);
         txfAntalHylder.setText("0");
-
+        txfAntalHylder.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        txfAntalHylder.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfAntalHylder.setText(oldValue);
+                }
+            }
+        });
 
         Button btnLuk = new Button("Luk");
         btnLuk.setOnAction(event -> lukAction());
@@ -105,10 +128,6 @@ public class OpretLagerWindow extends Stage {
             lblError.setText("Skriv et navn på lageret");
         } else if (adresse.isBlank()) {
             lblError.setText("Skriv adressen på lageret");
-        } else if (antalReoler <= 0) {
-            lblError.setText("Giv lageret et positivt antal rækker");
-        } else if (antalHylder <= 0) {
-            lblError.setText("Giv lageret et positivt antal hylder");
         } else {
             Controller.createLager(navn, antalReoler, antalHylder, adresse);
             hide();

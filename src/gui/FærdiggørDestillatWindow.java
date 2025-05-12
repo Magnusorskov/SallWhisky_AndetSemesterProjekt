@@ -2,7 +2,9 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Destillat;
+import application.model.Fad;
 import application.model.Lager;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -19,7 +21,12 @@ import java.time.LocalDate;
 
 public class FærdiggørDestillatWindow extends Stage {
     private Destillat destillat;
-
+    //-------------------------------------------------------
+    private DatePicker påfyldDato;
+    private ComboBox<Lager> cbbLager;
+    private Label lblError, lblReol, lblHylde;
+    private Button btnFindPlads;
+    private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
     public FærdiggørDestillatWindow(String title, Destillat destillat) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
@@ -37,13 +44,6 @@ public class FærdiggørDestillatWindow extends Stage {
         setMinHeight(400);
 
     }
-
-    //-------------------------------------------------------
-    private DatePicker påfyldDato;
-    private ComboBox<Lager> cbbLager;
-    private Label lblError;
-    private Button btnFindPlads;
-    private TextField txfNavn, txfLiter, txfAlkoholProcent, txfReol, txfHylde;
 
     public void initContent(GridPane pane) {
         pane.setPadding(new Insets(10));
@@ -73,6 +73,18 @@ public class FærdiggørDestillatWindow extends Stage {
 
         txfAlkoholProcent = new TextField("0");
         pane.add(txfAlkoholProcent, 0, 6);
+        txfAlkoholProcent.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0 || value > 100) {
+                        txfAlkoholProcent.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfAlkoholProcent.setText(oldValue);
+                }
+            }
+        });
 
         Label lblDato = new Label("Påfyldnings dato");
         pane.add(lblDato, 0, 7);
@@ -102,17 +114,37 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(cbbLager, 1, 2);
         cbbLager.setOnAction(event -> lagerAction());
 
-        Label lblReol = new Label("Reol nummer");
+        ChangeListener<Lager> listener = (ov, oldBatch, newBatch) -> this.selectionChangeLager();
+        cbbLager.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        lblReol = new Label("Reol nummer: ");
         pane.add(lblReol, 1, 3);
         //TODO fix så txfReol og txfHylde får current placering hvis der er en
         txfReol = new TextField("0");
         pane.add(txfReol, 1, 4);
-
-        Label lblHylde = new Label("Hylde nummer");
+        txfReol.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.isEmpty()) {
+                try {
+                    int value = Integer.parseInt(newValue);
+                    if (value < 0) {
+                        txfReol.setText(oldValue);
+                    }
+                } catch (NumberFormatException e) {
+                    txfReol.setText(oldValue);
+                }
+            }
+        });
+        lblHylde = new Label("Hylde nummer: ");
         pane.add(lblHylde, 1, 5);
 
         txfHylde = new TextField("0");
         pane.add(txfHylde, 1, 6);
+
+        Fad fad = destillat.getFad();
+        if (fad.getLager() != null) {
+            txfHylde.setText("" + fad.getHylde());
+            txfReol.setText("" + fad.getReol());
+        }
 
         btnFindPlads = new Button("Find plads");
         btnFindPlads.setOnAction(event -> findPladsAction());
@@ -153,6 +185,8 @@ public class FærdiggørDestillatWindow extends Stage {
         LocalDate påfyldDato = this.påfyldDato.getValue();
         double alkohol = Double.parseDouble(txfAlkoholProcent.getText());
         Lager lager = cbbLager.getSelectionModel().getSelectedItem();
+        int maksReol = lager.getAntalReoler();
+        int maksHylde = lager.getAntalHylder();
         int reol = Integer.parseInt(txfReol.getText());
         int hylde = Integer.parseInt(txfHylde.getText());
 
@@ -165,18 +199,17 @@ public class FærdiggørDestillatWindow extends Stage {
             lblError.setText("Vælg en dato for påfyldning");
         } else if (lager == null) {
             lblError.setText("Vælg et lager");
-        } else if (reol <= 0) {
+        } else if (reol < 1 || reol > maksReol) {
             lblError.setText("Skriv et reol nummer");
-        } else if (hylde <= 0) {
+        } else if (hylde < 1 || hylde > maksHylde) {
             lblError.setText("Skriv et hylde nummer");
         } else {
             if (!navn.equals(destillat.getNavn())) {
                 destillat.setNavn(navn);
             }
 
-            //tilføj kode om placering
-            //TODO
             Controller.færdiggørDestillat(alkohol, påfyldDato, destillat);
+            Controller.placerVarePåLager(lager,destillat.getFad(),reol,hylde);
             hide();
         }
 
@@ -184,7 +217,20 @@ public class FærdiggørDestillatWindow extends Stage {
     }
 
     private void findPladsAction() {
-        //TODO
+        int[] plads = cbbLager.getSelectionModel().getSelectedItem().getNæsteLedigPlads();
+        txfReol.setText("" + plads[0]);
+        txfHylde.setText("" + plads[1]);
+    }
+
+    private void selectionChangeLager() {
+        Lager lager = cbbLager.getSelectionModel().getSelectedItem();
+        if (lager == null) {
+            lblHylde.setText("Hylde nummer: ");
+            lblReol.setText("Reol nummer: ");
+        } else {
+            lblHylde.setText("Hylde nummer: 1-" + lager.getAntalHylder());
+            lblReol.setText("Reol nummer: 1-" + lager.getAntalReoler());
+        }
     }
 
 
