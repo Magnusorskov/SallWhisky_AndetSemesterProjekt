@@ -3,18 +3,18 @@ package gui;
 import application.controller.Controller;
 import application.model.Fadtype;
 import application.model.Lager;
+import application.model.Land;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class LagerPane extends GridPane {
 
-    private ComboBox<Object> cbbLagre;
-    private ComboBox<Fadtype> cbbFadtype;
-    private ComboBox<Integer> cbbFills;
-    private ComboBox<> cbbFills;
+    private ComboBox<Object> cbbLagre, cbbFadtype, cbbFills, cbbLand;
+    private TextField txfMåneder, txfStørrelse;
 
     public LagerPane() {
         this.setPadding(new Insets(20));
@@ -45,7 +45,24 @@ public class LagerPane extends GridPane {
         cbbFills.getItems().addAll(0,1,2,3);
         this.add(cbbFills, 0, 5);
 
+        Label lblLand = new Label("Land");
+        this.add(lblFadtype,0,6);
 
+        cbbLand = new ComboBox<>();
+        cbbLand.getItems().addAll(Land.SPANIEN,Land.PORTUGAL,Land.USA);
+        this.add(cbbLand, 0, 7);
+
+        Label lblMåneder = new Label("Alder i måneder");
+        this.add(lblMåneder,0,8);
+
+        txfMåneder = new TextField();
+        this.add(txfMåneder,0,9);
+
+        Label lblStørrelse = new Label("Størrelse");
+        this.add(lblStørrelse,0,10);
+
+        txfStørrelse = new TextField();
+        this.add(txfStørrelse,0,11);
 
 
 
