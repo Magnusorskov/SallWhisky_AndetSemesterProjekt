@@ -225,6 +225,15 @@ public class Destillat implements Serializable {
     }
 
     /**
+     * Beregner alderen fra påfyldningsdato til nu.
+     *
+     * @return alderen fra påfyldningsdato til nu i måneder.
+     */
+    public int beregnAlderIMåneder() {
+        return (int) ((LocalDate.now().compareTo(påfyldningsDato)) / 30.436768);
+    }
+
+    /**
      * Henter de unikke fadtyper fra destillatet.
      *
      * @return et Set indeholdende de unikke Fadtyper for fadet.

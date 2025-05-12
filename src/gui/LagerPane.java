@@ -7,6 +7,7 @@ import application.model.Lagervare;
 import application.model.Land;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
+import application.model.Søgning;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -216,6 +217,10 @@ public class LagerPane extends GridPane {
         txfStørrelse.clear();
         txaBeskrivelse.clear();
         lvwFad.getItems().setAll(Controller.getFade());
+    }
+
+    private void sorterEfterSoegning() {
+
     }
 
 
