@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
 
+/**
+ * Repræsenterer en færdig whisky, som er en blanding af forskellige destillater og eventuelt vand.
+ * Implementerer Serializable for at kunne gemmes og indlæses, og Comparable for at kunne sorteres.
+ */
 public class Whisky implements Serializable, Comparable<Whisky> {
     private String navn;
     private int id;

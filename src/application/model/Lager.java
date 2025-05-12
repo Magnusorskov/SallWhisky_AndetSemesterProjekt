@@ -3,13 +3,17 @@ package application.model;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * Repræsenterer et lager, der kan indeholde forskellige typer af lagervarer på et antal reoler og hylder.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ * Klassen håndterer placering og hentning af lagervarer inden for lagerets struktur.
+ */
 public class Lager implements Serializable {
 
-    private final int antalHylder;
-    private final int antalReoler;
     private final Lagervare[][] pladser;
     private String navn;
     private String adresse;
+    private int[] næsteLedigPlads = new int[2];
 
 
     /**
@@ -25,10 +29,10 @@ public class Lager implements Serializable {
 
     public Lager(String navn, int antalReoler, int antalHylder, String adresse) {
         this.navn = navn;
-        this.antalHylder = antalHylder;
-        this.antalReoler = antalReoler;
         this.adresse = adresse;
         pladser = new Lagervare[antalReoler + 1][antalHylder + 1];
+        næsteLedigPlads[0] = 1;
+        næsteLedigPlads[1] = 1;
     }
 
     /**
@@ -55,7 +59,7 @@ public class Lager implements Serializable {
      * @return det samlede antal pladser i lageret.
      */
     public int getStørrelsePåLager() {
-        return (antalHylder) * (antalReoler);
+        return getAntalReoler() * getAntalHylder();
     }
 
     /**
@@ -101,12 +105,12 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Henter det samlede antal hylder i lageret.
+     * Henter mængden af hylder på hver reol.
      *
      * @return det samlede antal hylder.
      */
     public int getAntalHylder() {
-        return antalHylder;
+        return pladser[1].length - 1;
     }
 
     /**
@@ -115,7 +119,7 @@ public class Lager implements Serializable {
      * @return det samlede antal reoler.
      */
     public int getAntalReoler() {
-        return antalReoler;
+        return pladser.length - 1;
     }
 
 
@@ -127,6 +131,91 @@ public class Lager implements Serializable {
     public Lagervare[][] getPladser() {
         return Arrays.copyOf(pladser, pladser.length);
     }
+
+    /**
+     * Henter den næste ledige plads på lageret.
+     *
+     * @return et int array med index på næste ledige plads på lageret.
+     */
+    public int[] getNæsteLedigPlads(){
+        return næsteLedigPlads;
+    }
+
+    /**
+     * Indsætter en vare på på en plads på lageret.
+     * Pre: lagervare er ikke null
+     * @param reol reolnummeret på den ønskede plads.
+     * @param hylde hyldenummeret på den ønskede plads.
+     * @param lagervare lagervaren man ønsker at indsætte på lageret.
+     */
+
+    public void indsætVarePåLager(int reol, int hylde, Lagervare lagervare){
+        if (reol < 1 || reol > pladser.length - 1){
+            throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + getAntalReoler() + " reoler på lageret");
+        }
+
+        if (hylde < 1 || hylde > pladser[0].length - 1){
+            throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + getAntalHylder() + " hylder på lageret");
+        }
+
+        if (pladser[reol][hylde] != null){
+            throw new IllegalArgumentException("Pladsen er allerede optaget");
+        }
+
+        pladser[reol][hylde] = lagervare;
+
+        opdaterNæsteLedigePlads();
+    }
+
+    /**
+     * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads
+     */
+
+    public void opdaterNæsteLedigePlads() {
+        boolean fundet = false;
+        int startReol = næsteLedigPlads[0];
+        int startHylde = næsteLedigPlads[1];
+        int reol = startReol;
+        int hylde = startHylde;
+
+        while (!fundet) {
+            if (pladser[reol][hylde] == null) {
+                næsteLedigPlads[0] = reol;
+                næsteLedigPlads[1] = hylde;
+                fundet = true;
+            } else {
+                hylde++;
+                if (hylde >= pladser[reol].length) {
+                    hylde = 1;
+                    reol++;
+                    if (reol >= pladser.length) {
+                        reol = 1;
+                    }
+                }
+                if (reol == startReol && hylde == startHylde) {
+                    throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+                }
+            }
+        }
+    }
+
+    /**
+     * Beregner det samlede antal ledige pladser der er tilbage på lageret
+     * @return en int med antal ledige pladser på lageret
+     */
+
+    public int antalLedigePladser() {
+        int count = 0;
+        for (int reol = 1; reol < pladser.length; reol++) {
+            for (int hylde = 1; hylde < pladser[reol].length; hylde++) {
+                if (pladser[reol][hylde] == null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
 
     /**
      * Laver en String repræsentation af Lager objektet.

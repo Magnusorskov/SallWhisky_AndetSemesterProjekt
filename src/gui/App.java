@@ -9,6 +9,12 @@ import storage.ListStorage;
 import java.io.*;
 import java.time.LocalDate;
 
+/**
+ * Hovedklassen for applikationen.
+ * Initialiserer storage, indlæser eksisterende data fra fil (hvis tilgængeligt),
+ * starter JavaFX applikationen og gemmer storage ved afslutning.
+ * Indeholder også en metode til at initialisere storage med testdata, hvis den er tom.
+ */
 public class App {
     public static void main(String[] args) {
         Storage storage = loadStorage();
@@ -24,8 +30,15 @@ public class App {
 
         Application.launch(gui.StartWindow.class);
         saveStorage(storage);
+
     }
 
+    /**
+     * Forsøger at indlæse storage fra en fil ved navn "storage.ser".
+     * Note: Returnerer null hvis storage.ser ikke findes eller hvis der opstår en IOException.
+     *
+     * @return det indlæste Storage objekt.
+     */
     public static Storage loadStorage() {
         String fileName = "storage.ser";
         try (FileInputStream fileIn = new FileInputStream(fileName);
@@ -42,6 +55,12 @@ public class App {
         }
     }
 
+    /**
+     * Gemmer det aktuelle Storage objekt til en fil ved navn "storage.ser".
+     * Hvis serialiseringen mislykkes, kastes en RuntimeException.
+     *
+     * @param storage det Storage objekt der skal gemmes.
+     */
     public static void saveStorage(Storage storage) {
         String fileName = "storage.ser";
         try (FileOutputStream fileOut = new FileOutputStream(fileName);
@@ -56,21 +75,25 @@ public class App {
         }
     }
 
+    /**
+     * Initialiserer storage med en række testdata, herunder lagre, fade, batches, destillater og en whisky.
+     * Denne metode kaldes kun, hvis storage er tom ved opstart.
+     */
     public static void initStorage(){
 
         Lager lager = Controller.createLager("Hovedlager",20,20,"Testvej 4");
         Lager lager1 = Controller.createLager("ProduktionsLager",10,10,"Testvej 76");
 
 
-        Fad fad = Controller.createFad("Spanien", Fadtype.EXSHERRY,1000);
-        Fad fad1 = Controller.createFad("Spanien", Fadtype.EXSHERRY,1000);
-        Fad fad2 = Controller.createFad("Spanien", Fadtype.EXSHERRY,1000);
-        Fad fad3 = Controller.createFad("Portugal", Fadtype.EXBOURBON,800);
-        Fad fad4 = Controller.createFad("Portugal", Fadtype.EXBOURBON,800);
-        Fad fad5 = Controller.createFad("Portugal", Fadtype.EXBOURBON,800);
-        Fad fad6 = Controller.createFad("USA", Fadtype.NEW,700);
-        Fad fad7 = Controller.createFad("USA", Fadtype.NEW,700);
-        Fad fad8 = Controller.createFad("USA", Fadtype.NEW,700);
+        Fad fad = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
+        Fad fad1 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
+        Fad fad2 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
+        Fad fad3 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
+        Fad fad4 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
+        Fad fad5 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
+        Fad fad6 = Controller.createFad(Land.USA, Fadtype.NEW,700);
+        Fad fad7 = Controller.createFad(Land.USA, Fadtype.NEW,700);
+        Fad fad8 = Controller.createFad(Land.USA, Fadtype.NEW,700);
 
        Batch batch1 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr12", LocalDate.of(2020,01,01),"TestBatch1");
         Batch batch2 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr13", LocalDate.of(2020,01,10),"TestBatch2");

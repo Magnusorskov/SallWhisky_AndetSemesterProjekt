@@ -26,7 +26,7 @@ class ControllerTest {
         Controller.setStorage(storage);
         batch = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
         batch.setVæskemængde(50);
-        fad = Controller.createFad("Portugal",Fadtype.EXBOURBON,50);
+        fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,50);
         lager = Controller.createLager("Det lille test lager",2,2,"Testvej 14");
         destillat = Controller.createDestillat("Test",fad);
         navn = "Test";
@@ -116,7 +116,7 @@ class ControllerTest {
     @Test
     void test7_påfyldFad(){
         antalLiter = 10;
-        fad = Controller.createFad("Portugal",Fadtype.EXBOURBON,9);
+        fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,9);
         assertThrows(IllegalArgumentException.class, () -> {
             Controller.påfyldFad(antalLiter,batch,navn,fad);
         });

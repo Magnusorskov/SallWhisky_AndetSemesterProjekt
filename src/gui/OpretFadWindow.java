@@ -2,6 +2,7 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Fadtype;
+import application.model.Land;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,10 +19,12 @@ import javafx.stage.StageStyle;
 public class OpretFadWindow extends Stage {
 
     // ---------------------------------------------------------------------
-    private TextField txfLand, txfStørrelse;
+    private TextField txfStørrelse;
     private ComboBox<Fadtype> cbbType;
+    private ComboBox<Land> cbbLand;
     private Label lblError;
 
+    //TODO Lav mulighed for at oprette flere fade af gangen
     public OpretFadWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
@@ -47,9 +50,10 @@ public class OpretFadWindow extends Stage {
         Label lblLand = new Label("Oprindelses Land");
         pane.add(lblLand, 0, 0);
 
-        txfLand = new TextField();
-        txfLand.setMaxWidth(160);
-        pane.add(txfLand, 0, 1);
+        cbbLand = new ComboBox<>();
+        cbbLand.setMaxWidth(160);
+        cbbLand.getItems().addAll(Land.PORTUGAL, Land.SPANIEN, Land.USA);
+        pane.add(cbbLand, 0, 1);
 
         Label lblType = new Label("Fadtype");
         pane.add(lblType, 0, 2);
@@ -94,11 +98,11 @@ public class OpretFadWindow extends Stage {
     }
 
     private void opretAction() {
-        String land = txfLand.getText();
+        Land land = cbbLand.getSelectionModel().getSelectedItem();
         Fadtype type = cbbType.getSelectionModel().getSelectedItem();
         double størrelse = Double.parseDouble(txfStørrelse.getText());
 
-        if (land.isBlank()) {
+        if (land == null) {
             lblError.setText("Skriv et oprindelses land");
         } else if (størrelse <= 0) {
             lblError.setText("Fad størrelse skal være større end 0");

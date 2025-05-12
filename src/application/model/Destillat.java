@@ -236,6 +236,8 @@ public class Destillat implements Serializable {
         return fadtyper;
     }
 
+    //TODO Lav metode der udregner lagringstid.
+
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).
      *

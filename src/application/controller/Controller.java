@@ -161,15 +161,15 @@ public abstract class Controller {
 
     /**
      * Initialiserer et fads oprindelsesland, fadtype, størrelse og tilføjer den til storage.
-     * Pre: oprindelsesland og fadtype er ikke null.
+     * Pre: land og fadtype er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param oprindelsesLand fadets oprindelsesland.
+     * @param land fadets oprindelsesland.
      * @param fadType         fadets type.
      * @param størrelse       fadets størrelse.
-     */
-    public static Fad createFad(String oprindelsesLand, Fadtype fadType, double størrelse) {
-        Fad fad = new Fad(oprindelsesLand, fadType, størrelse);
+     */ //TODO Lav mulighed for at oprette flere fade af gangen.
+    public static Fad createFad(Land land, Fadtype fadType, double størrelse) {
+        Fad fad = new Fad(land, fadType, størrelse);
         fad.setId(storage.fadID());
         storage.addFad(fad);
         return fad;
@@ -247,6 +247,20 @@ public abstract class Controller {
         Lager lager = new Lager(navn, antalReoler, antalHylder, adresse);
         storage.addLager(lager);
         return lager;
+    }
+
+    /**
+     * Placerer en lagervare på et lager
+     * Pre: Lager og lagervare er ikke null
+     *
+     * @param lager det lager man ønsker at placere varen på
+     * @param lagervare lagervaren man ønsker at placere på lageret.
+     * @param reol reolnummeret på den ønskede plads.
+     * @param hylde hyldenummeret på den ønskede plads.
+     */
+
+    public void placerVarePåLager(Lager lager, Lagervare lagervare, int reol, int hylde){
+        lager.indsætVarePåLager(reol,hylde,lagervare);
     }
 
 
@@ -364,6 +378,7 @@ public abstract class Controller {
      * Tapper et destillat for et antal liter og opretter en destillat mængde på whiskyen.
      * Pre: destillat og whisky er ikke null.
      * Pre: antalLiter > 0.
+     * Pre: Antal liter i destillat skal være >= antalLiter
      *
      * @param antalLiter antal liter der ønskes tappet fra destillatet
      * @param destillat  det destillat der ønskes tappet fra

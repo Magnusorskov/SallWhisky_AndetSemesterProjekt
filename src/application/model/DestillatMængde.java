@@ -2,6 +2,11 @@ package application.model;
 
 import java.io.Serializable;
 
+/**
+ * Repræsenterer en mængde af et specifikt destillat, der er blevet tappet og indgår i en whisky.
+ * Bruges til at spore sammensætningen af en whisky baseret på de anvendte destillater og deres mængder.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ */
 public class DestillatMængde implements Serializable {
     private double antalLiter;
     private Destillat destillat;
