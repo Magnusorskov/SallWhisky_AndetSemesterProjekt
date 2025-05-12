@@ -209,7 +209,7 @@ public class FærdiggørDestillatWindow extends Stage {
             }
 
             Controller.færdiggørDestillat(alkohol, påfyldDato, destillat);
-            Controller.placerVarePåLager(lager,destillat.getFad(),reol,hylde);
+            Controller.indsætVarePåLager(lager,reol,hylde,destillat.getFad());
             hide();
         }
 

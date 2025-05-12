@@ -74,6 +74,7 @@ public class Lager implements Serializable {
     public void addLagerVare(Lagervare lagervare, int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
             pladser[reol][hylde] = lagervare;
+            lagervare.setLager(this);
         }
     }
 
@@ -145,31 +146,7 @@ public class Lager implements Serializable {
         return næsteLedigPlads;
     }
 
-    /**
-     * Indsætter en vare på på en plads på lageret.
-     * Pre: lagervare er ikke null
-     * @param reol reolnummeret på den ønskede plads.
-     * @param hylde hyldenummeret på den ønskede plads.
-     * @param lagervare lagervaren man ønsker at indsætte på lageret.
-     */
 
-    public void indsætVarePåLager(int reol, int hylde, Lagervare lagervare){
-        if (reol < 1 || reol > pladser.length - 1){
-            throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + getAntalReoler() + " reoler på lageret");
-        }
-
-        if (hylde < 1 || hylde > pladser[0].length - 1){
-            throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + getAntalHylder() + " hylder på lageret");
-        }
-
-        if (pladser[reol][hylde] != null){
-            throw new IllegalArgumentException("Pladsen er allerede optaget");
-        }
-
-        pladser[reol][hylde] = lagervare;
-
-        opdaterNæsteLedigePlads();
-    }
 
     /**
      * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads

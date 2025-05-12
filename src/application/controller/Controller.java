@@ -249,25 +249,33 @@ public abstract class Controller {
         return lager;
     }
 
+
     /**
-     * Placerer en lagervare på et lager
-     * Pre: Lager og lagervare er ikke null
-     *
-     * @param lager det lager man ønsker at placere varen på
-     * @param lagervare lagervaren man ønsker at placere på lageret.
+     * Indsætter en vare på på en plads på lageret.
+     * Pre: lagervare er ikke null
      * @param reol reolnummeret på den ønskede plads.
      * @param hylde hyldenummeret på den ønskede plads.
+     * @param lagervare lagervaren man ønsker at indsætte på lageret.
      */
 
-    public static void placerVarePåLager(Lager lager, Lagervare lagervare, int reol, int hylde){
-        lager.indsætVarePåLager(reol,hylde,lagervare);
-    }
+    public static void indsætVarePåLager(Lager lager, int reol, int hylde, Lagervare lagervare){
+        if (reol < 1 || reol > lager.getAntalReoler() - 1){
+            throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + lager.getAntalReoler() + " reoler på lageret");
+        }
 
-    public static void placerVarePåLagerMedNæsteLedigePlads(Lager lager,Lagervare lagervare){
-        int[] næsteLedigePlads = lager.getNæsteLedigPlads();
-        int reol = næsteLedigePlads[0];
-        int hylde = næsteLedigePlads[1];
-        lager.indsætVarePåLager(reol,hylde,lagervare);
+        else if (hylde < 1 || hylde > lager.getAntalHylder() - 1){
+            throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + lager.getAntalHylder() + " hylder på lageret");
+        }
+
+        else if (lager.getPladser()[reol][hylde] != null){
+            throw new IllegalArgumentException("Pladsen er allerede optaget");
+        } else {
+            lagervare.setReolNummer(reol);
+            lagervare.setHyldeNummer(hylde);
+            lager.addLagerVare(lagervare, reol, hylde);
+            lager.opdaterNæsteLedigePlads();
+        }
+
     }
 
     public void fjernLagerVare(Lagervare lagervare){
