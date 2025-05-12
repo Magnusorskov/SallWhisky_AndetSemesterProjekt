@@ -75,7 +75,8 @@ class BatchTest {
     @Test
     void test01_hentHistorik() {
         String forventetHistorikBatch2 = "Batch nr: 1\n" +
-                "Bygsort: EVERGREEN(MOSEVANG)\n" +
+                "Bygsort: EVERGREEN\n" +
+                "Mark: MOSEVANG\n" +
                 "Maltbatch: Nr11\n" +
                 "Startdato: 2025-01-01\n" +
                 "Initialer: CLN";
@@ -86,7 +87,8 @@ class BatchTest {
     void test02_hentHistorik() {
         batch2.setAlkoholprocent(1);
         String forventetHistorikBatch2 = "Batch nr: 1\n" +
-                "Bygsort: EVERGREEN(MOSEVANG)\n" +
+                "Bygsort: EVERGREEN\n" +
+                "Mark: MOSEVANG\n" +
                 "Maltbatch: Nr11\n" +
                 "Alkoholprocent: 1.0\n" +
                 "Startdato: 2025-01-01\n" +
@@ -98,7 +100,8 @@ class BatchTest {
     void test03_hentHistorik() {
         batch2.setAlkoholprocent(5);
         String forventetHistorikBatch2 = "Batch nr: 1\n" +
-                "Bygsort: EVERGREEN(MOSEVANG)\n" +
+                "Bygsort: EVERGREEN\n" +
+                "Mark: MOSEVANG\n" +
                 "Maltbatch: Nr11\n" +
                 "Alkoholprocent: 5.0\n" +
                 "Startdato: 2025-01-01\n" +
@@ -110,7 +113,8 @@ class BatchTest {
     void test04_hentHistorik() {
         batch1.setAlkoholprocent(5);
         String forventetHistorikBatch2 = "Batch nr: 1\n" +
-                "Bygsort: EVERGREEN(MOSEVANG)\n" +
+                "Bygsort: EVERGREEN\n" +
+                "Mark: MOSEVANG\n" +
                 "Maltbatch: Nr11\n" +
                 "Rygemateriale: Tørv\n" +
                 "Alkoholprocent: 5.0\n" +

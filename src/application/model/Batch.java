@@ -213,7 +213,8 @@ public class Batch implements Serializable {
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Batch nr: " + id);
-        sb.append("\nBygsort: " + bygsort + "(" + mark + ")");
+        sb.append("\nBygsort: " + bygsort);
+        sb.append("\nMark: " + mark);
         sb.append("\nMaltbatch: " + maltBatch);
         if (rygemateriale != null) {
             sb.append("\nRygemateriale: " + rygemateriale);
