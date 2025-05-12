@@ -59,7 +59,7 @@ public class FærdiggørBatchWindow extends Stage {
         txfAlkoholProcent = new TextField("0");
         pane.add(txfAlkoholProcent, 0, 3);
 
-        Label lblVæskemængde = new Label("Væskemængde");
+        Label lblVæskemængde = new Label("Væskemængde i liter");
         pane.add(lblVæskemængde, 0, 4);
 
         txfVæskemængde = new TextField("0");
