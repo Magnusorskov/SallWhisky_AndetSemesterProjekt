@@ -171,6 +171,7 @@ public class Fad extends Lagervare implements Serializable {
         sb.append("\nFad type: " + fadType);
         sb.append("\nAntal brug: " + antalBrug);
         sb.append("\nFad størrelse: " + størrelse);
+        sb.append("\n" + super.placering());
         return sb;
     }
 

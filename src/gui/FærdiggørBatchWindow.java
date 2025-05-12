@@ -37,8 +37,6 @@ public class FærdiggørBatchWindow extends Stage {
         setScene(scene);
         setMinWidth(450);
         setMinHeight(300);
-
-
     }
 
     public void initContent(GridPane pane) {
