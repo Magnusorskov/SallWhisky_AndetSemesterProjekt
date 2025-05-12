@@ -1,7 +1,7 @@
 package gui;
 
-import application.model.Batch;
 import application.model.Fad;
+import application.model.Lagervare;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -9,15 +9,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ÆndrePlaceringWindow extends Stage {
-    private Fad fad;
+public class VælgPlaceringWindow extends Stage {
+    private Lagervare lagervare;
 
-    public ÆndrePlaceringWindow(String title, Fad fad) {
+    public VælgPlaceringWindow(String title, Lagervare lagervare) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
 
-        this.fad = fad;
+        this.lagervare = lagervare;
 
         setTitle(title);
         GridPane pane = new GridPane();

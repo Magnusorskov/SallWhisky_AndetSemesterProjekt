@@ -3,6 +3,7 @@ package gui;
 import application.controller.Controller;
 import application.model.Fad;
 import application.model.Fadtype;
+import application.model.Lagervare;
 import application.model.Land;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
@@ -10,6 +11,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +34,12 @@ public class LagerPane extends GridPane {
 
         int width = 180;
 
-
+        Label lblSøgeKriterier = new Label("Søgekriterier");
+        lblSøgeKriterier.setFont(Font.font("System", FontWeight.BOLD, 16));
+        this.add(lblSøgeKriterier,0,0);
 
         Label lblLagre = new Label("Lagre");
-        this.add(lblLagre,0,0);
+        this.add(lblLagre,0,1);
 
         cbbLagre = new ComboBox<>();
         cbbLagre.setMinWidth(width);
@@ -42,51 +47,51 @@ public class LagerPane extends GridPane {
         cbbLagre.getItems().add("På lager");
         cbbLagre.getItems().add("Ikke på lager");
         cbbLagre.getItems().addAll(Controller.getLagre());
-        this.add(cbbLagre, 0, 1);
+        this.add(cbbLagre, 0, 2);
 
         Label lblFadtype = new Label("Fadtype");
-        this.add(lblFadtype,0,2);
+        this.add(lblFadtype,0,3);
 
         cbbFadtype = new ComboBox<>();
         cbbFadtype.setMinWidth(width);
         cbbFadtype.getItems().add(null);
         cbbFadtype.getItems().addAll(Fadtype.NEW,Fadtype.EXSHERRY,Fadtype.EXOLOROSO,Fadtype.EXBOURBON);
-        this.add(cbbFadtype, 0, 3);
+        this.add(cbbFadtype, 0, 4);
 
         Label lblFils = new Label("Fils");
-        this.add(lblFils,0,4);
+        this.add(lblFils,0,5);
 
         cbbFills = new ComboBox<>();
         cbbFills.setMinWidth(width);
         cbbFills.getItems().add(null);
         cbbFills.getItems().addAll(0,1,2,3);
-        this.add(cbbFills, 0, 5);
+        this.add(cbbFills, 0, 6);
 
         Label lblLand = new Label("Land");
-        this.add(lblLand,0,6);
+        this.add(lblLand,0,7);
 
         cbbLand = new ComboBox<>();
         cbbLand.setMinWidth(width);
         cbbLand.getItems().add(null);
         cbbLand.getItems().addAll(Land.SPANIEN,Land.PORTUGAL,Land.USA);
-        this.add(cbbLand, 0, 7);
+        this.add(cbbLand, 0, 8);
 
         Label lblMåneder = new Label("Alder i måneder");
-        this.add(lblMåneder,0,8);
+        this.add(lblMåneder,0,9);
 
         txfMåneder = new TextField();
-        this.add(txfMåneder,0,9);
+        this.add(txfMåneder,0,10);
 
         Label lblStørrelse = new Label("Størrelse");
-        this.add(lblStørrelse,0,10);
+        this.add(lblStørrelse,0,11);
 
         txfStørrelse = new TextField();
-        this.add(txfStørrelse,0,11);
+        this.add(txfStørrelse,0,12);
 
         ToggleGroup group = new ToggleGroup();
         HBox hBox = new HBox();
         hBox.setSpacing(7);
-        this.add(hBox,0,12);
+        this.add(hBox,0,13);
 
         rbTom = new RadioButton("Tomme");
         group.getToggles().add(rbTom);
@@ -103,34 +108,23 @@ public class LagerPane extends GridPane {
         Button btnSøg = new Button("Søg");
         btnSøg.setOnAction(event -> this.søgAction());
         GridPane.setHalignment(btnSøg, HPos.LEFT);
-        this.add(btnSøg, 0, 13);
+        this.add(btnSøg, 0, 14);
 
         //kolonne 1
         Label lblFade = new Label("Fade");
+        lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblFade,1,0);
 
         lvwFad = new ListView<>();
-        this.add(lvwFad, 1, 1,1,13);
-        lvwFad.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwFad.setMinWidth(270);
+        this.add(lvwFad, 1, 1,1,14);
 
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         lvwFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
 
-
-        HBox hBoxKnapper = new HBox();
-        hBoxKnapper.setSpacing(150);
-        this.add(hBoxKnapper,1,14);
-
-        Button btnFjern = new Button("Fjern");
-        btnFjern.setOnAction(event -> this.fjernAction());
-        hBoxKnapper.getChildren().add(btnFjern);
-
-        Button btnFindPlads = new Button("Find plads");
-        btnFindPlads.setOnAction(event -> this.findPladsAction());
-        hBoxKnapper.getChildren().add(btnFindPlads);
-
         //kolonne 2
         Label lblBeskrivelse = new Label("Beskrivelse");
+        lblBeskrivelse.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBeskrivelse,2,0);
 
         txaBeskrivelse = new TextArea();
@@ -138,8 +132,13 @@ public class LagerPane extends GridPane {
         txaBeskrivelse.setMinHeight(200);
         this.add(txaBeskrivelse, 2,1,1,6);
 
-        Button btnÆndrePlacering = new Button("Ændre placering");
-        btnÆndrePlacering.setOnAction(event -> this.ændreAction());
+        Button btnFjern = new Button("Fjern");
+        btnFjern.setOnAction(event -> this.fjernAction());
+        GridPane.setHalignment(btnFjern, HPos.LEFT);
+        this.add(btnFjern,2,7);
+
+        Button btnÆndrePlacering = new Button("Vælg placering");
+        btnÆndrePlacering.setOnAction(event -> this.placeringAction());
         GridPane.setHalignment(btnÆndrePlacering, HPos.RIGHT);
         this.add(btnÆndrePlacering, 2, 7);
 
@@ -171,26 +170,24 @@ public class LagerPane extends GridPane {
     }
 
     private void fjernAction() {
-        List<Fad> fade = new ArrayList<>(lvwFad.getItems());
-        for (Fad f : fade){
-
-        }
-    }
-
-    private void findPladsAction() {
-        List<Fad> fade = new ArrayList<>(lvwFad.getItems());
-        for (Fad f : fade){
-
-        }
-    }
-
-    private void ændreAction(){
         Fad fad = lvwFad.getSelectionModel().getSelectedItem();
 
-        ÆndrePlaceringWindow dia = new ÆndrePlaceringWindow("Ændre placering", fad);
-        dia.showAndWait();
+        if (fad != null){
 
-        updateControls();
+
+            updateControls();
+        }
+    }
+
+    private void placeringAction(){
+        Lagervare lagervare = lvwFad.getSelectionModel().getSelectedItem();
+
+        if (lagervare != null){
+            VælgPlaceringWindow dia = new VælgPlaceringWindow("Ændre placering", lagervare);
+            dia.showAndWait();
+
+            updateControls();
+        }
     }
 
     private void opretFadAction() {
