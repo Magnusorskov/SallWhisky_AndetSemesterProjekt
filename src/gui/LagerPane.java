@@ -25,10 +25,12 @@ public class LagerPane extends GridPane {
         Label lblLagre = new Label("Lagre");
         this.add(lblLagre,0,0);
 
+
         cbbLagre = new ComboBox<>();
+        cbbLagre.getItems().add(null);
+        cbbLagre.getItems().add("På lager");
         cbbLagre.getItems().addAll(Controller.getLagre());
         cbbLagre.getItems().add("Ikke på lager");
-        cbbLagre.getItems().add("Alle lagre");
         this.add(cbbLagre, 0, 1);
 
         Label lblFadtype = new Label("Fadtype");
@@ -39,14 +41,14 @@ public class LagerPane extends GridPane {
         this.add(cbbFadtype, 0, 3);
 
         Label lblFils = new Label("Fils");
-        this.add(lblFadtype,0,4);
+        this.add(lblFils,0,4);
 
         cbbFills = new ComboBox<>();
         cbbFills.getItems().addAll(0,1,2,3);
         this.add(cbbFills, 0, 5);
 
         Label lblLand = new Label("Land");
-        this.add(lblFadtype,0,6);
+        this.add(lblLand,0,6);
 
         cbbLand = new ComboBox<>();
         cbbLand.getItems().addAll(Land.SPANIEN,Land.PORTUGAL,Land.USA);
