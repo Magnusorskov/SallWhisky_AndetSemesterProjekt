@@ -263,6 +263,13 @@ public abstract class Controller {
         lager.indsætVarePåLager(reol,hylde,lagervare);
     }
 
+    public void placerVarePåLagerMedNæsteLedigePlads(Lager lager,Lagervare lagervare){
+        int[] næsteLedigePlads = lager.getNæsteLedigPlads();
+        int reol = næsteLedigePlads[0];
+        int hylde = næsteLedigePlads[1];
+        lager.indsætVarePåLager(reol,hylde,lagervare);
+    }
+
 
     //-----------------------------------------------------------------------------------------------------
 
