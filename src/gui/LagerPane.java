@@ -49,6 +49,10 @@ public class LagerPane extends GridPane {
 
     }
 
+    private void sorterEfterSoegning() {
+
+    }
+
 
 
 }
