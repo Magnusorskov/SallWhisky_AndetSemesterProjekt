@@ -18,7 +18,7 @@ public class SøgEfterAlderPåDestillat implements Søgning {
         List<Fad> resultat = new ArrayList<>(fade);
         for (Fad fad : fade) {
             if (fad.getDestillat() != null) {
-                if (fad.getDestillat().beregnAlder() > måneder) {
+                if (fad.getDestillat().beregnAlderIMåneder() > måneder) {
                     resultat.add(fad);
                 }
             }

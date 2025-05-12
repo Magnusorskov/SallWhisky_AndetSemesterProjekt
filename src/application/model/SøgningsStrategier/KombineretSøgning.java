@@ -1,24 +1,24 @@
 package application.model.SøgningsStrategier;
 
-import application.model.Fad;
 import application.model.Søgning;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KombineretSøgning implements Søgning {
+public class KombineretSøgning<E> implements Søgning {
     private final List<Søgning> kombineredeSøgninger;
 
     public KombineretSøgning(List<Søgning> kombineredeSøgninger) {
         this.kombineredeSøgninger = kombineredeSøgninger;
     }
 
+
     @Override
-    public List<Fad> fadsøgning(List<Fad> fade) {
-        List<Fad> resultater = new ArrayList<>(fade);
+    public List<E> søgning(List elementer) {
+        List<E> resultater = new ArrayList<E>(elementer);
 
         for (Søgning søgning : kombineredeSøgninger) {
-            resultater = søgning.fadsøgning(resultater);
+            resultater = søgning.søgning(resultater);
         }
         return resultater;
     }

@@ -2,7 +2,6 @@ package application.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 
 /**
@@ -230,7 +229,7 @@ public class Destillat implements Serializable {
      *
      * @return alderen fra påfyldningsdato til nu i måneder.
      */
-    public int beregnAlder() {
+    public int beregnAlderIMåneder() {
         return (int) ((LocalDate.now().compareTo(påfyldningsDato)) / 30.436768);
     }
 

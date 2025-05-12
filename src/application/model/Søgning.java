@@ -2,7 +2,8 @@ package application.model;
 
 import java.util.List;
 
-public interface Søgning {
+public interface Søgning<E> {
 
-    List<Fad> fadsøgning(List<Fad> fade);
+    List<E> søgning(List<E> elementer);
+
 }
