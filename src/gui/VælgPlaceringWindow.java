@@ -121,7 +121,7 @@ public class VælgPlaceringWindow extends Stage {
         } else if (hylde < 1 || hylde > maksHylde) {
             lblError.setText("Skriv et hylde nummer");
         } else {
-            Controller.placerVarePåLager(lager, lagervare, reol, hylde);
+            Controller.indsætVarePåLager(lager,reol,hylde,lagervare);
             hide();
         }
     }
