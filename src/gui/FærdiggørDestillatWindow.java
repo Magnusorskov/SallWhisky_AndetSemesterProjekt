@@ -119,7 +119,6 @@ public class FærdiggørDestillatWindow extends Stage {
 
         lblReol = new Label("Reol nummer: ");
         pane.add(lblReol, 1, 3);
-        //TODO fix så txfReol og txfHylde får current placering hvis der er en
         txfReol = new TextField("0");
         pane.add(txfReol, 1, 4);
         txfReol.textProperty().addListener((observable, oldValue, newValue) -> {

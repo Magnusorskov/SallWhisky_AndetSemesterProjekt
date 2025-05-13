@@ -477,7 +477,9 @@ public abstract class Controller {
 
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
-        lager.removeLagerVare(lagervare);
+        if (lager != null) {
+            lager.removeLagerVare(lagervare);
+        }
     }
 
     public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,

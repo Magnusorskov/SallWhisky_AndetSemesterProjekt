@@ -15,7 +15,6 @@ public class BatchPane extends GridPane {
     private ListView<Batch> lvwIgangværendeBatches;
     private TextArea txaBatchInfo;
 
-    // TODO lav info om batch om til text area
     public BatchPane() {
         this.setPadding(new Insets(20));
         this.setHgap(20);
@@ -45,58 +44,6 @@ public class BatchPane extends GridPane {
         txaBatchInfo.setEditable(false);
         txaBatchInfo.setMinHeight(150);
         txaBatchInfo.setMaxWidth(300);
-//        txfBatchNr = new TextField();
-//        this.add(txfBatchNr, 2, 1);
-//        txfBatchNr.setPrefWidth(120);
-//        txfBatchNr.setEditable(false);
-//
-//        Label lblBygsort = new Label("Bygsort:");
-//        this.add(lblBygsort, 1, 2);
-//        txfBygsort = new TextField();
-//        this.add(txfBygsort, 2, 2);
-//        txfBygsort.setEditable(false);
-//
-//        Label lblRygemateriale = new Label("Rygemateriale:");
-//        this.add(lblRygemateriale, 1, 3);
-//
-//        txfRygemateriale = new TextField();
-//        this.add(txfRygemateriale, 2, 3);
-//        txfRygemateriale.setEditable(false);
-//
-//        Label lblMaltBatch = new Label("MaltBatch:");
-//        this.add(lblMaltBatch, 3, 1);
-//
-//        txfMaltBatch = new TextField();
-//        this.add(txfMaltBatch, 4, 1);
-//        txfMaltBatch.setEditable(false);
-//
-//        Label lblMark = new Label("Mark:");
-//        this.add(lblMark, 3, 2);
-//
-//        txfMark = new TextField();
-//        this.add(txfMark, 4, 2);
-//        txfMark.setEditable(false);
-//
-//        Label lblStartDato = new Label("StartDato:");
-//        this.add(lblStartDato, 3, 3);
-//
-//        txfStartDato = new TextField();
-//        this.add(txfStartDato, 4, 3);
-//        txfStartDato.setEditable(false);
-//
-//        Label lblInitial = new Label("Initaler:");
-//        this.add(lblInitial, 1, 4);
-//
-//        txfInitialer = new TextField();
-//        this.add(txfInitialer, 2, 4);
-//        txfInitialer.setEditable(false);
-//
-//        Label lblKommentar = new Label("Kommentar:");
-//        this.add(lblKommentar, 1, 5);
-//
-//        txfKommentar = new TextField();
-//        this.add(txfKommentar, 2, 5, 3, 2);
-//        txfKommentar.setEditable(false);
 
         Button btnFærdig = new Button("Færdiggør Batch");
         btnFærdig.setOnAction(event -> this.færdiggørAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));

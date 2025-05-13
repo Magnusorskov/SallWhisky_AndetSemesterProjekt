@@ -53,7 +53,7 @@ public class VælgPlaceringWindow extends Stage {
         pane.add(lblLager, 0, 1);
 
         cbbLager = new ComboBox<>();
-        if (lagervare.getLager() != null){
+        if (lagervare.getLager() != null) {
             cbbLager.getSelectionModel().select(lagervare.getLager());
         }
         cbbLager.getItems().addAll(Controller.getLagre());
@@ -86,9 +86,12 @@ public class VælgPlaceringWindow extends Stage {
         txfHylde = new TextField("0");
         pane.add(txfHylde, 0, 6);
 
-        txfHylde.setText("" + lagervare.getHylde());
-        txfReol.setText("" + lagervare.getReol());
-
+        int hylde = lagervare.getHylde();
+        int reol = lagervare.getReol();
+        if (hylde != -1) {
+            txfHylde.setText("" + hylde);
+            txfReol.setText("" + reol);
+        }
 
         btnFindPlads = new Button("Find plads");
         btnFindPlads.setOnAction(event -> findPladsAction());
@@ -123,7 +126,7 @@ public class VælgPlaceringWindow extends Stage {
         } else if (hylde < 1 || hylde > maksHylde) {
             lblError.setText("Skriv et hylde nummer");
         } else {
-            Controller.indsætVarePåLager(lager,reol,hylde,lagervare);
+            Controller.indsætVarePåLager(lager, reol, hylde, lagervare);
             hide();
         }
     }
