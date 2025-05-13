@@ -89,7 +89,12 @@ public abstract class Lagervare implements Serializable {
                 oldLager.removeLagerVare(this);
             }
             this.lager = lager;
+            if (lager == null) {
+                setHyldeNummer(-1);
+                setReolNummer(-1);
+            }
         }
+
     }
 
     public void setReolNummer(int reolNummer) {

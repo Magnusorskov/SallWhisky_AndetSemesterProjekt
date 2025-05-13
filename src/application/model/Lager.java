@@ -94,6 +94,7 @@ public class Lager implements Serializable {
                 næsteLedigPlads[1] = lagervare.getHylde();
             }
             pladser[lagervare.getReol()][lagervare.getHylde()] = null;
+            lagervare.setLager(null);
         }
     }
 
