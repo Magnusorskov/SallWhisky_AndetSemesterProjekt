@@ -86,7 +86,7 @@ public class Lager implements Serializable {
      */
     public void removeLagerVare(Lagervare lagervare) {
         if (pladser[lagervare.getReol()][lagervare.getHylde()] == lagervare) {
-            if (næsteLedigPlads[0] == -1){
+            if (næsteLedigPlads[0] == -1) {
                 næsteLedigPlads[0] = lagervare.getReol();
                 næsteLedigPlads[1] = lagervare.getHylde();
             }
@@ -142,10 +142,9 @@ public class Lager implements Serializable {
      *
      * @return et int array med index på næste ledige plads på lageret.
      */
-    public int[] getNæsteLedigPlads(){
+    public int[] getNæsteLedigPlads() {
         return næsteLedigPlads;
     }
-
 
 
     /**
@@ -153,18 +152,15 @@ public class Lager implements Serializable {
      */
 
     public void opdaterNæsteLedigePlads() {
-        boolean fundet = false;
         int startReol = næsteLedigPlads[0];
         int startHylde = næsteLedigPlads[1];
-        int reol = startReol;
-        int hylde = startHylde;
 
-        while (!fundet) {
-            if (pladser[reol][hylde] == null) {
-                næsteLedigPlads[0] = reol;
-                næsteLedigPlads[1] = hylde;
-                fundet = true;
-            } else {
+        if (pladser[startReol][startHylde] != null) {
+            boolean fundet = false;
+            int reol = startReol;
+            int hylde = startHylde;
+
+            while (!fundet) {
                 hylde++;
                 if (hylde >= pladser[reol].length) {
                     hylde = 1;
@@ -173,22 +169,43 @@ public class Lager implements Serializable {
                         reol = 1;
                     }
                 }
-                if (reol == startReol && hylde == startHylde) {
-                    næsteLedigPlads[0] = -1;
-                    næsteLedigPlads[1] = -1;
-                    throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+                if (pladser[reol][hylde] == null) {
+                    næsteLedigPlads[0] = reol;
+                    næsteLedigPlads[1] = hylde;
+                    fundet = true;
+                } else {
+
+                    if (reol == startReol && hylde == startHylde) {
+                        næsteLedigPlads[0] = -1;
+                        næsteLedigPlads[1] = -1;
+                        throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
+                    }
                 }
             }
         }
     }
 
+
+    /**
+     * Sætter næste ledige plads til et bestemt sted på lageret
+     *
+     * @param reol  reolnummeret på den ønskede plads.
+     * @param hylde hyldenummeret på den ønskede plads.
+     */
+
+    public void setNæsteLedigPlads(int reol, int hylde) {
+        næsteLedigPlads[0] = reol;
+        næsteLedigPlads[1] = hylde;
+    }
+
     /**
      * Beregner det samlede antal ledige pladser der er tilbage på lageret
+     *
      * @return en int med antal ledige pladser på lageret
      */
 
     public int antalLedigePladser() {
-        if (næsteLedigPlads[0] == -1){
+        if (næsteLedigPlads[0] == -1) {
             return 0;
         }
         int count = 0;
