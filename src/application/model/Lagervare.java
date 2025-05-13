@@ -100,4 +100,6 @@ public abstract class Lagervare implements Serializable {
         this.hyldeNummer = hyldeNummer;
     }
 
+
+
 }

@@ -260,16 +260,16 @@ public abstract class Controller {
      */
 
     public static void indsætVarePåLager(Lager lager, int reol, int hylde, Lagervare lagervare) {
-        if (reol < 1 || reol > lager.getAntalReoler() - 1) {
+        if (reol < 1 || reol > lager.getAntalReoler()) {
             throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + lager.getAntalReoler() + " reoler på lageret");
-        } else if (hylde < 1 || hylde > lager.getAntalHylder() - 1) {
+        } else if (hylde < 1 || hylde > lager.getAntalHylder()) {
             throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + lager.getAntalHylder() + " hylder på lageret");
         } else if (lager.getPladser()[reol][hylde] != null) {
             throw new IllegalArgumentException("Pladsen er allerede optaget");
         } else {
+            lager.addLagerVare(lagervare, reol, hylde);
             lagervare.setReolNummer(reol);
             lagervare.setHyldeNummer(hylde);
-            lager.addLagerVare(lagervare, reol, hylde);
             lager.opdaterNæsteLedigePlads();
         }
 

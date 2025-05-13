@@ -134,6 +134,7 @@ public class LagerPane extends GridPane {
         GridPane.setHalignment(btnFjern, HPos.LEFT);
         this.add(btnFjern, 2, 7);
 
+
         Button btnÆndrePlacering = new Button("Vælg placering");
         btnÆndrePlacering.setOnAction(event -> this.placeringAction());
         GridPane.setHalignment(btnÆndrePlacering, HPos.RIGHT);

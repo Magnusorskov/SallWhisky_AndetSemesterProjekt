@@ -122,6 +122,11 @@ class ControllerTest {
         });
     }
 
-
-
+    @Test
+    void test8_indsætVarePåLager() {
+        Controller.indsætVarePåLager(lager,1,1,fad);
+        Controller.indsætVarePåLager(lager,2,2,fad);
+        assertNull(lager.getLagerVare(1,1));
+//        System.out.println(lager.getPladser().length);
+    }
 }

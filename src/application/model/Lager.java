@@ -74,6 +74,9 @@ public class Lager implements Serializable {
     public void addLagerVare(Lagervare lagervare, int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
             pladser[reol][hylde] = lagervare;
+            if (lagervare.getLager() != null) {
+                lagervare.getLager().getPladser()[lagervare.getReol()][lagervare.getHylde()] = null;
+            }
             lagervare.setLager(this);
         }
     }
