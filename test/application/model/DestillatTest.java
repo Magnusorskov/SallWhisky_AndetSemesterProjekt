@@ -46,4 +46,10 @@ class DestillatTest {
         assertEquals(1, destillat.getMængder().size(), "Antallet af mængder i destillat er forkert");
         assertTrue(destillat.getMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
     }
+
+    @Test
+    void test14_beregnAntalMåneder() {
+        destillat.setPåfyldningsDato(LocalDate.of(2025,1,1));
+        assertEquals(4,destillat.beregnAlderIMåneder());
+    }
 }

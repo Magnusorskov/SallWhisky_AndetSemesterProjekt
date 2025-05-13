@@ -2,6 +2,7 @@ package application.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 /**
@@ -222,6 +223,16 @@ public class Destillat implements Serializable {
             marker.add(bm.getBatch().getMark());
         }
         return marker;
+    }
+
+    /**
+     * Beregner alderen fra påfyldningsdato til nu.
+     *
+     * @return alderen fra påfyldningsdato til nu i måneder.
+     */
+    public int beregnAlderIMåneder() {
+        long antalDage = ChronoUnit.DAYS.between(påfyldningsDato, LocalDate.now());
+        return (int) (antalDage / 30.436768);
     }
 
     /**
