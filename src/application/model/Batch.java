@@ -203,7 +203,6 @@ public class Batch implements Serializable {
 
 
     //metoder
-    // TODO ændre historik til ikke at have mark i parentes ved siden af bygsort
     /**
      * Genererer en historik over batchen, inklusive ID, bygsort, mark, maltbatch, rygemateriale (hvis relevant),
      * alkoholprocent (hvis relevant), start- og slutdato (hvis relevant), initialer og kommentar (hvis relevant).
@@ -229,7 +228,7 @@ public class Batch implements Serializable {
         }
         sb.append("\nInitialer: " + initialer);
         if (kommentar != null) {
-            sb.append("\nKommentar: " + "\n" + kommentar);
+            sb.append("\nKommentar: " + "\n     " + kommentar);
         }
         return sb;
     }

@@ -13,6 +13,7 @@ import javafx.scene.text.FontWeight;
 public class BatchPane extends GridPane {
     private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private ListView<Batch> lvwIgangværendeBatches;
+    private TextArea txaBatchInfo;
 
     // TODO lav info om batch om til text area
     public BatchPane() {
@@ -22,85 +23,93 @@ public class BatchPane extends GridPane {
         this.setGridLinesVisible(false);
 
         Label lblBatch = new Label("Igangværende Batches");
-        lblBatch.setFont(Font.font("System", FontWeight.BOLD, 12));
+        lblBatch.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBatch, 0, 0);
 
         lvwIgangværendeBatches = new ListView<>();
-        this.add(lvwIgangværendeBatches, 0, 1, 1, 6);
-        lvwIgangværendeBatches.setPrefWidth(200);
-        lvwIgangværendeBatches.setPrefHeight(200);
+        this.add(lvwIgangværendeBatches, 0, 1);
+        lvwIgangværendeBatches.setMinWidth(200);
+        lvwIgangværendeBatches.setMinHeight(150);
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
         lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        Label lblName = new Label("BatchNr:");
-        this.add(lblName, 1, 1);
 
-        txfBatchNr = new TextField();
-        this.add(txfBatchNr, 2, 1);
-        txfBatchNr.setPrefWidth(120);
-        txfBatchNr.setEditable(false);
 
-        Label lblBygsort = new Label("Bygsort:");
-        this.add(lblBygsort, 1, 2);
-        txfBygsort = new TextField();
-        this.add(txfBygsort, 2, 2);
-        txfBygsort.setEditable(false);
+        Label lblBatchInfo = new Label("Batch Info:");
+        lblBatchInfo.setFont(Font.font("System", FontWeight.BOLD, 16));
+        this.add(lblBatchInfo, 1, 0);
 
-        Label lblRygemateriale = new Label("Rygemateriale:");
-        this.add(lblRygemateriale, 1, 3);
-
-        txfRygemateriale = new TextField();
-        this.add(txfRygemateriale, 2, 3);
-        txfRygemateriale.setEditable(false);
-
-        Label lblMaltBatch = new Label("MaltBatch:");
-        this.add(lblMaltBatch, 3, 1);
-
-        txfMaltBatch = new TextField();
-        this.add(txfMaltBatch, 4, 1);
-        txfMaltBatch.setEditable(false);
-
-        Label lblMark = new Label("Mark:");
-        this.add(lblMark, 3, 2);
-
-        txfMark = new TextField();
-        this.add(txfMark, 4, 2);
-        txfMark.setEditable(false);
-
-        Label lblStartDato = new Label("StartDato:");
-        this.add(lblStartDato, 3, 3);
-
-        txfStartDato = new TextField();
-        this.add(txfStartDato, 4, 3);
-        txfStartDato.setEditable(false);
-
-        Label lblInitial = new Label("Initaler:");
-        this.add(lblInitial, 1, 4);
-
-        txfInitialer = new TextField();
-        this.add(txfInitialer, 2, 4);
-        txfInitialer.setEditable(false);
-
-        Label lblKommentar = new Label("Kommentar:");
-        this.add(lblKommentar, 1, 5);
-
-        txfKommentar = new TextField();
-        this.add(txfKommentar, 2, 5, 3, 2);
-        txfKommentar.setEditable(false);
+        txaBatchInfo = new TextArea();
+        this.add(txaBatchInfo, 1,1);
+        txaBatchInfo.setEditable(false);
+        txaBatchInfo.setMinHeight(150);
+        txaBatchInfo.setMaxWidth(300);
+//        txfBatchNr = new TextField();
+//        this.add(txfBatchNr, 2, 1);
+//        txfBatchNr.setPrefWidth(120);
+//        txfBatchNr.setEditable(false);
+//
+//        Label lblBygsort = new Label("Bygsort:");
+//        this.add(lblBygsort, 1, 2);
+//        txfBygsort = new TextField();
+//        this.add(txfBygsort, 2, 2);
+//        txfBygsort.setEditable(false);
+//
+//        Label lblRygemateriale = new Label("Rygemateriale:");
+//        this.add(lblRygemateriale, 1, 3);
+//
+//        txfRygemateriale = new TextField();
+//        this.add(txfRygemateriale, 2, 3);
+//        txfRygemateriale.setEditable(false);
+//
+//        Label lblMaltBatch = new Label("MaltBatch:");
+//        this.add(lblMaltBatch, 3, 1);
+//
+//        txfMaltBatch = new TextField();
+//        this.add(txfMaltBatch, 4, 1);
+//        txfMaltBatch.setEditable(false);
+//
+//        Label lblMark = new Label("Mark:");
+//        this.add(lblMark, 3, 2);
+//
+//        txfMark = new TextField();
+//        this.add(txfMark, 4, 2);
+//        txfMark.setEditable(false);
+//
+//        Label lblStartDato = new Label("StartDato:");
+//        this.add(lblStartDato, 3, 3);
+//
+//        txfStartDato = new TextField();
+//        this.add(txfStartDato, 4, 3);
+//        txfStartDato.setEditable(false);
+//
+//        Label lblInitial = new Label("Initaler:");
+//        this.add(lblInitial, 1, 4);
+//
+//        txfInitialer = new TextField();
+//        this.add(txfInitialer, 2, 4);
+//        txfInitialer.setEditable(false);
+//
+//        Label lblKommentar = new Label("Kommentar:");
+//        this.add(lblKommentar, 1, 5);
+//
+//        txfKommentar = new TextField();
+//        this.add(txfKommentar, 2, 5, 3, 2);
+//        txfKommentar.setEditable(false);
 
         Button btnFærdig = new Button("Færdiggør Batch");
         btnFærdig.setOnAction(event -> this.færdiggørAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
-        this.add(btnFærdig, 0, 7);
+        this.add(btnFærdig, 0, 3);
 
         Button btnOpret = new Button("Opret ny batch");
         btnOpret.setOnAction(event -> this.opretAction());
-        this.add(btnOpret, 4, 7);
+        this.add(btnOpret, 1, 3);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
         Button btnFjernBatch = new Button("Fjern batch");
         btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
-        this.add(btnFjernBatch, 0, 9);
+        this.add(btnFjernBatch, 0, 4);
 
     }
 
@@ -116,24 +125,9 @@ public class BatchPane extends GridPane {
     public void updateControls() {
         Batch batch = lvwIgangværendeBatches.getSelectionModel().getSelectedItem();
         if (batch != null) {
-            txfInitialer.setText(batch.getInitialer());
-            txfKommentar.setText(batch.getKommentar());
-            txfMaltBatch.setText(batch.getMaltBatch());
-            txfBatchNr.setText("" + batch.getId());
-            txfRygemateriale.setText(batch.getRygemateriale());
-            txfBygsort.setText("" + batch.getBygsort());
-            txfMark.setText(batch.getMark().toString());
-            txfStartDato.setText(batch.getStartDato().toString());
+            txaBatchInfo.setText(Controller.getBatchBeskrivelse(batch));
         } else {
-
-            txfInitialer.clear();
-            txfKommentar.clear();
-            txfMaltBatch.clear();
-            txfRygemateriale.clear();
-            txfBygsort.clear();
-            txfMark.clear();
-            txfStartDato.clear();
-            txfBatchNr.clear();
+            txaBatchInfo.clear();
         }
 
     }

@@ -103,17 +103,6 @@ public class Fad extends Lagervare implements Serializable {
         this.antalBrug = antalBrug;
     }
 
-    // TODO tom krop skal udfyldes
-    /**
-     * Returnerer en beskrivelse af fadet.
-     * Bemærk: Metoden har en tom krop og skal implementeres.
-     *
-     * @return en tom streng.
-     */
-//    @Override
-//    public String beskrivelse() {
-//        return hentHistorik() + super.getHylde() + super.getReol();
-//    }
 
     //sammenhæng til Destillat
     /**
@@ -180,11 +169,14 @@ public class Fad extends Lagervare implements Serializable {
      * Hvis fadet indeholder et destillat, inkluderes destillatets navn i strengen.
      *
      * @return en String der beskriver fadet (inkl. destillatnavn hvis relevant).
-     */ //TODO tilføj lagernavn hvis den er på lager
+     */
     @Override
     public String toString() {
-        if (destillat != null) {
-            return id + " " + fadType + " liter: " + størrelse + " Destillat: " + destillat.getNavn();
+        if (getLager() != null && destillat != null) {
+            return id + " " + fadType + " liter: " + størrelse + "\n    Destillat: " + destillat.getNavn() + "\n        Lager: " + getLager().getNavn();
+        }
+        else if (destillat != null) {
+            return id + " " + fadType + " liter: " + størrelse + "\n    Destillat: " + destillat.getNavn();
         } else {
             return id + " " + fadType + " liter: " + størrelse;
         }
