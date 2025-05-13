@@ -164,9 +164,9 @@ public abstract class Controller {
      * Pre: land og fadtype er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param land fadets oprindelsesland.
-     * @param fadType         fadets type.
-     * @param størrelse       fadets størrelse.
+     * @param land      fadets oprindelsesland.
+     * @param fadType   fadets type.
+     * @param størrelse fadets størrelse.
      */ //TODO Lav mulighed for at oprette flere fade af gangen.
     public static Fad createFad(Land land, Fadtype fadType, double størrelse) {
         Fad fad = new Fad(land, fadType, størrelse);
@@ -253,21 +253,18 @@ public abstract class Controller {
     /**
      * Indsætter en vare på på en plads på lageret.
      * Pre: lagervare er ikke null
-     * @param reol reolnummeret på den ønskede plads.
-     * @param hylde hyldenummeret på den ønskede plads.
+     *
+     * @param reol      reolnummeret på den ønskede plads.
+     * @param hylde     hyldenummeret på den ønskede plads.
      * @param lagervare lagervaren man ønsker at indsætte på lageret.
      */
 
-    public static void indsætVarePåLager(Lager lager, int reol, int hylde, Lagervare lagervare){
-        if (reol < 1 || reol > lager.getAntalReoler() - 1){
+    public static void indsætVarePåLager(Lager lager, int reol, int hylde, Lagervare lagervare) {
+        if (reol < 1 || reol > lager.getAntalReoler() - 1) {
             throw new IllegalArgumentException("Indtast gyldigt reolnr - Der er " + lager.getAntalReoler() + " reoler på lageret");
-        }
-
-        else if (hylde < 1 || hylde > lager.getAntalHylder() - 1){
+        } else if (hylde < 1 || hylde > lager.getAntalHylder() - 1) {
             throw new IllegalArgumentException("Indtast gyldigt hyldenr - Der er " + lager.getAntalHylder() + " hylder på lageret");
-        }
-
-        else if (lager.getPladser()[reol][hylde] != null){
+        } else if (lager.getPladser()[reol][hylde] != null) {
             throw new IllegalArgumentException("Pladsen er allerede optaget");
         } else {
             lagervare.setReolNummer(reol);
@@ -277,14 +274,6 @@ public abstract class Controller {
         }
 
     }
-
-    public void fjernLagerVare(Lagervare lagervare){
-        Lager lager = lagervare.getLager();
-        lager.removeLagerVare(lagervare);
-    }
-
-
-    //-----------------------------------------------------------------------------------------------------
 
     /**
      * Initialiserer et destillats navn, fad og tilføjer det til storage.
@@ -317,6 +306,9 @@ public abstract class Controller {
         int antalBrug = destillat.getFad().getAntalBrug() + 1;
         destillat.getFad().setAntalBrug(antalBrug);
     }
+
+
+    //-----------------------------------------------------------------------------------------------------
 
     /**
      * Henter alle destillater.
@@ -355,8 +347,6 @@ public abstract class Controller {
         return String.valueOf(sb);
     }
 
-    //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Initialiserer en whiskys navn og tilføjer det til storage.
      *
@@ -378,6 +368,8 @@ public abstract class Controller {
     public static Set<Whisky> getWhiskyer() {
         return storage.getWhiskyer();
     }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * Henter whiskyer der er igangværende.
@@ -442,7 +434,6 @@ public abstract class Controller {
         return whisky.beregnAntalFlasker();
     }
 
-
     /**
      * Genererer et label med en beskrivelse til en whisky.
      * Pre: Whisky er ikke null.
@@ -482,6 +473,128 @@ public abstract class Controller {
     public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent) {
         whisky.setLabel(label);
         whisky.setAlkoholprocent(alkoholprocent);
+    }
+
+    public static void fjernLagerVare(Lagervare lagervare) {
+        Lager lager = lagervare.getLager();
+        lager.removeLagerVare(lagervare);
+    }
+
+    public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,
+                                        Integer alderPåDestillat, Integer literStørrelse, Boolean fyldt, String lagret) {
+        List<Fad> fade = Controller.getFade();
+        if (fadtype != null) {
+            fade = søgEfterFadType(fade, fadtype);
+        }
+        if (fills != null) {
+            fade = søgEfterAntalBrug(fade, fills);
+        }
+        if (lagret != null) {
+            fade = søgEfterLager(fade, lagret);
+        }
+        if (land != null) {
+            fade = søgEfterLand(fade, land);
+        }
+        if (alderPåDestillat != null) {
+            fade = søgEfterAlderPåDestillat(fade, alderPåDestillat);
+        }
+        if (literStørrelse != null) {
+            fade = søgEferStørrelse(fade, literStørrelse);
+        }
+        if (fyldt != null) {
+            fade = søgEfterFyldtStatus(fade, fyldt);
+        }
+        return fade;
+    }
+
+    private static List<Fad> søgEfterAlderPåDestillat(List<Fad> fade, int måneder) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            Destillat destillat = fad.getDestillat();
+            if (destillat != null && destillat.getPåfyldningsDato() != null) {
+                if (fad.getDestillat().beregnAlderIMåneder() > måneder) {
+                    resultat.add(fad);
+                }
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterAntalBrug(List<Fad> fade, int antalBrug) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            if (fad.getAntalBrug() == antalBrug) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterFadType(List<Fad> fade, Fadtype fadtype) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            if (fad.getFadType() == fadtype) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterFyldtStatus(List<Fad> fade, boolean fyldt) {
+        List<Fad> resultat = new ArrayList<>();
+
+        if (fyldt) {
+            for (Fad fad : fade) {
+                if (fad.getDestillat() != null) {
+                    resultat.add(fad);
+                }
+            }
+        } else {
+            for (Fad fad : fade) {
+                if (fad.getDestillat() == null) {
+                    resultat.add(fad);
+                }
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterLager(List<Fad> fade, String lager) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            Lager fadLager = fad.getLager();
+            if (lager.equals("På lager") && fadLager != null) {
+                resultat.add(fad);
+            } else if (lager.equals("Ikke på lager") && fadLager == null) {
+                resultat.add(fad);
+            } else if (fadLager != null && lager.equals(fadLager.toString())) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterLand(List<Fad> fade, Land land) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            if (fad.getOprindelsesLand() == land) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEferStørrelse(List<Fad> fade, double størrelse) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            if (fad.getStørrelse() >= størrelse) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
     }
 
 
