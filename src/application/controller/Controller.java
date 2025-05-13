@@ -1,7 +1,6 @@
 package application.controller;
 
 import application.model.*;
-import application.model.SøgningsStrategier.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -484,32 +483,118 @@ public abstract class Controller {
     public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,
                                         Integer alderPåDestillat, Integer literStørrelse, Boolean fyldt, String lagret) {
         List<Fad> fade = Controller.getFade();
-        List<Søgning<Fad>> søgninger = new ArrayList<>();
         if (fadtype != null) {
-            søgninger.add(new SøgEfterFadType(fadtype));
+            fade = søgEfterFadType(fade, fadtype);
         }
         if (fills != null) {
-            søgninger.add(new SøgEfterAntalBrug(fills));
+            fade = søgEfterAntalBrug(fade, fills);
         }
         if (lagret != null) {
-            søgninger.add(new SøgEfterLager(lagret));
+            fade = søgEfterLager(fade, lagret);
         }
         if (land != null) {
-            søgninger.add(new SøgEfterOprindelsesLand(land));
+            fade = søgEfterLand(fade, land);
         }
         if (alderPåDestillat != null) {
-            søgninger.add(new SøgEfterAlderPåDestillat(alderPåDestillat));
+            fade = søgEfterAlderPåDestillat(fade, alderPåDestillat);
         }
         if (literStørrelse != null) {
-            søgninger.add(new SøgEfterStørrelse(literStørrelse));
+            fade = søgEferStørrelse(fade, literStørrelse);
         }
         if (fyldt != null) {
-            søgninger.add(new SøgEfterFyldt(fyldt));
+            fade = søgEfterFyldtStatus(fade, fyldt);
         }
-
-        KombineretSøgning<Fad> kombineretSøgning = new KombineretSøgning<>(søgninger);
-        fade = kombineretSøgning.søgning(fade);
         return fade;
+    }
+
+    private static List<Fad> søgEfterAlderPåDestillat(List<Fad> fade, int måneder) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            Destillat destillat = fad.getDestillat();
+            if (destillat != null && destillat.getPåfyldningsDato() != null) {
+                if (fad.getDestillat().beregnAlderIMåneder() > måneder) {
+                    resultat.add(fad);
+                }
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterAntalBrug(List<Fad> fade, int antalBrug) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            if (fad.getAntalBrug() == antalBrug) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterFadType(List<Fad> fade, Fadtype fadtype) {
+        List<Fad> resultat = new ArrayList<>();
+        for (Fad fad : fade) {
+            if (fad.getFadType() == fadtype) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterFyldtStatus(List<Fad> fade, boolean fyldt) {
+        List<Fad> resultat = new ArrayList<>();
+
+        if (fyldt) {
+            for (Fad fad : fade) {
+                if (fad.getDestillat() != null) {
+                    resultat.add(fad);
+                }
+            }
+        } else {
+            for (Fad fad : fade) {
+                if (fad.getDestillat() == null) {
+                    resultat.add(fad);
+                }
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterLager(List<Fad> fade, String lager) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            Lager fadLager = fad.getLager();
+            if (lager.equals("På lager") && fadLager != null) {
+                resultat.add(fad);
+            } else if (lager.equals("Ikke på lager") && fadLager == null) {
+                resultat.add(fad);
+            } else if (fadLager != null && lager.equals(fadLager.toString())) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEfterLand(List<Fad> fade, Land land) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            if (fad.getOprindelsesLand() == land) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
+    }
+
+    private static List<Fad> søgEferStørrelse(List<Fad> fade, double størrelse) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            if (fad.getStørrelse() >= størrelse) {
+                resultat.add(fad);
+            }
+        }
+        return resultat;
     }
 
 
