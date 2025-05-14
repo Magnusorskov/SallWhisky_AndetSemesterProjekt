@@ -229,7 +229,7 @@ public class Batch implements Serializable {
         }
         sb.append("\nInitialer: " + initialer);
         if (kommentar != null) {
-            sb.append("\nKommentar: " + "\n     " + kommentar);
+            sb.append("\nKommentar: " + "\n\t" + kommentar);
         }
         return sb;
     }

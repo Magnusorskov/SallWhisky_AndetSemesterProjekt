@@ -120,7 +120,7 @@ class BatchTest {
                 "Alkoholprocent: 5.0\n" +
                 "Startdato: 2025-01-01\n" +
                 "Initialer: CLN\n" +
-                "Kommentar: \nTest start";
+                "Kommentar: \n\tTest start";
         assertEquals(forventetHistorikBatch2,batch1.hentHistorik().toString());
     }
 

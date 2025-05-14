@@ -18,7 +18,7 @@ public class Destillat implements Serializable {
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
-    // TODO Lav link til omhældningsmængde og tilhørende metoder
+
 
     /**
      * Initialiserer et destillats navn, fad.
@@ -281,7 +281,7 @@ public class Destillat implements Serializable {
      *
      * @return et Set indeholdende de unikke Fadtyper for fadet.
      */
-    //todo laves om til med flere
+    //todo skal vi overhovedet bruge den her
     public Set<Fadtype> getFadtyper() {
         Set<Fadtype> fadtyper = new HashSet<>();
         fadtyper.add(fad.getFadType());
@@ -292,14 +292,14 @@ public class Destillat implements Serializable {
     public String totalHistorik() {
         StringBuilder sb = new StringBuilder(hentHistorik());
         if (omhældningsMængder.isEmpty()) {
-            return sb + "";
+            return (sb + "");
         } else {
-            sb.append(navn + " indeholder: ");
+            sb.append("\n\n" + navn + " indeholder: ");
             for (OmhældningsMængde omhældningsMængde : omhældningsMængder) {
-                sb.append("\n\t" + omhældningsMængde.getDestillat().totalHistorik());
+                sb.append("\n" + omhældningsMængde.getDestillat().totalHistorik());
             }
+            return sb + "";
         }
-        return sb + "";
     }
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).
