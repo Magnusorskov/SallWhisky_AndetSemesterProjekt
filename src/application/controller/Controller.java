@@ -357,18 +357,19 @@ public abstract class Controller {
      * @param navn
      */
     public static void omhældDestillat(Destillat destillat, double antalLiter, Fad fad, String navn) {
+        if (antalLiter > fad.getTilgængeligeLiter()) {
+            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
+        } else if (antalLiter > destillat.getAntalLiter()) {
+            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
+        }
+
         Destillat fadDestillat = fad.getDestillat();
         if (fadDestillat == null) {
             fadDestillat = Controller.createDestillat(navn, fad);
         }
-        if (antalLiter > fad.getTilgængeligeLiter()) {
-            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
-        } else if (antalLiter > batch.getVæskemængde()) {
-            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
-        } else {
-            destillat.createMængde(antalLiter, batch);
+            fadDestillat.createOmhældningsMængde(antalLiter,destillat);
         }
-    }
+
 
     /**
      * Initialiserer en whiskys navn og tilføjer det til storage.

@@ -1,7 +1,7 @@
 package application.model;
 
 public class OmhældningsMængde {
-    private final double antalLiter;
+    private double antalLiter;
     private final Destillat destillat;
 
     OmhældningsMængde(double antalLiter, Destillat destillat) {
@@ -16,5 +16,10 @@ public class OmhældningsMængde {
 
     public Destillat getDestillat() {
         return destillat;
+    }
+
+    public void addLiterTilEksisterendeOM(double antalLiter) {
+        this.antalLiter += antalLiter;
+        destillat.tapDestillat(antalLiter);
     }
 }

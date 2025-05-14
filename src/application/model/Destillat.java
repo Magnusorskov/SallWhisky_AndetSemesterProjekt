@@ -162,9 +162,27 @@ public class Destillat implements Serializable {
     public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat destillat) {
         OmhældningsMængde omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
         this.antalLiter += antalLiter;
-        omhældningsMængder.add(omhældningsMængde);
+
+        int index = findesDestillatIOmhældningsMængdeListe(destillat);
+        if (index != -1) {
+            omhældningsMængder.get(index).addLiterTilEksisterendeOM(antalLiter);
+        } else {
+            omhældningsMængder.add(omhældningsMængde);
+        }
 
         return omhældningsMængde;
+    }
+
+    private int findesDestillatIOmhældningsMængdeListe(Destillat destillat) {
+        int i = 0;
+        while (i < omhældningsMængder.size()) {
+            if (omhældningsMængder.get(i).getDestillat() == destillat) {
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return -1;
     }
 
     //metoder
