@@ -142,7 +142,7 @@ public class Fad extends Lagervare implements Serializable {
         if (destillat == null) {
             antalLiter = størrelse;
         } else {
-            antalLiter = størrelse - destillat.beregnAntalLiter();
+            antalLiter = størrelse - destillat.beregnAntalLiterPåBatchMængder();
         }
         return antalLiter;
     }

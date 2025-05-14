@@ -1,5 +1,6 @@
 package application.model;
 
+import application.controller.Controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,8 @@ class DestillatTest {
         batch = new Batch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
         destillat = new Destillat("Testsprut",fad);
         mængde = destillat.createMængde(100,batch);
+
+
     }
 
     @Test
@@ -37,19 +40,24 @@ class DestillatTest {
     }
 
     @Test
-    void test12_beregnAntalLiter(){
-        assertEquals(destillat.beregnAntalLiter(),100,"Antal liter er forker");
+    void test12_beregnAntalLiterPåBatchMængder(){
+        assertEquals(destillat.beregnAntalLiterPåBatchMængder(),100,"Antal liter er forker");
     }
 
     @Test
     void test13_getMængder() {
-        assertEquals(1, destillat.getMængder().size(), "Antallet af mængder i destillat er forkert");
-        assertTrue(destillat.getMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
+        assertEquals(1, destillat.getBatchMængder().size(), "Antallet af mængder i destillat er forkert");
+        assertTrue(destillat.getBatchMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
     }
 
     @Test
     void test14_beregnAntalMåneder() {
         destillat.setPåfyldningsDato(LocalDate.of(2025,1,1));
         assertEquals(4,destillat.beregnAlderIMåneder());
+    }
+
+    @Test
+    void test15_totalHistorik() {
+        System.out.println(destillat);
     }
 }

@@ -302,7 +302,7 @@ public abstract class Controller {
     public static void færdiggørDestillat(double alkoholprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
-        destillat.setAntalLiter(destillat.beregnAntalLiter());
+        destillat.setAntalLiter(destillat.beregnAntalLiterPåBatchMængder());
 
         int antalBrug = destillat.getFad().getAntalBrug() + 1;
         destillat.getFad().setAntalBrug(antalBrug);
@@ -346,6 +346,28 @@ public abstract class Controller {
         StringBuilder sb = new StringBuilder();
         sb.append(destillat.hentHistorik());
         return String.valueOf(sb);
+    }
+
+    /**
+     * Omhælder en destillat mængde fra et fad til et andet og hvis der ikke findes et destillat på fadet
+     * bliver der lavet et nyt.
+     * @param destillat
+     * @param antalLiter
+     * @param fad
+     * @param navn
+     */
+    public static void omhældDestillat(Destillat destillat, double antalLiter, Fad fad, String navn) {
+        Destillat fadDestillat = fad.getDestillat();
+        if (fadDestillat == null) {
+            fadDestillat = Controller.createDestillat(navn, fad);
+        }
+        if (antalLiter > fad.getTilgængeligeLiter()) {
+            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
+        } else if (antalLiter > batch.getVæskemængde()) {
+            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
+        } else {
+            destillat.createMængde(antalLiter, batch);
+        }
     }
 
     /**

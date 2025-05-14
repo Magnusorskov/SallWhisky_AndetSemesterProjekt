@@ -72,28 +72,28 @@ class ControllerTest {
     void test1_påfyldFad(){
         antalLiter = 1;
         Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test2_påfyldFad(){
         antalLiter = 25;
         Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test3_påfyldFad(){
         antalLiter = 49;
         Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test4_påfyldFad(){
         antalLiter = 50;
         Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
@@ -102,7 +102,7 @@ class ControllerTest {
         fad.setDestillat(null);
         Controller.påfyldFad(antalLiter,batch,navn,fad);
         assertNotNull(fad.getDestillat());
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test

@@ -10,7 +10,8 @@ import java.util.*;
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 public class Destillat implements Serializable {
-    private final List<BatchMængde> mængder = new ArrayList<>();
+    private final List<BatchMængde> batchMængder = new ArrayList<>();
+    private final List<OmhældningsMængde> omhældningsMængder = new ArrayList<>();
     private String navn;
     private int id;
     private double alkoholprocent;
@@ -105,6 +106,7 @@ public class Destillat implements Serializable {
     }
 
     //sammenhæng til fad
+
     /**
      * Henter det fad destillatet ligger på.
      *
@@ -118,14 +120,15 @@ public class Destillat implements Serializable {
 //        this.fad = fad;
 //    }
 
-    //sammenhæng til mængde
+    //sammenhæng til batchMængde
+
     /**
      * Henter en liste over de batchmængder, der udgør destillatet.
      *
      * @return en ny liste indeholdende BatchMængde objekter.
      */
-    public List<BatchMængde> getMængder() {
-        return new ArrayList<>(mængder);
+    public List<BatchMængde> getBatchMængder() {
+        return new ArrayList<>(batchMængder);
     }
 
     /**
@@ -139,20 +142,41 @@ public class Destillat implements Serializable {
      */
     public BatchMængde createMængde(double antalLiter, Batch batch) {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
-        mængder.add(batchMængde);
+        batchMængder.add(batchMængde);
+//        this.antalLiter += antalLiter; //TODO kig lige her
         return batchMængde;
+    }
+
+    //sammenhæng til DestillatMængde
+
+    /**
+     * Initialiserer en OmhældningsMængdes antal liter og destillat og tilføjer den til destillatet.
+     * Den sørger også for at tilføje antalLiter til destillatets totale antal liter.
+     * Pre: destillat er ikke null.
+     * Pre: antalLiter > 0.
+     *
+     * @param antalLiter det antal liter man omhælder fra destillatet.
+     * @param destillat  det destillat der skal omhældes en mængde fra.
+     * @return den færdige omhældnings mængde.
+     */
+    public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat destillat) {
+        OmhældningsMængde omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
+        this.antalLiter += antalLiter;
+        omhældningsMængder.add(omhældningsMængde);
+
+        return omhældningsMængde;
     }
 
     //metoder
 
     /**
-     * Beregner antal liter destillatet indeholder.
+     * Beregner antal liter destillatet indeholder baseret på batchmængder.
      *
      * @return antal liter destillatet indeholder.
      */ //TODO tag højde for omhældningsmængde
-    public double beregnAntalLiter() {
+    public double beregnAntalLiterPåBatchMængder() {
         double liter = 0;
-        for (BatchMængde m : mængder) {
+        for (BatchMængde m : batchMængder) {
             liter += m.getAntalLiter();
         }
         return liter;
@@ -165,7 +189,7 @@ public class Destillat implements Serializable {
      */
     public String destilatBatches() {
         StringBuilder sb = new StringBuilder();
-        for (BatchMængde m : mængder) {
+        for (BatchMængde m : batchMængder) {
             sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
         }
         String s = sb + "";
@@ -203,7 +227,7 @@ public class Destillat implements Serializable {
 
         sb.append("\n\nBatches:\n");
         Map<Batch, Double> batches = new HashMap<>();
-        for (BatchMængde bm : getMængder()) {
+        for (BatchMængde bm : getBatchMængder()) {
             batches.merge(bm.getBatch(), bm.getAntalLiter(), Double::sum);
         }
         for (Map.Entry<Batch, Double> k : batches.entrySet()) {
@@ -213,6 +237,7 @@ public class Destillat implements Serializable {
 
         return sb;
     }
+
     /**
      * Henter de unikke marker fra de batches, der udgør destillatet.
      *
@@ -220,7 +245,7 @@ public class Destillat implements Serializable {
      */
     public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
-        for (BatchMængde bm : mængder) {
+        for (BatchMængde bm : batchMængder) {
             marker.add(bm.getBatch().getMark());
         }
         return marker;
@@ -248,10 +273,19 @@ public class Destillat implements Serializable {
         return fadtyper;
     }
 
-    // TODO Udfyld
-    private OmhældningsMængde createOmhældningsMængde() {return new OmhældningsMængde();}
 
-
+    public String totalHistorik() {
+        StringBuilder sb = new StringBuilder(hentHistorik());
+        if (omhældningsMængder.isEmpty()) {
+            return sb + "";
+        } else {
+            sb.append(navn + " indeholder: ");
+            for (OmhældningsMængde omhældningsMængde : omhældningsMængder) {
+                sb.append("\n\t" + omhældningsMængde.getDestillat().totalHistorik());
+            }
+        }
+        return sb + "";
+    }
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).
      *
