@@ -17,7 +17,7 @@ public class BatchPane extends GridPane {
 
     public BatchPane() {
         this.setPadding(new Insets(20));
-        this.setHgap(20);
+        this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
@@ -45,19 +45,20 @@ public class BatchPane extends GridPane {
         txaBatchInfo.setMinHeight(150);
         txaBatchInfo.setMaxWidth(300);
 
+        Button btnFjernBatch = new Button("Fjern batch");
+        btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
+        this.add(btnFjernBatch, 0, 3);
+        GridPane.setHalignment(btnFjernBatch, HPos.LEFT);
+
         Button btnFærdig = new Button("Færdiggør Batch");
         btnFærdig.setOnAction(event -> this.færdiggørAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
         this.add(btnFærdig, 0, 3);
+        GridPane.setHalignment(btnFærdig, HPos.RIGHT);
 
         Button btnOpret = new Button("Opret ny batch");
         btnOpret.setOnAction(event -> this.opretAction());
         this.add(btnOpret, 1, 3);
         GridPane.setHalignment(btnOpret, HPos.RIGHT);
-
-        Button btnFjernBatch = new Button("Fjern batch");
-        btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));
-        this.add(btnFjernBatch, 0, 4);
-
     }
 
     // -------------------------------------------------------------------------

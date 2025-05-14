@@ -117,7 +117,6 @@ public class LagerPane extends GridPane {
         lvwFad.setMinWidth(300);
         this.add(lvwFad, 1, 1, 1, 14);
 
-
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         lvwFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
 

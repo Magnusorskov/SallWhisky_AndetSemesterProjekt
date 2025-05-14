@@ -95,6 +95,7 @@ public class VælgPlaceringWindow extends Stage {
 
         btnFindPlads = new Button("Find plads");
         btnFindPlads.setOnAction(event -> findPladsAction());
+        btnFindPlads.setDisable(true);
         pane.add(btnFindPlads, 0, 7);
         GridPane.setHalignment(btnFindPlads, HPos.RIGHT);
 
