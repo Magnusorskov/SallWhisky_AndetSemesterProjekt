@@ -188,18 +188,18 @@ public abstract class Controller {
      * @param fad        fadet mængden skal påfyldes i.
      */
     public static void påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
-        Destillat destillat = fad.getDestillat();
-        if (destillat == null) {
-            destillat = Controller.createDestillat(navn, fad);
-        }
         if (antalLiter > fad.getTilgængeligeLiter()) {
             throw new IllegalArgumentException("Der er ikke nok plads i fadet");
         } else if (antalLiter > batch.getVæskemængde()) {
             throw new IllegalArgumentException("Der er ikke nok væske i batchen");
-        } else {
+        }
+        Destillat destillat = fad.getDestillat();
+        if (destillat == null) {
+            destillat = Controller.createDestillat(navn, fad);
+        }
             destillat.createMængde(antalLiter, batch);
         }
-    }
+
 
     /**
      * Henter et fads beskrivelse.
