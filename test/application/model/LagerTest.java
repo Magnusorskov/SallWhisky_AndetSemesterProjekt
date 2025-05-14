@@ -38,35 +38,37 @@ class LagerTest {
 
     // TC1: Lager er tomt, næste ledige plads skal være [1][1]
     @Test
-    void test10_tomtLager() {
+    void test10_opdaterNæsteLedigePlads_tomtLager() {
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{1, 1}, lager.getNæsteLedigPlads(), "Skal finde første plads [1,1] på tomt lager");
     }
 
     // TC2: [1][1] er optaget, næste ledige er [1][2]
     @Test
-    void test11_førsteOptaget() {
+    void test11_opdaterNæsteLedigePlads_førsteOptaget() {
         lager.addLagerVare(lagervare, 1, 1);
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{1, 2}, lager.getNæsteLedigPlads(), "Skal finde [1,2] når [1,1] er optaget");
     }
 
-    // TC3: Sidste plads [3][5] er ledig, alt andet fyldt
+
     @Test
-    void test12_sidstePladsLedig() {
+    void test12_opdaterNæsteLedigePlads_sidstePladsLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
             }
         }
-        lager.removeLagerVare(lager.getPladser()[3][5]); // Gør [3][5] ledig
+        lager.getPladser()[3][5].setReolNummer(3);
+        lager.getPladser()[3][5].setHyldeNummer(5);
+        lager.removeLagerVare(lager.getPladser()[3][5]);
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{3, 5}, lager.getNæsteLedigPlads(), "Skal finde sidste ledige plads [3,5]");
     }
 
-    // TC4: Hele lageret er fyldt, exception kastes
+
     @Test
-    void test13_lagerFyldt() {
+    void test13_opdaterNæsteLedigePlads_lagerFyldt() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
@@ -78,17 +80,19 @@ class LagerTest {
         assertEquals("Lageret er fyldt - ingen ledige pladser", exception.getMessage());
     }
 
-    // TC5: Næste ledige er midt i lageret (wrap rundt og find den)
+
     @Test
-    void test14_wrapRundtOgFinderLedig() {
+    void test14_opdaterNæsteLedigePlads_wrapRundtOgFinderLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
             }
         }
+
+        lager.getPladser()[2][3].setReolNummer(2);
+        lager.getPladser()[2][3].setHyldeNummer(3);
         lager.removeLagerVare(lager.getPladser()[2][3]);
 
-        lager.setNæsteLedigPlads(2,4);
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{2, 3}, lager.getNæsteLedigPlads(), "Skal wrappe og finde [2,3]");
     }
