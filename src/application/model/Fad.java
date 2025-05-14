@@ -172,14 +172,16 @@ public class Fad extends Lagervare implements Serializable {
      */
     @Override
     public String toString() {
-        if (getLager() != null && destillat != null) {
-            return id + " " + fadType + " liter: " + størrelse + "\n    Destillat: " + destillat.getNavn() + "\n        Lager: " + getLager().getNavn();
+        StringBuilder sb = new StringBuilder();
+        sb.append(id + " " + fadType + " liter: " + størrelse);
+
+        if (destillat != null){
+            sb.append("\n\tDestillat: " + destillat.getNavn());
         }
-        else if (destillat != null) {
-            return id + " " + fadType + " liter: " + størrelse + "\n    Destillat: " + destillat.getNavn();
-        } else {
-            return id + " " + fadType + " liter: " + størrelse;
+        if (getLager() != null) {
+            sb.append("\n\tLager: " + getLager().getNavn());
         }
+        return "" + sb;
     }
 
 }
