@@ -2,14 +2,11 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Destillat;
-import application.model.DestillatMængde;
 import application.model.Whisky;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -17,12 +14,13 @@ import javafx.scene.text.FontWeight;
 public class WhiskyPane extends GridPane {
     private TextArea txaDestillatBeskrivelse, txaWhiskeyBeskrivelse;
     private TextField txfLiter;
-    private Label lblDestillatBeskrivelse,lblWhiskyBeskrivelse,lblTapning, lblWhisky, lblLiter, lblDestillater, lblError, lblDestillatVæskemængde;
+    private Label lblDestillatBeskrivelse, lblWhiskyBeskrivelse, lblTapning, lblWhisky, lblLiter, lblDestillater, lblError, lblDestillatVæskemængde;
     private ComboBox<Destillat> cmbDestillater;
     private ComboBox<Whisky> cmbWhisky;
     private Button btnTap, btnOpret, btnFærdiggør;
 
-    public WhiskyPane(){
+
+    public WhiskyPane() {
         this.setPadding(new Insets(20));
         this.setHgap(30);
         this.setVgap(10);
@@ -32,11 +30,11 @@ public class WhiskyPane extends GridPane {
 
         lblDestillater = new Label("Destillater");
         lblDestillater.setFont(Font.font("System", FontWeight.BOLD, 16));
-        this.add(lblDestillater,0,0);
+        this.add(lblDestillater, 0, 0);
 
         cmbDestillater = new ComboBox<>();
         cmbDestillater.getItems().addAll(Controller.getFærdigeDestillater());
-        this.add(cmbDestillater,0,1);
+        this.add(cmbDestillater, 0, 1);
         cmbDestillater.setPrefWidth(width);
 
         lblDestillatBeskrivelse = new Label("Beskrivelse");
@@ -44,7 +42,7 @@ public class WhiskyPane extends GridPane {
 
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
         txaDestillatBeskrivelse = new TextArea();
-        this.add(txaDestillatBeskrivelse,0,3);
+        this.add(txaDestillatBeskrivelse, 0, 3);
         txaDestillatBeskrivelse.setPrefWidth(width);
         txaDestillatBeskrivelse.setEditable(false);
 
@@ -55,10 +53,10 @@ public class WhiskyPane extends GridPane {
 
         lblTapning = new Label("Tapning");
         lblTapning.setFont(Font.font("System", FontWeight.BOLD, 16));
-        this.add(lblTapning,1,0);
+        this.add(lblTapning, 1, 0);
 
         lblLiter = new Label("Liter");
-        this.add(lblLiter,1,2);
+        this.add(lblLiter, 1, 2);
 
         txfLiter = new TextField();
 
@@ -73,39 +71,39 @@ public class WhiskyPane extends GridPane {
         lblError.setStyle("-fx-text-fill: red");
         lblError.setMinWidth(width);
 
-        VBox vBox = new VBox(txfLiter,lblDestillatVæskemængde,btnTap,lblError);
+        VBox vBox = new VBox(txfLiter, lblDestillatVæskemængde, btnTap, lblError);
         vBox.setSpacing(10);
-        this.add(vBox,1,3);
+        this.add(vBox, 1, 3);
 
         // Kolonne 2
 
         lblWhisky = new Label("Whisky");
         lblWhisky.setFont(Font.font("System", FontWeight.BOLD, 16));
-        this.add(lblWhisky,2,0);
+        this.add(lblWhisky, 2, 0);
 
         cmbWhisky = new ComboBox<>();
         cmbWhisky.setPrefWidth(width);
         cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
-        this.add(cmbWhisky,2,1);
+        this.add(cmbWhisky, 2, 1);
 
         ChangeListener<Whisky> whiskeyListener = (ov, oldWhisky, newWhisky) -> this.selectionChangeWhisky();
         cmbWhisky.getSelectionModel().selectedItemProperty().addListener(whiskeyListener);
 
         lblWhiskyBeskrivelse = new Label("Beskrivelse");
-        this.add(lblWhiskyBeskrivelse,2,2);
+        this.add(lblWhiskyBeskrivelse, 2, 2);
 
 
         txaWhiskeyBeskrivelse = new TextArea();
-        this.add(txaWhiskeyBeskrivelse,2,3);
+        this.add(txaWhiskeyBeskrivelse, 2, 3);
         txaWhiskeyBeskrivelse.setPrefWidth(width);
         txaWhiskeyBeskrivelse.setEditable(false);
 
         btnFærdiggør = new Button("Færdiggør whisky");
         btnOpret = new Button("Opret whiskey");
 
-        HBox hbBtns = new HBox(btnOpret,btnFærdiggør);
+        HBox hbBtns = new HBox(btnOpret, btnFærdiggør);
         hbBtns.setSpacing(10);
-        this.add(hbBtns,2,4);
+        this.add(hbBtns, 2, 4);
 
         btnOpret.setOnAction(event -> this.opretWhiskeyAction());
 
@@ -114,7 +112,7 @@ public class WhiskyPane extends GridPane {
 
     }
 
-    public void updateControls(){
+    public void updateControls() {
         cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
         cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
         btnTap.setDisable(true);
@@ -124,27 +122,27 @@ public class WhiskyPane extends GridPane {
 
     }
 
-    private void selectionChangeDestillat(){
+    private void selectionChangeDestillat() {
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
-        if (destillat != null){
+        if (destillat != null) {
             txaDestillatBeskrivelse.setText(Controller.getDestillatBeskrivelse(destillat));
             lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
         } else {
             txaDestillatBeskrivelse.clear();
             lblDestillatVæskemængde.setText("Destillat rest. væske: ");
         }
-        if (cmbWhisky.getSelectionModel().getSelectedItem() != null){
+        if (cmbWhisky.getSelectionModel().getSelectedItem() != null) {
             btnTap.setDisable(false);
         } else {
             btnTap.setDisable(true);
         }
     }
 
-    private void selectionChangeWhisky(){
+    private void selectionChangeWhisky() {
         Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
 
-        if (whisky != null){
+        if (whisky != null) {
             txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
             btnFærdiggør.setDisable(false);
             btnTap.setDisable(false);
@@ -154,20 +152,20 @@ public class WhiskyPane extends GridPane {
         }
     }
 
-    private void tapTilWhiskyAction(){
+    private void tapTilWhiskyAction() {
         Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
-        if (txfLiter.getText().isBlank()){
+        if (txfLiter.getText().isBlank()) {
             lblError.setText("Antal liter skal udfyldes");
-        } else if (whisky == null){
+        } else if (whisky == null) {
             lblError.setText("Vælg en whisky");
-        } else if (destillat == null){
+        } else if (destillat == null) {
             lblError.setText("Vælg et destillat at tappe fra");
         } else {
             try {
                 double liter = Double.parseDouble(txfLiter.getText());
-                if (liter <= destillat.getAntalLiter()){
+                if (liter <= destillat.getAntalLiter()) {
                     Controller.tapningAfDestillat(liter, destillat, whisky);
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -192,24 +190,22 @@ public class WhiskyPane extends GridPane {
 
     }
 
-    private void færdiggørWhiskyAction(){
+    private void færdiggørWhiskyAction() {
         Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
 
-        if(whisky != null){
-            FærdiggørWhiskyWindow dia = new FærdiggørWhiskyWindow("Færdiggør Whiskey",whisky);
+        if (whisky != null) {
+            FærdiggørWhiskyWindow dia = new FærdiggørWhiskyWindow("Færdiggør Whiskey", whisky);
             dia.showAndWait();
 
             this.updateControls();
         }
     }
 
-    private void opretWhiskeyAction(){
+    private void opretWhiskeyAction() {
         OpretWhiskyWindow dia = new OpretWhiskyWindow("Opret Whisky");
         dia.showAndWait();
         this.updateControls();
     }
-
-
 
 
 }
