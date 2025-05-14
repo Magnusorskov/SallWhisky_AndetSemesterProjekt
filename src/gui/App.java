@@ -114,15 +114,15 @@ public class App {
         Destillat destillat1 = Controller.createDestillat("WhiskyDestillatProduktion",fad4);
         Destillat destillat2 = Controller.createDestillat("Strong",fad8);
 
-        destillat.createMængde(100,batch1);
-        destillat.createMængde(200,batch2);
-        destillat.createMængde(50,batch3);
+        destillat.createBatchMængde(100,batch1);
+        destillat.createBatchMængde(200,batch2);
+        destillat.createBatchMængde(50,batch3);
 
-        destillat1.createMængde(300,batch1);
-        destillat1.createMængde(430,batch2);
+        destillat1.createBatchMængde(300,batch1);
+        destillat1.createBatchMængde(430,batch2);
 
-        destillat2.createMængde(380,batch2);
-        destillat2.createMængde(519,batch3);
+        destillat2.createBatchMængde(380,batch2);
+        destillat2.createBatchMængde(519,batch3);
 
         Controller.færdiggørDestillat(78,LocalDate.of(2020,01,01),destillat);
         Controller.færdiggørDestillat(56,LocalDate.of(2021,02,02),destillat1);

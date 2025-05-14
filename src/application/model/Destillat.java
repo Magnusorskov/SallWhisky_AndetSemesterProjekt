@@ -116,9 +116,6 @@ public class Destillat implements Serializable {
         return fad;
     }
 
-//    public void setFad(Fad fad) {
-//        this.fad = fad;
-//    }
 
     //sammenhæng til batchMængde
 
@@ -140,10 +137,10 @@ public class Destillat implements Serializable {
      * @param batch      den batch man tager væske fra.
      * @return den færdige BatchMængde.
      */
-    public BatchMængde createMængde(double antalLiter, Batch batch) {
+    public BatchMængde createBatchMængde(double antalLiter, Batch batch) {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
         batchMængder.add(batchMængde);
-//        this.antalLiter += antalLiter; //TODO kig lige her
+        this.antalLiter += antalLiter; //TODO kig lige her
         return batchMængde;
     }
 
@@ -191,7 +188,7 @@ public class Destillat implements Serializable {
      * Beregner antal liter destillatet indeholder baseret på batchmængder.
      *
      * @return antal liter destillatet indeholder.
-     */ //TODO tag højde for omhældningsmængde
+     */ //TODO kig her, den er ikke i brug længere
     public double beregnAntalLiterPåBatchMængder() {
         double liter = 0;
         for (BatchMængde m : batchMængder) {

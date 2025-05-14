@@ -1,6 +1,5 @@
 package application.model;
 
-import application.controller.Controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,7 @@ class DestillatTest {
         fad = new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100);
         batch = new Batch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
         destillat = new Destillat("Testsprut",fad);
-        mængde = destillat.createMængde(100,batch);
+        mængde = destillat.createBatchMængde(100,batch);
 
 
     }
@@ -33,7 +32,7 @@ class DestillatTest {
     }
 
     @Test
-    void test11_CreateMængde(){
+    void test11_CreateBatchMængde(){
         assertNotNull(mængde,"Mængde er ikke oprettet");
         assertEquals(mængde.getBatch(),batch,"Batch er forkert");
         assertEquals(mængde.getAntalLiter(),100,"Antal liter er forkert");
@@ -41,7 +40,7 @@ class DestillatTest {
 
     @Test
     void test12_beregnAntalLiterPåBatchMængder(){
-        assertEquals(destillat.beregnAntalLiterPåBatchMængder(),100,"Antal liter er forker");
+        assertEquals(destillat.getAntalLiter(),100,"Antal liter er forker");
     }
 
     @Test

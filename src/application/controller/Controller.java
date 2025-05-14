@@ -197,7 +197,7 @@ public abstract class Controller {
         if (destillat == null) {
             destillat = Controller.createDestillat(navn, fad);
         }
-            destillat.createMængde(antalLiter, batch);
+            destillat.createBatchMængde(antalLiter, batch);
         }
 
 
@@ -302,7 +302,7 @@ public abstract class Controller {
     public static void færdiggørDestillat(double alkoholprocent, LocalDate påfyldningsDato, Destillat destillat) {
         destillat.setAlkoholprocent(alkoholprocent);
         destillat.setPåfyldningsDato(påfyldningsDato);
-        destillat.setAntalLiter(destillat.beregnAntalLiterPåBatchMængder());
+        destillat.setAntalLiter(destillat.getAntalLiter());
 
         int antalBrug = destillat.getFad().getAntalBrug() + 1;
         destillat.getFad().setAntalBrug(antalBrug);
