@@ -17,6 +17,7 @@ public class Destillat implements Serializable {
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
+    // TODO Lav link til omhældningsmængde og tilhørende metoder
 
     /**
      * Initialiserer et destillats navn, fad.
@@ -148,7 +149,7 @@ public class Destillat implements Serializable {
      * Beregner antal liter destillatet indeholder.
      *
      * @return antal liter destillatet indeholder.
-     */
+     */ //TODO tag højde for omhældningsmængde
     public double beregnAntalLiter() {
         double liter = 0;
         for (BatchMængde m : mængder) {
@@ -246,6 +247,9 @@ public class Destillat implements Serializable {
         fadtyper.add(fad.getFadType());
         return fadtyper;
     }
+
+    // TODO Udfyld
+    private OmhældningsMængde createOmhældningsMængde() {return new OmhældningsMængde();}
 
 
     /**

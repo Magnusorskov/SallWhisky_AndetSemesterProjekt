@@ -2,6 +2,7 @@ package application.controller;
 
 import application.model.*;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -598,6 +599,9 @@ public abstract class Controller {
         }
         return resultat;
     }
+
+    //TODO UDFYLD
+    private static File udtrækTilFil () {return new File("");}
 
 
 }

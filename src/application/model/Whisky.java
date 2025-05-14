@@ -239,6 +239,9 @@ public class Whisky implements Serializable, Comparable<Whisky> {
         return this.id - whisky.getId();
     }
 
+    // TODO udfyld
+    public void setKvalitetsStempel() {}
+
     /**
      * Laver en String repræsentation af Whisky objektet (returnerer navnet).
      *
