@@ -65,7 +65,7 @@ public class VælgPlaceringWindow extends Stage {
 
         lblReol = new Label("Reol nummer: ");
         pane.add(lblReol, 0, 3);
-        //TODO fix så txfReol og txfHylde får current placering hvis der er en
+
         txfReol = new TextField("0");
         pane.add(txfReol, 0, 4);
         txfReol.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -100,12 +100,12 @@ public class VælgPlaceringWindow extends Stage {
 
         Button btnFærdiggør = new Button("Færdiggør");
         btnFærdiggør.setOnAction(event -> færdiggørAction());
-        pane.add(btnFærdiggør, 0, 9);
+        pane.add(btnFærdiggør, 0, 8);
         GridPane.setHalignment(btnFærdiggør, HPos.RIGHT);
         GridPane.setValignment(btnFærdiggør, VPos.BOTTOM);
 
         lblError = new Label();
-        pane.add(lblError, 0, 10);
+        pane.add(lblError, 0, 9);
         lblError.setStyle("-fx-text-fill: red");
         lblError.setMinWidth(250);
 
@@ -113,21 +113,23 @@ public class VælgPlaceringWindow extends Stage {
 
     private void færdiggørAction() {
         Lager lager = cbbLager.getSelectionModel().getSelectedItem();
-        int maksReol = lager.getAntalReoler();
-        int maksHylde = lager.getAntalHylder();
-        int reol = Integer.parseInt(txfReol.getText());
-        int hylde = Integer.parseInt(txfHylde.getText());
-
-
         if (lager == null) {
             lblError.setText("Vælg et lager");
-        } else if (reol < 1 || reol > maksReol) {
-            lblError.setText("Skriv et reol nummer");
-        } else if (hylde < 1 || hylde > maksHylde) {
-            lblError.setText("Skriv et hylde nummer");
         } else {
-            Controller.indsætVarePåLager(lager, reol, hylde, lagervare);
-            hide();
+            int maksReol = lager.getAntalReoler();
+            int maksHylde = lager.getAntalHylder();
+            int reol = Integer.parseInt(txfReol.getText());
+            int hylde = Integer.parseInt(txfHylde.getText());
+
+
+            if (reol < 1 || reol > maksReol) {
+                lblError.setText("Skriv et reol nummer");
+            } else if (hylde < 1 || hylde > maksHylde) {
+                lblError.setText("Skriv et hylde nummer");
+            } else {
+                Controller.indsætVarePåLager(lager, reol, hylde, lagervare);
+                hide();
+            }
         }
     }
 
@@ -145,9 +147,14 @@ public class VælgPlaceringWindow extends Stage {
     }
 
     private void findPladsAction() {
-        int[] plads = cbbLager.getSelectionModel().getSelectedItem().getNæsteLedigPlads();
-        txfReol.setText("" + plads[0]);
-        txfHylde.setText("" + plads[1]);
+        Lager lager = cbbLager.getSelectionModel().getSelectedItem();
+        if (lager != null) {
+            int[] plads = lager.getNæsteLedigPlads();
+            txfReol.setText("" + plads[0]);
+            txfHylde.setText("" + plads[1]);
+        } else {
+            lblError.setText("Vælg et lager");
+        }
     }
 
     private void selectionChangeLager() {

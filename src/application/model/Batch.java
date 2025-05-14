@@ -203,6 +203,7 @@ public class Batch implements Serializable {
 
 
     //metoder
+
     /**
      * Genererer en historik over batchen, inklusive ID, bygsort, mark, maltbatch, rygemateriale (hvis relevant),
      * alkoholprocent (hvis relevant), start- og slutdato (hvis relevant), initialer og kommentar (hvis relevant).

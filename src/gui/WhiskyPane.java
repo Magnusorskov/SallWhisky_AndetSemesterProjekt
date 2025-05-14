@@ -63,7 +63,7 @@ public class WhiskyPane extends GridPane {
         txfLiter = new TextField();
 
         lblDestillatVæskemængde = new Label("Destillat rest. væske: ");
-        lblDestillatVæskemængde.setMinWidth(170);
+        lblDestillatVæskemængde.setMinWidth(360);
 
         btnTap = new Button("Tap destillat til whisky");
         btnTap.setDisable(false);

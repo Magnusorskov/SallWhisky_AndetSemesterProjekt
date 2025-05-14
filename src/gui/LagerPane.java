@@ -25,6 +25,7 @@ public class LagerPane extends GridPane {
 
     public LagerPane() {
         this.setPadding(new Insets(20));
+        // TODO fix Hgap padding
         this.setHgap(10);
         this.setVgap(10);
         this.setGridLinesVisible(false);
@@ -113,7 +114,7 @@ public class LagerPane extends GridPane {
         this.add(lblFade, 1, 0);
 
         lvwFad = new ListView<>();
-        lvwFad.setMinWidth(600);
+        lvwFad.setMinWidth(300);
         this.add(lvwFad, 1, 1, 1, 14);
 
 
