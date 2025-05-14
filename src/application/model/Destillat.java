@@ -9,7 +9,7 @@ import java.util.*;
  * Repræsenterer et destillat, som er væsken lagret på et fad.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Destillat implements Serializable {
+public class Destillat implements Historik,Serializable {
     private final List<BatchMængde> mængder = new ArrayList<>();
     private String navn;
     private int id;

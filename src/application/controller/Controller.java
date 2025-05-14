@@ -3,8 +3,11 @@ package application.controller;
 import application.model.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -409,9 +412,7 @@ public abstract class Controller {
      * @return en String med en beskrivelse på den valgte whisky
      */
     public static String getWhiskeyBeskrivelse(Whisky whisky) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(whisky.hentHistorik());
-        return String.valueOf(sb);
+        return String.valueOf(whisky.hentHistorik());
     }
 
     /**
@@ -600,8 +601,27 @@ public abstract class Controller {
         return resultat;
     }
 
-    //TODO UDFYLD
-    private static File udtrækTilFil () {return new File("");}
+    /**
+     * Udtrækker historik-information fra en samling af objekter,
+     * der implementerer Historik, og gemmer dem i en tekstfil.
+     * Pre: Objekterne man ønsker udtræk fra skal implementere interfacet Historik
+     * @param collection en Collection af objekter der implementerer Historik
+     * @return en fil med historik
+     */
+    public static File udtrækTilFilPåList(Collection<? extends Historik> collection) {
+        String filname = "Udtræk.txt";
+        File fil = new File("file:filnavn");
+
+        try (PrintWriter printWriter = new PrintWriter(filname)) {
+            for (Historik h : collection) {
+                printWriter.append(h.hentHistorik().toString());
+                printWriter.append("\n--------------------------------\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Fejl ved skrivning til fil");
+        }
+        return fil;
+    }
 
 
 }

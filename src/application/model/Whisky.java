@@ -9,12 +9,13 @@ import java.util.*;
  * Repræsenterer en færdig whisky, som er en blanding af forskellige destillater og eventuelt vand.
  * Implementerer Serializable for at kunne gemmes og indlæses, og Comparable for at kunne sorteres.
  */
-public class Whisky implements Serializable, Comparable<Whisky> {
+public class Whisky implements Serializable, Comparable<Whisky>, Historik {
     private String navn;
     private int id;
     private double alkoholprocent;
     private double literVand;
     private String label;
+    private Kvalitetsstempel kvalitetsstempel;
 
     private final List<DestillatMængde> destillatMængder;
 
@@ -156,7 +157,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
      *
      * @return en String der indeholder whiskyens historik.
      */
-    public String hentHistorik() {
+    public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Whisky: " + id + " " + navn);
         if (alkoholprocent > 0){
@@ -190,7 +191,7 @@ public class Whisky implements Serializable, Comparable<Whisky> {
             }
         }
 
-        return "" + sb;
+        return sb;
     }
 
     /**
