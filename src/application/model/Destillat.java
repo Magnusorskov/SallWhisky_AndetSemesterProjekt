@@ -220,7 +220,7 @@ public class Destillat implements Serializable, Historik {
      *
      * @return Stringbuilder med historikken.
      */
-    public StringBuilder hentHistorik() {
+    public StringBuilder hentHistorikHjælpeMetode() {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
@@ -269,16 +269,16 @@ public class Destillat implements Serializable, Historik {
     }
 
 
-    public String totalHistorik() {
-        StringBuilder sb = new StringBuilder(hentHistorik());
+    public StringBuilder hentHistorik() {
+        StringBuilder sb = new StringBuilder(hentHistorikHjælpeMetode());
         if (omhældningsMængder.isEmpty()) {
-            return (sb + "");
+            return sb;
         } else {
             sb.append("\n\n" + navn + " indeholder: ");
             for (OmhældningsMængde omhældningsMængde : omhældningsMængder) {
-                sb.append("\n" + omhældningsMængde.getDestillat().totalHistorik());
+                sb.append("\n" + omhældningsMængde.getDestillat().hentHistorik());
             }
-            return sb + "";
+            return sb;
         }
     }
 

@@ -623,10 +623,9 @@ public abstract class Controller {
      * @return en String med en beskrivelse på den valgte Historik objekt
      */
     public static String getBeskrivelse(Historik historik) {
-        if (historik instanceof Fad){
+        if (historik instanceof Fad fad){
             StringBuilder sb = new StringBuilder(historik.hentHistorik());
 
-            Fad fad = (Fad) historik;
             Destillat destillat = fad.getDestillat();
             if (destillat != null) {
                 sb.append("\n\nDestillat: " + destillat.getNavn());
