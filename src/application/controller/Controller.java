@@ -127,7 +127,7 @@ public abstract class Controller {
     /**
      * Henter fade.
      *
-     * @return en liste med fade.
+     * @return en liste med alle fade.
      */
     public static List<Fad> getFade() {
         return storage.getFade();
@@ -601,12 +601,14 @@ public abstract class Controller {
         List<Fad> resultat = new ArrayList<>();
 
         for (Fad fad : fade) {
-            Destillat destillat = fad.getDestillat();
-            if (destillat == null) {
-                resultat.add(fad);
-            } else {
-                if (!destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
+            if (fad.getAntalBrug() < 3) {
+                Destillat destillat = fad.getDestillat();
+                if (destillat == null) {
                     resultat.add(fad);
+                } else {
+                    if (!destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
+                        resultat.add(fad);
+                    }
                 }
             }
         }
@@ -627,11 +629,11 @@ public abstract class Controller {
     }
 
     //TODO java doc
-    public static String kombinerBeskrivelser(Collection<? extends Historik> collection){
+    public static String kombinerBeskrivelser(Collection<? extends Historik> collection) {
         StringBuilder sb = new StringBuilder();
-        for (Historik h : collection){
+        for (Historik h : collection) {
             sb.append(getBeskrivelse(h));
-            if (h instanceof Whisky){
+            if (h instanceof Whisky) {
                 sb.append("\n\n");
             } else {
                 sb.append("\n--------------------------------\n\n");
@@ -644,6 +646,7 @@ public abstract class Controller {
      * Udtrækker historik-information fra en samling af objekter,
      * der implementerer Historik, og gemmer dem i en tekstfil.
      * Pre: Objekterne man ønsker udtræk fra skal implementere interfacet Historik
+     *
      * @param forhåndsvisning er den String der skal skrives ind i filen
      * @return en fil med historik
      */
