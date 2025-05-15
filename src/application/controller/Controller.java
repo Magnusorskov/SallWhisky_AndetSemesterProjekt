@@ -184,11 +184,16 @@ public abstract class Controller {
         } else if (antalLiter > batch.getVæskemængde()) {
             throw new IllegalArgumentException("Der er ikke nok væske i batchen");
         }
+        Destillat destillat = createDestillatHvisIngenFindes(navn, fad);
+        destillat.createBatchMængde(antalLiter, batch);
+    }
+
+    private static Destillat createDestillatHvisIngenFindes(String navn, Fad fad) {
         Destillat destillat = fad.getDestillat();
         if (destillat == null) {
             destillat = Controller.createDestillat(navn, fad);
         }
-        destillat.createBatchMængde(antalLiter, batch);
+        return destillat;
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -273,11 +278,13 @@ public abstract class Controller {
         destillat.setPåfyldningsDato(påfyldningsDato);
         destillat.setAntalLiter(destillat.getAntalLiter());
 
-        int antalBrug = destillat.getFad().getAntalBrug() + 1;
-        destillat.getFad().setAntalBrug(antalBrug);
+        Fad fad = destillat.getFad();
+        int antalBrug = fad.getAntalBrug() + 1;
+        fad.setAntalBrug(antalBrug);
 
-        if (!destillat.getOmhældningsMængder().isEmpty()) {
-            for (OmhældningsMængde omhældningsMængde : destillat.getOmhældningsMængder()) {
+        List<OmhældningsMængde> omhældningsMængder = destillat.getOmhældningsMængder();
+        if (!omhældningsMængder.isEmpty()) {
+            for (OmhældningsMængde omhældningsMængde : omhældningsMængder) {
                 omhældningsMængde.setLagringstidIMåneder(påfyldningsDato);
             }
         }
@@ -345,10 +352,7 @@ public abstract class Controller {
             throw new IllegalArgumentException("Der er ikke nok væske i destillatet");
         }
 
-        Destillat fadDestillat = fad.getDestillat();
-        if (fadDestillat == null) {
-            fadDestillat = Controller.createDestillat(navn, fad);
-        }
+        Destillat fadDestillat = createDestillatHvisIngenFindes(navn, fad);
         fadDestillat.createOmhældningsMængde(antalLiter, destillat);
 
     }
