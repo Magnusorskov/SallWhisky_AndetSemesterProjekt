@@ -506,12 +506,17 @@ public abstract class Controller {
         whisky.setAlkoholprocent(alkoholprocent);
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
         if (lager != null) {
             lager.removeLagerVare(lagervare);
         }
     }
+
+    //------------------------------------------------------------------------------------------------------------------
+
 
     public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,
                                         Integer alderPåDestillat, Integer literStørrelse, Boolean fyldt, String lagret) {
@@ -630,22 +635,41 @@ public abstract class Controller {
         return resultat;
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Henter en beskrivelse på en whisky.
+     * Pre: whisky er ikke null.
+     *
+     * @param historik Det objekt der implementere Historik, som man ønsker en beskrivelse af
+     * @return en String med en beskrivelse på den valgte Historik objekt
+     */
+    public static String getBeskrivelse(Historik historik) {
+        return String.valueOf(historik.hentHistorik());
+    }
+
+    public static String kombinerBeskrivelser(Collection<? extends Historik> collection){
+        StringBuilder sb = new StringBuilder();
+        for (Historik h : collection){
+            sb.append(getBeskrivelse(h));
+            sb.append("\n--------------------------------\n\n");
+        }
+        return String.valueOf(sb);
+    }
+
     /**
      * Udtrækker historik-information fra en samling af objekter,
      * der implementerer Historik, og gemmer dem i en tekstfil.
      * Pre: Objekterne man ønsker udtræk fra skal implementere interfacet Historik
-     * @param collection en Collection af objekter der implementerer Historik
+     * @param forhåndsvisning er den String der skal skrives ind i filen
      * @return en fil med historik
      */
-    public static File udtrækTilFilPåList(Collection<? extends Historik> collection) {
+    public static File udtrækTilFilPåList(String forhåndsvisning) {
         String filname = "Udtræk.txt";
         File fil = new File("file:filnavn");
 
         try (PrintWriter printWriter = new PrintWriter(filname)) {
-            for (Historik h : collection) {
-                printWriter.append(h.hentHistorik().toString());
-                printWriter.append("\n--------------------------------\n");
-            }
+            printWriter.append(forhåndsvisning);
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning til fil");
         }

@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,16 +101,22 @@ public class OversigtsPane extends GridPane {
     private void selectionChangeForhåndsvisning() {
         List<Historik> valgte = lvwOversigt.getSelectionModel().getSelectedItems();
 
-        StringBuilder sb = new StringBuilder();
-        for (Historik h : valgte){
-            sb.append(h.hentHistorik());
-            sb.append("\n--------------------------------\n\n");
+        if (valgte != null){
+            txaForhåndsvisning.setText(Controller.kombinerBeskrivelser(valgte));
         }
-
-        txaForhåndsvisning.setText("" + sb);
     }
 
     private void udtrækAction(){
+        String forhåndsvisning = txaForhåndsvisning.getText().trim();
+
+        if (forhåndsvisning.isEmpty()){
+            File file = Controller.udtrækTilFilPåList(forhåndsvisning);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Oversigten er gemt!");
+            alert.setContentText("Oversigten er gemt som " + file.getName());
+            alert.showAndWait();
+        }
 
     }
 
