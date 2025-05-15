@@ -615,14 +615,19 @@ public abstract class Controller {
         List<Fad> resultat = new ArrayList<>();
 
         for (Fad fad : fade) {
-                Destillat destillat = fad.getDestillat();
-                if (fad.getAntalBrug() <= 3) {
-                    if (destillat != null && !destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
-                        resultat.add(fad);
-                    } else if (destillat == null && fad.getAntalBrug() < 3){
+            Destillat destillat = fad.getDestillat();
+            if (fad.getAntalBrug() <= 3) {
+                if (destillat != null) {
+                    boolean destillatHarOmhældningsMængder = !destillat.getOmhældningsMængder().isEmpty();
+                    boolean destillatIkkeFærdiggjort = destillat.getAlkoholprocent() == -1;
+
+                    if (destillatHarOmhældningsMængder && destillatIkkeFærdiggjort) {
                         resultat.add(fad);
                     }
+                } else if (destillat == null && fad.getAntalBrug() < 3) {
+                    resultat.add(fad);
                 }
+            }
         }
         return resultat;
     }
