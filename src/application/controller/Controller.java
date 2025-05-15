@@ -275,6 +275,12 @@ public abstract class Controller {
 
         int antalBrug = destillat.getFad().getAntalBrug() + 1;
         destillat.getFad().setAntalBrug(antalBrug);
+
+        if (!destillat.getOmhældningsMængder().isEmpty()) {
+            for (OmhældningsMængde omhældningsMængde : destillat.getOmhældningsMængder()) {
+                omhældningsMængde.setLagringstidIMåneder(påfyldningsDato);
+            }
+        }
     }
 
 
@@ -342,12 +348,7 @@ public abstract class Controller {
         Destillat fadDestillat = fad.getDestillat();
         if (fadDestillat == null) {
             fadDestillat = Controller.createDestillat(navn, fad);
-            //TODO fjernes?
-//            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
         }
-//        else if (destillat.getPåfyldningsDato().isBefore(fadDestillat.getPåfyldningsDato())) {
-//            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
-//        }
         fadDestillat.createOmhældningsMængde(antalLiter, destillat);
 
     }
@@ -610,16 +611,14 @@ public abstract class Controller {
         List<Fad> resultat = new ArrayList<>();
 
         for (Fad fad : fade) {
-            if (fad.getAntalBrug() < 3) {
                 Destillat destillat = fad.getDestillat();
-                if (destillat == null) {
-                    resultat.add(fad);
-                } else {
-                    if (!destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
+                if (fad.getAntalBrug() <= 3) {
+                    if (destillat != null && !destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
+                        resultat.add(fad);
+                    } else if (destillat == null && fad.getAntalBrug() < 3){
                         resultat.add(fad);
                     }
                 }
-            }
         }
         return resultat;
     }

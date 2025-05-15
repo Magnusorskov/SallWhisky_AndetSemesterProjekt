@@ -18,6 +18,7 @@ public class Destillat implements Serializable, Historik {
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
+    private int lagringstidIMåneder;
 
     /**
      * Initialiserer et destillats navn, fad.
@@ -30,6 +31,7 @@ public class Destillat implements Serializable, Historik {
         this.navn = navn;
         this.fad = fad;
         this.alkoholprocent = -1;
+        this.lagringstidIMåneder = -1;
         fad.setDestillat(this);
     }
 
@@ -92,6 +94,9 @@ public class Destillat implements Serializable, Historik {
         return antalLiter;
     }
 
+    public void setLagringstidIMåneder(int måneder) {
+        lagringstidIMåneder = måneder;
+    }
     /**
      * Sætter det aktuelle antal liter der er i destillatet.
      *
@@ -231,6 +236,9 @@ public class Destillat implements Serializable, Historik {
         sb.append("\n----------------------------------");
 
         sb.append("\n\nFad:\n" + fad.getFadBeskrivelse());
+        if (lagringstidIMåneder != -1) {
+            sb.append("\nLagringstid i måneder : " + lagringstidIMåneder);
+        }
         sb.append("\n----------------------------------");
 
         sb.append("\n\nBatches:\n");

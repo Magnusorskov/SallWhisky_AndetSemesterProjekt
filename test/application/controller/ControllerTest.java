@@ -168,6 +168,6 @@ class ControllerTest {
 
     @Test
     void test9_omhældFad() {
-        System.out.println(fad2.getDestillat().totalHistorik());
+        System.out.println(fad2.getDestillat().hentHistorik());
     }
 }
