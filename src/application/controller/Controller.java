@@ -643,7 +643,11 @@ public abstract class Controller {
         StringBuilder sb = new StringBuilder();
         for (Historik h : collection){
             sb.append(getBeskrivelse(h));
-            sb.append("\n--------------------------------\n\n");
+            if (h instanceof Fad || h instanceof Batch || h instanceof Destillat){
+                sb.append("\n--------------------------------\n\n");
+            } else {
+                sb.append("\n\n");
+            }
         }
         return String.valueOf(sb);
     }
