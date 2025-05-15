@@ -364,18 +364,18 @@ public abstract class Controller {
         if (antalLiter > fad.getTilgængeligeLiter()) {
             throw new IllegalArgumentException("Der er ikke nok plads i fadet");
         } else if (antalLiter > destillat.getAntalLiter()) {
-            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
+            throw new IllegalArgumentException("Der er ikke nok væske i destillatet");
         }
 
         Destillat fadDestillat = fad.getDestillat();
         if (fadDestillat == null) {
             fadDestillat = Controller.createDestillat(navn, fad);
-            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
+//            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
         }
-        else if (destillat.getPåfyldningsDato().isBefore(fadDestillat.getPåfyldningsDato())) {
-            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
-        }
-        OmhældningsMængde omhældningsMængde = fadDestillat.createOmhældningsMængde(antalLiter, destillat);
+//        else if (destillat.getPåfyldningsDato().isBefore(fadDestillat.getPåfyldningsDato())) {
+//            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
+//        }
+        fadDestillat.createOmhældningsMængde(antalLiter, destillat);
 
     }
 

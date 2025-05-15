@@ -110,7 +110,8 @@ public class OversigtsPane extends GridPane {
     }
 
     private void udtrækAction(){
-
+        List<Historik> valgte = lvwOversigt.getSelectionModel().getSelectedItems();
+        Controller.udtrækTilFilPåList(valgte);
     }
 
     public void updateControls(){
