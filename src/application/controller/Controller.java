@@ -630,6 +630,22 @@ public abstract class Controller {
         return resultat;
     }
 
+    private static List<Fad> søgEfterFadeDerKanOmhældesTil(List<Fad> fade) {
+        List<Fad> resultat = new ArrayList<>();
+
+        for (Fad fad : fade) {
+            Destillat destillat = fad.getDestillat();
+            if (destillat == null) {
+                resultat.add(fad);
+            } else {
+                if (!destillat.getOmhældningsMængder().isEmpty() && destillat.getAlkoholprocent() == -1) {
+                    resultat.add(fad);
+                }
+            }
+        }
+        return resultat;
+    }
+
     /**
      * Udtrækker historik-information fra en samling af objekter,
      * der implementerer Historik, og gemmer dem i en tekstfil.

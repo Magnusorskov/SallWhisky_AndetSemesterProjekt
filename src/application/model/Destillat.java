@@ -30,6 +30,7 @@ public class Destillat implements Serializable, Historik {
     public Destillat(String navn, Fad fad) {
         this.navn = navn;
         this.fad = fad;
+        this.alkoholprocent = -1;
         fad.setDestillat(this);
     }
 
@@ -49,6 +50,11 @@ public class Destillat implements Serializable, Historik {
      */
     public void setNavn(String navn) {
         this.navn = navn;
+    }
+
+
+    public double getAlkoholprocent() {
+        return alkoholprocent;
     }
 
     /**
@@ -301,6 +307,11 @@ public class Destillat implements Serializable, Historik {
             return sb + "";
         }
     }
+
+    public List<OmhældningsMængde> getOmhældningsMængder() {
+        return new ArrayList<>(omhældningsMængder);
+    }
+
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).
      *
