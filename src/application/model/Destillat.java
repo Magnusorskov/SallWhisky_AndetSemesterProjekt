@@ -18,7 +18,6 @@ public class Destillat implements Serializable, Historik {
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
-    // TODO Lav link til omhældningsmængde og tilhørende metoder
 
     /**
      * Initialiserer et destillats navn, fad.

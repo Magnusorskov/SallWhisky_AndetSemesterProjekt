@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OversigtsPane extends GridPane {
-    //TODO UDFYLD
     private ComboBox<String> cbbOversigt;
     private ListView<Historik> lvwOversigt;
     private TextArea txaForhåndsvisning;
