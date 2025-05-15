@@ -1,5 +1,25 @@
 package application.model;
 
 public class OmhældningsMængde {
-    // TODO Udfyld
+    private double antalLiter;
+    private final Destillat destillat;
+
+    OmhældningsMængde(double antalLiter, Destillat destillat) {
+        this.antalLiter = antalLiter;
+        this.destillat = destillat;
+        destillat.tapDestillat(antalLiter);
+    }
+
+    public double getAntalLiter() {
+        return antalLiter;
+    }
+
+    public Destillat getDestillat() {
+        return destillat;
+    }
+
+    public void addLiterTilEksisterendeOM(double antalLiter) {
+        this.antalLiter += antalLiter;
+        destillat.tapDestillat(antalLiter);
+    }
 }

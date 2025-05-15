@@ -13,10 +13,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ControllerTest {
 
     private Batch batch;
+    private Batch batch1;
+    private Batch batch2;
+    private Batch batch3;
+    private Batch batch4;
     private Fad fad;
+    private Fad fad1;
+    private Fad fad2;
+    private Fad fad3;
+    private Fad fad4;
     private Storage storage;
     private Lager lager;
     private Destillat destillat;
+    private Destillat destillat1;
+    private Destillat destillat2;
+    private Destillat destillat3;
+    private Destillat destillat4;
     private String navn;
     private double antalLiter;
 
@@ -24,12 +36,36 @@ class ControllerTest {
     void setUp(){
         storage = new ListStorage();
         Controller.setStorage(storage);
+
         batch = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
         batch.setVæskemængde(50);
+        batch1 = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
+        batch1.setVæskemængde(1000);
+
+        batch2 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"MTD",null,"Nr35",LocalDate.of(2025,7,01),null);
+        batch2.setVæskemængde(1000);
+        batch3 = Controller.createBatch(Bygsort.STAIRWAY,Mark.STADSGAARD,"HB","ipsum","Nr1",LocalDate.of(2025,01,30),"det var en god omgang");
+        batch3.setVæskemængde(1000);
+        batch4 = Controller.createBatch(Bygsort.IRINA,Mark.MOSEVANG,"ETP","Lorem","Nr999",LocalDate.of(2025,2,14),"av for den");
+        batch4.setVæskemængde(1000);
+
         fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,50);
+        fad1 = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,1000);
+        fad2 = Controller.createFad(Land.USA,Fadtype.NEW,1000);
+        fad3 = Controller.createFad(Land.SPANIEN,Fadtype.EXSHERRY,1000);
+        fad4 = Controller.createFad(Land.PORTUGAL,Fadtype.EXOLOROSO,1000);
+
         lager = Controller.createLager("Det lille test lager",2,2,"Testvej 14");
-        destillat = Controller.createDestillat("Test",fad);
+
+        destillat = Controller.createDestillat("Test", fad);
+
+        Controller.påfyldFad(500,batch1,"Habibi",fad1);
+
+//        Controller.påfyldFad(500,batch1,"Habibi",fad1);
         navn = "Test";
+
+        Controller.omhældDestillat(fad1.getDestillat(),500,fad2,"Hejsa");
+
     }
 
     @Test
@@ -71,45 +107,45 @@ class ControllerTest {
     @Test
     void test1_påfyldFad(){
         antalLiter = 1;
-        Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test2_påfyldFad(){
         antalLiter = 25;
-        Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test3_påfyldFad(){
         antalLiter = 49;
-        Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test4_påfyldFad(){
         antalLiter = 50;
-        Controller.påfyldFad(antalLiter,batch,navn,fad);
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test5_påfyldFad(){
         antalLiter = 10;
         fad.setDestillat(null);
-        Controller.påfyldFad(antalLiter,batch,navn,fad);
+        Controller.påfyldFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat());
-        assertNotNull(fad.getDestillat().getMængder().getFirst());
+        assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
     void test6_påfyldFad(){
         antalLiter = 51;
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.påfyldFad(antalLiter,batch,navn,fad);
+            Controller.påfyldFad(antalLiter,batch,navn, fad);
         });
     }
 
@@ -118,15 +154,20 @@ class ControllerTest {
         antalLiter = 10;
         fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,9);
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.påfyldFad(antalLiter,batch,navn,fad);
+            Controller.påfyldFad(antalLiter,batch,navn, fad);
         });
     }
 
     @Test
     void test8_indsætVarePåLager() {
-        Controller.indsætVarePåLager(lager,1,1,fad);
-        Controller.indsætVarePåLager(lager,2,2,fad);
+        Controller.indsætVarePåLager(lager,1,1, fad);
+        Controller.indsætVarePåLager(lager,2,2, fad);
         assertNull(lager.getLagerVare(1,1));
 //        System.out.println(lager.getPladser().length);
+    }
+
+    @Test
+    void test9_omhældFad() {
+        System.out.println(fad2.getDestillat().totalHistorik());
     }
 }

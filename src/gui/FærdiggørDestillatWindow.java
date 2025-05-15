@@ -64,7 +64,7 @@ public class FærdiggørDestillatWindow extends Stage {
         Label lblLiter = new Label("Liter");
         pane.add(lblLiter, 0, 3);
 
-        txfLiter = new TextField("" + destillat.beregnAntalLiter());
+        txfLiter = new TextField("" + destillat.getAntalLiter());
         pane.add(txfLiter, 0, 4);
         txfLiter.setEditable(false);
 

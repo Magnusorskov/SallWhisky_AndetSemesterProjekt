@@ -11,13 +11,15 @@ import java.util.*;
  */
 public class Destillat implements Serializable, Historik {
     private final List<BatchMængde> mængder = new ArrayList<>();
+    private final List<BatchMængde> batchMængder = new ArrayList<>();
+    private final List<OmhældningsMængde> omhældningsMængder = new ArrayList<>();
     private String navn;
     private int id;
     private double alkoholprocent;
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
-    // TODO Lav link til omhældningsmængde og tilhørende metoder
+
 
     /**
      * Initialiserer et destillats navn, fad.
@@ -105,6 +107,7 @@ public class Destillat implements Serializable, Historik {
     }
 
     //sammenhæng til fad
+
     /**
      * Henter det fad destillatet ligger på.
      *
@@ -114,18 +117,16 @@ public class Destillat implements Serializable, Historik {
         return fad;
     }
 
-//    public void setFad(Fad fad) {
-//        this.fad = fad;
-//    }
 
-    //sammenhæng til mængde
+    //sammenhæng til batchMængde
+
     /**
      * Henter en liste over de batchmængder, der udgør destillatet.
      *
      * @return en ny liste indeholdende BatchMængde objekter.
      */
-    public List<BatchMængde> getMængder() {
-        return new ArrayList<>(mængder);
+    public List<BatchMængde> getBatchMængder() {
+        return new ArrayList<>(batchMængder);
     }
 
     /**
@@ -137,22 +138,61 @@ public class Destillat implements Serializable, Historik {
      * @param batch      den batch man tager væske fra.
      * @return den færdige BatchMængde.
      */
-    public BatchMængde createMængde(double antalLiter, Batch batch) {
+    public BatchMængde createBatchMængde(double antalLiter, Batch batch) {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
-        mængder.add(batchMængde);
+        batchMængder.add(batchMængde);
+        this.antalLiter += antalLiter; //TODO kig lige her
         return batchMængde;
+    }
+
+    //sammenhæng til DestillatMængde
+
+    /**
+     * Initialiserer en OmhældningsMængdes antal liter og destillat og tilføjer den til destillatet.
+     * Den sørger også for at tilføje antalLiter til destillatets totale antal liter.
+     * Pre: destillat er ikke null.
+     * Pre: antalLiter > 0.
+     *
+     * @param antalLiter det antal liter man omhælder fra destillatet.
+     * @param destillat  det destillat der skal omhældes en mængde fra.
+     * @return den færdige omhældnings mængde.
+     */
+    public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat destillat) {
+        OmhældningsMængde omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
+        this.antalLiter += antalLiter;
+
+        int index = findesDestillatIOmhældningsMængdeListe(destillat);
+        if (index != -1) {
+            omhældningsMængder.get(index).addLiterTilEksisterendeOM(antalLiter);
+        } else {
+            omhældningsMængder.add(omhældningsMængde);
+        }
+
+        return omhældningsMængde;
+    }
+
+    private int findesDestillatIOmhældningsMængdeListe(Destillat destillat) {
+        int i = 0;
+        while (i < omhældningsMængder.size()) {
+            if (omhældningsMængder.get(i).getDestillat() == destillat) {
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return -1;
     }
 
     //metoder
 
     /**
-     * Beregner antal liter destillatet indeholder.
+     * Beregner antal liter destillatet indeholder baseret på batchmængder.
      *
      * @return antal liter destillatet indeholder.
-     */ //TODO tag højde for omhældningsmængde
-    public double beregnAntalLiter() {
+     */ //TODO kig her, den er ikke i brug længere
+    public double beregnAntalLiterPåBatchMængder() {
         double liter = 0;
-        for (BatchMængde m : mængder) {
+        for (BatchMængde m : batchMængder) {
             liter += m.getAntalLiter();
         }
         return liter;
@@ -165,7 +205,7 @@ public class Destillat implements Serializable, Historik {
      */
     public String destilatBatches() {
         StringBuilder sb = new StringBuilder();
-        for (BatchMængde m : mængder) {
+        for (BatchMængde m : batchMængder) {
             sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
         }
         String s = sb + "";
@@ -203,7 +243,7 @@ public class Destillat implements Serializable, Historik {
 
         sb.append("\n\nBatches:\n");
         Map<Batch, Double> batches = new HashMap<>();
-        for (BatchMængde bm : getMængder()) {
+        for (BatchMængde bm : getBatchMængder()) {
             batches.merge(bm.getBatch(), bm.getAntalLiter(), Double::sum);
         }
         for (Map.Entry<Batch, Double> k : batches.entrySet()) {
@@ -213,6 +253,7 @@ public class Destillat implements Serializable, Historik {
 
         return sb;
     }
+
     /**
      * Henter de unikke marker fra de batches, der udgør destillatet.
      *
@@ -220,7 +261,7 @@ public class Destillat implements Serializable, Historik {
      */
     public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
-        for (BatchMængde bm : mængder) {
+        for (BatchMængde bm : batchMængder) {
             marker.add(bm.getBatch().getMark());
         }
         return marker;
@@ -241,17 +282,26 @@ public class Destillat implements Serializable, Historik {
      *
      * @return et Set indeholdende de unikke Fadtyper for fadet.
      */
-    //todo laves om til med flere
+    //todo skal vi overhovedet bruge den her
     public Set<Fadtype> getFadtyper() {
         Set<Fadtype> fadtyper = new HashSet<>();
         fadtyper.add(fad.getFadType());
         return fadtyper;
     }
 
-    // TODO Udfyld
-    private OmhældningsMængde createOmhældningsMængde() {return new OmhældningsMængde();}
 
-
+    public String totalHistorik() {
+        StringBuilder sb = new StringBuilder(hentHistorik());
+        if (omhældningsMængder.isEmpty()) {
+            return (sb + "");
+        } else {
+            sb.append("\n\n" + navn + " indeholder: ");
+            for (OmhældningsMængde omhældningsMængde : omhældningsMængder) {
+                sb.append("\n" + omhældningsMængde.getDestillat().totalHistorik());
+            }
+            return sb + "";
+        }
+    }
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).
      *

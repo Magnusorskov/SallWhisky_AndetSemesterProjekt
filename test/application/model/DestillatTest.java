@@ -19,7 +19,9 @@ class DestillatTest {
         fad = new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100);
         batch = new Batch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
         destillat = new Destillat("Testsprut",fad);
-        mængde = destillat.createMængde(100,batch);
+        mængde = destillat.createBatchMængde(100,batch);
+
+
     }
 
     @Test
@@ -30,26 +32,31 @@ class DestillatTest {
     }
 
     @Test
-    void test11_CreateMængde(){
+    void test11_CreateBatchMængde(){
         assertNotNull(mængde,"Mængde er ikke oprettet");
         assertEquals(mængde.getBatch(),batch,"Batch er forkert");
         assertEquals(mængde.getAntalLiter(),100,"Antal liter er forkert");
     }
 
     @Test
-    void test12_beregnAntalLiter(){
-        assertEquals(destillat.beregnAntalLiter(),100,"Antal liter er forker");
+    void test12_beregnAntalLiterPåBatchMængder(){
+        assertEquals(destillat.getAntalLiter(),100,"Antal liter er forker");
     }
 
     @Test
     void test13_getMængder() {
-        assertEquals(1, destillat.getMængder().size(), "Antallet af mængder i destillat er forkert");
-        assertTrue(destillat.getMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
+        assertEquals(1, destillat.getBatchMængder().size(), "Antallet af mængder i destillat er forkert");
+        assertTrue(destillat.getBatchMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
     }
 
     @Test
     void test14_beregnAntalMåneder() {
         destillat.setPåfyldningsDato(LocalDate.of(2025,1,1));
         assertEquals(4,destillat.beregnAlderIMåneder());
+    }
+
+    @Test
+    void test15_totalHistorik() {
+        System.out.println(destillat);
     }
 }
