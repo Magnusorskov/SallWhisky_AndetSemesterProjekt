@@ -288,6 +288,13 @@ public class Destillat implements Serializable, Historik {
         return fadtyper;
     }
 
+    public boolean isSingleCask() {
+        if (omhældningsMængder.isEmpty()) {
+            return true;
+        }
+        else return false;
+    }
+
 
     public String totalHistorik() {
         StringBuilder sb = new StringBuilder(hentHistorik());
