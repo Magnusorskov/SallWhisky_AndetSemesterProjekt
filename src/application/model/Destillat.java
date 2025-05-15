@@ -229,7 +229,7 @@ public class Destillat implements Serializable, Historik {
         }
         sb.append("\n----------------------------------");
 
-        sb.append("\n\nFad:\n" + fad.hentHistorik());
+        sb.append("\n\nFad:\n" + fad.getFadBeskrivelse());
         sb.append("\n----------------------------------");
 
         sb.append("\n\nBatches:\n");

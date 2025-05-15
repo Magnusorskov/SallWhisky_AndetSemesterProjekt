@@ -154,6 +154,15 @@ public class Fad extends Lagervare implements Serializable, Historik {
      * @return en StringBuilder indeholdende fadets historik.
      */
     public StringBuilder hentHistorik(){
+        StringBuilder sb = getFadBeskrivelse();
+        if (destillat != null) {
+            sb.append("\n\nDestillat: " + destillat.getNavn());
+            sb.append("\nBatches: " + destillat.destilatBatches());
+        }
+        return sb;
+    }
+
+    public StringBuilder getFadBeskrivelse() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + id);
         sb.append("\nOprindelses Land: " + land);
@@ -161,6 +170,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
         sb.append("\nAntal brug: " + antalBrug);
         sb.append("\nFad størrelse: " + størrelse);
         sb.append("\n" + super.placering());
+
         return sb;
     }
 
