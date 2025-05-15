@@ -51,7 +51,7 @@ public class Destillat implements Serializable, Historik {
         this.navn = navn;
     }
 
-
+    //TODO java doc
     public double getAlkoholprocent() {
         return alkoholprocent;
     }
@@ -175,6 +175,7 @@ public class Destillat implements Serializable, Historik {
         return omhældningsMængde;
     }
 
+    //TODO java doc
     private int findesDestillatIOmhældningsMængdeListe(Destillat destillat) {
         int i = 0;
         while (i < omhældningsMængder.size()) {
@@ -269,6 +270,7 @@ public class Destillat implements Serializable, Historik {
     }
 
 
+    //TODO java doc
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder(hentHistorikHjælpeMetode());
         if (omhældningsMængder.isEmpty()) {
@@ -282,6 +284,7 @@ public class Destillat implements Serializable, Historik {
         }
     }
 
+    //TODO java doc
     public boolean isSingleCask() {
         if (omhældningsMængder.isEmpty()) {
             return true;
@@ -289,6 +292,7 @@ public class Destillat implements Serializable, Historik {
         else return false;
     }
 
+    //TODO java doc
     public List<OmhældningsMængde> getOmhældningsMængder() {
         return new ArrayList<>(omhældningsMængder);
     }

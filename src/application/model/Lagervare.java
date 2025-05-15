@@ -97,10 +97,12 @@ public abstract class Lagervare implements Serializable {
 
     }
 
+    //TODO java doc
     public void setReolNummer(int reolNummer) {
         this.reolNummer = reolNummer;
     }
 
+    //TODO java doc
     public void setHyldeNummer(int hyldeNummer) {
         this.hyldeNummer = hyldeNummer;
     }

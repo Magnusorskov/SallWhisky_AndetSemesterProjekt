@@ -242,7 +242,7 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         return this.id - whisky.getId();
     }
 
-
+    //TODO java doc
     public void setKvalitetsStempel() {
         boolean singleCask = true;
         int i = 0;

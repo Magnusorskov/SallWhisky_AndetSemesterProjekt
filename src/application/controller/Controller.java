@@ -342,6 +342,7 @@ public abstract class Controller {
         Destillat fadDestillat = fad.getDestillat();
         if (fadDestillat == null) {
             fadDestillat = Controller.createDestillat(navn, fad);
+            //TODO fjernes?
 //            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
         }
 //        else if (destillat.getPåfyldningsDato().isBefore(fadDestillat.getPåfyldningsDato())) {
@@ -469,7 +470,7 @@ public abstract class Controller {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-
+    //TODO java doc
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
         if (lager != null) {
@@ -479,7 +480,7 @@ public abstract class Controller {
 
     //------------------------------------------------------------------------------------------------------------------
 
-
+    //TODO java doc
     public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,
                                         Integer alderPåDestillat, Integer literStørrelse, Boolean fyldt, String lagret) {
         List<Fad> fade = Controller.getFade();
@@ -507,6 +508,7 @@ public abstract class Controller {
         return fade;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterAlderPåDestillat(List<Fad> fade, int måneder) {
         List<Fad> resultat = new ArrayList<>();
         for (Fad fad : fade) {
@@ -520,6 +522,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterAntalBrug(List<Fad> fade, int antalBrug) {
         List<Fad> resultat = new ArrayList<>();
         for (Fad fad : fade) {
@@ -530,6 +533,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterFadType(List<Fad> fade, Fadtype fadtype) {
         List<Fad> resultat = new ArrayList<>();
         for (Fad fad : fade) {
@@ -540,6 +544,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterFyldtStatus(List<Fad> fade, boolean fyldt) {
         List<Fad> resultat = new ArrayList<>();
 
@@ -559,6 +564,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterLager(List<Fad> fade, String lager) {
         List<Fad> resultat = new ArrayList<>();
 
@@ -575,6 +581,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEfterLand(List<Fad> fade, Land land) {
         List<Fad> resultat = new ArrayList<>();
 
@@ -586,6 +593,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     private static List<Fad> søgEferStørrelse(List<Fad> fade, double størrelse) {
         List<Fad> resultat = new ArrayList<>();
 
@@ -597,6 +605,7 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO java doc
     public static List<Fad> getFadeDerKanOmhældesTil(List<Fad> fade) {
         List<Fad> resultat = new ArrayList<>();
 

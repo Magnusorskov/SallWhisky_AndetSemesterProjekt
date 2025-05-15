@@ -125,6 +125,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
     public void setDestillat(Destillat destillat) {
         if (this.destillat != destillat) {
             this.destillat = destillat;
+            //TODO fjernes?
 //            if (destillat != null){
 //                destillat.setFad(this);
 //            }
@@ -162,6 +163,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
         return sb;
     }
 
+    //TODO java doc
     public StringBuilder getFadBeskrivelse() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + id);
