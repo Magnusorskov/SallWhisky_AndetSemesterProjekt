@@ -504,6 +504,7 @@ public abstract class Controller {
     public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent) {
         whisky.setLabel(label);
         whisky.setAlkoholprocent(alkoholprocent);
+        whisky.setKvalitetsStempel();
     }
 
     //------------------------------------------------------------------------------------------------------------------
