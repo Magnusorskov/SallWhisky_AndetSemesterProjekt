@@ -197,8 +197,8 @@ public abstract class Controller {
         if (destillat == null) {
             destillat = Controller.createDestillat(navn, fad);
         }
-            destillat.createBatchMængde(antalLiter, batch);
-        }
+        destillat.createBatchMængde(antalLiter, batch);
+    }
 
 
     /**
@@ -351,6 +351,7 @@ public abstract class Controller {
     /**
      * Omhælder en destillat mængde fra et fad til et andet og hvis der ikke findes et destillat på fadet
      * bliver der lavet et nyt.
+     *
      * @param destillat
      * @param antalLiter
      * @param fad
@@ -366,9 +367,14 @@ public abstract class Controller {
         Destillat fadDestillat = fad.getDestillat();
         if (fadDestillat == null) {
             fadDestillat = Controller.createDestillat(navn, fad);
+            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
         }
-            fadDestillat.createOmhældningsMængde(antalLiter,destillat);
+        else if (destillat.getPåfyldningsDato().isBefore(fadDestillat.getPåfyldningsDato())) {
+            fadDestillat.setPåfyldningsDato(destillat.getPåfyldningsDato());
         }
+        OmhældningsMængde omhældningsMængde = fadDestillat.createOmhældningsMængde(antalLiter, destillat);
+
+    }
 
 
     /**
@@ -624,7 +630,9 @@ public abstract class Controller {
     }
 
     //TODO UDFYLD
-    private static File udtrækTilFil () {return new File("");}
+    private static File udtrækTilFil() {
+        return new File("");
+    }
 
 
 }
