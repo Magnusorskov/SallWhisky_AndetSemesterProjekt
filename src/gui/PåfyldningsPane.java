@@ -123,6 +123,7 @@ public class PåfyldningsPane extends GridPane {
 
             this.updateControls();
             btnTilføj.setDisable(true);
+            btnFærdiggørDestillat.setDisable(true);
         }
     }
 
