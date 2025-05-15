@@ -22,7 +22,6 @@ public class LagerPane extends GridPane {
     private ListView<Fad> lvwFad;
     private TextArea txaBeskrivelse;
 
-
     public LagerPane() {
         this.setPadding(new Insets(20));
         // TODO fix Hgap padding
@@ -134,7 +133,6 @@ public class LagerPane extends GridPane {
         btnFjern.setOnAction(event -> this.fjernAction());
         GridPane.setHalignment(btnFjern, HPos.LEFT);
         this.add(btnFjern, 2, 7);
-
 
         Button btnÆndrePlacering = new Button("Vælg placering");
         btnÆndrePlacering.setOnAction(event -> this.placeringAction());

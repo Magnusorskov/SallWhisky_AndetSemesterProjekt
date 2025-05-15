@@ -38,21 +38,30 @@ public class StartWindow extends Application {
 
         // ---------------------------------------------------------------------
 
-        Tab tabDestillat = new Tab("Destillat");
-        tabPane.getTabs().add(tabDestillat);
+        Tab tabPåfyldning = new Tab("Påfyldning");
+        tabPane.getTabs().add(tabPåfyldning);
 
-        DestillatPane destillatPane = new DestillatPane();
-        tabDestillat.setContent(destillatPane);
-        tabDestillat.setOnSelectionChanged(event -> destillatPane.updateControls());
+        PåfyldningsPane påfyldningsPane = new PåfyldningsPane();
+        tabPåfyldning.setContent(påfyldningsPane);
+        tabPåfyldning.setOnSelectionChanged(event -> påfyldningsPane.updateControls());
 
         // ---------------------------------------------------------------------
 
-        Tab tabWhisky = new Tab("Whisky");
-        tabPane.getTabs().add(tabWhisky);
+        Tab tabTapning = new Tab("Tapning");
+        tabPane.getTabs().add(tabTapning);
 
-        WhiskyPane whiskyPane = new WhiskyPane();
-        tabWhisky.setContent(whiskyPane);
-        tabWhisky.setOnSelectionChanged(event -> whiskyPane.updateControls());
+        TapningsPane tapningsPane = new TapningsPane();
+        tabTapning.setContent(tapningsPane);
+        tabTapning.setOnSelectionChanged(event -> tapningsPane.updateControls());
+
+        // ---------------------------------------------------------------------
+
+        Tab tabOmhældning = new Tab("Omhældning");
+        tabPane.getTabs().add(tabOmhældning);
+
+        OmhældningsPane omhældningsPane = new OmhældningsPane();
+        tabOmhældning.setContent(omhældningsPane);
+        tabOmhældning.setOnSelectionChanged(event -> omhældningsPane.updateControls());
 
         // ---------------------------------------------------------------------
 
@@ -62,6 +71,15 @@ public class StartWindow extends Application {
         LagerPane lagerPane = new LagerPane();
         tabLager.setContent(lagerPane);
         tabLager.setOnSelectionChanged(event -> lagerPane.updateControls());
+
+        // ---------------------------------------------------------------------
+
+        Tab tabOversigt = new Tab("Oversigter");
+        tabPane.getTabs().add(tabOversigt);
+
+        OversigtsPane oversigtsPane = new OversigtsPane();
+        tabOversigt.setContent(oversigtsPane);
+        tabOversigt.setOnSelectionChanged(event -> oversigtsPane.updateControls());
 
     }
 

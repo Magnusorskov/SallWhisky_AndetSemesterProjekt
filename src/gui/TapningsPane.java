@@ -2,7 +2,6 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Destillat;
-import application.model.DestillatMængde;
 import application.model.Whisky;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -14,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 
-public class WhiskyPane extends GridPane {
+public class TapningsPane extends GridPane {
     private TextArea txaDestillatBeskrivelse, txaWhiskeyBeskrivelse;
     private TextField txfLiter;
     private Label lblDestillatBeskrivelse,lblWhiskyBeskrivelse,lblTapning, lblWhisky, lblLiter, lblDestillater, lblError, lblDestillatVæskemængde;
@@ -22,7 +21,7 @@ public class WhiskyPane extends GridPane {
     private ComboBox<Whisky> cmbWhisky;
     private Button btnTap, btnOpret, btnFærdiggør;
 
-    public WhiskyPane(){
+    public TapningsPane(){
         this.setPadding(new Insets(20));
         this.setHgap(30);
         this.setVgap(10);
@@ -113,6 +112,8 @@ public class WhiskyPane extends GridPane {
         btnFærdiggør.setDisable(true);
 
     }
+
+    // ---------------------------------------------------------------------
 
     public void updateControls(){
         cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());

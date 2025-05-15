@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Klassen indeholder information om fadets oprindelse, type, størrelse og hvor mange gange det er blevet brugt.
  * Et fad kan indeholde et enkelt destillat.
  */
-public class Fad extends Lagervare implements Serializable {
+public class Fad extends Lagervare implements Serializable, Historik {
     private Land land;
     private int antalBrug;
     private Fadtype fadType;

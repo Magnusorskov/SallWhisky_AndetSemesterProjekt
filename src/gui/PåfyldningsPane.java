@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class DestillatPane extends GridPane {
+public class PåfyldningsPane extends GridPane {
     private TextArea txaBatchBeskrivelse, txaFadBeskrivelse;
     private TextField txfNavn, txfAntalLiter;
     private Label lblFadTilgængeligLiter, lblBatchVæskemængde, lblError;
@@ -22,7 +22,7 @@ public class DestillatPane extends GridPane {
     private ComboBox<Fad> cmbFade;
     private Button btnTilføj, btnFærdiggørDestillat;
 
-    public DestillatPane() {
+    public PåfyldningsPane() {
         this.setPadding(new Insets(20));
         this.setHgap(30);
         this.setVgap(10);

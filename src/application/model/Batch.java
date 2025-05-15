@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * Indeholder information om bygsort, mark, maltning, rygning og tidsperiode.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Batch implements Serializable {
+public class Batch implements Serializable, Historik {
     private Bygsort bygsort;
     private Mark mark;
     private String initialer;
