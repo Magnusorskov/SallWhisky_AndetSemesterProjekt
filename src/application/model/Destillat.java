@@ -146,7 +146,7 @@ public class Destillat implements Serializable, Historik {
     public BatchMængde createBatchMængde(double antalLiter, Batch batch) {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
         batchMængder.add(batchMængde);
-        this.antalLiter += antalLiter; //TODO kig lige her
+        this.antalLiter += antalLiter;
         return batchMængde;
     }
 
@@ -189,19 +189,6 @@ public class Destillat implements Serializable, Historik {
     }
 
     //metoder
-
-    /**
-     * Beregner antal liter destillatet indeholder baseret på batchmængder.
-     *
-     * @return antal liter destillatet indeholder.
-     */ //TODO kig her, den er ikke i brug længere
-    public double beregnAntalLiterPåBatchMængder() {
-        double liter = 0;
-        for (BatchMængde m : batchMængder) {
-            liter += m.getAntalLiter();
-        }
-        return liter;
-    }
 
     /**
      * Laver en String med id og liter om alle batches destillatet indeholder.
@@ -280,18 +267,6 @@ public class Destillat implements Serializable, Historik {
     public int beregnAlderIMåneder() {
         long antalDage = ChronoUnit.DAYS.between(påfyldningsDato, LocalDate.now());
         return (int) (antalDage / 30.436768);
-    }
-
-    /**
-     * Henter de unikke fadtyper fra destillatet.
-     *
-     * @return et Set indeholdende de unikke Fadtyper for fadet.
-     */
-    //todo skal vi overhovedet bruge den her
-    public Set<Fadtype> getFadtyper() {
-        Set<Fadtype> fadtyper = new HashSet<>();
-        fadtyper.add(fad.getFadType());
-        return fadtyper;
     }
 
 
