@@ -108,11 +108,12 @@ public class OversigtsPane extends GridPane {
     private void udtrækAction(){
         String forhåndsvisning = txaForhåndsvisning.getText().trim();
 
-        if (forhåndsvisning.isEmpty()){
+        if (!forhåndsvisning.isEmpty()){
             File file = Controller.udtrækTilFilPåList(forhåndsvisning);
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Oversigten er gemt!");
+            alert.setHeaderText("Oversigten er gemt!");
             alert.setContentText("Oversigten er gemt som " + file.getName());
             alert.showAndWait();
         }

@@ -651,10 +651,10 @@ public abstract class Controller {
      * @return en fil med historik
      */
     public static File udtrækTilFilPåList(String forhåndsvisning) {
-        String filname = "Udtræk.txt";
-        File fil = new File("file:filnavn");
+        String fileName = "Udtræk.txt";
+        File fil = new File(fileName);
 
-        try (PrintWriter printWriter = new PrintWriter(filname)) {
+        try (PrintWriter printWriter = new PrintWriter(fileName)) {
             printWriter.append(forhåndsvisning);
         } catch (IOException e) {
             System.out.println("Fejl ved skrivning til fil");
