@@ -15,6 +15,7 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
     private double alkoholprocent;
     private double literVand;
     private String label;
+    private Kvalitetsstempel kvalitetsstempel;
 
     private final List<DestillatMængde> destillatMængder;
 

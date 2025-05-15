@@ -10,7 +10,6 @@ import java.util.*;
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 public class Destillat implements Serializable, Historik {
-    private final List<BatchMængde> mængder = new ArrayList<>();
     private final List<BatchMængde> batchMængder = new ArrayList<>();
     private final List<OmhældningsMængde> omhældningsMængder = new ArrayList<>();
     private String navn;
@@ -19,7 +18,7 @@ public class Destillat implements Serializable, Historik {
     private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
-
+    // TODO Lav link til omhældningsmængde og tilhørende metoder
 
     /**
      * Initialiserer et destillats navn, fad.
