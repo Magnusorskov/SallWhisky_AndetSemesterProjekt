@@ -93,7 +93,6 @@ public class OmhældningsPane extends GridPane {
 
         cmbFade = new ComboBox<>();
         cmbFade.setPrefWidth(width);
-        //TODO hvilke fade skal den gette
         cmbFade.getItems().setAll(Controller.getFadeDerKanOmhældesTil(Controller.getFade()));
         this.add(cmbFade, 2, 1);
 
