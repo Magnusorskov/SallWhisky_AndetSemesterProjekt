@@ -24,8 +24,7 @@ public class LagerPane extends GridPane {
 
     public LagerPane() {
         this.setPadding(new Insets(20));
-        // TODO fix Hgap padding
-        this.setHgap(10);
+        this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
