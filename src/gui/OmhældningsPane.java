@@ -1,7 +1,6 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Batch;
 import application.model.Destillat;
 import application.model.Fad;
 import javafx.beans.value.ChangeListener;
@@ -47,7 +46,7 @@ public class OmhældningsPane extends GridPane {
         txaDestillatBeskrivelse.setPrefWidth(width);
         txaDestillatBeskrivelse.setEditable(false);
 
-        ChangeListener<Destillat> listener = (ov, oldBatch, newBatch) -> this.selectionChangeBatch();
+        ChangeListener<Destillat> listener = (ov, oldBatch, newBatch) -> this.selectionChangeDestillat();
         cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
 
         //kolonne 1
@@ -135,7 +134,7 @@ public class OmhældningsPane extends GridPane {
     }
 
 
-    private void selectionChangeBatch() {
+    private void selectionChangeDestillat() {
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
         if (destillat != null) {
@@ -156,20 +155,17 @@ public class OmhældningsPane extends GridPane {
         if (fad != null) {
             Destillat destillat = fad.getDestillat();
             lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
-            txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
-            if (destillat != null) {
-                txfNavn.setText(destillat.getNavn());
-                btnFærdiggørDestillat.setDisable(false);
-            } else {
+            if (destillat == null) {
+                txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
                 txfNavn.clear();
                 txfNavn.setDisable(false);
                 btnFærdiggørDestillat.setDisable(true);
-            }
-            if (cmbDestillater.getSelectionModel().getSelectedItem() != null) {
-                btnTilføj.setDisable(false);
             } else {
-                btnTilføj.setDisable(true);
+                txfNavn.setText(destillat.getNavn());
+                btnFærdiggørDestillat.setDisable(false);
+                txaFadBeskrivelse.setText(Controller.getBeskrivelse(destillat));
             }
+            btnTilføj.setDisable(cmbDestillater.getSelectionModel().getSelectedItem() == null);
         } else {
             lblFadTilgængeligLiter.setText("Fad ledig plads: ");
             txaFadBeskrivelse.clear();
