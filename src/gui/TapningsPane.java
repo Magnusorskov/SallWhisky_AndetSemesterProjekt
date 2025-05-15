@@ -34,7 +34,7 @@ public class TapningsPane extends GridPane {
         this.add(lblDestillater,0,0);
 
         cmbDestillater = new ComboBox<>();
-        cmbDestillater.getItems().addAll(Controller.getFærdigeDestillater());
+        cmbDestillater.getItems().addAll(Controller.getFærdigmodnedeDestillater());
         this.add(cmbDestillater,0,1);
         cmbDestillater.setPrefWidth(width);
 
@@ -117,7 +117,7 @@ public class TapningsPane extends GridPane {
 
     public void updateControls(){
         cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
-        cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
+        cmbDestillater.getItems().setAll(Controller.getFærdigmodnedeDestillater());
         btnTap.setDisable(true);
         btnFærdiggør.setDisable(true);
         txfLiter.clear();

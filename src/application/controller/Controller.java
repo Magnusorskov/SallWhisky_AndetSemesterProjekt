@@ -294,11 +294,30 @@ public abstract class Controller {
      *
      * @return en liste med færdige destillater der er over 3 år gamle.
      */
+    public static List<Destillat> getFærdigmodnedeDestillater() {
+        List<Destillat> resultat = new ArrayList<>();
+        for (Destillat destillat : getDestillater()) {
+            if (destillat.getPåfyldningsDato() != null) {
+                if (destillat.getAntalLiter() > 0 && destillat.beregnAlderIMåneder() >= 36) {
+                    resultat.add(destillat);
+                }
+            }
+        }
+        return resultat;
+    }
+
+    /**
+     * Finder destillater der har en påfyldningsdato der er mere end 3 år tilbage.
+     *
+     * @return en liste med færdige destillater der er over 3 år gamle.
+     */
     public static List<Destillat> getFærdigeDestillater() {
         List<Destillat> resultat = new ArrayList<>();
         for (Destillat destillat : getDestillater()) {
-            if (destillat.getAntalLiter() > 0 && destillat.getPåfyldningsDato().isBefore(LocalDate.now().minusYears(3))) {
-                resultat.add(destillat);
+            if (destillat.getPåfyldningsDato() != null) {
+                if (destillat.getAntalLiter() > 0 && destillat.beregnAlderIMåneder() >= 0) {
+                    resultat.add(destillat);
+                }
             }
         }
         return resultat;
@@ -578,8 +597,7 @@ public abstract class Controller {
         return resultat;
     }
 
-    //TODO skal den hedde søg efter?
-    private static List<Fad> søgEfterFadeDerKanOmhældesTil(List<Fad> fade) {
+    public static List<Fad> getFadeDerKanOmhældesTil(List<Fad> fade) {
         List<Fad> resultat = new ArrayList<>();
 
         for (Fad fad : fade) {
