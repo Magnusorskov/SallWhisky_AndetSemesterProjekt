@@ -78,18 +78,6 @@ public abstract class Controller {
     }
 
     /**
-     * Henter beskrivelsen på den valgte batch.
-     * Pre: batch er ikke null
-     *
-     * @param batch den batch der kræves en beskrivelse af.
-     * @return beskrivelse af batch i en String
-     */
-    public static String getBatchBeskrivelse(Batch batch) {
-        return "" + batch.hentHistorik();
-    }
-
-
-    /**
      * Henter batches med tilgængelige liter tilbage.
      *
      * @return en liste med batches med tilgængelige liter
@@ -201,28 +189,6 @@ public abstract class Controller {
             destillat = Controller.createDestillat(navn, fad);
         }
         destillat.createBatchMængde(antalLiter, batch);
-    }
-
-
-    /**
-     * Henter et fads beskrivelse.
-     *
-     * @param fad er ikke null.
-     * @return en string med beskrivelse på et fad og dets batches (hvis relevant).
-     */
-    public static String getFadBeskrivelse(Fad fad) {
-        StringBuilder sb = new StringBuilder();
-        String result;
-        if (fad != null) {
-            sb.append(fad.hentHistorik());
-        }
-        Destillat destillat = fad.getDestillat();
-        if (destillat != null) {
-            sb.append("\n\nDestillat: " + destillat.getNavn());
-            sb.append("\nBatches: " + fad.getDestillat().destilatBatches());
-        }
-        result = String.valueOf(sb);
-        return result;
     }
 
     //----------------------------------------------------------------------------------------------------
@@ -358,19 +324,6 @@ public abstract class Controller {
     }
 
     /**
-     * Henter en beskrivelse på det valgte destillat.
-     * Pre: destillat er ikke null.
-     *
-     * @param destillat der ønskes beskrivelse af.
-     * @return en string med beskrivelse af det valgte destillat.
-     */
-    public static String getDestillatBeskrivelse(Destillat destillat) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(destillat.hentHistorik());
-        return String.valueOf(sb);
-    }
-
-    /**
      * Omhælder en destillat mængde fra et fad til et andet og hvis der ikke findes et destillat på fadet
      * bliver der lavet et nyt.
      *
@@ -453,17 +406,6 @@ public abstract class Controller {
     }
 
     /**
-     * Henter en beskrivelse på en whisky.
-     * Pre: whisky er ikke null.
-     *
-     * @param whisky Den whisky man ønsker en beskrivelse af
-     * @return en String med en beskrivelse på den valgte whisky
-     */
-    public static String getWhiskeyBeskrivelse(Whisky whisky) {
-        return String.valueOf(whisky.hentHistorik());
-    }
-
-    /**
      * Beregner det samlede antal liter whiskyen indeholder (summen af alle destillater og tilsat vand).
      * Pre: whisky er ikke null.
      *
@@ -523,6 +465,7 @@ public abstract class Controller {
     public static void færdiggørWhisky(Whisky whisky, String label, double alkoholprocent) {
         whisky.setLabel(label);
         whisky.setAlkoholprocent(alkoholprocent);
+        whisky.setKvalitetsStempel();
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -680,9 +623,22 @@ public abstract class Controller {
      * @return en String med en beskrivelse på den valgte Historik objekt
      */
     public static String getBeskrivelse(Historik historik) {
-        return String.valueOf(historik.hentHistorik());
+        if (historik instanceof Fad){
+            StringBuilder sb = new StringBuilder(historik.hentHistorik());
+
+            Fad fad = (Fad) historik;
+            Destillat destillat = fad.getDestillat();
+            if (destillat != null) {
+                sb.append("\n\nDestillat: " + destillat.getNavn());
+                sb.append("\nBatches: " + fad.getDestillat().destilatBatches());
+            }
+            return String.valueOf(sb);
+        } else {
+            return String.valueOf(historik.hentHistorik());
+        }
     }
 
+    //TODO java doc
     public static String kombinerBeskrivelser(Collection<? extends Historik> collection){
         StringBuilder sb = new StringBuilder();
         for (Historik h : collection){

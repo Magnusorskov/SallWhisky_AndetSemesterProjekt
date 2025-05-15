@@ -157,7 +157,7 @@ public class LagerPane extends GridPane {
     private void selectionChangeFad() {
         Fad fad = lvwFad.getSelectionModel().getSelectedItem();
         if (fad != null) {
-            txaBeskrivelse.setText(Controller.getFadBeskrivelse(fad));
+            txaBeskrivelse.setText(Controller.getBeskrivelse(fad));
         }
     }
 

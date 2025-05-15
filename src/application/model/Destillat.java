@@ -282,6 +282,13 @@ public class Destillat implements Serializable, Historik {
         }
     }
 
+    public boolean isSingleCask() {
+        if (omhældningsMængder.isEmpty()) {
+            return true;
+        }
+        else return false;
+    }
+
     public List<OmhældningsMængde> getOmhældningsMængder() {
         return new ArrayList<>(omhældningsMængder);
     }

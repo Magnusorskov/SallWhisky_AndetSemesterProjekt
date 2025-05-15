@@ -240,8 +240,32 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         return this.id - whisky.getId();
     }
 
-    // TODO udfyld
-    public void setKvalitetsStempel() {}
+
+    public void setKvalitetsStempel() {
+        boolean singleCask = true;
+        int i = 0;
+        while (singleCask && destillatMængder.size() > i) {{
+                if (!destillatMængder.get(i).getDestillat().isSingleCask()) {
+                    singleCask = false;
+                } else {
+                    i++;
+                }
+            }
+        }
+        if (singleCask) {
+            if (literVand == 0) {
+                kvalitetsstempel = Kvalitetsstempel.SINGLE_CASK_CASK_STRENGTH;
+            } else {
+                kvalitetsstempel = Kvalitetsstempel.SINGLE_CASK;
+            }
+        } else {
+            if (literVand == 0) {
+                kvalitetsstempel = Kvalitetsstempel.SINGLE_MALT_CASK_STRENGTH;
+            } else {
+                kvalitetsstempel = Kvalitetsstempel.SINGLE_MALT;
+            }
+        }
+    }
 
     /**
      * Laver en String repræsentation af Whisky objektet (returnerer navnet).

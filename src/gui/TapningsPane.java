@@ -129,7 +129,7 @@ public class TapningsPane extends GridPane {
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
         if (destillat != null){
-            txaDestillatBeskrivelse.setText(Controller.getDestillatBeskrivelse(destillat));
+            txaDestillatBeskrivelse.setText(Controller.getBeskrivelse(destillat));
             lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
         } else {
             txaDestillatBeskrivelse.clear();
@@ -146,7 +146,7 @@ public class TapningsPane extends GridPane {
         Whisky whisky = cmbWhisky.getSelectionModel().getSelectedItem();
 
         if (whisky != null){
-            txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+            txaWhiskeyBeskrivelse.setText(Controller.getBeskrivelse(whisky));
             btnFærdiggør.setDisable(false);
             btnTap.setDisable(false);
         } else {
@@ -178,7 +178,7 @@ public class TapningsPane extends GridPane {
 
                     this.updateControls();
                     lblDestillatVæskemængde.setText("Destillat rest. væske: ");
-                    txaWhiskeyBeskrivelse.setText(Controller.getWhiskeyBeskrivelse(whisky));
+                    txaWhiskeyBeskrivelse.setText(Controller.getBeskrivelse(whisky));
                     cmbWhisky.getSelectionModel().select(whisky);
                 } else {
                     lblError.setText("Der er ikke nok liter i destillatet at tappe af");
