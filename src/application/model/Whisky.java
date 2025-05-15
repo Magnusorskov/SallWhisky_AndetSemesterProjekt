@@ -163,6 +163,9 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         if (alkoholprocent > 0){
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
+        if (kvalitetsstempel != null){
+            sb.append("\nKvalitetsstempel: " + kvalitetsstempel);
+        }
         double antalLiter = beregnAntalLiter();
         if (antalLiter > 0){
             sb.append("\nAntal liter: " + antalLiter);
@@ -172,7 +175,6 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
             sb.append("\nAntal Flasker: " + beregnAntalFlasker());
 
         }
-        sb.append("\n----------------------------------");
 
         Map<Destillat, Double> destillater = new HashMap<>();
         for (DestillatMængde dm : getDestillatMængder()) {
@@ -180,6 +182,7 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         }
 
         if(!destillater.isEmpty()) {
+            sb.append("\n----------------------------------");
             sb.append("\n\nDestillater:\n");
 
             Iterator<Map.Entry<Destillat, Double>> iterator = destillater.entrySet().iterator();
