@@ -94,7 +94,7 @@ public class OmhældningsPane extends GridPane {
         cmbFade = new ComboBox<>();
         cmbFade.setPrefWidth(width);
         //TODO hvilke fade skal den gette
-        cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
+        cmbFade.getItems().setAll(Controller.getFadeDerKanOmhældesTil(Controller.getFade()));
         this.add(cmbFade, 2, 1);
 
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
@@ -130,7 +130,7 @@ public class OmhældningsPane extends GridPane {
     }
 
     public void updateControls() {
-        cmbDestillater.getItems().setAll(Controller.getDestillater());
+        cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
         txfAntalLiter.clear();
     }
