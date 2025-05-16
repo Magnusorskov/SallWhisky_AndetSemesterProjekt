@@ -89,6 +89,10 @@ public abstract class Controller {
         return resultat;
     }
 
+    public static void tømBatch(Batch batch){
+        batch.tømBatch();
+    }
+
 
     /**
      * Henter de batches der er igangværende.
@@ -356,6 +360,10 @@ public abstract class Controller {
             fad.setDestillat(null);
         }
 
+    }
+
+    public static void tømDestillat(Destillat destillat){
+        destillat.tømDestillat();
     }
 
 
