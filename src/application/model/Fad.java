@@ -158,7 +158,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
         StringBuilder sb = getFadBeskrivelse();
         if (destillat != null) {
             sb.append("\n\nDestillat: " + destillat.getNavn());
-            sb.append("\nBatches: " + destillat.destilatBatches());
+            sb.append("\nBatches: " + destillat.getDestillatsBatches());
         }
         return sb;
     }
@@ -185,7 +185,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id + " " + fadType + " liter: " + størrelse);
+        sb.append(id + " " + fadType + " liter: " + størrelse + " Antal brug: " + antalBrug);
 
         if (destillat != null){
             sb.append("\n\tDestillat: " + destillat.getNavn());
@@ -193,6 +193,7 @@ public class Fad extends Lagervare implements Serializable, Historik {
         if (getLager() != null) {
             sb.append("\n\tLager: " + getLager().getNavn());
         }
+
         return "" + sb;
     }
 

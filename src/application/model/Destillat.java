@@ -200,7 +200,7 @@ public class Destillat implements Serializable, Historik {
      *
      * @return String med id og liter om alle batches destillatet indeholder.
      */
-    public String destilatBatches() {
+    public String getDestillatsBatches() {
         StringBuilder sb = new StringBuilder();
         for (BatchMængde m : batchMængder) {
             sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
@@ -312,6 +312,10 @@ public class Destillat implements Serializable, Historik {
      */
     @Override
     public String toString() {
-        return navn;
+        String destillat = navn;
+        if (antalLiter == 0) {
+            destillat = destillat + "(Tom)";
+        }
+        return destillat;
     }
 }

@@ -354,6 +354,9 @@ public abstract class Controller {
 
         Destillat fadDestillat = createDestillatHvisIngenFindes(navn, fad);
         fadDestillat.createOmhældningsMængde(antalLiter, destillat);
+        if (destillat.getAntalLiter() == 0) {
+            fad.setDestillat(null);
+        }
 
     }
 
@@ -409,6 +412,9 @@ public abstract class Controller {
      */
     public static void tapningAfDestillat(double antalLiter, Destillat destillat, Whisky whisky) {
         whisky.createDestillatMængde(antalLiter, destillat);
+        if (destillat.getAntalLiter() == 0) {
+            destillat.getFad().setDestillat(null);
+        }
     }
 
     /**
@@ -611,10 +617,10 @@ public abstract class Controller {
     }
 
     //TODO java doc
-    public static List<Fad> getFadeDerKanOmhældesTil(List<Fad> fade) {
+    public static List<Fad> getFadeDerKanOmhældesTil() {
         List<Fad> resultat = new ArrayList<>();
 
-        for (Fad fad : fade) {
+        for (Fad fad : getFade()) {
             Destillat destillat = fad.getDestillat();
             if (fad.getAntalBrug() <= 3) {
                 if (destillat != null) {
