@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class BatchPane extends GridPane {
-    private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
     private ListView<Batch> lvwIgangværendeBatches;
     private TextArea txaBatchInfo;
 

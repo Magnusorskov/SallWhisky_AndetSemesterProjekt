@@ -241,7 +241,11 @@ public class Batch implements Serializable, Historik {
      */
     @Override
     public String toString() {
-        return "BatchNr:" + id + " StartDato: " + startDato;
+        String batch = "BatchNr:" + id + " StartDato: " + startDato;
+        if (væskemængde == 0 && slutDato != null) {
+            batch = batch + " (Tom)";
+        }
+        return batch;
     }
 
 

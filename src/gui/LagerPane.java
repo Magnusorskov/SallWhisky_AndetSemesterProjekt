@@ -195,8 +195,10 @@ public class LagerPane extends GridPane {
         Fad fad = lvwFad.getSelectionModel().getSelectedItem();
 
         if (fad != null) {
-            Controller.fjernLagerVare(fad);
-            updateControls();
+            if (fad.getDestillat() != null) {
+                Controller.fjernLagerVare(fad);
+                updateControls();
+            }
         }
     }
 
