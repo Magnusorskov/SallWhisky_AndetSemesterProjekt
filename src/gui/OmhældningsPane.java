@@ -1,6 +1,7 @@
 package gui;
 
 import application.controller.Controller;
+import application.model.Batch;
 import application.model.Destillat;
 import application.model.Fad;
 import javafx.beans.value.ChangeListener;
@@ -13,13 +14,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.Optional;
+
 public class OmhældningsPane extends GridPane {
     private TextArea txaDestillatBeskrivelse, txaFadBeskrivelse;
     private TextField txfNavn, txfAntalLiter;
     private Label lblFadTilgængeligLiter, lblDestillatVæskemængde, lblError;
     private ComboBox<Destillat> cmbDestillater;
     private ComboBox<Fad> cmbFade;
-    private Button btnTilføj, btnFærdiggørDestillat;
+    private Button btnTilføj, btnFærdiggørDestillat, btnTøm;
 
     public OmhældningsPane(){
         this.setPadding(new Insets(20));
@@ -48,6 +51,11 @@ public class OmhældningsPane extends GridPane {
 
         ChangeListener<Destillat> listener = (ov, oldBatch, newBatch) -> this.selectionChangeDestillat();
         cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        btnTøm = new Button("Tøm Destillat");
+        this.add(btnTøm,0,5);
+        btnTøm.setDisable(true);
+        btnTøm.setOnAction(event -> this.tømAction());
 
         //kolonne 1
         Label lblPåfyldFad = new Label("Omhæld på fad");
@@ -127,6 +135,22 @@ public class OmhældningsPane extends GridPane {
         }
     }
 
+    private void tømAction(){
+        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
+        if (destillat != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bekræft handling");
+            alert.setHeaderText("Er du sikker på, at du vil tømme destillatet?");
+            alert.setContentText("Der er " + destillat.getAntalLiter() + " liter tilbage. Denne handling kan ikke fortrydes.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Controller.tømDestillat(destillat);
+                updateControls();
+            }
+        }
+    }
+
     public void updateControls() {
         cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
@@ -138,6 +162,7 @@ public class OmhældningsPane extends GridPane {
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
         if (destillat != null) {
+            btnTøm.setDisable(false);
             txaDestillatBeskrivelse.setText(Controller.getBeskrivelse(destillat));
             lblDestillatVæskemængde.setText("Batch rest. væske: " + destillat.getAntalLiter());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {

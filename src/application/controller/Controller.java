@@ -6,10 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Abstrakt klasse der fungerer som controller for applikationen.
@@ -92,6 +89,10 @@ public abstract class Controller {
         return resultat;
     }
 
+    public static void tømBatch(Batch batch){
+        batch.tømBatch();
+    }
+
 
     /**
      * Henter de batches der er igangværende.
@@ -148,6 +149,7 @@ public abstract class Controller {
                 resultat.add(f);
             }
         }
+        Collections.sort(resultat);
         return resultat;
     }
 
@@ -360,6 +362,10 @@ public abstract class Controller {
 
     }
 
+    public static void tømDestillat(Destillat destillat){
+        destillat.tømDestillat();
+    }
+
 
     /**
      * Initialiserer en whiskys navn og tilføjer det til storage.
@@ -481,7 +487,11 @@ public abstract class Controller {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    //TODO java doc
+
+    /**
+     *Fjerner en lagervare fra lageret
+     * @param lagervare den lagervare man ønsker fjerne
+     */
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
         if (lager != null) {

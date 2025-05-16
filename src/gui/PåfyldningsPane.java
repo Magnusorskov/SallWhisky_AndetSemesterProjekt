@@ -14,13 +14,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.Optional;
+
 public class PåfyldningsPane extends GridPane {
     private TextArea txaBatchBeskrivelse, txaFadBeskrivelse;
     private TextField txfNavn, txfAntalLiter;
     private Label lblFadTilgængeligLiter, lblBatchVæskemængde, lblError;
     private ComboBox<Batch> cmbBatches;
     private ComboBox<Fad> cmbFade;
-    private Button btnTilføj, btnFærdiggørDestillat;
+    private Button btnTilføj, btnFærdiggørDestillat, btnTøm;
 
     public PåfyldningsPane() {
         this.setPadding(new Insets(20));
@@ -49,6 +51,11 @@ public class PåfyldningsPane extends GridPane {
 
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectionChangeBatch();
         cmbBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        btnTøm = new Button("Tøm batch");
+        this.add(btnTøm,0,5);
+        btnTøm.setDisable(true);
+        btnTøm.setOnAction(event -> this.tømAction());
 
         //kolonne 1
         Label lblPåfyldFad = new Label("Påfyld fad");
@@ -127,6 +134,22 @@ public class PåfyldningsPane extends GridPane {
         }
     }
 
+    private void tømAction(){
+        Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
+        if (batch != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bekræft handling");
+            alert.setHeaderText("Er du sikker på, at du vil tømme destillatet?");
+            alert.setContentText("Der er " + batch.getVæskemængde() + " liter tilbage. Denne handling kan ikke fortrydes.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Controller.tømBatch(batch);
+                updateControls();
+            }
+        }
+    }
+
     public void updateControls() {
         cmbBatches.getItems().setAll(Controller.getFærdigeBatchesMedTilgængeligeLiter());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
@@ -139,6 +162,7 @@ public class PåfyldningsPane extends GridPane {
 
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBeskrivelse(batch));
+            btnTøm.setDisable(false);
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {
                 btnTilføj.setDisable(false);

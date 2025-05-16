@@ -226,6 +226,14 @@ public class Destillat implements Serializable, Historik {
      *
      * @return Stringbuilder med historikken.
      */
+
+    /**
+     * Tømmer et destillat
+     */
+    public void tømDestillat(){
+        setAntalLiter(0);
+    }
+
     public StringBuilder hentHistorikHjælpeMetode() {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
