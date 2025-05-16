@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Lager implements Serializable {
 
-    private final Lagervare[][] pladser;
+    private Lagervare[][] pladser;
     private String navn;
     private String adresse;
     private int[] næsteLedigPlads = new int[2];
@@ -211,6 +211,17 @@ public class Lager implements Serializable {
         return count;
     }
 
+    public void udvidLager(int antalReoler, int antalHylder) {
+        Lagervare[][] nytLager = new Lagervare[antalReoler + 1][antalHylder + 1];
+
+        for (int i = 1; i < pladser.length; i++) {
+            for (int j = 1; j < pladser[0].length; j++) {
+                nytLager[i][j] = pladser[i][j];
+            }
+        }
+        pladser = nytLager;
+    }
+
 
     /**
      * Laver en String repræsentation af Lager objektet.
@@ -219,6 +230,6 @@ public class Lager implements Serializable {
      */
     @Override
     public String toString() {
-        return "Lager: " + navn;
+        return "Lager: " + navn + " (Ledig plads: " + antalLedigePladser() + ")";
     }
 }

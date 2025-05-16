@@ -637,7 +637,19 @@ public abstract class Controller {
         }
         return resultat;
     }
+    //TODO javadoc
+    public static void udvidLager (Lager lager, int antalReoler, int antalHylder) {
+        if (lager != null) {
+            lager.udvidLager(antalReoler,antalHylder);
+        }
+    }
 
+    public static int beregnAntalLedigePladserPåLager(Lager lager) {
+        if (lager != null) {
+            return lager.antalLedigePladser();
+        }
+        return 0;
+    }
     //------------------------------------------------------------------------------------------------------------------
 
     /**

@@ -148,6 +148,11 @@ public class LagerPane extends GridPane {
         btnOpretFad.setMinWidth(100);
         btnOpretFad.setOnAction(event -> this.opretFadAction());
         this.add(btnOpretFad, 3, 2);
+
+        Button btnUdvidLager = new Button("Udvid Lager");
+        btnUdvidLager.setMinWidth(100);
+        btnUdvidLager.setOnAction(event -> this.udvidLagerAction());
+        this.add(btnUdvidLager, 3, 3);
     }
 
 
@@ -228,6 +233,13 @@ public class LagerPane extends GridPane {
 
         updateControls();
 
+    }
+
+    private void udvidLagerAction() {
+        UdvidLagerWindow dia = new UdvidLagerWindow("Udvid Lager");
+        dia.showAndWait();
+
+        updateControls();
     }
 
     public void updateControls() {

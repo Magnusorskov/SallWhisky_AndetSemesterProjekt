@@ -40,7 +40,7 @@ public class FærdiggørDestillatWindow extends Stage {
 
         Scene scene = new Scene(pane, 300, 300);
         setScene(scene);
-        setMinWidth(450);
+        setMinWidth(600);
         setMinHeight(400);
 
     }
@@ -135,6 +135,7 @@ public class FærdiggørDestillatWindow extends Stage {
         });
         lblHylde = new Label("Hylde nummer: ");
         pane.add(lblHylde, 1, 5);
+        lblHylde.setMinWidth(250);
 
         txfHylde = new TextField("0");
         pane.add(txfHylde, 1, 6);
@@ -161,6 +162,7 @@ public class FærdiggørDestillatWindow extends Stage {
         pane.add(lblError, 0, 10);
         lblError.setStyle("-fx-text-fill: red");
         lblError.setMinWidth(250);
+
     }
 
     // -------------------------------------------------------------------------
