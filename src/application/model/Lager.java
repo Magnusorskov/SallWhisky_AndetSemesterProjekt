@@ -191,18 +191,6 @@ public class Lager implements Serializable {
 
 
     /**
-     * Sætter næste ledige plads til et bestemt sted på lageret
-     *
-     * @param reol  reolnummeret på den ønskede plads.
-     * @param hylde hyldenummeret på den ønskede plads.
-     */
-
-    public void setNæsteLedigPlads(int reol, int hylde) {
-        næsteLedigPlads[0] = reol;
-        næsteLedigPlads[1] = hylde;
-    }
-
-    /**
      * Beregner det samlede antal ledige pladser der er tilbage på lageret
      *
      * @return en int med antal ledige pladser på lageret

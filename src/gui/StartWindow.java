@@ -47,6 +47,15 @@ public class StartWindow extends Application {
 
         // ---------------------------------------------------------------------
 
+        Tab tabOmhældning = new Tab("Omhældning");
+        tabPane.getTabs().add(tabOmhældning);
+
+        OmhældningsPane omhældningsPane = new OmhældningsPane();
+        tabOmhældning.setContent(omhældningsPane);
+        tabOmhældning.setOnSelectionChanged(event -> omhældningsPane.updateControls());
+
+        // ---------------------------------------------------------------------
+
         Tab tabTapning = new Tab("Tapning");
         tabPane.getTabs().add(tabTapning);
 
@@ -54,14 +63,7 @@ public class StartWindow extends Application {
         tabTapning.setContent(tapningsPane);
         tabTapning.setOnSelectionChanged(event -> tapningsPane.updateControls());
 
-        // ---------------------------------------------------------------------
 
-        Tab tabOmhældning = new Tab("Omhældning");
-        tabPane.getTabs().add(tabOmhældning);
-
-        OmhældningsPane omhældningsPane = new OmhældningsPane();
-        tabOmhældning.setContent(omhældningsPane);
-        tabOmhældning.setOnSelectionChanged(event -> omhældningsPane.updateControls());
 
         // ---------------------------------------------------------------------
 
