@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Klassen indeholder information om fadets oprindelse, type, størrelse og hvor mange gange det er blevet brugt.
  * Et fad kan indeholde et enkelt destillat.
  */
-public class Fad extends Lagervare implements Serializable, Historik {
+public class Fad extends Lagervare implements Serializable, Historik, Comparable<Fad> {
     private Land land;
     private int antalBrug;
     private Fadtype fadType;
@@ -195,6 +195,25 @@ public class Fad extends Lagervare implements Serializable, Historik {
         }
 
         return "" + sb;
+    }
+
+    @Override
+    public int compareTo(Fad fad) {
+        boolean thisHarDestillat = this.getDestillat() != null;
+        boolean otherHarDestillat = fad.getDestillat() != null;
+
+
+        if (thisHarDestillat && !otherHarDestillat) {
+            return -1;
+        }
+        if (!thisHarDestillat && otherHarDestillat) {
+            return 1;
+        }
+
+        if (thisHarDestillat) {
+            return Integer.compare(this.getId(), fad.getId());
+        }
+        return Double.compare(fad.getTilgængeligeLiter(), this.getTilgængeligeLiter());
     }
 
 }

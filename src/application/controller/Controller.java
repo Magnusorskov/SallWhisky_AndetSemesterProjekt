@@ -481,7 +481,11 @@ public abstract class Controller {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    //TODO java doc
+
+    /**
+     *Fjerner en lagervare fra lageret
+     * @param lagervare den lagervare man ønsker fjerne
+     */
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
         if (lager != null) {
