@@ -13,16 +13,16 @@ public abstract class Væske implements Historik, Serializable {
     }
 
     /**
-     * Henter batchens unikke ID.
+     * Henter væskens unikke ID.
      *
-     * @return batch'ens ID.
+     * @return væskens ID.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Henter den aktuelle væskemængde i batchen i liter.
+     * Henter den aktuelle væskemængde i væsken i liter.
      *
      * @return den aktuelle væskemængde i liter.
      */
@@ -31,16 +31,16 @@ public abstract class Væske implements Historik, Serializable {
     }
 
     /**
-     * Henter alkoholprocenten for batchen.
+     * Henter alkoholprocenten for væsken.
      *
-     * @return batch'ens alkoholprocent.
+     * @return væskens alkoholprocent.
      */
     public double getAlkoholprocent() {
         return alkoholprocent;
     }
 
     /**
-     * Sætter den aktuelle væskemængde i batchen i liter.
+     * Sætter den aktuelle væskemængde i væsken i liter.
      *
      * @param antalLiter den nye væskemængde i liter.
      */
@@ -58,9 +58,9 @@ public abstract class Væske implements Historik, Serializable {
     }
 
     /**
-     * Sætter batchens unikke ID.
+     * Sætter væskens unikke ID.
      *
-     * @param id det nye ID for batchen.
+     * @param id det nye ID for væsken.
      */
     public void setId(int id) {
         this.id = id;
