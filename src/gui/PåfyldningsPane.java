@@ -20,7 +20,7 @@ public class PåfyldningsPane extends GridPane {
     private Label lblFadTilgængeligLiter, lblBatchVæskemængde, lblError;
     private ComboBox<Batch> cmbBatches;
     private ComboBox<Fad> cmbFade;
-    private Button btnTilføj, btnFærdiggørDestillat;
+    private Button btnTilføj, btnFærdiggørDestillat, btnTøm;
 
     public PåfyldningsPane() {
         this.setPadding(new Insets(20));
@@ -49,6 +49,11 @@ public class PåfyldningsPane extends GridPane {
 
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectionChangeBatch();
         cmbBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        btnTøm = new Button("Tøm batch");
+        this.add(btnTøm,0,5);
+        btnTøm.setDisable(true);
+        btnTøm.setOnAction(event -> this.tømAction());
 
         //kolonne 1
         Label lblPåfyldFad = new Label("Påfyld fad");
@@ -127,6 +132,14 @@ public class PåfyldningsPane extends GridPane {
         }
     }
 
+    private void tømAction(){
+        Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
+        if (batch != null){
+            Controller.tømBatch(batch);
+            updateControls();
+        }
+    }
+
     public void updateControls() {
         cmbBatches.getItems().setAll(Controller.getFærdigeBatchesMedTilgængeligeLiter());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
@@ -139,6 +152,7 @@ public class PåfyldningsPane extends GridPane {
 
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBeskrivelse(batch));
+            btnTøm.setDisable(false);
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {
                 btnTilføj.setDisable(false);
