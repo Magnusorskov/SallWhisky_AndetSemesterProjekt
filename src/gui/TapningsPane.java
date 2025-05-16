@@ -1,6 +1,7 @@
 package gui;
 
 import application.controller.Controller;
+import application.model.Batch;
 import application.model.Destillat;
 import application.model.Whisky;
 import javafx.beans.value.ChangeListener;
@@ -19,7 +20,7 @@ public class TapningsPane extends GridPane {
     private Label lblDestillatBeskrivelse,lblWhiskyBeskrivelse,lblTapning, lblWhisky, lblLiter, lblDestillater, lblError, lblDestillatVæskemængde;
     private ComboBox<Destillat> cmbDestillater;
     private ComboBox<Whisky> cmbWhisky;
-    private Button btnTap, btnOpret, btnFærdiggør;
+    private Button btnTap, btnOpret, btnFærdiggør,btnTøm;
 
     public TapningsPane(){
         this.setPadding(new Insets(20));
@@ -49,6 +50,11 @@ public class TapningsPane extends GridPane {
 
         ChangeListener<Destillat> listener = (ov, oldDestillat, newDestillat) -> this.selectionChangeDestillat();
         cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        btnTøm = new Button("Tøm destillat");
+        this.add(btnTøm,0,5);
+        btnTøm.setDisable(true);
+        btnTøm.setOnAction(event -> this.tømAction());
 
         //kolonne 1
 
@@ -129,6 +135,7 @@ public class TapningsPane extends GridPane {
         Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
 
         if (destillat != null){
+            btnTøm.setDisable(false);
             txaDestillatBeskrivelse.setText(Controller.getBeskrivelse(destillat));
             lblDestillatVæskemængde.setText("Destillat rest. væske: " + destillat.getAntalLiter());
         } else {
@@ -191,6 +198,13 @@ public class TapningsPane extends GridPane {
 
         }
 
+    }
+    private void tømAction(){
+        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
+        if (destillat != null){
+            Controller.tømDestillat(destillat);
+            updateControls();
+        }
     }
 
     private void færdiggørWhiskyAction(){
