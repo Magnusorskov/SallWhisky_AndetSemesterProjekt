@@ -1,9 +1,9 @@
 package application.model;
 
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +12,7 @@ class FadTest {
 
     @BeforeEach
     void setUp() {
-        fad = new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100);
+        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100);
     }
     @Test
     void test03_KontruktorFad(){

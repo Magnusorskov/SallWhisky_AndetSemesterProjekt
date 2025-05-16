@@ -1,5 +1,7 @@
 package application.model;
 
+import application.model.VæskeMængde.VæskeMængde;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -10,11 +12,7 @@ import java.time.temporal.ChronoUnit;
  *  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 
-public class OmhældningsMængde implements Serializable {
-    private double antalLiter;
-    private final Destillat destillat;
-
-
+public class OmhældningsMængde extends DestillatMængde {
     /**
      * Initialiserer en OmhældningsMængdes antal liter og destillat.
      *      * Pre: antalLiter er større end 0.
@@ -23,30 +21,8 @@ public class OmhældningsMængde implements Serializable {
      * @param destillat det destillat man tager væske fra.
      */
     OmhældningsMængde(double antalLiter, Destillat destillat) {
-        this.antalLiter = antalLiter;
-        this.destillat = destillat;
-        destillat.tapDestillat(antalLiter);
-
-
+        super(antalLiter,destillat);
     }
-
-    /**
-     * Getter en double med antal liter
-     * @return double med antal liter
-     */
-
-    public double getAntalLiter() {
-        return antalLiter;
-    }
-
-    /**
-     * Getter destillat
-     * @return et destillat
-     */
-    public Destillat getDestillat() {
-        return destillat;
-    }
-
 
     /**
      * Setter lagringstiden på destillatet
@@ -54,6 +30,7 @@ public class OmhældningsMængde implements Serializable {
      * @param påfyldningsDato dato for påfyldning
      */
     public void setLagringstidIMåneder(LocalDate påfyldningsDato) {
+        Destillat destillat = (Destillat) væske;
         long antalDage = ChronoUnit.DAYS.between(destillat.getPåfyldningsDato(), påfyldningsDato);
         destillat.setLagringstidIMåneder((int) (antalDage / 30.436768));
     }
@@ -63,6 +40,7 @@ public class OmhældningsMængde implements Serializable {
      * @param antalLiter antal liter man ønsker at tilføje
      */
     public void addLiterTilEksisterendeOM(double antalLiter) {
+        Destillat destillat = (Destillat) væske;
         this.antalLiter += antalLiter;
         destillat.tapDestillat(antalLiter);
     }

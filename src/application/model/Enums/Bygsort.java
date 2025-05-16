@@ -1,4 +1,4 @@
-package application.model;
+package application.model.Enums;
 
 /**
  * Enumeration der definerer de forskellige bygsorter, der kan anvendes i produktionsprocessen.

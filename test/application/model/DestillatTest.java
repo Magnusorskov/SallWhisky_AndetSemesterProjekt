@@ -1,5 +1,9 @@
 package application.model;
 
+import application.model.Enums.Bygsort;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
+import application.model.Enums.Mark;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +20,8 @@ class DestillatTest {
 
     @BeforeEach
     void setUp() {
-        fad = new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100);
-        batch = new Batch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
+        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100);
+        batch = new Batch(Bygsort.EVERGREEN, Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
         destillat = new Destillat("Testsprut",fad);
         mængde = destillat.createBatchMængde(100,batch);
 

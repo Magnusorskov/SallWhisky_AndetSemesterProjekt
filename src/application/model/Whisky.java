@@ -1,6 +1,10 @@
 package application.model;
 
-import java.io.Serializable;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Kvalitetsstempel;
+import application.model.Enums.Mark;
+import application.model.Væske.Væske;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
@@ -9,10 +13,8 @@ import java.util.*;
  * Repræsenterer en færdig whisky, som er en blanding af forskellige destillater og eventuelt vand.
  * Implementerer Serializable for at kunne gemmes og indlæses, og Comparable for at kunne sorteres.
  */
-public class Whisky implements Serializable, Comparable<Whisky>, Historik {
+public class Whisky extends Væske implements Comparable<Whisky> {
     private String navn;
-    private int id;
-    private double alkoholprocent;
     private double literVand;
     private String label;
     private Kvalitetsstempel kvalitetsstempel;
@@ -27,6 +29,7 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
     public Whisky(String navn) {
         this.navn = navn;
         literVand = 0;
+        antalLiter = 0;
         destillatMængder = new ArrayList<>();
     }
 
@@ -39,23 +42,6 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         return navn;
     }
 
-    /**
-     * Henter whiskyens unikke ID.
-     *
-     * @return whiskyens ID.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Henter whiskyens alkoholprocent.
-     *
-     * @return whiskyens alkoholprocent.
-     */
-    public double getAlkoholprocent() {
-        return alkoholprocent;
-    }
 
     /**
      * Henter mængden af tilsat vand i liter.
@@ -76,15 +62,6 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
     }
 
     /**
-     * Sætter whiskyens alkoholprocent.
-     *
-     * @param alkoholprocent den nye alkoholprocent for whiskyen.
-     */
-    public void setAlkoholprocent(double alkoholprocent) {
-        this.alkoholprocent = alkoholprocent;
-    }
-
-    /**
      * Sætter mængden af tilsat vand i liter.
      *
      * @param literVand den nye mængde af tilsat vand i liter.
@@ -102,14 +79,6 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
         this.label = label;
     }
 
-    /**
-     * Sætter whiskyens unikke ID.
-     *
-     * @param id det nye ID for whiskyen.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     //------------------------------------------------------
 
@@ -123,7 +92,28 @@ public class Whisky implements Serializable, Comparable<Whisky>, Historik {
      */
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
         DestillatMængde destillatMængde = new DestillatMængde(antalLiter,destillat);
-        destillatMængder.add(destillatMængde);
+        this.antalLiter += antalLiter;
+
+        int index = findesDestillatIDestillatMængdeListe(destillat);
+        if (index != -1) {
+            destillatMængder.get(index).addLiterTilEksisterendeDM(antalLiter);
+        } else {
+            destillatMængder.add(destillatMængde);
+        }
+    }
+
+    //TODO java doc
+    private int findesDestillatIDestillatMængdeListe(Destillat destillat) {
+        int i = 0;
+            while (i < destillatMængder.size()) {
+                if (destillatMængder.get(i).getDestillat() == destillat) {
+                    return i;
+                } else {
+                    i++;
+                }
+
+        }
+        return -1;
     }
 
     /**

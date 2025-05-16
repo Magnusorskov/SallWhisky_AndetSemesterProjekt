@@ -1,5 +1,8 @@
 package application.model;
 
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
+
 import java.io.Serializable;
 
 /**

@@ -1,4 +1,4 @@
-package application.model;
+package application.model.Enums;
 
 /**
  * Enumeration der definerer de forskellige kvalitetsstempler en whisky har i forhold til dens produktion

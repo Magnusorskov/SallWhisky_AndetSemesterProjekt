@@ -1,6 +1,9 @@
 package application.model;
 
-import java.io.Serializable;
+import application.model.Enums.Mark;
+import application.model.Væske.Væske;
+import application.model.VæskeMængde.VæskeMængde;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -9,13 +12,10 @@ import java.util.*;
  * Repræsenterer et destillat, som er væsken lagret på et fad.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Destillat implements Serializable, Historik {
+public class Destillat extends Væske {
     private final List<BatchMængde> batchMængder = new ArrayList<>();
     private final List<OmhældningsMængde> omhældningsMængder = new ArrayList<>();
     private String navn;
-    private int id;
-    private double alkoholprocent;
-    private double antalLiter;
     private LocalDate påfyldningsDato;
     private Fad fad;
     private int lagringstidIMåneder;
@@ -53,19 +53,6 @@ public class Destillat implements Serializable, Historik {
         this.navn = navn;
     }
 
-    //TODO java doc
-    public double getAlkoholprocent() {
-        return alkoholprocent;
-    }
-
-    /**
-     * Sætter destillatets unikke ID.
-     *
-     * @param id det nye ID for destillatet.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Henter destillatets påfyldningsdato.
@@ -85,35 +72,11 @@ public class Destillat implements Serializable, Historik {
         this.påfyldningsDato = påfyldningsDato;
     }
 
-    /**
-     * Henter det aktuelle antal liter der er i destillatet.
-     *
-     * @return det aktuelle antal liter destillat.
-     */
-    public double getAntalLiter() {
-        return antalLiter;
-    }
 
     public void setLagringstidIMåneder(int måneder) {
         lagringstidIMåneder = måneder;
     }
-    /**
-     * Sætter det aktuelle antal liter der er i destillatet.
-     *
-     * @param antalLiter det nye antal liter destillat.
-     */
-    public void setAntalLiter(double antalLiter) {
-        this.antalLiter = antalLiter;
-    }
 
-    /**
-     * Sætter destillatets alkoholprocent.
-     *
-     * @param alkoholprocent den nye alkoholprocent for destillatet.
-     */
-    public void setAlkoholprocent(double alkoholprocent) {
-        this.alkoholprocent = alkoholprocent;
-    }
 
     //sammenhæng til fad
 
@@ -151,26 +114,13 @@ public class Destillat implements Serializable, Historik {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
         this.antalLiter += antalLiter;
 
-        int index = findesBatchIBatchMængdeListe(batch);
+        int index = findesVæskeIVæskeMængdeListe(batch);
         if (index != -1) {
             batchMængder.get(index).addLiterTilEksisterendeBM(antalLiter);
         } else {
             batchMængder.add(batchMængde);
         }
         return batchMængde;
-    }
-
-    //TODO java doc
-    private int findesBatchIBatchMængdeListe(Batch batch) {
-        int i = 0;
-        while (i < batchMængder.size()) {
-            if (batchMængder.get(i).getBatch() == batch) {
-                return i;
-            } else {
-                i++;
-            }
-        }
-        return -1;
     }
 
     //sammenhæng til DestillatMængde
@@ -189,7 +139,7 @@ public class Destillat implements Serializable, Historik {
         OmhældningsMængde omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
         this.antalLiter += antalLiter;
 
-        int index = findesDestillatIOmhældningsMængdeListe(destillat);
+        int index = findesVæskeIVæskeMængdeListe(destillat);
         if (index != -1) {
             omhældningsMængder.get(index).addLiterTilEksisterendeOM(antalLiter);
         } else {
@@ -200,13 +150,23 @@ public class Destillat implements Serializable, Historik {
     }
 
     //TODO java doc
-    private int findesDestillatIOmhældningsMængdeListe(Destillat destillat) {
+    private int findesVæskeIVæskeMængdeListe(Væske væske) {
         int i = 0;
-        while (i < omhældningsMængder.size()) {
-            if (omhældningsMængder.get(i).getDestillat() == destillat) {
-                return i;
-            } else {
-                i++;
+        if (væske instanceof Destillat) {
+            while (i < omhældningsMængder.size()) {
+                if (omhældningsMængder.get(i).getDestillat() == væske) {
+                    return i;
+                } else {
+                    i++;
+                }
+            }
+        } else if (væske instanceof Batch) {
+            while (i < batchMængder.size()) {
+                if (batchMængder.get(i).getBatch() == væske) {
+                    return i;
+                } else {
+                    i++;
+                }
             }
         }
         return -1;
@@ -240,19 +200,18 @@ public class Destillat implements Serializable, Historik {
     }
 
     /**
+     * Tømmer et destillat
+     */
+    public void tømDestillat() {
+        setAntalLiter(0);
+    }
+
+    /**
      * Laver en historik over destillatet der indeholder destillatets id, navn, påfyldningsdato, alkoholprocent, fadets historik
      * og alle batches historik som destillatet indeholder.
      *
      * @return Stringbuilder med historikken.
      */
-
-    /**
-     * Tømmer et destillat
-     */
-    public void tømDestillat(){
-        setAntalLiter(0);
-    }
-
     public StringBuilder hentHistorikHjælpeMetode() {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
@@ -271,7 +230,7 @@ public class Destillat implements Serializable, Historik {
         sb.append("\n\nBatches:\n");
         Map<Batch, Double> batches = new HashMap<>();
         for (BatchMængde bm : getBatchMængder()) {
-            batches.merge(bm.getBatch(), bm.getAntalLiter(), Double::sum);
+            batches.merge((Batch) bm.getBatch(), bm.getAntalLiter(), Double::sum);
         }
         for (Map.Entry<Batch, Double> k : batches.entrySet()) {
             sb.append(k.getKey().hentHistorik());
@@ -289,7 +248,8 @@ public class Destillat implements Serializable, Historik {
     public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
         for (BatchMængde bm : batchMængder) {
-            marker.add(bm.getBatch().getMark());
+            Batch batch = (Batch) bm.getBatch();
+            marker.add(batch.getMark());
         }
         return marker;
     }
@@ -321,10 +281,7 @@ public class Destillat implements Serializable, Historik {
 
     //TODO java doc
     public boolean isSingleCask() {
-        if (omhældningsMængder.isEmpty()) {
-            return true;
-        }
-        else return false;
+        return omhældningsMængder.isEmpty();
     }
 
     //TODO java doc

@@ -1,8 +1,8 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Bygsort;
-import application.model.Mark;
+import application.model.Enums.Bygsort;
+import application.model.Enums.Mark;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

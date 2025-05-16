@@ -1,4 +1,4 @@
-package application.model;
+package application.model.Enums;
 
 /**
  * Enumeration der definerer de forskellige lande hvorfra fade, der bruges til lagring af destillat, kommer fra.
