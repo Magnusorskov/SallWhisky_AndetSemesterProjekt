@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import java.util.Optional;
+
 public class PåfyldningsPane extends GridPane {
     private TextArea txaBatchBeskrivelse, txaFadBeskrivelse;
     private TextField txfNavn, txfAntalLiter;
@@ -134,9 +136,17 @@ public class PåfyldningsPane extends GridPane {
 
     private void tømAction(){
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
-        if (batch != null){
-            Controller.tømBatch(batch);
-            updateControls();
+        if (batch != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Bekræft handling");
+            alert.setHeaderText("Er du sikker på, at du vil tømme destillatet?");
+            alert.setContentText("Der er " + batch.getVæskemængde() + " liter tilbage. Denne handling kan ikke fortrydes.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                Controller.tømBatch(batch);
+                updateControls();
+            }
         }
     }
 
