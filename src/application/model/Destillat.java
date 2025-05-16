@@ -149,9 +149,28 @@ public class Destillat implements Serializable, Historik {
      */
     public BatchMængde createBatchMængde(double antalLiter, Batch batch) {
         BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
-        batchMængder.add(batchMængde);
         this.antalLiter += antalLiter;
+
+        int index = findesBatchIBatchMængdeListe(batch);
+        if (index != -1) {
+            batchMængder.get(index).addLiterTilEksisterendeBM(antalLiter);
+        } else {
+            batchMængder.add(batchMængde);
+        }
         return batchMængde;
+    }
+
+    //TODO java doc
+    private int findesBatchIBatchMængdeListe(Batch batch) {
+        int i = 0;
+        while (i < batchMængder.size()) {
+            if (batchMængder.get(i).getBatch() == batch) {
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return -1;
     }
 
     //sammenhæng til DestillatMængde

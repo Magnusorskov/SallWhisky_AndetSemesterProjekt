@@ -42,4 +42,9 @@ public class BatchMængde implements Serializable {
     public Batch getBatch() {
         return batch;
     }
+    public void addLiterTilEksisterendeBM(double antalLiter) {
+        this.antalLiter += antalLiter;
+        batch.tapBatch(antalLiter);
+    }
+
 }
