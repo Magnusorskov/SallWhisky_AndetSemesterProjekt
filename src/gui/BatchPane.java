@@ -33,13 +33,12 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
 
 
-
         Label lblBatchInfo = new Label("Batch Info:");
         lblBatchInfo.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBatchInfo, 1, 0);
 
         txaBatchInfo = new TextArea();
-        this.add(txaBatchInfo, 1,1);
+        this.add(txaBatchInfo, 1, 1);
         txaBatchInfo.setEditable(false);
         txaBatchInfo.setMinHeight(150);
         txaBatchInfo.setMaxWidth(300);
