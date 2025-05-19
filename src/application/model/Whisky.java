@@ -7,19 +7,18 @@ import application.model.Væske.Væske;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
+import java.util.Set;
 
 /**
  * Repræsenterer en færdig whisky, som er en blanding af forskellige destillater og eventuelt vand.
  * Implementerer Serializable for at kunne gemmes og indlæses, og Comparable for at kunne sorteres.
  */
 public class Whisky extends Væske implements Comparable<Whisky> {
+    private final List<DestillatMængde> destillatMængder;
     private String navn;
     private double literVand;
     private String label;
     private Kvalitetsstempel kvalitetsstempel;
-
-    private final List<DestillatMængde> destillatMængder;
 
     /**
      * Initialiserer en ny whisky med et givent navn.
@@ -53,21 +52,21 @@ public class Whisky extends Væske implements Comparable<Whisky> {
     }
 
     /**
-     * Henter whiskyens label.
-     *
-     * @return whiskyens label.
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
      * Sætter mængden af tilsat vand i liter.
      *
      * @param literVand den nye mængde af tilsat vand i liter.
      */
     public void setLiterVand(double literVand) {
         this.literVand = literVand;
+    }
+
+    /**
+     * Henter whiskyens label.
+     *
+     * @return whiskyens label.
+     */
+    public String getLabel() {
+        return label;
     }
 
     /**
@@ -88,10 +87,10 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      * Pre: destillat er ikke null.
      *
      * @param antalLiter den mængde af destillatet der tilføjes i liter.
-     * @param destillat   det destillat der tilføjes til whiskyen.
+     * @param destillat  det destillat der tilføjes til whiskyen.
      */
     public void createDestillatMængde(double antalLiter, Destillat destillat) {
-        DestillatMængde destillatMængde = new DestillatMængde(antalLiter,destillat);
+        DestillatMængde destillatMængde = new DestillatMængde(antalLiter, destillat);
         this.antalLiter += antalLiter;
 
         int index = findesDestillatIDestillatMængdeListe(destillat);
@@ -105,12 +104,12 @@ public class Whisky extends Væske implements Comparable<Whisky> {
     //TODO java doc
     private int findesDestillatIDestillatMængdeListe(Destillat destillat) {
         int i = 0;
-            while (i < destillatMængder.size()) {
-                if (destillatMængder.get(i).getDestillat() == destillat) {
-                    return i;
-                } else {
-                    i++;
-                }
+        while (i < destillatMængder.size()) {
+            if (destillatMængder.get(i).getDestillat() == destillat) {
+                return i;
+            } else {
+                i++;
+            }
 
         }
         return -1;
@@ -150,41 +149,31 @@ public class Whisky extends Væske implements Comparable<Whisky> {
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
         sb.append("Whisky: " + id + " " + navn);
-        if (alkoholprocent > 0){
-            sb.append("\nAlkoholprocent: " + alkoholprocent);
-        }
-        if (kvalitetsstempel != null){
-            sb.append("\nKvalitetsstempel: " + kvalitetsstempel);
-        }
+
         double antalLiter = beregnAntalLiter();
-        if (antalLiter > 0){
+        if (antalLiter > 0) {
+            if (alkoholprocent > 0) {
+                sb.append("\nAlkoholprocent: " + alkoholprocent);
+            }
+            if (kvalitetsstempel != null) {
+                sb.append("\nKvalitetsstempel: " + kvalitetsstempel);
+            }
             sb.append("\nAntal liter: " + antalLiter);
-            if (literVand > 0){
+            if (literVand > 0) {
                 sb.append("\nHeraf vand: " + literVand);
             }
             sb.append("\nAntal Flasker: " + beregnAntalFlasker());
-        }
-        sb.append("\n----------------------------------");
-
-        Map<Destillat, Double> destillater = new HashMap<>();
-        for (DestillatMængde dm : getDestillatMængder()) {
-            destillater.merge(dm.getDestillat(), dm.getAntalLiter(), Double::sum);
-        }
-
-        if(!destillater.isEmpty()) {
+            sb.append("\n----------------------------------");
             sb.append("\n\nDestillater:");
 
-            Iterator<Map.Entry<Destillat, Double>> iterator = destillater.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Destillat, Double> k = iterator.next();
-                sb.append("\n\nAntal Liter af Destillat: " + k.getValue());
-                sb.append("\n" + k.getKey().hentHistorik());
+            for (DestillatMængde dm : destillatMængder) {
+                sb.append("\n" + dm.getDestillat().hentHistorik());
                 sb.append("----------------------------------");
             }
         }
-
         return sb;
     }
+
 
     /**
      * Beregner det estimerede antal flasker (af 0.7 liter) whiskyen kan fylde.
@@ -200,11 +189,11 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      *
      * @return et Set af unikke Mark objekter.
      */
-    public Set<Mark> getMarker (){
+    public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
-        for (DestillatMængde dm : destillatMængder){
+        for (DestillatMængde dm : destillatMængder) {
             marker.addAll(dm.getDestillat().getMarker());
-           }
+        }
         return marker;
     }
 
@@ -213,9 +202,9 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      *
      * @return et Set af unikke Fadtype objekter.
      */
-    public Set<Fadtype> getFadtyper(){
+    public Set<Fadtype> getFadtyper() {
         Set<Fadtype> fadtyper = new HashSet<>();
-        for (DestillatMængde dm : destillatMængder){
+        for (DestillatMængde dm : destillatMængder) {
             fadtyper.add(dm.getDestillat().getFad().getFadType());
         }
         return fadtyper;
@@ -236,7 +225,8 @@ public class Whisky extends Væske implements Comparable<Whisky> {
     public void setKvalitetsStempel() {
         boolean singleCask = true;
         int i = 0;
-        while (singleCask && destillatMængder.size() > i) {{
+        while (singleCask && destillatMængder.size() > i) {
+            {
                 if (!destillatMængder.get(i).getDestillat().isSingleCask()) {
                     singleCask = false;
                 } else {

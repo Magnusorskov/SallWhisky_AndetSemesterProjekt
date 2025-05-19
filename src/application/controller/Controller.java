@@ -147,10 +147,12 @@ public abstract class Controller {
     public static List<Fad> getFadeUdenFærdigDestillat() {
         List<Fad> resultat = new ArrayList<>();
         for (Fad f : getFade()) {
-            if (f.getDestillat() == null) {
-                resultat.add(f);
-            } else if (f.getDestillat().getPåfyldningsDato() == null) {
-                resultat.add(f);
+            if(f.getAntalBrug() < 3) {
+                if (f.getDestillat() == null) {
+                    resultat.add(f);
+                } else if (f.getDestillat().getPåfyldningsDato() == null) {
+                    resultat.add(f);
+                }
             }
         }
         Collections.sort(resultat);
