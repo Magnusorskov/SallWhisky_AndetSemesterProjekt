@@ -8,6 +8,7 @@ import application.model.Land;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,7 +29,7 @@ public class LagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-        int width = 180;
+        int width = 200;
 
         Label lblSøgeKriterier = new Label("Søgekriterier");
         lblSøgeKriterier.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -38,7 +39,7 @@ public class LagerPane extends GridPane {
         this.add(lblLagre, 0, 1);
 
         cbbLagre = new ComboBox<>();
-        cbbLagre.setMinWidth(width);
+        cbbLagre.setMaxWidth(width);
         cbbLagre.getItems().add(null);
         cbbLagre.getItems().add("På lager");
         cbbLagre.getItems().add("Ikke på lager");
@@ -103,8 +104,9 @@ public class LagerPane extends GridPane {
 
         Button btnSøg = new Button("Søg");
         btnSøg.setOnAction(event -> this.søgAction());
-        GridPane.setHalignment(btnSøg, HPos.LEFT);
+        GridPane.setHalignment(btnSøg, HPos.RIGHT);
         this.add(btnSøg, 0, 14);
+        btnSøg.setMinWidth(70);
 
         //kolonne 1
         Label lblFade = new Label("Fade");
