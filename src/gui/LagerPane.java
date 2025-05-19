@@ -1,14 +1,13 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Fad;
 import application.model.Enums.Fadtype;
-import application.model.Lagervare;
 import application.model.Enums.Land;
+import application.model.Fad;
+import application.model.Lagervare;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -22,6 +21,7 @@ public class LagerPane extends GridPane {
     private RadioButton rbTom, rbFyldt, rbAlle;
     private ListView<Fad> lvwFad;
     private TextArea txaBeskrivelse;
+    private Label lblError;
 
     public LagerPane() {
         this.setPadding(new Insets(20));
@@ -134,7 +134,7 @@ public class LagerPane extends GridPane {
         txaBeskrivelse.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
 
-        Button btnFjern = new Button("Fjern");
+        Button btnFjern = new Button("Fjern fra lager");
         btnFjern.setOnAction(event -> this.fjernAction());
         GridPane.setHalignment(btnFjern, HPos.LEFT);
         this.add(btnFjern, 2, 7);
@@ -143,6 +143,12 @@ public class LagerPane extends GridPane {
         btnÆndrePlacering.setOnAction(event -> this.placeringAction());
         GridPane.setHalignment(btnÆndrePlacering, HPos.RIGHT);
         this.add(btnÆndrePlacering, 2, 7);
+
+        lblError = new Label();
+        this.add(lblError, 2, 8, 1, 2);
+        lblError.setStyle("-fx-text-fill: red");
+        lblError.setMinWidth(250);
+        lblError.setWrapText(true);
 
         //kolonne 3
         Button btnOpretLager = new Button("Opret Lager");
@@ -169,6 +175,8 @@ public class LagerPane extends GridPane {
         if (fad != null) {
             txaBeskrivelse.setText(Controller.getBeskrivelse(fad));
         }
+        lblError.setText("");
+
     }
 
     private void søgAction() {
@@ -205,10 +213,16 @@ public class LagerPane extends GridPane {
     private void fjernAction() {
         Fad fad = lvwFad.getSelectionModel().getSelectedItem();
 
+
         if (fad != null) {
-            if (fad.getDestillat() != null) {
+            if (fad.getLager() == null) {
+                lblError.setText("Fadet er ikke placeret på et lager.");
+
+            } else if (fad.getDestillat() == null) {
                 Controller.fjernLagerVare(fad);
                 updateControls();
+            } else {
+                lblError.setText("Man kan kun ændre placering på fade uden et aktivt destillat.");
             }
         }
     }
@@ -256,6 +270,7 @@ public class LagerPane extends GridPane {
         txfStørrelse.clear();
         txfStørrelse.clear();
         txaBeskrivelse.clear();
+        lblError.setText("");
         lvwFad.getItems().setAll(Controller.getFade());
     }
 

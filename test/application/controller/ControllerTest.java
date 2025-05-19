@@ -167,11 +167,11 @@ class ControllerTest {
         Controller.indsætVarePåLager(lager,1,1, fad);
         Controller.indsætVarePåLager(lager,2,2, fad);
         assertNull(lager.getLagerVare(1,1));
-//        System.out.println(lager.getPladser().length);
     }
 
     @Test
     void test9_omhældFad() {
-        System.out.println(fad2.getDestillat().hentHistorik());
+        System.out.println(fad1.getDestillat());
+        System.out.println(fad2.getDestillat());
     }
 }

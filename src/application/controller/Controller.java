@@ -361,7 +361,7 @@ public abstract class Controller {
         Destillat fadDestillat = createDestillatHvisIngenFindes(navn, fad);
         fadDestillat.createOmhældningsMængde(antalLiter, destillat);
         if (destillat.getAntalLiter() == 0) {
-            fad.setDestillat(null);
+            destillat.getFad().setDestillat(null);
         }
 
     }
