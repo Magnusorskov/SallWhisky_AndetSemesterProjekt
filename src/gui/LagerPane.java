@@ -2,9 +2,9 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Fad;
-import application.model.Fadtype;
+import application.model.Enums.Fadtype;
 import application.model.Lagervare;
-import application.model.Land;
+import application.model.Enums.Land;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

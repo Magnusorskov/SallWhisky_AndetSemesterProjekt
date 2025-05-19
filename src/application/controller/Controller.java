@@ -1,6 +1,10 @@
 package application.controller;
 
 import application.model.*;
+import application.model.Enums.Bygsort;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
+import application.model.Enums.Mark;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,7 +72,7 @@ public abstract class Controller {
     public static void færdiggørBatch(Batch batch, LocalDate slutDato, double alkoholprocent, double væskemængde, String kommentar) {
         batch.setSlutDato(slutDato);
         batch.setAlkoholprocent(alkoholprocent);
-        batch.setVæskemængde(væskemængde);
+        batch.setAntalLiter(væskemængde);
         batch.setKommentar(kommentar);
         storage.removeIgangværendeBatch(batch);
         storage.addFærdigBatch(batch);
@@ -82,14 +86,14 @@ public abstract class Controller {
     public static List<Batch> getFærdigeBatchesMedTilgængeligeLiter() {
         List<Batch> resultat = new ArrayList<>();
         for (Batch batch : getFærdigeBatches()) {
-            if (batch.getVæskemængde() > 0) {
+            if (batch.getAntalLiter() > 0) {
                 resultat.add(batch);
             }
         }
         return resultat;
     }
 
-    public static void tømBatch(Batch batch){
+    public static void tømBatch(Batch batch) {
         batch.tømBatch();
     }
 
@@ -183,7 +187,7 @@ public abstract class Controller {
     public static void påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
         if (antalLiter > fad.getTilgængeligeLiter()) {
             throw new IllegalArgumentException("Der er ikke nok plads i fadet");
-        } else if (antalLiter > batch.getVæskemængde()) {
+        } else if (antalLiter > batch.getAntalLiter()) {
             throw new IllegalArgumentException("Der er ikke nok væske i batchen");
         }
         Destillat destillat = createDestillatHvisIngenFindes(navn, fad);
@@ -362,7 +366,7 @@ public abstract class Controller {
 
     }
 
-    public static void tømDestillat(Destillat destillat){
+    public static void tømDestillat(Destillat destillat) {
         destillat.tømDestillat();
     }
 
@@ -489,7 +493,8 @@ public abstract class Controller {
     //------------------------------------------------------------------------------------------------------------------
 
     /**
-     *Fjerner en lagervare fra lageret
+     * Fjerner en lagervare fra lageret
+     *
      * @param lagervare den lagervare man ønsker fjerne
      */
     public static void fjernLagerVare(Lagervare lagervare) {
@@ -647,10 +652,11 @@ public abstract class Controller {
         }
         return resultat;
     }
+
     //TODO javadoc
-    public static void udvidLager (Lager lager, int antalReoler, int antalHylder) {
+    public static void udvidLager(Lager lager, int antalReoler, int antalHylder) {
         if (lager != null) {
-            lager.udvidLager(antalReoler,antalHylder);
+            lager.udvidLager(antalReoler, antalHylder);
         }
     }
 

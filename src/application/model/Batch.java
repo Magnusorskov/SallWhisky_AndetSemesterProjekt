@@ -1,6 +1,9 @@
 package application.model;
 
-import java.io.Serializable;
+import application.model.Enums.Bygsort;
+import application.model.Enums.Mark;
+import application.model.Væske.Væske;
+
 import java.time.LocalDate;
 
 /**
@@ -8,7 +11,7 @@ import java.time.LocalDate;
  * Indeholder information om bygsort, mark, maltning, rygning og tidsperiode.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Batch implements Serializable, Historik {
+public class Batch extends Væske {
     private Bygsort bygsort;
     private Mark mark;
     private String initialer;
@@ -16,10 +19,8 @@ public class Batch implements Serializable, Historik {
     private String rygemateriale;
     private LocalDate startDato;
     private LocalDate slutDato;
-    private double alkoholprocent;
-    private double væskemængde;
     private String kommentar;
-    private int id;
+
 
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar.
@@ -51,7 +52,7 @@ public class Batch implements Serializable, Historik {
      * @param antalLiter det antal liter man tapper fra batchen.
      */
     public void tapBatch(double antalLiter) {
-        væskemængde -= antalLiter;
+        this.antalLiter -= antalLiter;
     }
 
     /**
@@ -128,41 +129,7 @@ public class Batch implements Serializable, Historik {
         this.slutDato = slutDato;
     }
 
-    /**
-     * Henter alkoholprocenten for batchen.
-     *
-     * @return batch'ens alkoholprocent.
-     */
-    public double getAlkoholprocent() {
-        return alkoholprocent;
-    }
 
-    /**
-     * Sætter alkoholprocenten for batchen.
-     *
-     * @param alkoholprocent den nye alkoholprocent for batchen.
-     */
-    public void setAlkoholprocent(double alkoholprocent) {
-        this.alkoholprocent = alkoholprocent;
-    }
-
-    /**
-     * Henter den aktuelle væskemængde i batchen i liter.
-     *
-     * @return den aktuelle væskemængde i liter.
-     */
-    public double getVæskemængde() {
-        return væskemængde;
-    }
-
-    /**
-     * Sætter den aktuelle væskemængde i batchen i liter.
-     *
-     * @param væskemængde den nye væskemængde i liter.
-     */
-    public void setVæskemængde(double væskemængde) {
-        this.væskemængde = væskemængde;
-    }
 
     /**
      * Henter eventuelle kommentarer til batchen.
@@ -183,24 +150,6 @@ public class Batch implements Serializable, Historik {
         this.kommentar = kommentar;
     }
 
-    /**
-     * Henter batchens unikke ID.
-     *
-     * @return batch'ens ID.
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Sætter batchens unikke ID.
-     *
-     * @param id det nye ID for batchen.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     //metoder
 
@@ -208,7 +157,7 @@ public class Batch implements Serializable, Historik {
      * Tømmer et batch for væske
      */
     public void tømBatch(){
-        setVæskemængde(0);
+        setAntalLiter(0);
     }
 
     /**
@@ -249,7 +198,7 @@ public class Batch implements Serializable, Historik {
     @Override
     public String toString() {
         String batch = "BatchNr:" + id + " StartDato: " + startDato;
-        if (væskemængde == 0 && slutDato != null) {
+        if (antalLiter == 0 && slutDato != null) {
             batch = batch + " (Tom)";
         }
         return batch;

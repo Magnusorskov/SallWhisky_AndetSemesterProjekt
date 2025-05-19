@@ -1,5 +1,7 @@
 package application.model;
 
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

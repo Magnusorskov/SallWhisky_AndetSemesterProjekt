@@ -1,4 +1,4 @@
-package application.model;
+package application.model.Enums;
 
 /**
  * Enumeration der definerer de forskellige typer af fade, der kan bruges til lagring af destillat.

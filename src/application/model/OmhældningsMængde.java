@@ -1,6 +1,7 @@
 package application.model;
 
-import java.io.Serializable;
+import application.model.VæskeMængde.VæskeMængde;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -10,43 +11,18 @@ import java.time.temporal.ChronoUnit;
  *  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 
-public class OmhældningsMængde implements Serializable {
-    private double antalLiter;
-    private final Destillat destillat;
-
-
+public class OmhældningsMængde extends VæskeMængde {
     /**
-     * Initialiserer en OmhældningsMængdes antal liter og destillat.
+     * Initialiserer en OmhældningsMængdes antal liter og oldDestillat.
      *      * Pre: antalLiter er større end 0.
-     *      * Pre: destillat er ikke null.
+     *      * Pre: oldDestillat er ikke null.
      * @param antalLiter det antal liter man omhælder fra destillatet.
-     * @param destillat det destillat man tager væske fra.
+     * @param oldDestillat det oldDestillat man tager væske fra.
      */
-    OmhældningsMængde(double antalLiter, Destillat destillat) {
-        this.antalLiter = antalLiter;
-        this.destillat = destillat;
-        destillat.tapDestillat(antalLiter);
-
-
+    OmhældningsMængde(double antalLiter, Destillat oldDestillat) {
+        super(antalLiter, oldDestillat);
+        oldDestillat.tapDestillat(antalLiter);
     }
-
-    /**
-     * Getter en double med antal liter
-     * @return double med antal liter
-     */
-
-    public double getAntalLiter() {
-        return antalLiter;
-    }
-
-    /**
-     * Getter destillat
-     * @return et destillat
-     */
-    public Destillat getDestillat() {
-        return destillat;
-    }
-
 
     /**
      * Setter lagringstiden på destillatet
@@ -54,6 +30,7 @@ public class OmhældningsMængde implements Serializable {
      * @param påfyldningsDato dato for påfyldning
      */
     public void setLagringstidIMåneder(LocalDate påfyldningsDato) {
+        Destillat destillat = (Destillat) væske;
         long antalDage = ChronoUnit.DAYS.between(destillat.getPåfyldningsDato(), påfyldningsDato);
         destillat.setLagringstidIMåneder((int) (antalDage / 30.436768));
     }
@@ -63,7 +40,17 @@ public class OmhældningsMængde implements Serializable {
      * @param antalLiter antal liter man ønsker at tilføje
      */
     public void addLiterTilEksisterendeOM(double antalLiter) {
+        Destillat destillat = (Destillat) væske;
         this.antalLiter += antalLiter;
         destillat.tapDestillat(antalLiter);
+    }
+
+    /**
+     * Returnerer DestillatMængdens tilknyttede batch.
+     *
+     * @return DestillatMængdens destillat.
+     */
+    public Destillat getDestillat() {
+        return (Destillat) væske;
     }
 }
