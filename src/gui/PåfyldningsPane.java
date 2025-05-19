@@ -33,7 +33,7 @@ public class PåfyldningsPane extends GridPane {
 
         int width = 260;
 
-        Label lblBatches = new Label("Batches");
+        Label lblBatches = new Label("Batch");
         lblBatches.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBatches, 0, 0);
 
@@ -98,7 +98,7 @@ public class PåfyldningsPane extends GridPane {
         this.add(vbDestillatInfo, 1, 2, 1, 5);
 
         //kolonne 2
-        Label lblFade = new Label("Fade");
+        Label lblFade = new Label("Fad");
         lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblFade, 2, 0);
 

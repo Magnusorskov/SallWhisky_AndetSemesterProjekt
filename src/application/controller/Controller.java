@@ -494,14 +494,13 @@ public abstract class Controller {
 
     /**
      * Fjerner en lagervare fra lageret
+     * Pre: lager er ikke null.
      *
      * @param lagervare den lagervare man ønsker fjerne
      */
     public static void fjernLagerVare(Lagervare lagervare) {
         Lager lager = lagervare.getLager();
-        if (lager != null) {
-            lager.removeLagerVare(lagervare);
-        }
+        lager.removeLagerVare(lagervare);
     }
 
     //------------------------------------------------------------------------------------------------------------------

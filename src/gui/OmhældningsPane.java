@@ -99,7 +99,7 @@ public class OmhældningsPane extends GridPane {
         this.add(vbDestillatInfo, 1, 2, 1, 5);
 
         //kolonne 2
-        Label lblFade = new Label("Fade");
+        Label lblFade = new Label("Fad");
         lblFade.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblFade, 2, 0);
 

@@ -131,7 +131,7 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      * Beregner det samlede antal liter whiskyen indeholder (summen af alle destillater og tilsat vand).
      *
      * @return det samlede antal liter whisky.
-     */
+     */ //TODO fix gentantal liter
     public double beregnAntalLiter(){
         double antal = 0;
         for (DestillatMængde d : destillatMængder) {

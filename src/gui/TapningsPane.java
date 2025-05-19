@@ -34,7 +34,7 @@ public class TapningsPane extends GridPane {
 
         int width = 260;
 
-        lblDestillater = new Label("Destillater");
+        lblDestillater = new Label("Destillat");
         lblDestillater.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblDestillater,0,0);
 
@@ -46,7 +46,6 @@ public class TapningsPane extends GridPane {
         lblDestillatBeskrivelse = new Label("Beskrivelse");
         this.add(lblDestillatBeskrivelse, 0, 2);
 
-        Destillat destillat = cmbDestillater.getSelectionModel().getSelectedItem();
         txaDestillatBeskrivelse = new TextArea();
         this.add(txaDestillatBeskrivelse,0,3);
         txaDestillatBeskrivelse.setPrefWidth(width);
@@ -59,7 +58,7 @@ public class TapningsPane extends GridPane {
 
 
         btnTøm = new Button("Tøm destillat");
-        this.add(btnTøm,0,4);
+        this.add(btnTøm,0,5);
         btnTøm.setDisable(true);
         btnTøm.setOnAction(event -> this.tømAction());
 
