@@ -111,13 +111,14 @@ public class Destillat extends Væske {
      * @return den færdige BatchMængde.
      */
     public BatchMængde createBatchMængde(double antalLiter, Batch batch) {
-        BatchMængde batchMængde = new BatchMængde(antalLiter, batch);
         this.antalLiter += antalLiter;
-
+        BatchMængde batchMængde;
         int index = findesVæskeIVæskeMængdeListe(batch);
         if (index != -1) {
-            batchMængder.get(index).addLiterTilEksisterendeBM(antalLiter);
+            batchMængde = batchMængder.get(index);
+            batchMængde.addLiterTilEksisterendeBM(antalLiter);
         } else {
+            batchMængde = new BatchMængde(antalLiter, batch);
             batchMængder.add(batchMængde);
         }
         return batchMængde;
@@ -136,13 +137,15 @@ public class Destillat extends Væske {
      * @return den færdige omhældnings mængde.
      */
     public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat destillat) {
-        OmhældningsMængde omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
+        OmhældningsMængde omhældningsMængde;
         this.antalLiter += antalLiter;
 
         int index = findesVæskeIVæskeMængdeListe(destillat);
         if (index != -1) {
+            omhældningsMængde = omhældningsMængder.get(index);
             omhældningsMængder.get(index).addLiterTilEksisterendeOM(antalLiter);
         } else {
+            omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
             omhældningsMængder.add(omhældningsMængde);
         }
 
@@ -151,18 +154,17 @@ public class Destillat extends Væske {
 
     //TODO java doc
     private int findesVæskeIVæskeMængdeListe(Væske væske) {
-        int i = 0;
+        List<? extends VæskeMængde> væskeMængder = null;
+
         if (væske instanceof Destillat) {
-            while (i < omhældningsMængder.size()) {
-                if (omhældningsMængder.get(i).getDestillat() == væske) {
-                    return i;
-                } else {
-                    i++;
-                }
-            }
+            væskeMængder = this.omhældningsMængder;
         } else if (væske instanceof Batch) {
-            while (i < batchMængder.size()) {
-                if (batchMængder.get(i).getBatch() == væske) {
+            væskeMængder = this.batchMængder;
+        }
+        if (væskeMængder != null) {
+            int i = 0;
+            while (i < væskeMængder.size()) {
+                if (væskeMængder.get(i).getVæske() == væske) {
                     return i;
                 } else {
                     i++;
@@ -248,7 +250,7 @@ public class Destillat extends Væske {
     public Set<Mark> getMarker() {
         Set<Mark> marker = new HashSet<>();
         for (BatchMængde bm : batchMængder) {
-            Batch batch = (Batch) bm.getBatch();
+            Batch batch = bm.getBatch();
             marker.add(batch.getMark());
         }
         return marker;

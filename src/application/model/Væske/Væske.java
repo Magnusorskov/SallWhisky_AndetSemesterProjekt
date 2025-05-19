@@ -10,6 +10,7 @@ public abstract class Væske implements Historik, Serializable {
     protected double alkoholprocent;
 
     public Væske() {
+
     }
 
     /**
@@ -65,4 +66,6 @@ public abstract class Væske implements Historik, Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }

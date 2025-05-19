@@ -35,7 +35,7 @@ public abstract class VæskeMængde implements Serializable {
         return antalLiter;
     }
 
-
-
-
+    public Væske getVæske() {
+        return væske;
+    }
 }

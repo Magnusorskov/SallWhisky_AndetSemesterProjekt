@@ -2,7 +2,6 @@ package application.model;
 
 import application.model.VæskeMængde.VæskeMængde;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -12,16 +11,17 @@ import java.time.temporal.ChronoUnit;
  *  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 
-public class OmhældningsMængde extends DestillatMængde {
+public class OmhældningsMængde extends VæskeMængde {
     /**
-     * Initialiserer en OmhældningsMængdes antal liter og destillat.
+     * Initialiserer en OmhældningsMængdes antal liter og oldDestillat.
      *      * Pre: antalLiter er større end 0.
-     *      * Pre: destillat er ikke null.
+     *      * Pre: oldDestillat er ikke null.
      * @param antalLiter det antal liter man omhælder fra destillatet.
-     * @param destillat det destillat man tager væske fra.
+     * @param oldDestillat det oldDestillat man tager væske fra.
      */
-    OmhældningsMængde(double antalLiter, Destillat destillat) {
-        super(antalLiter,destillat);
+    OmhældningsMængde(double antalLiter, Destillat oldDestillat) {
+        super(antalLiter, oldDestillat);
+        oldDestillat.tapDestillat(antalLiter);
     }
 
     /**
@@ -43,5 +43,14 @@ public class OmhældningsMængde extends DestillatMængde {
         Destillat destillat = (Destillat) væske;
         this.antalLiter += antalLiter;
         destillat.tapDestillat(antalLiter);
+    }
+
+    /**
+     * Returnerer DestillatMængdens tilknyttede batch.
+     *
+     * @return DestillatMængdens destillat.
+     */
+    public Destillat getDestillat() {
+        return (Destillat) væske;
     }
 }

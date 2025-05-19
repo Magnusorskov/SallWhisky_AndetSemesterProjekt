@@ -93,7 +93,7 @@ public abstract class Controller {
         return resultat;
     }
 
-    public static void tømBatch(Batch batch){
+    public static void tømBatch(Batch batch) {
         batch.tømBatch();
     }
 
@@ -366,7 +366,7 @@ public abstract class Controller {
 
     }
 
-    public static void tømDestillat(Destillat destillat){
+    public static void tømDestillat(Destillat destillat) {
         destillat.tømDestillat();
     }
 
@@ -493,7 +493,8 @@ public abstract class Controller {
     //------------------------------------------------------------------------------------------------------------------
 
     /**
-     *Fjerner en lagervare fra lageret
+     * Fjerner en lagervare fra lageret
+     *
      * @param lagervare den lagervare man ønsker fjerne
      */
     public static void fjernLagerVare(Lagervare lagervare) {
@@ -651,10 +652,11 @@ public abstract class Controller {
         }
         return resultat;
     }
+
     //TODO javadoc
-    public static void udvidLager (Lager lager, int antalReoler, int antalHylder) {
+    public static void udvidLager(Lager lager, int antalReoler, int antalHylder) {
         if (lager != null) {
-            lager.udvidLager(antalReoler,antalHylder);
+            lager.udvidLager(antalReoler, antalHylder);
         }
     }
 
