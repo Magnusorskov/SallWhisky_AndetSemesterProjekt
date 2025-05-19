@@ -29,6 +29,7 @@ public class TapningsPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
+//        this.setStyle("-fx-background-color: #adddff;");
 
         int width = 260;
 
@@ -49,12 +50,15 @@ public class TapningsPane extends GridPane {
         this.add(txaDestillatBeskrivelse,0,3);
         txaDestillatBeskrivelse.setPrefWidth(width);
         txaDestillatBeskrivelse.setEditable(false);
+        txaDestillatBeskrivelse.setStyle("-fx-border-color: #B36A5E; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
         ChangeListener<Destillat> listener = (ov, oldDestillat, newDestillat) -> this.selectionChangeDestillat();
         cmbDestillater.getSelectionModel().selectedItemProperty().addListener(listener);
+        cmbDestillater.setStyle("-fx-border-color: #B36A5E; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         btnTøm = new Button("Tøm destillat");
-        this.add(btnTøm,0,5);
+        this.add(btnTøm,0,4);
         btnTøm.setDisable(true);
         btnTøm.setOnAction(event -> this.tømAction());
 
@@ -97,6 +101,7 @@ public class TapningsPane extends GridPane {
 
         ChangeListener<Whisky> whiskeyListener = (ov, oldWhisky, newWhisky) -> this.selectionChangeWhisky();
         cmbWhisky.getSelectionModel().selectedItemProperty().addListener(whiskeyListener);
+        cmbWhisky.setStyle("-fx-border-color: #D4A849; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
         lblWhiskyBeskrivelse = new Label("Beskrivelse");
         this.add(lblWhiskyBeskrivelse,2,2);
@@ -106,6 +111,7 @@ public class TapningsPane extends GridPane {
         this.add(txaWhiskeyBeskrivelse,2,3);
         txaWhiskeyBeskrivelse.setPrefWidth(width);
         txaWhiskeyBeskrivelse.setEditable(false);
+        txaWhiskeyBeskrivelse.setStyle("-fx-border-color: #D4A849; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
         btnFærdiggør = new Button("Færdiggør whisky");
         btnOpret = new Button("Opret whiskey");

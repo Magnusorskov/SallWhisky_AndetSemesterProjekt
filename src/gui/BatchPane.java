@@ -19,6 +19,7 @@ public class BatchPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
+//        this.setStyle("-fx-background-color: #e8f8ff;");
 
         Label lblBatch = new Label("Igangværende Batches");
         lblBatch.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -31,6 +32,7 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.getItems().setAll(Controller.getIgangværendeBatches());
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectedBatchChanged();
         lvwIgangværendeBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+        lvwIgangværendeBatches.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
 
 
@@ -43,6 +45,7 @@ public class BatchPane extends GridPane {
         txaBatchInfo.setEditable(false);
         txaBatchInfo.setMinHeight(150);
         txaBatchInfo.setMaxWidth(300);
+        txaBatchInfo.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
         Button btnFjernBatch = new Button("Fjern batch");
         btnFjernBatch.setOnAction(event -> removeAction(lvwIgangværendeBatches.getSelectionModel().getSelectedItem()));

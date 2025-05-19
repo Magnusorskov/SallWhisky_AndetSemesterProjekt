@@ -29,6 +29,7 @@ public class PåfyldningsPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
+//        this.setStyle("-fx-background-color: #d6f0ff;");
 
         int width = 260;
 
@@ -48,9 +49,13 @@ public class PåfyldningsPane extends GridPane {
         this.add(txaBatchBeskrivelse, 0, 3);
         txaBatchBeskrivelse.setPrefWidth(width);
         txaBatchBeskrivelse.setEditable(false);
+        txaBatchBeskrivelse.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         ChangeListener<Batch> listener = (ov, oldBatch, newBatch) -> this.selectionChangeBatch();
         cmbBatches.getSelectionModel().selectedItemProperty().addListener(listener);
+        cmbBatches.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         btnTøm = new Button("Tøm batch");
         this.add(btnTøm,0,5);
@@ -104,6 +109,8 @@ public class PåfyldningsPane extends GridPane {
 
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         cmbFade.getSelectionModel().selectedItemProperty().addListener(fadListener);
+        cmbFade.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         Label lblBeskrivelse2 = new Label("Beskrivelse");
         this.add(lblBeskrivelse2, 2, 2);
@@ -112,6 +119,8 @@ public class PåfyldningsPane extends GridPane {
         txaFadBeskrivelse.setEditable(false);
         this.add(txaFadBeskrivelse, 2, 3);
         txaFadBeskrivelse.setPrefWidth(width);
+        txaFadBeskrivelse.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         btnFærdiggørDestillat = new Button("Færdiggør destillat");
         this.add(btnFærdiggørDestillat, 2, 5);

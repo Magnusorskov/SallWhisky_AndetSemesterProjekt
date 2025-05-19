@@ -28,6 +28,7 @@ public class LagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
+
         int width = 180;
 
         Label lblSøgeKriterier = new Label("Søgekriterier");
@@ -114,6 +115,8 @@ public class LagerPane extends GridPane {
         lvwFad = new ListView<>();
         lvwFad.setMinWidth(300);
         this.add(lvwFad, 1, 1, 1, 14);
+        lvwFad.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         lvwFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
@@ -127,6 +130,8 @@ public class LagerPane extends GridPane {
         txaBeskrivelse.setMaxWidth(250);
         txaBeskrivelse.setMinHeight(200);
         this.add(txaBeskrivelse, 2, 1, 1, 6);
+        txaBeskrivelse.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
 
         Button btnFjern = new Button("Fjern");
         btnFjern.setOnAction(event -> this.fjernAction());

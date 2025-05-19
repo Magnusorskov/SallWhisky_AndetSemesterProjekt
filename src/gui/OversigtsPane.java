@@ -27,6 +27,7 @@ public class OversigtsPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
+
         Label lblType = new Label("Type");
         lblType.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblType, 0, 0);
@@ -79,6 +80,8 @@ public class OversigtsPane extends GridPane {
 
         if (cbbOversigt.getSelectionModel().getSelectedItem() == null) {
             lvwOversigt.getItems().setAll();
+            lvwOversigt.setStyle("");
+            txaForhåndsvisning.setStyle("");
         } else {
             String type = cbbOversigt.getSelectionModel().getSelectedItem();
 
@@ -87,12 +90,28 @@ public class OversigtsPane extends GridPane {
                 batches.addAll(Controller.getIgangværendeBatches());
 
                 lvwOversigt.getItems().setAll(batches);
+                lvwOversigt.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+                txaForhåndsvisning.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
+
             } else if (type.equals("Destillater")){
                 lvwOversigt.getItems().setAll(Controller.getDestillater());
+                lvwOversigt.setStyle("-fx-border-color: #B36A5E; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+                txaForhåndsvisning.setStyle("-fx-border-color: #B36A5E; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
+
             } else if (type.equals("Whiskyer")){
                 lvwOversigt.getItems().setAll(Controller.getWhiskyer());
+                lvwOversigt.setStyle("-fx-border-color: #C49000; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+                txaForhåndsvisning.setStyle("-fx-border-color: #C49000; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
+
             } else {
                 lvwOversigt.getItems().setAll(Controller.getFade());
+                lvwOversigt.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+                txaForhåndsvisning.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+
+
             }
         }
     }
