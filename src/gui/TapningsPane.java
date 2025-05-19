@@ -5,6 +5,7 @@ import application.model.Batch;
 import application.model.Destillat;
 import application.model.Whisky;
 import javafx.beans.value.ChangeListener;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -107,17 +108,16 @@ public class TapningsPane extends GridPane {
         txaWhiskeyBeskrivelse.setPrefWidth(width);
         txaWhiskeyBeskrivelse.setEditable(false);
 
-        btnFærdiggør = new Button("Færdiggør whisky");
         btnOpret = new Button("Opret whiskey");
-
-        HBox hbBtns = new HBox(btnOpret,btnFærdiggør);
-        hbBtns.setSpacing(10);
-        this.add(hbBtns,2,4);
-
         btnOpret.setOnAction(event -> this.opretWhiskeyAction());
+        this.add(btnOpret, 2,5);
+        GridPane.setHalignment(btnOpret, HPos.RIGHT);
 
+        btnFærdiggør = new Button("Færdiggør whisky");
         btnFærdiggør.setOnAction(event -> this.færdiggørWhiskyAction());
         btnFærdiggør.setDisable(true);
+        this.add(btnFærdiggør, 2,5);
+        GridPane.setHalignment(btnFærdiggør, HPos.LEFT);
 
     }
 
