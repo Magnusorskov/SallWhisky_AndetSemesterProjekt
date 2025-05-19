@@ -6,7 +6,10 @@ import application.model.VæskeMængde.VæskeMængde;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Repræsenterer et destillat, som er væsken lagret på et fad.
@@ -218,6 +221,7 @@ public class Destillat extends Væske {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
+        sb.append("\nAntal liter: " + antalLiter);
         if (alkoholprocent > 0) {
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
@@ -229,14 +233,11 @@ public class Destillat extends Væske {
         }
         sb.append("\n----------------------------------");
 
-        sb.append("\n\nBatches:\n");
-        Map<Batch, Double> batches = new HashMap<>();
-        for (BatchMængde bm : getBatchMængder()) {
-            batches.merge((Batch) bm.getBatch(), bm.getAntalLiter(), Double::sum);
-        }
-        for (Map.Entry<Batch, Double> k : batches.entrySet()) {
-            sb.append(k.getKey().hentHistorik());
-            sb.append("\nAntal Liter af batch: " + k.getValue() + "\n\n");
+        if (!batchMængder.isEmpty()) {
+            sb.append("\n\nBatches:\n");
+            for (BatchMængde bm : batchMængder) {
+                sb.append(bm.getBatch().hentHistorik());
+            }
         }
 
         return sb;
