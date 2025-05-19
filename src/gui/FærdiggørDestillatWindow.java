@@ -186,11 +186,14 @@ public class FærdiggørDestillatWindow extends Stage {
         LocalDate påfyldDato = this.påfyldDato.getValue();
         double alkohol = Double.parseDouble(txfAlkoholProcent.getText());
         Lager lager = cbbLager.getSelectionModel().getSelectedItem();
-        int maksReol = lager.getAntalReoler();
-        int maksHylde = lager.getAntalHylder();
+        int maksReol = -1;
+        int maksHylde = -1;
+        if (lager != null) {
+            maksReol = lager.getAntalReoler();
+            maksHylde = lager.getAntalHylder();
+        }
         int reol = Integer.parseInt(txfReol.getText());
         int hylde = Integer.parseInt(txfHylde.getText());
-
 
         if (navn.isBlank()) {
             lblError.setText("Skriv et navn for destillatet");

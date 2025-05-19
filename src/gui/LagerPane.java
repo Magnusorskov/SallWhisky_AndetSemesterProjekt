@@ -132,6 +132,7 @@ public class LagerPane extends GridPane {
         txaBeskrivelse.setMinHeight(200);
         this.add(txaBeskrivelse, 2, 1, 1, 6);
         txaBeskrivelse.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
+        txaBeskrivelse.setEditable(false);
 
 
         Button btnFjern = new Button("Fjern fra lager");

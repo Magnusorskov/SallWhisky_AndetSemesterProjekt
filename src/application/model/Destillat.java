@@ -236,8 +236,9 @@ public class Destillat extends Væske {
         if (!batchMængder.isEmpty()) {
             sb.append("\n\nBatches:\n");
             for (BatchMængde bm : batchMængder) {
-                sb.append(bm.getBatch().hentHistorik());
+                sb.append(bm.getBatch().hentHistorik() + "\n\n");
             }
+            sb.append("----------------------------------\n\n");
         }
 
         return sb;

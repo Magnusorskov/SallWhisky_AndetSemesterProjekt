@@ -6,6 +6,7 @@ import application.model.Enums.Mark;
 import application.model.Væske.Væske;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

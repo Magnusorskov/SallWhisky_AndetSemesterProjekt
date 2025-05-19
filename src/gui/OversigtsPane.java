@@ -66,6 +66,7 @@ public class OversigtsPane extends GridPane {
         txaForhåndsvisning.setMaxWidth(250);
         txaForhåndsvisning.setMinHeight(200);
         this.add(txaForhåndsvisning, 2, 1);
+        txaForhåndsvisning.setEditable(false);
 
         Button btnUdtrækTilFil = new Button("Udtræk til fil");
         btnUdtrækTilFil.setOnAction(event -> this.udtrækAction());

@@ -148,9 +148,10 @@ public abstract class Controller {
         List<Fad> resultat = new ArrayList<>();
         for (Fad f : getFade()) {
             if(f.getAntalBrug() < 3) {
-                if (f.getDestillat() == null) {
+                Destillat fadDestillat = f.getDestillat();
+                if (fadDestillat == null) {
                     resultat.add(f);
-                } else if (f.getDestillat().getPåfyldningsDato() == null) {
+                } else if (fadDestillat.getPåfyldningsDato() == null) {
                     resultat.add(f);
                 }
             }
