@@ -1,8 +1,8 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Fadtype;
-import application.model.Land;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

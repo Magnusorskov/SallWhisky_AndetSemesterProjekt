@@ -1,6 +1,10 @@
 package application.controller;
 
 import application.model.*;
+import application.model.Enums.Bygsort;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
+import application.model.Enums.Mark;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import storage.ListStorage;
@@ -37,19 +41,19 @@ class ControllerTest {
         storage = new ListStorage();
         Controller.setStorage(storage);
 
-        batch = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
-        batch.setVæskemængde(50);
+        batch = Controller.createBatch(Bygsort.IRINA, Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
+        batch.setAntalLiter(50);
         batch1 = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr34",LocalDate.of(2025,01,01),"Test");
-        batch1.setVæskemængde(1000);
+        batch1.setAntalLiter(1000);
 
         batch2 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"MTD",null,"Nr35",LocalDate.of(2025,7,01),null);
-        batch2.setVæskemængde(1000);
+        batch2.setAntalLiter(1000);
         batch3 = Controller.createBatch(Bygsort.STAIRWAY,Mark.STADSGAARD,"HB","ipsum","Nr1",LocalDate.of(2025,01,30),"det var en god omgang");
-        batch3.setVæskemængde(1000);
+        batch3.setAntalLiter(1000);
         batch4 = Controller.createBatch(Bygsort.IRINA,Mark.MOSEVANG,"ETP","Lorem","Nr999",LocalDate.of(2025,2,14),"av for den");
-        batch4.setVæskemængde(1000);
+        batch4.setAntalLiter(1000);
 
-        fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,50);
+        fad = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,50);
         fad1 = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,1000);
         fad2 = Controller.createFad(Land.USA,Fadtype.NEW,1000);
         fad3 = Controller.createFad(Land.SPANIEN,Fadtype.EXSHERRY,1000);
@@ -87,7 +91,7 @@ class ControllerTest {
         assertNotNull(batch, "Batch ikke færdiggjort");
         assertEquals(LocalDate.of(2025,02,02),batch.getSlutDato(), "Slutdato er forkert");
         assertEquals(60,batch.getAlkoholprocent(),"Alkoholprocent er forkert");
-        assertEquals(50,batch.getVæskemængde(),"Væskemængde er forkert");
+        assertEquals(50,batch.getAntalLiter(),"Væskemængde er forkert");
         assertEquals("Test",batch.getKommentar(),"Kommentar er forkert");
         assertTrue(Controller.getFærdigeBatches().contains(batch));
     }

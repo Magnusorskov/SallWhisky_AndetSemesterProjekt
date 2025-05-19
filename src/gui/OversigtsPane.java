@@ -70,7 +70,7 @@ public class OversigtsPane extends GridPane {
         Button btnUdtrækTilFil = new Button("Udtræk til fil");
         btnUdtrækTilFil.setOnAction(event -> this.udtrækAction());
         GridPane.setHalignment(btnUdtrækTilFil, HPos.RIGHT);
-        this.add(btnUdtrækTilFil, 2, 2);
+        this.add(btnUdtrækTilFil, 2, 3);
 
     }
 

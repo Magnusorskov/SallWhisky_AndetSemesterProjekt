@@ -35,13 +35,12 @@ public class BatchPane extends GridPane {
         lvwIgangværendeBatches.setStyle("-fx-border-color: #E6C2B3; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
 
 
-
         Label lblBatchInfo = new Label("Batch Info:");
         lblBatchInfo.setFont(Font.font("System", FontWeight.BOLD, 16));
         this.add(lblBatchInfo, 1, 0);
 
         txaBatchInfo = new TextArea();
-        this.add(txaBatchInfo, 1,1);
+        this.add(txaBatchInfo, 1, 1);
         txaBatchInfo.setEditable(false);
         txaBatchInfo.setMinHeight(150);
         txaBatchInfo.setMaxWidth(300);

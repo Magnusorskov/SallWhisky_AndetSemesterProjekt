@@ -1,5 +1,7 @@
 package application.model;
 
+import application.model.VæskeMængde.VæskeMængde;
+
 import java.io.Serializable;
 
 /**
@@ -7,9 +9,7 @@ import java.io.Serializable;
  * Bruges til at spore sammensætningen af en whisky baseret på de anvendte destillater og deres mængder.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class DestillatMængde implements Serializable {
-    private double antalLiter;
-    private Destillat destillat;
+public class DestillatMængde extends VæskeMængde {
 
     /**
      * Initialiserer en DestillatMængdes antal liter og destillat.
@@ -20,19 +20,16 @@ public class DestillatMængde implements Serializable {
      * @param destillat  det destillat man tager væske fra.
      */
     DestillatMængde(double antalLiter, Destillat destillat) {
-        this.antalLiter = antalLiter;
-        this.destillat = destillat;
+        super(antalLiter,destillat);
         destillat.tapDestillat(antalLiter);
     }
 
-    /**
-     * Returnerer en double med DestillatMængdens liter.
-     *
-     * @return DestillatMængdens liter som double.
-     */
-    public double getAntalLiter() {
-        return antalLiter;
+    public void addLiterTilEksisterendeDM(double antalLiter) {
+        this.antalLiter += antalLiter;
+        Destillat destillat = (Destillat) væske;
+        destillat.tapDestillat(antalLiter);
     }
+
 
     /**
      * Returnerer DestillatMængdens tilknyttede batch.
@@ -40,6 +37,6 @@ public class DestillatMængde implements Serializable {
      * @return DestillatMængdens destillat.
      */
     public Destillat getDestillat() {
-        return destillat;
+        return (Destillat) væske;
     }
 }

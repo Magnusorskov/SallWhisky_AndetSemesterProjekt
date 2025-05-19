@@ -1,4 +1,4 @@
-package application.model;
+package application.model.Enums;
 
 /**
  * Enumeration der definerer de forskellige marker, hvor bygkorn til produktionen kan komme fra.

@@ -149,7 +149,7 @@ public class PåfyldningsPane extends GridPane {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Bekræft handling");
             alert.setHeaderText("Er du sikker på, at du vil tømme destillatet?");
-            alert.setContentText("Der er " + batch.getVæskemængde() + " liter tilbage. Denne handling kan ikke fortrydes.");
+            alert.setContentText("Der er " + batch.getAntalLiter() + " liter tilbage. Denne handling kan ikke fortrydes.");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -172,7 +172,7 @@ public class PåfyldningsPane extends GridPane {
         if (batch != null) {
             txaBatchBeskrivelse.setText(Controller.getBeskrivelse(batch));
             btnTøm.setDisable(false);
-            lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
+            lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getAntalLiter());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {
                 btnTilføj.setDisable(false);
             }
@@ -231,14 +231,14 @@ public class PåfyldningsPane extends GridPane {
 
                 txfAntalLiter.clear();
                 lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
-                lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getVæskemængde());
+                lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getAntalLiter());
                 txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
                 lblError.setText("");
                 btnFærdiggørDestillat.setDisable(false);
                 cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
                 cmbFade.getSelectionModel().select(fad);
 
-                if (batch.getVæskemængde() == 0) {
+                if (batch.getAntalLiter() == 0) {
                     updateControls();
                     cmbFade.getSelectionModel().select(fad);
                 }

@@ -3,6 +3,10 @@ package gui;
 import application.controller.Controller;
 import application.controller.Storage;
 import application.model.*;
+import application.model.Enums.Bygsort;
+import application.model.Enums.Fadtype;
+import application.model.Enums.Land;
+import application.model.Enums.Mark;
 import javafx.application.Application;
 import storage.ListStorage;
 
@@ -96,7 +100,7 @@ public class App {
         Fad fad7 = Controller.createFad(Land.USA, Fadtype.NEW,700);
         Fad fad8 = Controller.createFad(Land.USA, Fadtype.NEW,700);
 
-       Batch batch1 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr12", LocalDate.of(2020,01,01),"TestBatch1");
+       Batch batch1 = Controller.createBatch(Bygsort.EVERGREEN, Mark.MOSEVANG,"CLN","Tørv","Nr12", LocalDate.of(2020,01,01),"TestBatch1");
         Batch batch2 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr13", LocalDate.of(2020,01,10),"TestBatch2");
         Batch batch3 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr14", LocalDate.of(2020,01,20),"TestBatch3");
         Batch batch4 = Controller.createBatch(Bygsort.IRINA,Mark.STADSGAARD,"CLN","Tørv","Nr43", LocalDate.of(2020,02,25),"ProduktionsBatch1");

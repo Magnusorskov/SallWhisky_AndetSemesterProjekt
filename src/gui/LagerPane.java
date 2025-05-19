@@ -2,12 +2,13 @@ package gui;
 
 import application.controller.Controller;
 import application.model.Fad;
-import application.model.Fadtype;
+import application.model.Enums.Fadtype;
 import application.model.Lagervare;
-import application.model.Land;
+import application.model.Enums.Land;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,8 +29,7 @@ public class LagerPane extends GridPane {
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
-
-        int width = 180;
+        int width = 200;
 
         Label lblSøgeKriterier = new Label("Søgekriterier");
         lblSøgeKriterier.setFont(Font.font("System", FontWeight.BOLD, 16));
@@ -39,7 +39,7 @@ public class LagerPane extends GridPane {
         this.add(lblLagre, 0, 1);
 
         cbbLagre = new ComboBox<>();
-        cbbLagre.setMinWidth(width);
+        cbbLagre.setMaxWidth(width);
         cbbLagre.getItems().add(null);
         cbbLagre.getItems().add("På lager");
         cbbLagre.getItems().add("Ikke på lager");
@@ -104,8 +104,9 @@ public class LagerPane extends GridPane {
 
         Button btnSøg = new Button("Søg");
         btnSøg.setOnAction(event -> this.søgAction());
-        GridPane.setHalignment(btnSøg, HPos.LEFT);
+        GridPane.setHalignment(btnSøg, HPos.RIGHT);
         this.add(btnSøg, 0, 14);
+        btnSøg.setMinWidth(70);
 
         //kolonne 1
         Label lblFade = new Label("Fade");
@@ -115,8 +116,6 @@ public class LagerPane extends GridPane {
         lvwFad = new ListView<>();
         lvwFad.setMinWidth(300);
         this.add(lvwFad, 1, 1, 1, 14);
-        lvwFad.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
-
 
         ChangeListener<Fad> fadListener = (ov, oldFad, newFad) -> this.selectionChangeFad();
         lvwFad.getSelectionModel().selectedItemProperty().addListener(fadListener);
@@ -130,8 +129,6 @@ public class LagerPane extends GridPane {
         txaBeskrivelse.setMaxWidth(250);
         txaBeskrivelse.setMinHeight(200);
         this.add(txaBeskrivelse, 2, 1, 1, 6);
-        txaBeskrivelse.setStyle("-fx-border-color: #7D8773; " + "-fx-border-radius: 4; " + "-fx-border-width: 3px;");
-
 
         Button btnFjern = new Button("Fjern");
         btnFjern.setOnAction(event -> this.fjernAction());
