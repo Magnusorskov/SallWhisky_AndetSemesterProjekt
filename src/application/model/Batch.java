@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 /**
  * Repræsenterer en enkelt batch af råmateriale i produktionsprocessen.
- * Indeholder information om bygsort, mark, maltning, rygning og tidsperiode.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 public class Batch extends ProduktionsVæske {
@@ -81,7 +80,7 @@ public class Batch extends ProduktionsVæske {
     }
 
     /**
-     * Henter det rygemateriale der er anvendt i batchen (kan være null).
+     * Henter det rygemateriale der er anvendt i batchen.
      * Note: returnerer null hvis der ikke er anvendt rygemateriale.
      *
      * @return det anvendte rygemateriale.
