@@ -232,7 +232,7 @@ public class Destillat extends Væske {
         sb.append("\n\nBatches:\n");
         Map<Batch, Double> batches = new HashMap<>();
         for (BatchMængde bm : getBatchMængder()) {
-            batches.merge((Batch) bm.getBatch(), bm.getAntalLiter(), Double::sum);
+            batches.merge(bm.getBatch(), bm.getAntalLiter(), Double::sum);
         }
         for (Map.Entry<Batch, Double> k : batches.entrySet()) {
             sb.append(k.getKey().hentHistorik());
