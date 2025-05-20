@@ -83,18 +83,18 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
     }
 
     /**
-     * Henter whiskyens unikke ID.
+     * Henter whiskyens unikke nummer.
      *
-     * @return whiskyens ID.
+     * @return whiskyens nummer.
      */
     public int getUniktNummer() {
         return uniktNummer;
     }
 
     /**
-     * Sætter whiskyens unikke ID.
+     * Sætter whiskyens unikke nummer.
      *
-     * @param uniktNummer det nye ID for væsken.
+     * @param uniktNummer det nye nummer for væsken.
      */
     public void setUniktNummer(int uniktNummer) {
         this.uniktNummer = uniktNummer;
@@ -141,6 +141,9 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
 
     /**
      * Opretter en ny mængde af et destillat og tilføjer det til whiskyens blanding.
+     * Hvis der findes en destillatMængde med det samme destillat i forvejen,
+     * tilføjes antal liter til den destillatMængdes antalLiter.
+     * <p>
      * Pre: antalLiter er større end 0.
      * Pre: destillat er ikke null.
      *
@@ -159,7 +162,13 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
         }
     }
 
-    //TODO java doc
+    /**
+     * Laver en søgning efter et bestemt destillat i whiskyens destillatMængde liste.
+     * Pre: destillat er ikke null.
+     *
+     * @param destillat det destillat der skal søges efter.
+     * @return indekset på den destillatMængde, hvor destillat er på. Returnerer -1 hvis ikke fundet.
+     */
     private int findesDestillatIDestillatMængdeListe(Destillat destillat) {
         int i = 0;
         while (i < destillatMængder.size()) {
@@ -173,6 +182,7 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
         return -1;
     }
 
+    //TODO SKAL SLETTES???
     /**
      * Henter en liste over de destillatmængder der indgår i whiskyen.
      *
@@ -199,8 +209,9 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
     }
 
     /**
-     * Genererer en historik over whiskyen, inklusive ID, navn, alkoholprocent, totalt antal liter,
-     * mængde af tilsat vand (hvis relevant), antal flasker og historikken for de enkelte destillater.
+     * Genererer en historik over whiskyen, inklusive unikt nummer, navn, alkoholprocent, kvalitetsstempel,
+     * totalt antal liter, mængde af tilsat vand (hvis relevant), antal flasker og
+     * historikken for de enkelte destillater.
      *
      * @return en String der indeholder whiskyens historik.
      */
@@ -256,7 +267,7 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
     }
 
     /**
-     * Henter en de unikke fadtyper fra de destillater der indgår i whiskyen.
+     * Henter de unikke fadtyper fra de destillater der indgår i whiskyen.
      *
      * @return et Set af unikke Fadtype objekter.
      */
