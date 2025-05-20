@@ -133,10 +133,10 @@ public class App {
         Controller.færdiggørDestillat(56,LocalDate.of(2021,02,02),destillat1);
         Controller.færdiggørDestillat(61,LocalDate.of(2021,03,03),destillat2);
 
-        Whisky whisky = Controller.createWhisky("Whisky1");
-        Whisky whisky1 = Controller.createWhisky("Whisky2");
-        Whisky whisky2 = Controller.createWhisky("Whisky3");
-        Whisky whisky3 = Controller.createWhisky("Whisky4");
+        Whisky whisky = Controller.createWhisky("Whisky_Test");
+        Whisky whisky1 = Controller.createWhisky("Whisky_Produktion");
+        Whisky whisky2 = Controller.createWhisky("Whisky_Røget");
+        Whisky whisky3 = Controller.createWhisky("Whisky_Stærk");
 
         Controller.påfyldVand(10,whisky);
         String label = Controller.genereLabel(whisky,"67");
