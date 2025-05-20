@@ -50,7 +50,7 @@ public abstract class Controller {
      */
     public static Batch createBatch(Bygsort bygsort, Mark mark, String initialer, String rygemateriale, String maltBatch, LocalDate startDato, String kommentar) {
         Batch batch = new Batch(bygsort, mark, initialer, rygemateriale, maltBatch, startDato, kommentar);
-        batch.setId(storage.whiskyID());
+        batch.setUniktNummer(storage.batchUniktNummer());
         storage.addBatch(batch);
         return batch;
     }
@@ -93,8 +93,9 @@ public abstract class Controller {
         return resultat;
     }
 
+    //TODO javadoc
     public static void tømBatch(Batch batch) {
-        batch.tømBatch();
+        batch.tømVæske();
     }
 
 
@@ -147,7 +148,7 @@ public abstract class Controller {
     public static List<Fad> getFadeUdenFærdigDestillat() {
         List<Fad> resultat = new ArrayList<>();
         for (Fad f : getFade()) {
-            if(f.getAntalBrug() < 3) {
+            if (f.getAntalBrug() < 3) {
                 Destillat fadDestillat = f.getDestillat();
                 if (fadDestillat == null) {
                     resultat.add(f);
@@ -169,41 +170,35 @@ public abstract class Controller {
      * @param fadType   fadets type.
      * @param størrelse fadets størrelse.
      */
-    public static Fad createFad(Land land, Fadtype fadType, double størrelse) {
-        Fad fad = new Fad(land, fadType, størrelse);
-        fad.setUniktNummer(storage.fadID());
+    public static Fad createFad(Land land, Fadtype fadType, double størrelse, String leverandør) {
+        Fad fad = new Fad(land, fadType, størrelse, leverandør);
+        fad.setUniktNummer(storage.fadUniktNummer());
         storage.addFad(fad);
         return fad;
     }
+    //TODO java doc
+    public static List<Fad> getFadeDerKanOmhældesTil() {
+        List<Fad> resultat = new ArrayList<>();
 
-    /**
-     * Påfylder et antal liter af en batch på et fads destillat og hvis der ikke findes et destillat
-     * oprettes der et destillat først.
-     * Pre: batch, fad og navn er ikke null.
-     * Pre: antalLiter er større end 0.
-     *
-     * @param antalLiter mængden af liter der påfyldes fadet.
-     * @param batch      batchen der bliver tilføjet liter af.
-     * @param navn       navnet på destillatet der skal oprettes hvis der ikke er et destillat i forvejen.
-     * @param fad        fadet mængden skal påfyldes i.
-     */
-    public static void påfyldFad(double antalLiter, Batch batch, String navn, Fad fad) {
-        if (antalLiter > fad.getTilgængeligeLiter()) {
-            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
-        } else if (antalLiter > batch.getAntalLiter()) {
-            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
+        for (Fad fad : getFade()) {
+            Destillat destillat = fad.getDestillat();
+            if (fad.getAntalBrug() <= 3) {
+                if (destillat != null) {
+                    boolean destillatHarOmhældningsMængder = !destillat.getOmhældningsMængder().isEmpty();
+                    boolean destillatIkkeFærdiggjort = destillat.getAlkoholprocent() == -1;
+
+                    if (destillatHarOmhældningsMængder && destillatIkkeFærdiggjort) {
+                        resultat.add(fad);
+                    }
+                } else if (destillat == null && fad.getAntalBrug() < 3) {
+                    resultat.add(fad);
+                }
+            }
         }
-        Destillat destillat = createDestillatHvisIngenFindes(navn, fad);
-        destillat.createBatchMængde(antalLiter, batch);
+        return resultat;
     }
 
-    private static Destillat createDestillatHvisIngenFindes(String navn, Fad fad) {
-        Destillat destillat = fad.getDestillat();
-        if (destillat == null) {
-            destillat = Controller.createDestillat(navn, fad);
-        }
-        return destillat;
-    }
+
 
     //----------------------------------------------------------------------------------------------------
 
@@ -260,6 +255,34 @@ public abstract class Controller {
     }
 
     /**
+     * Fjerner en lagervare fra lageret
+     * Pre: lager er ikke null.
+     *
+     * @param lagervare den lagervare man ønsker fjerne
+     */
+    public static void fjernLagervareFraLager(Lagervare lagervare) {
+        Lager lager = lagervare.getLager();
+        lager.removeLagerVare(lagervare);
+    }
+
+    //TODO javadoc
+    public static void udvidLager(Lager lager, int antalReoler, int antalHylder) {
+        if (lager != null) {
+            lager.udvidLager(antalReoler, antalHylder);
+        }
+    }
+
+    //TODO javadoc
+    public static int beregnAntalLedigePladserPåLager(Lager lager) {
+        if (lager != null) {
+            return lager.antalLedigePladser();
+        }
+        return 0;
+    }
+
+    //----------------------------------------------------------------------------------
+
+    /**
      * Initialiserer et destillats navn, fad og tilføjer det til storage.
      * Pre: navn, fad ikke er null.
      *
@@ -269,7 +292,7 @@ public abstract class Controller {
      */
     public static Destillat createDestillat(String navn, Fad fad) {
         Destillat destillat = new Destillat(navn, fad);
-        destillat.setId(storage.destillatID());
+        destillat.setUniktNummer(storage.destillatUniktNummer());
         storage.addDestillat(destillat);
         return destillat;
     }
@@ -297,6 +320,35 @@ public abstract class Controller {
                 omhældningsMængde.setLagringstidIMåneder(påfyldningsDato);
             }
         }
+    }
+
+    /**
+     * Påfylder et antal liter af en batch på et fads destillat og hvis der ikke findes et destillat
+     * oprettes der et destillat først.
+     * Pre: batch, fad og navn er ikke null.
+     * Pre: antalLiter er større end 0.
+     *
+     * @param antalLiter mængden af liter der påfyldes fadet.
+     * @param batch      batchen der bliver tilføjet liter af.
+     * @param navn       navnet på destillatet der skal oprettes hvis der ikke er et destillat i forvejen.
+     * @param fad        fadet mængden skal påfyldes i.
+     */
+    public static void påfyldDestillatPåFad(double antalLiter, Batch batch, String navn, Fad fad) {
+        if (antalLiter > fad.getTilgængeligeLiter()) {
+            throw new IllegalArgumentException("Der er ikke nok plads i fadet");
+        } else if (antalLiter > batch.getAntalLiter()) {
+            throw new IllegalArgumentException("Der er ikke nok væske i batchen");
+        }
+        Destillat destillat = createDestillatHvisIngenFindes(navn, fad);
+        destillat.createBatchMængde(antalLiter, batch);
+    }
+
+    private static Destillat createDestillatHvisIngenFindes(String navn, Fad fad) {
+        Destillat destillat = fad.getDestillat();
+        if (destillat == null) {
+            destillat = Controller.createDestillat(navn, fad);
+        }
+        return destillat;
     }
 
 
@@ -328,18 +380,12 @@ public abstract class Controller {
         return resultat;
     }
 
-    /**
-     * Finder destillater der har en påfyldningsdato der er mere end 3 år tilbage.
-     *
-     * @return en liste med færdige destillater der er over 3 år gamle.
-     */
-    public static List<Destillat> getFærdigeDestillater() {
+    // TODO javadoc
+    public static List<Destillat> getFærdiggjorteDestillater() {
         List<Destillat> resultat = new ArrayList<>();
         for (Destillat destillat : getDestillater()) {
-            if (destillat.getPåfyldningsDato() != null) {
-                if (destillat.getAntalLiter() > 0 && destillat.beregnAlderIMåneder() >= 0) {
-                    resultat.add(destillat);
-                }
+            if (destillat.getAntalLiter() > 0 && destillat.getPåfyldningsDato() != null) {
+                resultat.add(destillat);
             }
         }
         return resultat;
@@ -370,9 +416,11 @@ public abstract class Controller {
     }
 
     public static void tømDestillat(Destillat destillat) {
-        destillat.tømDestillat();
+        destillat.tømVæske();
     }
 
+
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * Initialiserer en whiskys navn og tilføjer det til storage.
@@ -382,7 +430,7 @@ public abstract class Controller {
      */
     public static Whisky createWhisky(String navn) {
         Whisky whisky = new Whisky(navn);
-        whisky.setId(storage.whiskyID());
+        whisky.setUniktNummer(storage.whiskyUniktNummer());
         storage.addWhisky(whisky);
         return whisky;
     }
@@ -396,14 +444,12 @@ public abstract class Controller {
         return storage.getWhiskyer();
     }
 
-    //------------------------------------------------------------------------------------------------------------------
-
     /**
      * Henter whiskyer der er igangværende.
      *
      * @return en liste med igangværende whiskyer.
      */
-    public static List<Whisky> getIgangværendeWhisky() {
+    public static List<Whisky> getIgangværendeWhiskyer() {
         List<Whisky> resultat = new ArrayList<>();
         for (Whisky w : Controller.getWhiskyer()) {
             if (w.getAlkoholprocent() == 0.0) {
@@ -460,7 +506,7 @@ public abstract class Controller {
      * @param alkoholprocent whiskyens alkoholprocent
      * @return en string med et label til en whisky
      */
-    public static String genereLabel(Whisky whisky, String alkoholprocent) {
+    public static String genererLabel(Whisky whisky, String alkoholprocent) {
         return "Handcrafted from organic barley harvested from our fields " + whisky.getMarker() + " and "
                 + ". Double distilled slowly in direct fired copper pot stills. Matured in carefully selected " + whisky.getFadtyper()
                 + " casks for 3 years. Bottled in " + LocalDate.now().getYear() + "."
@@ -495,22 +541,13 @@ public abstract class Controller {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Fjerner en lagervare fra lageret
-     * Pre: lager er ikke null.
-     *
-     * @param lagervare den lagervare man ønsker fjerne
-     */
-    public static void fjernLagerVare(Lagervare lagervare) {
-        Lager lager = lagervare.getLager();
-        lager.removeLagerVare(lagervare);
-    }
+
 
     //------------------------------------------------------------------------------------------------------------------
 
     //TODO java doc
     public static List<Fad> fadSoegning(Fadtype fadtype, Integer fills, Land land,
-                                        Integer alderPåDestillat, Integer literStørrelse, Boolean fyldt, String lagret) {
+                                        Integer alderPåDestillat, Double literStørrelse, Boolean fyldt, String lagret) {
         List<Fad> fade = Controller.getFade();
         if (fadtype != null) {
             fade = søgEfterFadType(fade, fadtype);
@@ -633,41 +670,9 @@ public abstract class Controller {
         return resultat;
     }
 
-    //TODO java doc
-    public static List<Fad> getFadeDerKanOmhældesTil() {
-        List<Fad> resultat = new ArrayList<>();
 
-        for (Fad fad : getFade()) {
-            Destillat destillat = fad.getDestillat();
-            if (fad.getAntalBrug() <= 3) {
-                if (destillat != null) {
-                    boolean destillatHarOmhældningsMængder = !destillat.getOmhældningsMængder().isEmpty();
-                    boolean destillatIkkeFærdiggjort = destillat.getAlkoholprocent() == -1;
 
-                    if (destillatHarOmhældningsMængder && destillatIkkeFærdiggjort) {
-                        resultat.add(fad);
-                    }
-                } else if (destillat == null && fad.getAntalBrug() < 3) {
-                    resultat.add(fad);
-                }
-            }
-        }
-        return resultat;
-    }
 
-    //TODO javadoc
-    public static void udvidLager(Lager lager, int antalReoler, int antalHylder) {
-        if (lager != null) {
-            lager.udvidLager(antalReoler, antalHylder);
-        }
-    }
-
-    public static int beregnAntalLedigePladserPåLager(Lager lager) {
-        if (lager != null) {
-            return lager.antalLedigePladser();
-        }
-        return 0;
-    }
     //------------------------------------------------------------------------------------------------------------------
 
     /**

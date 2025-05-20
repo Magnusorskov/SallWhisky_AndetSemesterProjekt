@@ -63,7 +63,7 @@ class ControllerTest {
 
         destillat = Controller.createDestillat("Test", fad);
 
-        Controller.påfyldFad(500,batch1,"Habibi",fad1);
+        Controller.påfyldDestillatPåFad(500,batch1,"Habibi",fad1);
 
 //        Controller.påfyldFad(500,batch1,"Habibi",fad1);
         navn = "Test";
@@ -109,56 +109,56 @@ class ControllerTest {
     }
 
     @Test
-    void test1_påfyldFad(){
+    void test1_påfyldDestillatPåFad(){
         antalLiter = 1;
-        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
-    void test2_påfyldFad(){
+    void test2_påfyldDestillatPåFad(){
         antalLiter = 25;
-        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
-    void test3_påfyldFad(){
+    void test3_påfyldDestillatPåFad(){
         antalLiter = 49;
-        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
-    void test4_påfyldFad(){
+    void test4_påfyldDestillatPåFad(){
         antalLiter = 50;
-        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
-    void test5_påfyldFad(){
+    void test5_påfyldDestillatPåFad(){
         antalLiter = 10;
         fad.setDestillat(null);
-        Controller.påfyldFad(antalLiter,batch,navn, fad);
+        Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         assertNotNull(fad.getDestillat());
         assertNotNull(fad.getDestillat().getBatchMængder().getFirst());
     }
 
     @Test
-    void test6_påfyldFad(){
+    void test6_påfyldDestillatPåFad(){
         antalLiter = 51;
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.påfyldFad(antalLiter,batch,navn, fad);
+            Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         });
     }
 
     @Test
-    void test7_påfyldFad(){
+    void test7_påfyldDestillatPåFad(){
         antalLiter = 10;
         fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,9);
         assertThrows(IllegalArgumentException.class, () -> {
-            Controller.påfyldFad(antalLiter,batch,navn, fad);
+            Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         });
     }
 

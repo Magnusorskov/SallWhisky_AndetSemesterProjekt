@@ -3,8 +3,8 @@ package application.model;
 import application.model.Enums.Fadtype;
 import application.model.Enums.Kvalitetsstempel;
 import application.model.Enums.Mark;
-import application.model.Væske.Væske;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,12 +14,15 @@ import java.util.Set;
  * Repræsenterer en færdig whisky, som er en blanding af forskellige destillater og eventuelt vand.
  * Implementerer Serializable for at kunne gemmes og indlæses, og Comparable for at kunne sorteres.
  */
-public class Whisky extends Væske implements Comparable<Whisky> {
+public class Whisky implements Comparable<Whisky>, Historik, Serializable {
     private final List<DestillatMængde> destillatMængder;
     private String navn;
     private double literVand;
     private String label;
     private Kvalitetsstempel kvalitetsstempel;
+    private int uniktNummer;
+    private double antalLiter;
+    private double alkoholprocent;
 
     /**
      * Initialiserer en ny whisky med et givent navn.
@@ -79,6 +82,60 @@ public class Whisky extends Væske implements Comparable<Whisky> {
         this.label = label;
     }
 
+    /**
+     * Henter whiskyens unikke ID.
+     *
+     * @return whiskyens ID.
+     */
+    public int getUniktNummer() {
+        return uniktNummer;
+    }
+
+    /**
+     * Sætter whiskyens unikke ID.
+     *
+     * @param uniktNummer det nye ID for væsken.
+     */
+    public void setUniktNummer(int uniktNummer) {
+        this.uniktNummer = uniktNummer;
+    }
+
+    /**
+     * Henter den aktuelle væskemængde i væsken i liter.
+     *
+     * @return den aktuelle væskemængde i liter.
+     */
+    public double getAntalLiter() {
+        return antalLiter;
+    }
+
+    /**
+     * Sætter den aktuelle væskemængde i væsken i liter.
+     *
+     * @param antalLiter den nye væskemængde i liter.
+     */
+    public void setAntalLiter(double antalLiter) {
+        this.antalLiter = antalLiter;
+    }
+
+    /**
+     * Henter alkoholprocenten for væsken.
+     *
+     * @return whiskyens alkoholprocent.
+     */
+    public double getAlkoholprocent() {
+        return alkoholprocent;
+    }
+
+    /**
+     * Sætter alkoholprocenten for væsken.
+     *
+     * @param alkoholprocent den nye alkoholprocent for væsken.
+     */
+    public void setAlkoholprocent(double alkoholprocent) {
+        this.alkoholprocent = alkoholprocent;
+    }
+
 
     //------------------------------------------------------
 
@@ -96,7 +153,7 @@ public class Whisky extends Væske implements Comparable<Whisky> {
 
         int index = findesDestillatIDestillatMængdeListe(destillat);
         if (index != -1) {
-            destillatMængder.get(index).addLiterTilEksisterendeDM(antalLiter);
+            destillatMængder.get(index).addLiterTilEksisterendeVM(antalLiter);
         } else {
             destillatMængder.add(destillatMængde);
         }
@@ -131,8 +188,8 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      * Beregner det samlede antal liter whiskyen indeholder (summen af alle destillater og tilsat vand).
      *
      * @return det samlede antal liter whisky.
-     */ //TODO fix gentantal liter
-    public double beregnAntalLiter(){
+     */
+    public double beregnAntalLiter() {
         double antal = 0;
         for (DestillatMængde d : destillatMængder) {
             antal += d.getAntalLiter();
@@ -149,7 +206,7 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      */
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Whisky: " + id + " " + navn);
+        sb.append("Whisky: " + uniktNummer + " " + navn);
 
         double antalLiter = beregnAntalLiter();
         if (antalLiter > 0) {
@@ -161,7 +218,7 @@ public class Whisky extends Væske implements Comparable<Whisky> {
             }
             sb.append("\nAntal liter: " + antalLiter);
             if (literVand > 0) {
-                sb.append("\nHeraf vand: " + literVand);
+                sb.append("\n\tHeraf vand: " + literVand);
             }
             sb.append("\nAntal Flasker: " + beregnAntalFlasker());
             sb.append("\n----------------------------------");
@@ -219,7 +276,7 @@ public class Whisky extends Væske implements Comparable<Whisky> {
      */
     @Override
     public int compareTo(Whisky whisky) {
-        return this.id - whisky.getId();
+        return this.uniktNummer - whisky.getUniktNummer();
     }
 
     //TODO java doc

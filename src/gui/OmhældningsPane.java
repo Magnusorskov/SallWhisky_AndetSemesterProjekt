@@ -1,7 +1,6 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Batch;
 import application.model.Destillat;
 import application.model.Fad;
 import javafx.beans.value.ChangeListener;
@@ -160,7 +159,7 @@ public class OmhældningsPane extends GridPane {
     }
 
     public void updateControls() {
-        cmbDestillater.getItems().setAll(Controller.getFærdigeDestillater());
+        cmbDestillater.getItems().setAll(Controller.getFærdiggjorteDestillater());
         cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
         txfAntalLiter.clear();
     }

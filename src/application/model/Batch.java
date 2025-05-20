@@ -2,7 +2,7 @@ package application.model;
 
 import application.model.Enums.Bygsort;
 import application.model.Enums.Mark;
-import application.model.Væske.Væske;
+import application.model.Væske.ProduktionsVæske;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * Indeholder information om bygsort, mark, maltning, rygning og tidsperiode.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Batch extends Væske {
+public class Batch extends ProduktionsVæske {
     private Bygsort bygsort;
     private Mark mark;
     private String initialer;
@@ -42,17 +42,6 @@ public class Batch extends Væske {
         this.maltBatch = maltBatch;
         this.startDato = startDato;
         this.kommentar = kommentar;
-    }
-
-    /**
-     * Tapper en batch en bestemt mængde liter
-     * Pre: antalLiter er større end nul
-     * Pre: antalLiter <= væskemængde på batch
-     *
-     * @param antalLiter det antal liter man tapper fra batchen.
-     */
-    public void tapBatch(double antalLiter) {
-        this.antalLiter -= antalLiter;
     }
 
     /**
@@ -154,13 +143,6 @@ public class Batch extends Væske {
     //metoder
 
     /**
-     * Tømmer et batch for væske
-     */
-    public void tømBatch(){
-        setAntalLiter(0);
-    }
-
-    /**
      * Genererer en historik over batchen, inklusive ID, bygsort, mark, maltbatch, rygemateriale (hvis relevant),
      * alkoholprocent (hvis relevant), start- og slutdato (hvis relevant), initialer og kommentar (hvis relevant).
      *
@@ -168,7 +150,7 @@ public class Batch extends Væske {
      */
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Batch nr: " + id);
+        sb.append("Batch nr: " + uniktNummer);
         sb.append("\nBygsort: " + bygsort);
         sb.append("\nMark: " + mark);
         sb.append("\nMaltbatch: " + maltBatch);
@@ -197,7 +179,7 @@ public class Batch extends Væske {
      */
     @Override
     public String toString() {
-        String batch = "BatchNr:" + id + " StartDato: " + startDato;
+        String batch = "BatchNr:" + uniktNummer + " StartDato: " + startDato;
         if (antalLiter == 0 && slutDato != null) {
             batch = batch + " (Tom)";
         }

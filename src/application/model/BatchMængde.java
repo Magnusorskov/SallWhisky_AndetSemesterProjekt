@@ -2,8 +2,6 @@ package application.model;
 
 import application.model.VæskeMængde.VæskeMængde;
 
-import java.io.Serializable;
-
 /**
  * Repræsenterer en mængde af en specifik batch, der er blevet tappet.
  * Bruges til at holde styr på hvor meget af en given batch der er brugt i f.eks. et destillat.
@@ -20,15 +18,10 @@ public class BatchMængde extends VæskeMængde {
      * @param batch      den batch man tager væske fra.
      */
     BatchMængde(double antalLiter, Batch batch) {
-        super(antalLiter,batch);
-        batch.tapBatch(antalLiter);
+        super(antalLiter, batch);
+        batch.tapVæske(antalLiter);
     }
 
-    public void addLiterTilEksisterendeBM(double antalLiter) {
-        this.antalLiter += antalLiter;
-        Batch batch = (Batch) væske;
-        batch.tapBatch(antalLiter);
-    }
 
     /**
      * Returnerer BatchMængdens tilknyttede batch.
@@ -36,6 +29,6 @@ public class BatchMængde extends VæskeMængde {
      * @return BatchMængdens destillat.
      */
     public Batch getBatch() {
-        return (Batch) væske;
+        return (Batch) produktionsVæske;
     }
 }
