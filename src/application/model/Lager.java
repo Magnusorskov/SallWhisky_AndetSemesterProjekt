@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 /**
  * Repræsenterer et lager, der kan indeholde forskellige typer af lagervarer på et antal reoler og hylder.
+ * Håndterer hentning af information om lagervarer på lageret og placering af lagervarer på lageret.
  * Implementerer Serializable for at kunne gemmes og indlæses.
- * Klassen håndterer getPlacering og hentning af lagervarer inden for lagerets struktur.
  */
 public class Lager implements Serializable {
 
@@ -65,7 +65,7 @@ public class Lager implements Serializable {
     /**
      * Tilføjer en lagervare til en specifik getPlacering i lageret.
      * Pre: lagervare er ikke null.
-     * Pre: reol og hylde er inden for lagerets grænser (1 til antalReoler/antalHylder).
+     * Pre: reol og hylde er inden for lagerets grænser.
      *
      * @param lagervare den lagervare der skal tilføjes.
      * @param reol      reolnummeret hvor lagervaren skal placeres.
@@ -74,15 +74,17 @@ public class Lager implements Serializable {
     public void addLagerVare(Lagervare lagervare, int reol, int hylde) {
         if (pladser[reol][hylde] == null) {
             pladser[reol][hylde] = lagervare;
-            if (lagervare.getLager() != null) {
-                lagervare.getLager().getPladser()[lagervare.getReol()][lagervare.getHylde()] = null;
+            Lager lager = lagervare.getLager();
+            if (lager != null) {
+                lager.getPladser()[lagervare.getReol()][lagervare.getHylde()] = null;
             }
             lagervare.setLager(this);
         }
     }
 
     /**
-     * Fjerner en specifik lagervare fra lageret hvis den findes.
+     * Fjerner en specifik lagervare fra lageret hvis den findes og opdaterer næste ledige plads,
+     * hvis lageret var fyldt.
      * Pre: lagervare er ikke null.
      *
      * @param lagervare den lagervare der skal fjernes.
@@ -99,8 +101,8 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Returnerer en lagervare fra en specifik getPlacering i lageret.
-     * Pre: reol og hylde er inden for lagerets grænser (1 til antalReoler/antalHylder).
+     * Returnerer en lagervare fra en specifik placering i lageret.
+     * Pre: reol og hylde er inden for lagerets grænser.
      * Note: Returnerer null hvis der ikke er en lagervare på pladsen.
      *
      * @param reol  reolnummeret på den ønskede plads.
@@ -152,7 +154,7 @@ public class Lager implements Serializable {
 
 
     /**
-     * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads
+     * Finder den næste ledige plads på lageret og opdaterer næsteLedigePlads.
      */
     //TODO kig på den igen
     public void opdaterNæsteLedigePlads() {
@@ -191,9 +193,9 @@ public class Lager implements Serializable {
 
 
     /**
-     * Beregner det samlede antal ledige pladser der er tilbage på lageret
+     * Beregner det samlede antal ledige pladser der er tilbage på lageret.
      *
-     * @return en int med antal ledige pladser på lageret
+     * @return en int med antal ledige pladser på lageret.
      */
 
     public int antalLedigePladser() {
@@ -211,6 +213,14 @@ public class Lager implements Serializable {
         return count;
     }
 
+    /**
+     * Udvider lageret med et større antalReoler og antalHylder.
+     * Pre: antalReoler >= den nuværende antalReoler.
+     * Pre: antalHylder >= den nuværende antalHylder.
+     *
+     * @param antalReoler det nye antalReoler.
+     * @param antalHylder det nye antalHylder.
+     */
     public void udvidLager(int antalReoler, int antalHylder) {
         Lagervare[][] nytLager = new Lagervare[antalReoler + 1][antalHylder + 1];
 
@@ -226,7 +236,7 @@ public class Lager implements Serializable {
     /**
      * Laver en String repræsentation af Lager objektet.
      *
-     * @return en String der indeholder lagerets navn.
+     * @return en String der indeholder lagerets navn og hvis relevant, antal ledige pladser.
      */
     @Override
     public String toString() {
