@@ -8,27 +8,25 @@ import java.io.Serializable;
 /**
  * Repræsenterer et fad, der bruges til lagring af destillat.
  * Arver fra Lagervare og implementerer Serializable for at kunne gemmes og indlæses.
- * Klassen indeholder information om fadets oprindelse, type, størrelse og hvor mange gange det er blevet brugt.
- * Et fad kan indeholde et enkelt destillat.
  */
 public class Fad extends Lagervare implements Serializable, Historik, Comparable<Fad> {
     private final Land land;
     private final String leverandør;
-    private int antalBrug;
     private final Fadtype fadType;
     private final double størrelse;
+    private int antalBrug;
     private int uniktNummer;
-
     private Destillat destillat;
 
     /**
-     * Initialiserer et fads oprindelsesland, fadtype og størrelse.
-     * Pre: oprindelsesland og fadtype er ikke null.
+     * Initialiserer et fads oprindelsesland, fadType, leverandør og størrelse.
+     * Pre: oprindelsesland, leverandør og fadType er ikke null.
      * Pre: størrelse > 0.
      *
-     * @param land fadets oprindelsesland.
-     * @param fadType         fadets type.
-     * @param størrelse       fadets størrelse.
+     * @param land       fadets oprindelsesland.
+     * @param fadType    fadets type.
+     * @param størrelse  fadets størrelse.
+     * @param leverandør fadets leverandør.
      */
     public Fad(Land land, Fadtype fadType, double størrelse, String leverandør) {
         this.land = land;
@@ -44,6 +42,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     }
 
     //getter og setter
+
     /**
      * Henter fadets oprindelsesland.
      *
@@ -60,6 +59,15 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
      */
     public int getAntalBrug() {
         return antalBrug;
+    }
+
+    /**
+     * Sætter antallet af gange fadet har været brugt.
+     *
+     * @param antalBrug det nye antal brug for fadet.
+     */
+    public void setAntalBrug(int antalBrug) {
+        this.antalBrug = antalBrug;
     }
 
     /**
@@ -81,34 +89,26 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     }
 
     /**
-     * Henter fadets unikke ID.
+     * Henter fadets unikke nummer.
      *
-     * @return fadets ID.
+     * @return fadets nummer.
      */
     public int getUniktNummer() {
         return uniktNummer;
     }
 
     /**
-     * Sætter fadets unikke ID.
+     * Sætter fadets unikke nummer.
      *
-     * @param uniktNummer det nye ID for fadet.
+     * @param uniktNummer det nye nummer for fadet.
      */
     public void setUniktNummer(int uniktNummer) {
         this.uniktNummer = uniktNummer;
     }
 
-    /**
-     * Sætter antallet af gange fadet har været brugt.
-     *
-     * @param antalBrug det nye antal brug for fadet.
-     */
-    public void setAntalBrug(int antalBrug) {
-        this.antalBrug = antalBrug;
-    }
-
 
     //sammenhæng til Destillat
+
     /**
      * Henter det destillat der er på fadet.
      * Note: Returnerer null, hvis fadet er tomt.
@@ -121,10 +121,10 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
 
 
     /**
-     *Sætter destillat på fadet
-     *Pre: destillat er ikke null
+     * Sætter destillat på fadet.
+     * Pre: destillat er ikke null.
      *
-     * @param destillat er fadets destillat
+     * @param destillat det nye destillat på fadet.
      */
     public void setDestillat(Destillat destillat) {
         if (this.destillat != destillat) {
@@ -149,12 +149,13 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     }
 
     /**
-     * Henter historikken for fadet som en String.
-     * Historikken indeholder fadets ID, oprindelsesland, fadtype, antal brug og størrelse.
+     * Henter historikken for fadet.
+     * Historikken indeholder fadets nummer, oprindelsesland, leverandør, fadtype, antal brug,
+     * placering på lager og størrelse og beskrivelse af destillatet og dets batches, hvis fadet har et destillat.
      *
      * @return en StringBuilder indeholdende fadets historik.
      */
-    public StringBuilder hentHistorik(){
+    public StringBuilder hentHistorik() {
         StringBuilder sb = getFadBeskrivelse();
         if (destillat != null) {
             sb.append("\n\nDestillat: " + destillat.getNavn());
@@ -163,7 +164,12 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         return sb;
     }
 
-    //TODO java doc
+    /**
+     * Henter beskrivelsen på fadet, som indeholder information om fadets nummer, oprindelsesland,
+     * leverandør, fadtype, antal brug, placering på lager og størrelse.
+     *
+     * @return beskrivelsen på fadet som StringBuilder.
+     */
     public StringBuilder getFadBeskrivelse() {
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + uniktNummer);
@@ -188,7 +194,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         StringBuilder sb = new StringBuilder();
         sb.append(uniktNummer + " " + fadType + " liter: " + størrelse + " Antal brug: " + antalBrug);
 
-        if (destillat != null){
+        if (destillat != null) {
             sb.append("\n\tDestillat: " + destillat.getNavn());
         }
         if (getLager() != null) {
@@ -198,6 +204,12 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         return "" + sb;
     }
 
+    /**
+     * Definerer hvordan fade skal sammenlignes.
+     *
+     * @param fad fadet der skal sammenlignes med.
+     * @return en int der beskriver forholdet i sammenligningen mellem to fade.
+     */
     @Override
     public int compareTo(Fad fad) {
         boolean thisHarDestillat = this.getDestillat() != null;
