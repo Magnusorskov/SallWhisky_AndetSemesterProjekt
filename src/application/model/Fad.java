@@ -12,10 +12,11 @@ import java.io.Serializable;
  * Et fad kan indeholde et enkelt destillat.
  */
 public class Fad extends Lagervare implements Serializable, Historik, Comparable<Fad> {
-    private Land land;
+    private final Land land;
+    private final String leverandør;
     private int antalBrug;
-    private Fadtype fadType;
-    private double størrelse;
+    private final Fadtype fadType;
+    private final double størrelse;
     private int uniktNummer;
 
     private Destillat destillat;
@@ -29,11 +30,11 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
      * @param fadType         fadets type.
      * @param størrelse       fadets størrelse.
      */
-    public Fad(Land land, Fadtype fadType, double størrelse) {
-        super();
+    public Fad(Land land, Fadtype fadType, double størrelse, String leverandør) {
         this.land = land;
         this.fadType = fadType;
         this.størrelse = størrelse;
+        this.leverandør = leverandør;
 
         if (fadType == Fadtype.NEW) {
             this.antalBrug = 0;
@@ -128,10 +129,6 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     public void setDestillat(Destillat destillat) {
         if (this.destillat != destillat) {
             this.destillat = destillat;
-            //TODO fjernes?
-//            if (destillat != null){
-//                destillat.setFad(this);
-//            }
         }
     }
 
@@ -161,7 +158,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         StringBuilder sb = getFadBeskrivelse();
         if (destillat != null) {
             sb.append("\n\nDestillat: " + destillat.getNavn());
-            sb.append("\nBatches: " + destillat.getDestillatsBatches());
+            sb.append("\nBatches: " + destillat.getDestillatetsBatchesTilBeskrivelse());
         }
         return sb;
     }
@@ -171,10 +168,11 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         StringBuilder sb = new StringBuilder();
         sb.append("Fad nr: " + uniktNummer);
         sb.append("\nOprindelses Land: " + land);
+        sb.append("\nLeverandør: " + leverandør);
         sb.append("\nFad type: " + fadType);
         sb.append("\nAntal brug: " + antalBrug);
         sb.append("\nFad størrelse: " + størrelse);
-        sb.append("\n" + super.placering());
+        sb.append("\n" + super.getPlacering());
 
         return sb;
     }

@@ -90,15 +90,15 @@ public class App {
         Lager lager1 = Controller.createLager("ProduktionsLager",10,10,"Testvej 76");
 
 
-        Fad fad = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
-        Fad fad1 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
-        Fad fad2 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000);
-        Fad fad3 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
-        Fad fad4 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
-        Fad fad5 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800);
-        Fad fad6 = Controller.createFad(Land.USA, Fadtype.NEW,700);
-        Fad fad7 = Controller.createFad(Land.USA, Fadtype.NEW,700);
-        Fad fad8 = Controller.createFad(Land.USA, Fadtype.NEW,700);
+        Fad fad = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000, "Fadbanden");
+        Fad fad1 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000, "Fadbanden");
+        Fad fad2 = Controller.createFad(Land.SPANIEN, Fadtype.EXSHERRY,1000, "Fadbanden");
+        Fad fad3 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800, "Fadbanden");
+        Fad fad4 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800, "Fadbanden");
+        Fad fad5 = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,800, "Fadbanden");
+        Fad fad6 = Controller.createFad(Land.USA, Fadtype.NEW,700, "Fadbanden");
+        Fad fad7 = Controller.createFad(Land.USA, Fadtype.NEW,700, "Fadbanden");
+        Fad fad8 = Controller.createFad(Land.USA, Fadtype.NEW,700, "Fadbanden");
 
        Batch batch1 = Controller.createBatch(Bygsort.EVERGREEN, Mark.MOSEVANG,"CLN","Tørv","Nr12", LocalDate.of(2020,01,01),"TestBatch1");
         Batch batch2 = Controller.createBatch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN","Tørv","Nr13", LocalDate.of(2020,01,10),"TestBatch2");
@@ -139,7 +139,7 @@ public class App {
         Whisky whisky3 = Controller.createWhisky("Whisky4");
 
         Controller.påfyldVand(10,whisky);
-        String label = Controller.genereLabel(whisky,"67");
+        String label = Controller.genererLabel(whisky,"67");
         Controller.færdiggørWhisky(whisky,label,67);
 
 

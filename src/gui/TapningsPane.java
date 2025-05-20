@@ -1,7 +1,6 @@
 package gui;
 
 import application.controller.Controller;
-import application.model.Batch;
 import application.model.Destillat;
 import application.model.Whisky;
 import javafx.beans.value.ChangeListener;
@@ -9,7 +8,6 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -96,7 +94,7 @@ public class TapningsPane extends GridPane {
 
         cmbWhisky = new ComboBox<>();
         cmbWhisky.setPrefWidth(width);
-        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
+        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhiskyer());
         this.add(cmbWhisky,2,1);
 
         ChangeListener<Whisky> whiskeyListener = (ov, oldWhisky, newWhisky) -> this.selectionChangeWhisky();
@@ -129,7 +127,7 @@ public class TapningsPane extends GridPane {
     // ---------------------------------------------------------------------
 
     public void updateControls(){
-        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhisky());
+        cmbWhisky.getItems().setAll(Controller.getIgangværendeWhiskyer());
         cmbDestillater.getItems().setAll(Controller.getFærdigmodnedeDestillater());
         btnTap.setDisable(true);
         btnFærdiggør.setDisable(true);

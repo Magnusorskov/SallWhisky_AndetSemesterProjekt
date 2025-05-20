@@ -2,8 +2,6 @@ package application.model;
 
 import application.model.VæskeMængde.VæskeMængde;
 
-import java.io.Serializable;
-
 /**
  * Repræsenterer en mængde af et specifikt destillat, der er blevet tappet og indgår i en whisky.
  * Bruges til at spore sammensætningen af en whisky baseret på de anvendte destillater og deres mængder.
@@ -20,16 +18,9 @@ public class DestillatMængde extends VæskeMængde {
      * @param destillat  det destillat man tager væske fra.
      */
     DestillatMængde(double antalLiter, Destillat destillat) {
-        super(antalLiter,destillat);
-        destillat.tapDestillat(antalLiter);
+        super(antalLiter, destillat);
+        destillat.tapVæske(antalLiter);
     }
-
-    public void addLiterTilEksisterendeDM(double antalLiter) {
-        this.antalLiter += antalLiter;
-        Destillat destillat = (Destillat) væske;
-        destillat.tapDestillat(antalLiter);
-    }
-
 
     /**
      * Returnerer DestillatMængdens tilknyttede batch.
@@ -37,6 +28,6 @@ public class DestillatMængde extends VæskeMængde {
      * @return DestillatMængdens destillat.
      */
     public Destillat getDestillat() {
-        return (Destillat) væske;
+        return (Destillat) produktionsVæske;
     }
 }

@@ -55,7 +55,7 @@ public class FærdiggørWhiskyWindow extends Stage {
 
         lblAntalFlasker = new Label("Antal flasker: " + Controller.getAntalFlasker(whisky));
 
-        Label lblVand = new Label("Påfyld vand");
+        Label lblVand = new Label("Påfyld liter vand");
 
         txfVand = new TextField("0");
         txfVand.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -71,7 +71,7 @@ public class FærdiggørWhiskyWindow extends Stage {
             }
         });
 
-        Button btnPåfyldVand = new Button("Påfyld Vand");
+        Button btnPåfyldVand = new Button("Påfyld vand");
         btnPåfyldVand.setOnAction(event -> påfyldVandAction());
 
         VBox vBox = new VBox(lblAntalFlasker ,lblVand ,txfVand ,btnPåfyldVand);
@@ -148,7 +148,7 @@ public class FærdiggørWhiskyWindow extends Stage {
     }
 
     private void genereLabelAction() {
-        txaLabel.setText(Controller.genereLabel(whisky, txfAlkohol.getText().trim()));
+        txaLabel.setText(Controller.genererLabel(whisky, txfAlkohol.getText().trim()));
         txaLabel.setWrapText(true);
         updateControls();
     }

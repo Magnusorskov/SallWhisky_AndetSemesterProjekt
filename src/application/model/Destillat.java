@@ -1,7 +1,7 @@
 package application.model;
 
 import application.model.Enums.Mark;
-import application.model.Væske.Væske;
+import application.model.Væske.ProduktionsVæske;
 import application.model.VæskeMængde.VæskeMængde;
 
 import java.time.LocalDate;
@@ -15,12 +15,12 @@ import java.util.Set;
  * Repræsenterer et destillat, som er væsken lagret på et fad.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
-public class Destillat extends Væske {
+public class Destillat extends ProduktionsVæske {
     private final List<BatchMængde> batchMængder = new ArrayList<>();
     private final List<OmhældningsMængde> omhældningsMængder = new ArrayList<>();
+    private final Fad fad;
     private String navn;
     private LocalDate påfyldningsDato;
-    private Fad fad;
     private int lagringstidIMåneder;
 
     /**
@@ -119,7 +119,7 @@ public class Destillat extends Væske {
         int index = findesVæskeIVæskeMængdeListe(batch);
         if (index != -1) {
             batchMængde = batchMængder.get(index);
-            batchMængde.addLiterTilEksisterendeBM(antalLiter);
+            batchMængde.addLiterTilEksisterendeVM(antalLiter);
         } else {
             batchMængde = new BatchMængde(antalLiter, batch);
             batchMængder.add(batchMængde);
@@ -127,28 +127,28 @@ public class Destillat extends Væske {
         return batchMængde;
     }
 
-    //sammenhæng til DestillatMængde
+    //sammenhæng til OmhældningsMængde
 
     /**
-     * Initialiserer en OmhældningsMængdes antal liter og destillat og tilføjer den til destillatet.
+     * Initialiserer en OmhældningsMængdes antal liter og oldDestillat og tilføjer den til destillatet.
      * Den sørger også for at tilføje antalLiter til destillatets totale antal liter.
-     * Pre: destillat er ikke null.
+     * Pre: oldDestillat er ikke null.
      * Pre: antalLiter > 0.
      *
-     * @param antalLiter det antal liter man omhælder fra destillatet.
-     * @param destillat  det destillat der skal omhældes en mængde fra.
+     * @param antalLiter   det antal liter man omhælder fra destillatet.
+     * @param oldDestillat det oldDestillat der skal omhældes en mængde fra.
      * @return den færdige omhældnings mængde.
      */
-    public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat destillat) {
+    public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat oldDestillat) {
         OmhældningsMængde omhældningsMængde;
         this.antalLiter += antalLiter;
 
-        int index = findesVæskeIVæskeMængdeListe(destillat);
+        int index = findesVæskeIVæskeMængdeListe(oldDestillat);
         if (index != -1) {
             omhældningsMængde = omhældningsMængder.get(index);
-            omhældningsMængder.get(index).addLiterTilEksisterendeOM(antalLiter);
+            omhældningsMængder.get(index).addLiterTilEksisterendeVM(antalLiter);
         } else {
-            omhældningsMængde = new OmhældningsMængde(antalLiter, destillat);
+            omhældningsMængde = new OmhældningsMængde(antalLiter, oldDestillat);
             omhældningsMængder.add(omhældningsMængde);
         }
 
@@ -156,18 +156,18 @@ public class Destillat extends Væske {
     }
 
     //TODO java doc
-    private int findesVæskeIVæskeMængdeListe(Væske væske) {
+    private int findesVæskeIVæskeMængdeListe(ProduktionsVæske produktionsVæske) {
         List<? extends VæskeMængde> væskeMængder = null;
 
-        if (væske instanceof Destillat) {
+        if (produktionsVæske instanceof Destillat) {
             væskeMængder = this.omhældningsMængder;
-        } else if (væske instanceof Batch) {
+        } else if (produktionsVæske instanceof Batch) {
             væskeMængder = this.batchMængder;
         }
         if (væskeMængder != null) {
             int i = 0;
             while (i < væskeMængder.size()) {
-                if (væskeMængder.get(i).getVæske() == væske) {
+                if (væskeMængder.get(i).getVæske() == produktionsVæske) {
                     return i;
                 } else {
                     i++;
@@ -177,38 +177,26 @@ public class Destillat extends Væske {
         return -1;
     }
 
+    //TODO java doc
+    public List<OmhældningsMængde> getOmhældningsMængder() {
+        return new ArrayList<>(omhældningsMængder);
+    }
+
     //metoder
+
 
     /**
      * Laver en String med id og liter om alle batches destillatet indeholder.
      *
      * @return String med id og liter om alle batches destillatet indeholder.
      */
-    public String getDestillatsBatches() {
+    public String getDestillatetsBatchesTilBeskrivelse() {
         StringBuilder sb = new StringBuilder();
         for (BatchMængde m : batchMængder) {
-            sb.append("\n   Batch: " + m.getBatch().getId() + "(Liter: " + m.getAntalLiter() + ")");
+            sb.append("\n   Batch: " + m.getBatch().getUniktNummer() + "(Liter: " + m.getAntalLiter() + ")");
         }
         String s = sb + "";
         return s;
-    }
-
-    /**
-     * Tapper destillatet en bestemt mængde liter.
-     * Pre: tapLiter > 0.
-     * Pre: tapLiter <= destillatets tapLiter.
-     *
-     * @param tapLiter antallet af liter der skal tappes.
-     */
-    public void tapDestillat(double tapLiter) {
-        this.antalLiter -= tapLiter;
-    }
-
-    /**
-     * Tømmer et destillat
-     */
-    public void tømDestillat() {
-        setAntalLiter(0);
     }
 
     /**
@@ -219,7 +207,7 @@ public class Destillat extends Væske {
      */
     public StringBuilder hentHistorikHjælpeMetode() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Destillat: " + id + " " + navn);
+        sb.append("Destillat: " + uniktNummer + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
         if (alkoholprocent > 0) {
             sb.append("\nAlkoholprocent: " + alkoholprocent);
@@ -287,10 +275,6 @@ public class Destillat extends Væske {
         return omhældningsMængder.isEmpty();
     }
 
-    //TODO java doc
-    public List<OmhældningsMængde> getOmhældningsMængder() {
-        return new ArrayList<>(omhældningsMængder);
-    }
 
     /**
      * Laver en String repræsentation af Destillat objektet (returnerer navnet).

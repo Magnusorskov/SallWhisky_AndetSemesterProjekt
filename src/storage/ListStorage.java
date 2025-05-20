@@ -90,25 +90,25 @@ public class ListStorage implements Storage, Serializable {
         }
     }
     
-    public int whiskyID() {
+    public int whiskyUniktNummer() {
         ids[0]++;
         int id = ids[0];
         return id;
     }
     
-    public int batchID() {
+    public int batchUniktNummer() {
         ids[1]++;
         int id = ids[1];
         return id;
     }
     
-    public int fadID() {
+    public int fadUniktNummer() {
         ids[2]++;
         int id = ids[2];
         return id;
     }
     
-    public int destillatID() {
+    public int destillatUniktNummer() {
         ids[3]++;
         int id = ids[3];
         return id;

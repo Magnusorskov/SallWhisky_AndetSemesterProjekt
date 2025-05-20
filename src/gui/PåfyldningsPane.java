@@ -222,7 +222,7 @@ public class PåfyldningsPane extends GridPane {
                 double antalLiter = Double.parseDouble(txfAntalLiter.getText());
                 String navn = txfNavn.getText();
 
-                Controller.påfyldFad(antalLiter, batch, navn, fad);
+                Controller.påfyldDestillatPåFad(antalLiter, batch, navn, fad);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Fad er påfyldt!");

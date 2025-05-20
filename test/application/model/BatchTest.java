@@ -19,9 +19,9 @@ class BatchTest {
     void setUp() {
         batch1 = new Batch(Bygsort.EVERGREEN, Mark.MOSEVANG, "CLN", "Tørv", "Nr11", LocalDate.of(2025, 01, 01), "Test start");
         batch1.setAntalLiter(10);
-        batch1.setId(1);
+        batch1.setUniktNummer(1);
         batch2 = new Batch(Bygsort.EVERGREEN,Mark.MOSEVANG,"CLN",null,"Nr11",LocalDate.of(2025,1,1),null);
-        batch2.setId(1);
+        batch2.setUniktNummer(1);
     }
 
 
@@ -52,25 +52,25 @@ class BatchTest {
 
     @Test
     void test01_tapBatch() {
-        batch1.tapBatch(1);
+        batch1.tapVæske(1);
         assertEquals(9, batch1.getAntalLiter());
     }
 
     @Test
     void test02_tapBatch() {
-        batch1.tapBatch(5);
+        batch1.tapVæske(5);
         assertEquals(5, batch1.getAntalLiter());
     }
 
     @Test
     void test03_tapBatch() {
-        batch1.tapBatch(9);
+        batch1.tapVæske(9);
         assertEquals(1, batch1.getAntalLiter());
     }
 
     @Test
     void test04_tapBatch() {
-        batch1.tapBatch(10);
+        batch1.tapVæske(10);
         assertEquals(0, batch1.getAntalLiter());
     }
 

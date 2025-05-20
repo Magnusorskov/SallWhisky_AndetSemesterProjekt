@@ -102,30 +102,30 @@ public interface Storage {
     public void addWhisky(Whisky whisky);
 
     /**
-     * Genererer et nyt unikt ID for en whisky.
+     * Genererer et nyt unikt UniktNummer for en whisky.
      *
-     * @return et nyt unikt ID til en whisky.
+     * @return et nyt unikt UniktNummer til en whisky.
      */
-    public int whiskyID();
+    public int whiskyUniktNummer();
 
     /**
-     * Genererer et nyt unikt ID for en batch.
+     * Genererer et nyt unikt UniktNummer for en batch.
      *
-     * @return et nyt unikt ID til en batch.
+     * @return et nyt unikt UniktNummer til en batch.
      */
-    public int batchID();
+    public int batchUniktNummer();
 
     /**
-     * Genererer et nyt unikt ID for et fad.
+     * Genererer et nyt unikt UniktNummer for et fad.
      *
-     * @return et nyt unikt ID til et fad.
+     * @return et nyt unikt UniktNummer til et fad.
      */
-    public int fadID();
+    public int fadUniktNummer();
 
     /**
-     * Genererer et nyt unikt ID for et destillat.
+     * Genererer et nyt unikt UniktNummer for et destillat.
      *
-     * @return et nyt unikt ID til et destillat.
+     * @return et nyt unikt UniktNummer til et destillat.
      */
-    public int destillatID();
+    public int destillatUniktNummer();
 }

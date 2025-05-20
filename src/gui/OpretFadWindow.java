@@ -19,7 +19,7 @@ import javafx.stage.StageStyle;
 public class OpretFadWindow extends Stage {
 
     // ---------------------------------------------------------------------
-    private TextField txfStørrelse, txfAntal;
+    private TextField txfStørrelse, txfAntal, txfLeverandør;
     private ComboBox<Fadtype> cbbType;
     private ComboBox<Land> cbbLand;
     private Label lblError;
@@ -54,23 +54,30 @@ public class OpretFadWindow extends Stage {
         cbbLand.getItems().addAll(Land.PORTUGAL, Land.SPANIEN, Land.USA);
         pane.add(cbbLand, 0, 1);
 
+        Label lblLeverandør = new Label("Leverandør");
+        pane.add(lblLeverandør, 0, 2);
+
+        txfLeverandør = new TextField();
+        txfLeverandør.setMaxWidth(160);
+        pane.add(txfLeverandør, 0, 3);
+
         Label lblType = new Label("Fadtype");
-        pane.add(lblType, 0, 2);
+        pane.add(lblType, 0, 4);
 
         cbbType = new ComboBox<>();
         cbbType.setMaxWidth(160);
         cbbType.getItems().addAll(Fadtype.EXBOURBON, Fadtype.EXOLOROSO, Fadtype.EXSHERRY, Fadtype.NEW);
-        pane.add(cbbType, 0, 3);
+        pane.add(cbbType, 0, 5);
 
         Label lblStørrelse = new Label("Antal liter");
-        pane.add(lblStørrelse, 0, 4);
+        pane.add(lblStørrelse, 0, 6);
 
         txfStørrelse = new TextField("0");
         txfStørrelse.setMaxWidth(160);
-        pane.add(txfStørrelse, 0, 5);
+        pane.add(txfStørrelse, 0, 7);
 
         Label lblAntal = new Label("Antal fade");
-        pane.add(lblAntal, 0, 6);
+        pane.add(lblAntal, 0, 8);
 
         txfAntal = new TextField("1");
         txfAntal.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -86,11 +93,11 @@ public class OpretFadWindow extends Stage {
             }
         });
         txfStørrelse.setMaxWidth(160);
-        pane.add(txfAntal, 0, 7);
+        pane.add(txfAntal, 0, 9);
 
 
         HBox box = new HBox();
-        pane.add(box, 0, 8);
+        pane.add(box, 0, 10);
         box.setSpacing(70);
 
         Button btnLuk = new Button("Luk");
@@ -119,6 +126,7 @@ public class OpretFadWindow extends Stage {
         Land land = cbbLand.getSelectionModel().getSelectedItem();
         Fadtype type = cbbType.getSelectionModel().getSelectedItem();
         double størrelse = Double.parseDouble(txfStørrelse.getText());
+        String leverandør = txfLeverandør.getText().trim();
 
         if (land == null) {
             lblError.setText("Skriv et oprindelses land");
@@ -126,12 +134,14 @@ public class OpretFadWindow extends Stage {
             lblError.setText("Fad størrelse skal være større end 0");
         } else if (type == null) {
             lblError.setText("Vælg en fad type");
+        } else if (leverandør.isEmpty()) {
+            lblError.setText("Skriv leverandør");
         } else {
             for (int i = 0; i < Integer.parseInt(txfAntal.getText()); i++) {
-                Controller.createFad(land, type, størrelse);
+                Controller.createFad(land, type, størrelse,leverandør);
             }
             hide();
         }
     }
-
 }
+

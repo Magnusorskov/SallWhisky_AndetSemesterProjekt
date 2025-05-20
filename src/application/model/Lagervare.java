@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Abstrakt superklasse for alle lagervarer i systemet.
  * Implementerer Serializable for at kunne gemmes og indlæses.
- * Klassen definerer fælles egenskaber for lagervarer, såsom placering i et lager (reol og hylde)
+ * Klassen definerer fælles egenskaber for lagervarer, såsom getPlacering i et lager (reol og hylde)
  * og en reference til det lager, de er placeret i.
  */
 public abstract class Lagervare implements Serializable {
@@ -14,39 +14,11 @@ public abstract class Lagervare implements Serializable {
     private Lager lager;
 
     /**
-     * Initialiserer en lagervare med dens placering (reol og hylde) i et givent lager.
-     * Pre: lager er ikke null.
-     * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for lageret.
-     *
-     * @param reolNummer  lagervarens reolnummer.
-     * @param hyldeNummer lagervarens hyldenummer.
-     * @param lager       det lager hvor lagervaren er placeret.
-     */
-    public Lagervare(int reolNummer, int hyldeNummer, Lager lager) {
-        this.reolNummer = reolNummer;
-        this.hyldeNummer = hyldeNummer;
-        this.lager = lager;
-    }
-
-    /**
      * Default konstruktør for Lagervare.
      */
     public Lagervare() {
     }
 
-
-    /**
-     * Henter placering på lagervaren.
-     *
-     * @return en String der beskriver placering med lager, hylde og reolnummer.
-     */
-    public String placering() {
-        if (lager == null) {
-            return "Ikke placeret på lager";
-        } else {
-            return lager + "\nHylde: " + hyldeNummer + "\nReol: " + reolNummer;
-        }
-    }
 
     /**
      * Henter lagervarens reolnummer.
@@ -76,7 +48,7 @@ public abstract class Lagervare implements Serializable {
     }
 
     /**
-     * Sætter lagervaren til at være placeret i et givent lager på en specifik placering.
+     * Sætter lagervaren til at være placeret i et givent lager på en specifik getPlacering.
      * Hvis lagervaren allerede er i et andet lager, fjernes den fra det gamle lager.
      * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for det nye lager.
      *
@@ -113,6 +85,17 @@ public abstract class Lagervare implements Serializable {
         this.hyldeNummer = hyldeNummer;
     }
 
-
+    /**
+     * Henter getPlacering på lagervaren.
+     *
+     * @return en String der beskriver getPlacering med lager, hylde og reolnummer.
+     */
+    public String getPlacering() {
+        if (lager == null) {
+            return "Ikke placeret på lager";
+        } else {
+            return lager + "\nHylde: " + hyldeNummer + "\nReol: " + reolNummer;
+        }
+    }
 
 }

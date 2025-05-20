@@ -6,7 +6,7 @@ import java.util.Arrays;
 /**
  * Repræsenterer et lager, der kan indeholde forskellige typer af lagervarer på et antal reoler og hylder.
  * Implementerer Serializable for at kunne gemmes og indlæses.
- * Klassen håndterer placering og hentning af lagervarer inden for lagerets struktur.
+ * Klassen håndterer getPlacering og hentning af lagervarer inden for lagerets struktur.
  */
 public class Lager implements Serializable {
 
@@ -63,7 +63,7 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Tilføjer en lagervare til en specifik placering i lageret.
+     * Tilføjer en lagervare til en specifik getPlacering i lageret.
      * Pre: lagervare er ikke null.
      * Pre: reol og hylde er inden for lagerets grænser (1 til antalReoler/antalHylder).
      *
@@ -99,7 +99,7 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Returnerer en lagervare fra en specifik placering i lageret.
+     * Returnerer en lagervare fra en specifik getPlacering i lageret.
      * Pre: reol og hylde er inden for lagerets grænser (1 til antalReoler/antalHylder).
      * Note: Returnerer null hvis der ikke er en lagervare på pladsen.
      *
@@ -154,7 +154,7 @@ public class Lager implements Serializable {
     /**
      * Finder den næste ledige plads på lageret og opdaterer atributten næsteLedigePlads
      */
-
+    //TODO kig på den igen
     public void opdaterNæsteLedigePlads() {
         int startReol = næsteLedigPlads[0];
         int startHylde = næsteLedigPlads[1];

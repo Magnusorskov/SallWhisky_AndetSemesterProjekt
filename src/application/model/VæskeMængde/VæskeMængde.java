@@ -1,7 +1,6 @@
 package application.model.VæskeMængde;
 
-import application.model.Historik;
-import application.model.Væske.Væske;
+import application.model.Væske.ProduktionsVæske;
 
 import java.io.Serializable;
 
@@ -12,7 +11,7 @@ import java.io.Serializable;
  */
 public abstract class VæskeMængde implements Serializable {
     protected double antalLiter;
-    protected Væske væske;
+    protected ProduktionsVæske produktionsVæske;
 
     /**
      * Initialiserer en VæskeMængdes antal liter og væske.
@@ -21,9 +20,9 @@ public abstract class VæskeMængde implements Serializable {
      *
      * @param antalLiter det antal liter man tapper fra væskeen.
      */
-    public VæskeMængde(double antalLiter, Væske væske) {
+    public VæskeMængde(double antalLiter, ProduktionsVæske produktionsVæske) {
         this.antalLiter = antalLiter;
-        this.væske = væske;
+        this.produktionsVæske = produktionsVæske;
     }
 
     /**
@@ -35,7 +34,17 @@ public abstract class VæskeMængde implements Serializable {
         return antalLiter;
     }
 
-    public Væske getVæske() {
-        return væske;
+    //TODO javadoc
+    public ProduktionsVæske getVæske() {
+        return produktionsVæske;
+    }
+
+    /**
+     * Tilføjer antal liter til omhældning
+     * @param antalLiter antal liter man ønsker at tilføje
+     */
+    public void addLiterTilEksisterendeVM(double antalLiter) {
+        this.antalLiter += antalLiter;
+        produktionsVæske.tapVæske(antalLiter);
     }
 }
