@@ -3,28 +3,36 @@ package application.model.Væske;
 import application.model.Historik;
 
 import java.io.Serializable;
-//TODO Javadoc
+
+/**
+ * Repræsenterer en produktionsvæske som indeholder et unikt nummer, et antal liter og en alkoholprocent.
+ * Implementerer Serializable for at kunne gemmes og indlæses.
+ * Implementerer historik for at kunne hente historik på fadet.
+ */
 public abstract class ProduktionsVæske implements Historik, Serializable {
     protected int uniktNummer;
     protected double antalLiter;
     protected double alkoholprocent;
-//TODO javadoc
+
+    /**
+     * Default konstruktør for ProduktionsVæske.
+     */
     public ProduktionsVæske() {
     }
 
     /**
-     * Henter væskens unikke ID.
+     * Henter væskens unikke nummer.
      *
-     * @return væskens ID.
+     * @return væskens nummer.
      */
     public int getUniktNummer() {
         return uniktNummer;
     }
 
     /**
-     * Sætter væskens unikke ID.
+     * Sætter væskens unikke nummer.
      *
-     * @param uniktNummer det nye ID for væsken.
+     * @param uniktNummer det nye nummer for væsken.
      */
     public void setUniktNummer(int uniktNummer) {
         this.uniktNummer = uniktNummer;
@@ -67,23 +75,22 @@ public abstract class ProduktionsVæske implements Historik, Serializable {
     }
 
     /**
-     * Tømmer et batch for væske.
+     * Tømmer en ProduktionsVæske for væske.
      */
-    public void tømVæske(){
+    public void tømVæske() {
         setAntalLiter(0);
     }
 
     /**
-     * Tapper en batch en bestemt mængde liter.
+     * Tapper en ProduktionsVæske en bestemt mængde liter.
      * Pre: antalLiter er større end nul.
-     * Pre: antalLiter <= væskemængde på batch.
+     * Pre: antalLiter <= væskemængde på ProduktionsVæske.
      *
-     * @param antalLiter det antal liter man tapper fra batchen.
+     * @param antalLiter det antal liter man tapper fra ProduktionsVæsken.
      */
     public void tapVæske(double antalLiter) {
         this.antalLiter -= antalLiter;
     }
-
 
 
 }

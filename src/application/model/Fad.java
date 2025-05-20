@@ -8,6 +8,8 @@ import java.io.Serializable;
 /**
  * Repræsenterer et fad, der bruges til lagring af destillat.
  * Arver fra Lagervare og implementerer Serializable for at kunne gemmes og indlæses.
+ * Implementerer historik for at kunne hente historik på fadet.
+ * Implementerer Comparable for at kunne sammenligne fade.
  */
 public class Fad extends Lagervare implements Serializable, Historik, Comparable<Fad> {
     private final Land land;
