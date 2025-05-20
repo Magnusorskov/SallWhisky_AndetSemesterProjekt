@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Abstrakt superklasse for alle lagervarer i systemet.
  * Implementerer Serializable for at kunne gemmes og indlæses.
- * Klassen definerer fælles egenskaber for lagervarer, såsom getPlacering i et lager (reol og hylde)
+ * Klassen definerer fælles egenskaber for lagervarer, som placering på lager
  * og en reference til det lager, de er placeret i.
  */
 public abstract class Lagervare implements Serializable {
@@ -21,18 +21,18 @@ public abstract class Lagervare implements Serializable {
 
 
     /**
-     * Henter lagervarens reolnummer.
+     * Henter lagervarens reolNummer.
      *
-     * @return lagervarens reolnummer.
+     * @return lagervarens reolNummer.
      */
     public int getReol() {
         return reolNummer;
     }
 
     /**
-     * Henter lagervarens hyldenummer.
+     * Henter lagervarens hyldeNummer.
      *
-     * @return lagervarens hyldenummer.
+     * @return lagervarens hyldeNummer.
      */
     public int getHylde() {
         return hyldeNummer;
@@ -48,9 +48,10 @@ public abstract class Lagervare implements Serializable {
     }
 
     /**
-     * Sætter lagervaren til at være placeret i et givent lager på en specifik getPlacering.
-     * Hvis lagervaren allerede er i et andet lager, fjernes den fra det gamle lager.
+     * Sætter lagervaren til at være placeret i et givent lager på en specifik getPlacering
+     * og håndterer eventuelt eksisterende lager forbindelse.
      * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for det nye lager.
+     * Note: lager kan være null, hvis lagervare skal fjernes fra lagersystemet.
      *
      * @param lager det nye lager hvor lagervaren skal placeres.
      */
@@ -70,25 +71,28 @@ public abstract class Lagervare implements Serializable {
     }
 
     /**
-     * Sætter reolnummer
-     * @param reolNummer på en lagervare
+     * Sætter reolNummer.
+     *
+     * @param reolNummer på en lagervare.
      */
     public void setReolNummer(int reolNummer) {
         this.reolNummer = reolNummer;
     }
 
     /**
-     * Sætter hyldenummer
-     * @param hyldeNummer på en lagervare
+     * Sætter hyldeNummer.
+     *
+     * @param hyldeNummer på en lagervare.
      */
     public void setHyldeNummer(int hyldeNummer) {
         this.hyldeNummer = hyldeNummer;
     }
 
     /**
-     * Henter getPlacering på lagervaren.
+     * Henter placering på lagervaren i tekst.
      *
-     * @return en String der beskriver getPlacering med lager, hylde og reolnummer.
+     * @return en String der beskriver lagervarens placering med lager, hylde og reolnummer
+     * eller beskriver at varen ikke er på lager.
      */
     public String getPlacering() {
         if (lager == null) {
