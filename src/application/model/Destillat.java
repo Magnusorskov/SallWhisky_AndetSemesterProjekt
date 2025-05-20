@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Repræsenterer et destillat, som er væsken lagret på et fad.
+ * Repræsenterer et destillat, som er væsken lagret på et fad bestående af enten batchMængder eller OmhældningsMængder.
  * Implementerer Serializable for at kunne gemmes og indlæses.
  */
 public class Destillat extends ProduktionsVæske {
@@ -75,7 +75,11 @@ public class Destillat extends ProduktionsVæske {
         this.påfyldningsDato = påfyldningsDato;
     }
 
-
+    /**
+     * Sætter destillatets lagringsTidIMåneder.
+     *
+     * @param måneder lagringstiden i måneder.
+     */
     public void setLagringstidIMåneder(int måneder) {
         lagringstidIMåneder = måneder;
     }
@@ -106,6 +110,8 @@ public class Destillat extends ProduktionsVæske {
 
     /**
      * Initialiserer en BatchMængdes antal liter og batch og tilføjer den til destillatet.
+     * Hvis der findes en batchMængde med det samme batch i forvejen,
+     * * tilføjes antal liter til den batchMængdes antalLiter.
      * Pre: antalLiter er større end 0.
      * Pre: batch er ikke null.
      *
@@ -131,12 +137,13 @@ public class Destillat extends ProduktionsVæske {
 
     /**
      * Initialiserer en OmhældningsMængdes antal liter og oldDestillat og tilføjer den til destillatet.
-     * Den sørger også for at tilføje antalLiter til destillatets totale antal liter.
+     * Hvis der findes en omhældningsMængde med det samme destillat i forvejen,
+     * * tilføjes antal liter til den omhældningsMængdes antalLiter.
      * Pre: oldDestillat er ikke null.
      * Pre: antalLiter > 0.
      *
      * @param antalLiter   det antal liter man omhælder fra destillatet.
-     * @param oldDestillat det oldDestillat der skal omhældes en mængde fra.
+     * @param oldDestillat det destillat der skal omhældes en mængde fra.
      * @return den færdige omhældnings mængde.
      */
     public OmhældningsMængde createOmhældningsMængde(double antalLiter, Destillat oldDestillat) {
@@ -155,7 +162,13 @@ public class Destillat extends ProduktionsVæske {
         return omhældningsMængde;
     }
 
-    //TODO java doc
+    /**
+     * Tjekker om en væske findes i en væskeMængde liste og finder indekset i listen.
+     * Note: Returnerer -1 hvis væsken ikke findes.
+     *
+     * @param produktionsVæske den væske der ledes efter.
+     * @return indekset i listen hvor væsken findes.
+     */
     private int findesVæskeIVæskeMængdeListe(ProduktionsVæske produktionsVæske) {
         List<? extends VæskeMængde> væskeMængder = null;
 
@@ -177,7 +190,11 @@ public class Destillat extends ProduktionsVæske {
         return -1;
     }
 
-    //TODO java doc
+    /**
+     * Henter destillatets omhældningsmængder.
+     *
+     * @return Destillatets omhældningsmængder.
+     */
     public List<OmhældningsMængde> getOmhældningsMængder() {
         return new ArrayList<>(omhældningsMængder);
     }
@@ -186,9 +203,9 @@ public class Destillat extends ProduktionsVæske {
 
 
     /**
-     * Laver en String med id og liter om alle batches destillatet indeholder.
+     * Laver en beskrivelse med nummer og liter om alle batches destillatet indeholder.
      *
-     * @return String med id og liter om alle batches destillatet indeholder.
+     * @return String med nummer og liter om alle batches destillatet indeholder.
      */
     public String getDestillatetsBatchesTilBeskrivelse() {
         StringBuilder sb = new StringBuilder();
@@ -200,8 +217,8 @@ public class Destillat extends ProduktionsVæske {
     }
 
     /**
-     * Laver en historik over destillatet der indeholder destillatets id, navn, påfyldningsdato, alkoholprocent, fadets historik
-     * og alle batches historik som destillatet indeholder.
+     * Laver en historik over destillatet der indeholder destillatets nummer, navn, påfyldningsdato,
+     * alkoholprocent, lagringstid, fadets historik og alle batchenes historik som destillatet indeholder.
      *
      * @return Stringbuilder med historikken.
      */
@@ -256,7 +273,12 @@ public class Destillat extends ProduktionsVæske {
     }
 
 
-    //TODO java doc
+    /**
+     * Henter historikken på destillatet og hvis destillatet består af omhældningsmængder hentes historik
+     * på hver omhældningsmængdes destillat.
+     *
+     * @return historikken på destillatet.
+     */
     public StringBuilder hentHistorik() {
         StringBuilder sb = new StringBuilder(hentHistorikHjælpeMetode());
         if (omhældningsMængder.isEmpty()) {
@@ -270,14 +292,18 @@ public class Destillat extends ProduktionsVæske {
         }
     }
 
-    //TODO java doc
+    /**
+     * Tjekker om destillatet er single cask.
+     *
+     * @return hvorvidt destillatet er single cask.
+     */
     public boolean isSingleCask() {
         return omhældningsMængder.isEmpty();
     }
 
 
     /**
-     * Laver en String repræsentation af Destillat objektet (returnerer navnet).
+     * Laver en String repræsentation af Destillat objektet.
      *
      * @return destillatets navn.
      */
