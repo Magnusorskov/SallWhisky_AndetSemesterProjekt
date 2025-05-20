@@ -221,7 +221,6 @@ public class Destillat extends Væske {
         StringBuilder sb = new StringBuilder();
         sb.append("Destillat: " + id + " " + navn);
         sb.append("\nPåfyldnings dato: " + påfyldningsDato);
-        sb.append("\nAntal liter: " + antalLiter);
         if (alkoholprocent > 0) {
             sb.append("\nAlkoholprocent: " + alkoholprocent);
         }
