@@ -171,7 +171,7 @@ public abstract class Controller {
      */
     public static Fad createFad(Land land, Fadtype fadType, double størrelse) {
         Fad fad = new Fad(land, fadType, størrelse);
-        fad.setId(storage.fadID());
+        fad.setUniktNummer(storage.fadID());
         storage.addFad(fad);
         return fad;
     }

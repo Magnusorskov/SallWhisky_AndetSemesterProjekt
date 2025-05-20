@@ -16,7 +16,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     private int antalBrug;
     private Fadtype fadType;
     private double størrelse;
-    private int id;
+    private int uniktNummer;
 
     private Destillat destillat;
 
@@ -84,17 +84,17 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
      *
      * @return fadets ID.
      */
-    public int getId() {
-        return id;
+    public int getUniktNummer() {
+        return uniktNummer;
     }
 
     /**
      * Sætter fadets unikke ID.
      *
-     * @param id det nye ID for fadet.
+     * @param uniktNummer det nye ID for fadet.
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setUniktNummer(int uniktNummer) {
+        this.uniktNummer = uniktNummer;
     }
 
     /**
@@ -169,7 +169,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     //TODO java doc
     public StringBuilder getFadBeskrivelse() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Fad nr: " + id);
+        sb.append("Fad nr: " + uniktNummer);
         sb.append("\nOprindelses Land: " + land);
         sb.append("\nFad type: " + fadType);
         sb.append("\nAntal brug: " + antalBrug);
@@ -188,7 +188,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(id + " " + fadType + " liter: " + størrelse + " Antal brug: " + antalBrug);
+        sb.append(uniktNummer + " " + fadType + " liter: " + størrelse + " Antal brug: " + antalBrug);
 
         if (destillat != null){
             sb.append("\n\tDestillat: " + destillat.getNavn());
@@ -214,7 +214,7 @@ public class Fad extends Lagervare implements Serializable, Historik, Comparable
         }
 
         if (thisHarDestillat) {
-            return Integer.compare(this.getId(), fad.getId());
+            return Integer.compare(this.getUniktNummer(), fad.getUniktNummer());
         }
         return Double.compare(fad.getTilgængeligeLiter(), this.getTilgængeligeLiter());
     }
