@@ -160,7 +160,7 @@ public class OmhældningsPane extends GridPane {
 
     public void updateControls() {
         cmbDestillater.getItems().setAll(Controller.getFærdiggjorteDestillater());
-        cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());
+        cmbFade.getItems().setAll(Controller.getFadeDerKanOmhældesTil());
         txfAntalLiter.clear();
     }
 

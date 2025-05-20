@@ -53,11 +53,11 @@ class ControllerTest {
         batch4 = Controller.createBatch(Bygsort.IRINA,Mark.MOSEVANG,"ETP","Lorem","Nr999",LocalDate.of(2025,2,14),"av for den");
         batch4.setAntalLiter(1000);
 
-        fad = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,50);
-        fad1 = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,1000);
-        fad2 = Controller.createFad(Land.USA,Fadtype.NEW,1000);
-        fad3 = Controller.createFad(Land.SPANIEN,Fadtype.EXSHERRY,1000);
-        fad4 = Controller.createFad(Land.PORTUGAL,Fadtype.EXOLOROSO,1000);
+        fad = Controller.createFad(Land.PORTUGAL, Fadtype.EXBOURBON,50,"Christoffer");
+        fad1 = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,1000, "Christoffer");
+        fad2 = Controller.createFad(Land.USA,Fadtype.NEW,1000, "Christoffer");
+        fad3 = Controller.createFad(Land.SPANIEN,Fadtype.EXSHERRY,1000, "Christoffer");
+        fad4 = Controller.createFad(Land.PORTUGAL,Fadtype.EXOLOROSO,1000, "Christoffer");
 
         lager = Controller.createLager("Det lille test lager",2,2,"Testvej 14");
 
@@ -68,7 +68,7 @@ class ControllerTest {
 //        Controller.påfyldFad(500,batch1,"Habibi",fad1);
         navn = "Test";
 
-        Controller.omhældDestillat(fad1.getDestillat(),500,fad2,"Hejsa");
+//        Controller.omhældDestillat(fad1.getDestillat(),500,fad2,"Hejsa");
 
     }
 
@@ -156,7 +156,7 @@ class ControllerTest {
     @Test
     void test7_påfyldDestillatPåFad(){
         antalLiter = 10;
-        fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,9);
+        fad = Controller.createFad(Land.PORTUGAL,Fadtype.EXBOURBON,9, "Christoffer");
         assertThrows(IllegalArgumentException.class, () -> {
             Controller.påfyldDestillatPåFad(antalLiter,batch,navn, fad);
         });
@@ -172,6 +172,7 @@ class ControllerTest {
     @Test
     void test9_omhældFad() {
         System.out.println(fad1.getDestillat());
+        System.out.println(fad1.getDestillat().getOmhældningsMængder());
         System.out.println(fad2.getDestillat());
     }
 }

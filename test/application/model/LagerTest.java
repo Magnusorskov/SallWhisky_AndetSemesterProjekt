@@ -19,7 +19,7 @@ class LagerTest {
     void setUp() {
         lager = new Lager("TestLager", 3, 5, "Testvej 8");
         pladser = new Lagervare[4][6];
-        lagervare = new Fad(Land.SPANIEN, Fadtype.EXSHERRY, 200);
+        lagervare = new Fad(Land.SPANIEN, Fadtype.EXSHERRY, 200, "Christoffer");
     }
 
 
@@ -58,7 +58,7 @@ class LagerTest {
     void test12_opdaterNæsteLedigePlads_sidstePladsLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
-                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
+                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);
             }
         }
         lager.getPladser()[3][5].setReolNummer(3);
@@ -73,7 +73,7 @@ class LagerTest {
     void test13_opdaterNæsteLedigePlads_lagerFyldt() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
-                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
+                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);
             }
         }
         IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
@@ -87,7 +87,7 @@ class LagerTest {
     void test14_opdaterNæsteLedigePlads_wrapRundtOgFinderLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
-                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100), reol, hylde);
+                lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);
             }
         }
 

@@ -176,6 +176,7 @@ public abstract class Controller {
         storage.addFad(fad);
         return fad;
     }
+
     //TODO java doc
     public static List<Fad> getFadeDerKanOmhældesTil() {
         List<Fad> resultat = new ArrayList<>();
@@ -197,7 +198,6 @@ public abstract class Controller {
         }
         return resultat;
     }
-
 
 
     //----------------------------------------------------------------------------------------------------
@@ -542,7 +542,6 @@ public abstract class Controller {
     //------------------------------------------------------------------------------------------------------------------
 
 
-
     //------------------------------------------------------------------------------------------------------------------
 
     //TODO java doc
@@ -669,8 +668,6 @@ public abstract class Controller {
         }
         return resultat;
     }
-
-
 
 
     //------------------------------------------------------------------------------------------------------------------

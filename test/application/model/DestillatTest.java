@@ -20,7 +20,7 @@ class DestillatTest {
 
     @BeforeEach
     void setUp() {
-        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100);
+        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100, "Christoffer");
         batch = new Batch(Bygsort.EVERGREEN, Mark.MOSEVANG,"CLN","Tørv","Nr11", LocalDate.of(2025,01,01),"Test start");
         destillat = new Destillat("Testsprut",fad);
         mængde = destillat.createBatchMængde(100,batch);

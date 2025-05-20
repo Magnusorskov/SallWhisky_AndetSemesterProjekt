@@ -12,7 +12,7 @@ class FadTest {
 
     @BeforeEach
     void setUp() {
-        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100);
+        fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100, "Christoffer");
     }
     @Test
     void test03_KontruktorFad(){
