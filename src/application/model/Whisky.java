@@ -182,16 +182,6 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
         return -1;
     }
 
-    //TODO SKAL SLETTES???
-    /**
-     * Henter en liste over de destillatmængder der indgår i whiskyen.
-     *
-     * @return en ny liste indeholdende DestillatMængde objekter.
-     */
-    public List<DestillatMængde> getDestillatMængder() {
-        return new ArrayList<>(destillatMængder);
-    }
-
     //------------------------------------------------------
 
     /**
@@ -235,11 +225,12 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
             sb.append("\n----------------------------------");
             sb.append("\n\nDestillater:");
 
-
             for (DestillatMængde dm : destillatMængder) {
                 sb.append("\n" + dm.getDestillat().hentHistorik());
-                sb.append("----------------------------------");
             }
+        }
+        if (destillatMængder.isEmpty()){
+            sb.append("\n----------------------------------");
         }
         return sb;
     }

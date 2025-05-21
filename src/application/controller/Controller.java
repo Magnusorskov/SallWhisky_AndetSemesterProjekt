@@ -800,10 +800,10 @@ public abstract class Controller {
         StringBuilder sb = new StringBuilder();
         for (Historik h : collection) {
             sb.append(getHistorik(h));
-            if (h instanceof Destillat) {
+            if (h instanceof Destillat || h instanceof Whisky) {
                 sb.append("\n\n");
             } else {
-                sb.append("\n--------------------------------\n\n");
+                sb.append("\n----------------------------------\n\n");
             }
         }
         return String.valueOf(sb);

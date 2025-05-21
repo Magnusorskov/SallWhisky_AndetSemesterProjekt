@@ -180,7 +180,6 @@ public class Lager implements Serializable {
                     næsteLedigPlads[1] = hylde;
                     fundet = true;
                 } else {
-
                     if (reol == startReol && hylde == startHylde) {
                         næsteLedigPlads[0] = -1;
                         næsteLedigPlads[1] = -1;
@@ -190,7 +189,6 @@ public class Lager implements Serializable {
             }
         }
     }
-
 
     /**
      * Beregner det samlede antal ledige pladser der er tilbage på lageret.

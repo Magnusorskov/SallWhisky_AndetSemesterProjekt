@@ -34,7 +34,11 @@ public abstract class VæskeMængde implements Serializable {
         return antalLiter;
     }
 
-    //TODO javadoc
+    /**
+     * Henter ProduktionsVæsken for VæskeMængden.
+     *
+     * @return en VæskeMængdes ProduktionsVæske.
+     */
     public ProduktionsVæske getVæske() {
         return produktionsVæske;
     }

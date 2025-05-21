@@ -138,6 +138,7 @@ public class App {
         Whisky whisky2 = Controller.createWhisky("Whisky_Røget");
         Whisky whisky3 = Controller.createWhisky("Whisky_Stærk");
 
+        Controller.tapningAfDestillat(100, destillat, whisky);
         Controller.påfyldVand(10,whisky);
         String label = Controller.genererLabel(whisky,"67");
         Controller.færdiggørWhisky(whisky,label,67);
