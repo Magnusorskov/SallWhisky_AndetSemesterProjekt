@@ -28,7 +28,6 @@ public class TapningsPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-//        this.setStyle("-fx-background-color: #adddff;");
 
         int width = 260;
 
