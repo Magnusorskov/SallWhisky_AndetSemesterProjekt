@@ -235,6 +235,7 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
             sb.append("\n----------------------------------");
             sb.append("\n\nDestillater:");
 
+
             for (DestillatMængde dm : destillatMængder) {
                 sb.append("\n" + dm.getDestillat().hentHistorik());
                 sb.append("----------------------------------");

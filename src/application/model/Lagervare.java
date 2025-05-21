@@ -98,7 +98,7 @@ public abstract class Lagervare implements Serializable {
         if (lager == null) {
             return "Ikke placeret på lager";
         } else {
-            return lager + "\nHylde: " + hyldeNummer + "\nReol: " + reolNummer;
+            return lager.getNavn() + "\nHylde: " + hyldeNummer + "\nReol: " + reolNummer;
         }
     }
 
