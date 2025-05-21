@@ -170,7 +170,7 @@ public class PåfyldningsPane extends GridPane {
         Batch batch = cmbBatches.getSelectionModel().getSelectedItem();
 
         if (batch != null) {
-            txaBatchBeskrivelse.setText(Controller.getBeskrivelse(batch));
+            txaBatchBeskrivelse.setText(Controller.getHistorik(batch));
             btnTøm.setDisable(false);
             lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getAntalLiter());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {
@@ -188,7 +188,7 @@ public class PåfyldningsPane extends GridPane {
         if (fad != null) {
             Destillat destillat = fad.getDestillat();
             lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
-            txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
+            txaFadBeskrivelse.setText(Controller.getHistorik(fad));
             if (destillat != null) {
                 txfNavn.setText(destillat.getNavn());
                 btnFærdiggørDestillat.setDisable(false);
@@ -232,7 +232,7 @@ public class PåfyldningsPane extends GridPane {
                 txfAntalLiter.clear();
                 lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
                 lblBatchVæskemængde.setText("Batch rest. væske: " + batch.getAntalLiter());
-                txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
+                txaFadBeskrivelse.setText(Controller.getHistorik(fad));
                 lblError.setText("");
                 btnFærdiggørDestillat.setDisable(false);
                 cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());

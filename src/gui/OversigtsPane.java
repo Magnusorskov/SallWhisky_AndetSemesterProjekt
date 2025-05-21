@@ -121,7 +121,7 @@ public class OversigtsPane extends GridPane {
         List<Historik> valgte = lvwOversigt.getSelectionModel().getSelectedItems();
 
         if (valgte != null){
-            txaForhåndsvisning.setText(Controller.kombinerBeskrivelser(valgte));
+            txaForhåndsvisning.setText(Controller.kombinerHistorik(valgte));
         }
     }
 

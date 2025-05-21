@@ -140,7 +140,7 @@ public class LagerPane extends GridPane {
         GridPane.setHalignment(btnFjern, HPos.LEFT);
         this.add(btnFjern, 2, 7);
 
-        Button btnÆndrePlacering = new Button("Vælg getPlacering");
+        Button btnÆndrePlacering = new Button("Vælg placering");
         btnÆndrePlacering.setOnAction(event -> this.placeringAction());
         GridPane.setHalignment(btnÆndrePlacering, HPos.RIGHT);
         this.add(btnÆndrePlacering, 2, 7);
@@ -174,7 +174,7 @@ public class LagerPane extends GridPane {
     private void selectionChangeFad() {
         Fad fad = lvwFad.getSelectionModel().getSelectedItem();
         if (fad != null) {
-            txaBeskrivelse.setText(Controller.getBeskrivelse(fad));
+            txaBeskrivelse.setText(Controller.getHistorik(fad));
         }
         lblError.setText("");
 
@@ -223,7 +223,7 @@ public class LagerPane extends GridPane {
                 Controller.fjernLagervareFraLager(fad);
                 updateControls();
             } else {
-                lblError.setText("Man kan kun ændre getPlacering på fade uden et aktivt destillat.");
+                lblError.setText("Man kan kun ændre placering på fade uden et aktivt destillat.");
             }
         }
     }
@@ -232,7 +232,7 @@ public class LagerPane extends GridPane {
         Lagervare lagervare = lvwFad.getSelectionModel().getSelectedItem();
 
         if (lagervare != null) {
-            VælgPlaceringWindow dia = new VælgPlaceringWindow("Ændre getPlacering", lagervare);
+            VælgPlaceringWindow dia = new VælgPlaceringWindow("Ændre placering", lagervare);
             dia.showAndWait();
 
             updateControls();

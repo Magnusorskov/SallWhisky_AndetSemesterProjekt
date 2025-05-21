@@ -63,7 +63,7 @@ public class Lager implements Serializable {
     }
 
     /**
-     * Tilføjer en lagervare til en specifik getPlacering i lageret.
+     * Tilføjer en lagervare til en specifik placering i lageret.
      * Pre: lagervare er ikke null.
      * Pre: reol og hylde er inden for lagerets grænser.
      *

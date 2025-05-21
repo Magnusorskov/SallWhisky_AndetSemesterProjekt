@@ -24,6 +24,7 @@ public class Batch extends ProduktionsVæske {
     /**
      * Initialiserer en batch's bygsort, mark, initialer, rygemateriale, maltbatch, start dato og kommentar.
      * Pre: bygsort, mark, initialer, maltbatch og startdato er ikke null.
+     * Note: kommentar og rygemateriale kan være null.
      *
      * @param bygsort       bygsorten der er i batchen.
      * @param mark          hvilken mark kornet kommer fra.

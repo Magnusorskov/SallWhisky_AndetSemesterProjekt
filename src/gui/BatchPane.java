@@ -74,7 +74,7 @@ public class BatchPane extends GridPane {
     public void updateControls() {
         Batch batch = lvwIgangværendeBatches.getSelectionModel().getSelectedItem();
         if (batch != null) {
-            txaBatchInfo.setText(Controller.getBeskrivelse(batch));
+            txaBatchInfo.setText(Controller.getHistorik(batch));
         } else {
             txaBatchInfo.clear();
         }

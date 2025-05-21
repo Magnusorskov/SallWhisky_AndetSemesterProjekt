@@ -170,7 +170,7 @@ public class OmhældningsPane extends GridPane {
 
         if (destillat != null) {
             btnTøm.setDisable(false);
-            txaDestillatBeskrivelse.setText(Controller.getBeskrivelse(destillat));
+            txaDestillatBeskrivelse.setText(Controller.getHistorik(destillat));
             lblDestillatVæskemængde.setText("Batch rest. væske: " + destillat.getAntalLiter());
             if (cmbFade.getSelectionModel().getSelectedItem() != null) {
                 btnTilføj.setDisable(false);
@@ -188,14 +188,14 @@ public class OmhældningsPane extends GridPane {
             Destillat destillat = fad.getDestillat();
             lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
             if (destillat == null) {
-                txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
+                txaFadBeskrivelse.setText(Controller.getHistorik(fad));
                 txfNavn.clear();
                 txfNavn.setDisable(false);
                 btnFærdiggørDestillat.setDisable(true);
             } else {
                 txfNavn.setText(destillat.getNavn());
                 btnFærdiggørDestillat.setDisable(false);
-                txaFadBeskrivelse.setText(Controller.getBeskrivelse(destillat));
+                txaFadBeskrivelse.setText(Controller.getHistorik(destillat));
             }
             btnTilføj.setDisable(cmbDestillater.getSelectionModel().getSelectedItem() == null);
         } else {
@@ -227,7 +227,7 @@ public class OmhældningsPane extends GridPane {
                 txfAntalLiter.clear();
                 lblFadTilgængeligLiter.setText("Fad ledig plads: " + fad.getTilgængeligeLiter());
                 lblDestillatVæskemængde.setText("Batch rest. væske: " + destillat.getAntalLiter());
-                txaFadBeskrivelse.setText(Controller.getBeskrivelse(fad));
+                txaFadBeskrivelse.setText(Controller.getHistorik(fad));
                 lblError.setText("");
                 btnFærdiggørDestillat.setDisable(false);
                 cmbFade.getItems().setAll(Controller.getFadeUdenFærdigDestillat());

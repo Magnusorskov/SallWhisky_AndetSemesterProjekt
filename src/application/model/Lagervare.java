@@ -48,7 +48,7 @@ public abstract class Lagervare implements Serializable {
     }
 
     /**
-     * Sætter lagervaren til at være placeret i et givent lager på en specifik getPlacering
+     * Sætter lagervaren til at være placeret i et givent lager på en specifik placering
      * og håndterer eventuelt eksisterende lager forbindelse.
      * Pre: reolNummer og hyldeNummer er gyldige placeringer inden for det nye lager.
      * Note: lager kan være null, hvis lagervare skal fjernes fra lagersystemet.
