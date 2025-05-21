@@ -15,7 +15,7 @@ class FadTest {
         fad = new Fad(Land.SPANIEN, Fadtype.EXSHERRY,100, "Christoffer");
     }
     @Test
-    void test03_KontruktorFad(){
+    void test01_KontruktorFad(){
         assertNotNull(fad, "Fad ikke oprettet");
         assertEquals(Land.SPANIEN, fad.getOprindelsesLand(),"Oprindelsesland er forkert");
         assertEquals(Fadtype.EXSHERRY,fad.getFadType(),"Fadtype er forkert");
@@ -23,9 +23,5 @@ class FadTest {
 
     }
 
-    @Test
-    void test17_getTilgængeligeLiter(){
-
-    }
 
 }

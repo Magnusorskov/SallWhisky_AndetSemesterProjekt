@@ -13,7 +13,7 @@ class BatchTest {
 
     private Batch batch1;
     private Batch batch2;
-    private StringBuilder sb = new StringBuilder();
+
 
     @BeforeEach
     void setUp() {
