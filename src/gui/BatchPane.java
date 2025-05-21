@@ -19,7 +19,6 @@ public class BatchPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-//        this.setStyle("-fx-background-color: #e8f8ff;");
 
         Label lblBatch = new Label("Igangværende Batches");
         lblBatch.setFont(Font.font("System", FontWeight.BOLD, 16));

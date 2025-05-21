@@ -29,7 +29,6 @@ public class PåfyldningsPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-//        this.setStyle("-fx-background-color: #d6f0ff;");
 
         int width = 260;
 

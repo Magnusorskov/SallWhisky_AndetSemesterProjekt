@@ -28,7 +28,7 @@ public class OmhældningsPane extends GridPane {
         this.setHgap(30);
         this.setVgap(10);
         this.setGridLinesVisible(false);
-//        this.setStyle("-fx-background-color: #c2e7ff;");
+
 
 
         int width = 260;

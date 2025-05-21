@@ -18,7 +18,6 @@ import javafx.stage.StageStyle;
 
 public class OpretFadWindow extends Stage {
 
-    // ---------------------------------------------------------------------
     private TextField txfStørrelse, txfAntal, txfLeverandør;
     private ComboBox<Fadtype> cbbType;
     private ComboBox<Land> cbbLand;

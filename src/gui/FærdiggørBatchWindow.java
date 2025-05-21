@@ -17,7 +17,6 @@ import java.time.LocalDate;
 
 public class FærdiggørBatchWindow extends Stage {
     private Batch batch;
-    //-------------------------------------------------------
     private TextField txfVæskemængde, txfAlkoholProcent;
     private TextArea txaKommentar;
     private DatePicker datePicker;

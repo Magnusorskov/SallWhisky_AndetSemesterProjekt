@@ -15,7 +15,7 @@ import javafx.stage.StageStyle;
 import java.time.LocalDate;
 
 public class OpretBatchWindow extends Stage {
-    private TextField txfBatchNr, txfMark, txfBygsort, txfRygemateriale, txfMaltBatch, txfStartDato, txfKommentar, txfInitialer;
+    private TextField txfRygemateriale, txfMaltBatch, txfKommentar, txfInitialer;
     private Label lblError;
     private ComboBox<Mark> markComboBox;
     private ComboBox<Bygsort> bygsortComboBox;
@@ -47,8 +47,8 @@ public class OpretBatchWindow extends Stage {
         pane.setVgap(10);
         pane.setGridLinesVisible(false);
 
-        Label lblInitaler = new Label("Initialer");
-        pane.add(lblInitaler, 0, 0);
+        Label lblInitialer = new Label("Initialer");
+        pane.add(lblInitialer, 0, 0);
 
         txfInitialer = new TextField();
         pane.add(txfInitialer, 1, 0);
