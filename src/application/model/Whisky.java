@@ -235,6 +235,7 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
             sb.append("\n----------------------------------");
             sb.append("\n\nDestillater:");
 
+
             for (DestillatMængde dm : destillatMængder) {
                 sb.append("\n" + dm.getDestillat().hentHistorik());
                 sb.append("----------------------------------");
@@ -290,7 +291,10 @@ public class Whisky implements Comparable<Whisky>, Historik, Serializable {
         return this.uniktNummer - whisky.getUniktNummer();
     }
 
-    //TODO java doc
+    /**
+     * Sætter kvalitetsstemplet på whisky'en
+     * Metoden sætter stemplet ud fra kriterierne for de forskellige stempler, som er indholdet af vand og destillatets fad.
+     */
     public void setKvalitetsStempel() {
         boolean singleCask = true;
         int i = 0;
