@@ -155,32 +155,40 @@ public class Lager implements Serializable {
 
     /**
      * Finder den næste ledige plads på lageret og opdaterer næsteLedigePlads.
+     *
+     * @throws IllegalStateException hvis lageret er fyldt.
      */
-    //TODO kig på den igen
     public void opdaterNæsteLedigePlads() {
         int startReol = næsteLedigPlads[0];
         int startHylde = næsteLedigPlads[1];
 
-        if (pladser[startReol][startHylde] != null) {
+        boolean hvisNæsteLedigePladsOptaget = pladser[startReol][startHylde] != null;
+        if (hvisNæsteLedigePladsOptaget) {
             boolean fundet = false;
             int reol = startReol;
             int hylde = startHylde;
 
             while (!fundet) {
                 hylde++;
-                if (hylde >= pladser[reol].length) {
+
+                boolean hvisSidsteHyldeNåetPåReol = hylde >= pladser[reol].length;
+                if (hvisSidsteHyldeNåetPåReol) {
                     hylde = 1;
                     reol++;
-                    if (reol >= pladser.length) {
+
+                    boolean hvisSidsteReolNået = reol >= pladser.length;
+                    if (hvisSidsteReolNået) {
                         reol = 1;
                     }
                 }
-                if (pladser[reol][hylde] == null) {
+                boolean hvisPladsenErLedig = pladser[reol][hylde] == null;
+                if (hvisPladsenErLedig) {
                     næsteLedigPlads[0] = reol;
                     næsteLedigPlads[1] = hylde;
                     fundet = true;
                 } else {
-                    if (reol == startReol && hylde == startHylde) {
+                    boolean hvisAllePladserLøbetIgennem = reol == startReol && hylde == startHylde;
+                    if (hvisAllePladserLøbetIgennem) {
                         næsteLedigPlads[0] = -1;
                         næsteLedigPlads[1] = -1;
                         throw new IllegalStateException("Lageret er fyldt - ingen ledige pladser");
