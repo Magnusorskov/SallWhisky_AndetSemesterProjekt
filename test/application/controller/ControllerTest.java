@@ -63,12 +63,12 @@ class ControllerTest {
 
         destillat = Controller.createDestillat("Test", fad);
 
-        Controller.påfyldDestillatPåFad(500,batch1,"Habibi",fad1);
+        Controller.påfyldDestillatPåFad(500,batch1,"Test",fad1);
 
-//        Controller.påfyldFad(500,batch1,"Habibi",fad1);
+        Controller.påfyldDestillatPåFad(500,batch1,"Test",fad1);
         navn = "Test";
 
-//        Controller.omhældDestillat(fad1.getDestillat(),500,fad2,"Hejsa");
+        Controller.omhældDestillat(fad1.getDestillat(),500,fad2,"Hejsa");
 
     }
 
@@ -163,16 +163,11 @@ class ControllerTest {
     }
 
     @Test
-    void test8_indsætVarePåLager() {
+    void test01_indsætVarePåLager() {
         Controller.indsætVarePåLager(lager,1,1, fad);
         Controller.indsætVarePåLager(lager,2,2, fad);
         assertNull(lager.getLagerVare(1,1));
     }
 
-    @Test
-    void test9_omhældFad() {
-        System.out.println(fad1.getDestillat());
-        System.out.println(fad1.getDestillat().getOmhældningsMængder());
-        System.out.println(fad2.getDestillat());
-    }
+
 }

@@ -29,38 +29,38 @@ class DestillatTest {
     }
 
     @Test
-    void test10_KontruktorDestillat(){
+    void test01_KontruktorDestillat(){
         assertNotNull(destillat,"Destillat ikke oprettet");
         assertEquals(destillat.getNavn(),"Testsprut","Navn på destillat er forkert");
         assertEquals(destillat.getFad(),fad,"Fadet er forkert");
     }
 
     @Test
-    void test11_CreateBatchMængde(){
+    void test01_CreateBatchMængde(){
         assertNotNull(mængde,"Mængde er ikke oprettet");
         assertEquals(mængde.getBatch(),batch,"Batch er forkert");
         assertEquals(mængde.getAntalLiter(),100,"Antal liter er forkert");
     }
 
     @Test
-    void test12_beregnAntalLiterPåBatchMængder(){
+    void test01_beregnAntalLiterPåBatchMængder(){
         assertEquals(destillat.getAntalLiter(),100,"Antal liter er forker");
     }
 
     @Test
-    void test13_getMængder() {
+    void test01_getMængder() {
         assertEquals(1, destillat.getBatchMængder().size(), "Antallet af mængder i destillat er forkert");
         assertTrue(destillat.getBatchMængder().contains(mængde), "Destillat indeholder ikke den forventede mængde");
     }
 
     @Test
-    void test14_beregnAntalMåneder() {
+    void test01_beregnAntalMåneder() {
         destillat.setPåfyldningsDato(LocalDate.of(2025,1,1));
         assertEquals(4,destillat.beregnAlderIMåneder());
     }
 
     @Test
-    void test15_totalHistorik() {
+    void test01_totalHistorik() {
         System.out.println(destillat);
     }
 }

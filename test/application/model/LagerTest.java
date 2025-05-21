@@ -24,7 +24,7 @@ class LagerTest {
 
 
     @Test
-    void test08_KontruktorLager() {
+    void test01_KontruktorLager() {
         assertNotNull(lager, "Lager ikke oprettet");
         assertEquals(lager.getNavn(), "TestLager", "Navn på lageret er forkert");
         assertEquals(lager.getAdresse(), "Testvej 8", "Adressen på lageret er forkert");
@@ -34,20 +34,20 @@ class LagerTest {
     }
 
     @Test
-    void test09_getStørrelsePåLager() {
+    void test01_getStørrelsePåLager() {
         assertEquals(15, lager.getStørrelsePåLager(), "Lager størrelse er forkert");
     }
 
-    // TC1: Lager er tomt, næste ledige plads skal være [1][1]
+
     @Test
-    void test10_opdaterNæsteLedigePlads_tomtLager() {
+    void test01_opdaterNæsteLedigePlads_tomtLager() {
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{1, 1}, lager.getNæsteLedigPlads(), "Skal finde første plads [1,1] på tomt lager");
     }
 
-    // TC2: [1][1] er optaget, næste ledige er [1][2]
+
     @Test
-    void test11_opdaterNæsteLedigePlads_førsteOptaget() {
+    void test02_opdaterNæsteLedigePlads_førsteOptaget() {
         lager.addLagerVare(lagervare, 1, 1);
         lager.opdaterNæsteLedigePlads();
         assertArrayEquals(new int[]{1, 2}, lager.getNæsteLedigPlads(), "Skal finde [1,2] når [1,1] er optaget");
@@ -55,7 +55,7 @@ class LagerTest {
 
 
     @Test
-    void test12_opdaterNæsteLedigePlads_sidstePladsLedig() {
+    void test03_opdaterNæsteLedigePlads_sidstePladsLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);
@@ -70,7 +70,7 @@ class LagerTest {
 
 
     @Test
-    void test13_opdaterNæsteLedigePlads_lagerFyldt() {
+    void test04_opdaterNæsteLedigePlads_lagerFyldt() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);
@@ -84,7 +84,7 @@ class LagerTest {
 
 
     @Test
-    void test14_opdaterNæsteLedigePlads_wrapRundtOgFinderLedig() {
+    void test05_opdaterNæsteLedigePlads_wrapRundtOgFinderLedig() {
         for (int reol = 1; reol <= 3; reol++) {
             for (int hylde = 1; hylde <= 5; hylde++) {
                 lager.addLagerVare(new Fad(Land.SPANIEN,Fadtype.EXSHERRY,100, "Christoffer"), reol, hylde);

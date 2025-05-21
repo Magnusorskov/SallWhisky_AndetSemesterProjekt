@@ -143,9 +143,6 @@ public class VælgPlaceringWindow extends Stage {
         }
     }
 
-    private void lukAction() {
-        hide();
-    }
 
     private void findPladsAction() {
         Lager lager = cbbLager.getSelectionModel().getSelectedItem();
